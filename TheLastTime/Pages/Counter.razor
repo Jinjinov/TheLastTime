@@ -4,34 +4,13 @@
 
 <p>Current count: @currentCount</p>
 
-<button @ref="elementReference" class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 @code {
     private int currentCount = 0;
 
-    public string FirstName { get; init; } = new string(' ', 10);
-    public string LastName { get; init; } = new(' ', 10);
-
-    ElementReference elementReference;
-
-    object obj;
-
     private void IncrementCount()
     {
-        obj = elementReference;
-
-        if (obj is not ElementReference)
-            elementReference.FocusAsync();
-
-        int i = 2;
-
-        string j = i switch
-        {
-            > 1 and < 3 => "between 1 and 3",
-            < 1 or > 3 => "not between 1 and 3",
-            _ => "1 or 3"
-        };
-
         currentCount++;
     }
 }
