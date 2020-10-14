@@ -12,7 +12,7 @@ namespace TheLastTime.Data
         public IndexedDatabase(IJSRuntime jSRuntime, string name, int version) : base(jSRuntime, name, version) { }
 
         public IndexedSet<Category> Categories { get; set; }
-        public IndexedSet<Event> Events { get; set; }
-        public IndexedSet<Instance> Instances { get; set; }
+        public IndexedSet<Habit> Habits { get; set; }
+        public IndexedSet<Time> Times { get; set; }
     }
 }

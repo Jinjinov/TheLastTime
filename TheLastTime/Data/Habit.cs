@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TheLastTime.Data
 {
-    public class Event
+    public class Habit
     {
         [Key]
         public long Id { get; set; }
