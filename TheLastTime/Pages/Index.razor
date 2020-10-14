@@ -1,5 +1,70 @@
 ﻿@page "/"
+@inject IIndexedDbFactory DbFactory
 
-<h1>Hello, world!</h1>
+<h1>Habits</h1>
 
-Welcome to your new app.
+@if (habits != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>First name</th>
+                <th>Last name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var habit in habits)
+            {
+                <tr>
+                    <td>@habit.Id</td>
+                    <td>@habit.FirstName</td>
+                    <td>@habit.LastName</td>
+                    <td><button @onclick="@(() => DeleteHabit(habit))">Delete</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<fieldset>
+    <legend>Add new habit</legend>
+    <EditForm Model="@newHabit" OnValidSubmit="@SaveNewHabit">
+        <InputText @bind-Value="@newHabit.FirstName" placeholder="First name..." />
+        <InputText @bind-Value="@newHabit.LastName" placeholder="Last name..." />
+        <button type="submit">Add</button>
+
+        <p><Microsoft.AspNetCore.Components.Forms.ValidationSummary /></p>
+        <DataAnnotationsValidator />
+    </EditForm>
+</fieldset>
+
+@code {
+    Habit newHabit = new Habit();
+    List<Habit> habits;
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var db = await DbFactory.Create<IndexedDatabase>();
+        habits = db.Habits.ToList();
+    }
+
+    async Task SaveNewHabit()
+    {
+        using var db = await this.DbFactory.Create<IndexedDatabase>();
+        db.Habits.Add(newHabit);
+        await db.SaveChanges();
+
+        // Refresh list and reset the form
+        newHabit = new Habit();
+        await OnInitializedAsync();
+    }
+
+    async Task DeleteHabit(Habit habit)
+    {
+        using var db = await this.DbFactory.Create<IndexedDatabase>();
+        db.Habits.Remove(habit);
+        await db.SaveChanges();
+        await OnInitializedAsync();
+    }
+}
