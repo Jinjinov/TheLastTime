@@ -12,9 +12,11 @@ namespace TheLastTime.Data
         public long Id { get; set; }
 
         [Required]
-        public string FirstName { get; set; }
+        public string Description { get; set; }
 
         [Required]
-        public string LastName { get; set; }
+        public long CategoryId { get; set; }
+
+        public List<Time> TimeList = new List<Time>();
     }
 }

@@ -12,9 +12,8 @@ namespace TheLastTime.Data
         public long Id { get; set; }
 
         [Required]
-        public string FirstName { get; set; }
+        public string Description { get; set; }
 
-        [Required]
-        public string LastName { get; set; }
+        public List<Habit> HabitList = new List<Habit>();
     }
 }

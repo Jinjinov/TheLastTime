@@ -9,8 +9,8 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>First name</th>
-                <th>Last name</th>
+                <th>Description</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -18,8 +18,7 @@
             {
                 <tr>
                     <td>@habit.Id</td>
-                    <td>@habit.FirstName</td>
-                    <td>@habit.LastName</td>
+                    <td>@habit.Description</td>
                     <td><button @onclick="@(() => DeleteHabit(habit))">Delete</button></td>
                 </tr>
             }
@@ -30,8 +29,7 @@
 <fieldset>
     <legend>Add new habit</legend>
     <EditForm Model="@newHabit" OnValidSubmit="@SaveNewHabit">
-        <InputText @bind-Value="@newHabit.FirstName" placeholder="First name..." />
-        <InputText @bind-Value="@newHabit.LastName" placeholder="Last name..." />
+        <InputText @bind-Value="@newHabit.Description" placeholder="Description..." />
         <button type="submit">Add</button>
 
         <p><Microsoft.AspNetCore.Components.Forms.ValidationSummary /></p>

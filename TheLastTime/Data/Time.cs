@@ -12,9 +12,9 @@ namespace TheLastTime.Data
         public long Id { get; set; }
 
         [Required]
-        public string FirstName { get; set; }
+        public DateTime DateTime { get; set; }
 
         [Required]
-        public string LastName { get; set; }
+        public long HabitId { get; set; }
     }
 }
