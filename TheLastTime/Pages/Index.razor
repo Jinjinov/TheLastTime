@@ -3,7 +3,34 @@
 
 <h1>Habits</h1>
 
-@if (habits != null)
+<fieldset>
+    <legend>Add new category</legend>
+    <EditForm Model="@newCategory" OnValidSubmit="@SaveNewCategory">
+        <InputText @bind-Value="@newCategory.Description" placeholder="Description..." />
+        <button type="submit">Add</button>
+
+        <p><Microsoft.AspNetCore.Components.Forms.ValidationSummary /></p>
+        <DataAnnotationsValidator />
+    </EditForm>
+</fieldset>
+
+@if(categoryList != null)
+{
+<fieldset>
+    <legend>Category:</legend>
+    <EditForm Model="@selectedCategory">
+        <InputSelect Value="@selectedCategory.Id" ValueExpression="@(() => selectedCategory.Id)" ValueChanged="async (long val) => { selectedCategory.Id = val; await LoadHabitList(); }">
+            <option value="0">All</option>
+            @foreach (var cat in categoryList)
+            {
+                <option value="@cat.Id">@cat.Description</option>
+            }
+        </InputSelect>
+    </EditForm>
+</fieldset>
+}
+
+@if (habitList != null)
 {
     <table class="table">
         <thead>
@@ -14,7 +41,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var habit in habits)
+            @foreach (var habit in habitList)
             {
                 <tr>
                     <td>@habit.Id</td>
@@ -36,33 +63,3 @@
         <DataAnnotationsValidator />
     </EditForm>
 </fieldset>
-
-@code {
-    Habit newHabit = new Habit();
-    List<Habit> habits;
-
-    protected override async Task OnInitializedAsync()
-    {
-        using var db = await DbFactory.Create<IndexedDatabase>();
-        habits = db.Habits.ToList();
-    }
-
-    async Task SaveNewHabit()
-    {
-        using var db = await this.DbFactory.Create<IndexedDatabase>();
-        db.Habits.Add(newHabit);
-        await db.SaveChanges();
-
-        // Refresh list and reset the form
-        newHabit = new Habit();
-        await OnInitializedAsync();
-    }
-
-    async Task DeleteHabit(Habit habit)
-    {
-        using var db = await this.DbFactory.Create<IndexedDatabase>();
-        db.Habits.Remove(habit);
-        await db.SaveChanges();
-        await OnInitializedAsync();
-    }
-}
