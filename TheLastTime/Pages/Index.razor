@@ -1,12 +1,9 @@
 ﻿@page "/"
 @inject IIndexedDbFactory DbFactory
 
-<h1>Habits</h1>
-
 <fieldset>
-    <legend>Add new category</legend>
     <EditForm Model="@newCategory" OnValidSubmit="@SaveNewCategory">
-        <InputText @bind-Value="@newCategory.Description" placeholder="Description..." />
+        <InputText @bind-Value="@newCategory.Description" placeholder="Add new category..." />
         <button type="submit">Add</button>
 
         <p><Microsoft.AspNetCore.Components.Forms.ValidationSummary /></p>
@@ -17,22 +14,21 @@
 @if(categoryList != null)
 {
     <fieldset>
-        <legend>Category:</legend>
         <EditForm Model="@selectedCategory">
             <InputSelect Value="@selectedCategory.Id" ValueExpression="@(() => selectedCategory.Id)" ValueChanged="async (long val) => { selectedCategory.Id = val; await LoadHabitList(); }">
-                <option value="0">All</option>
+                <option value="0">All categories</option>
                 @foreach (var cat in categoryList)
                 {
                     <option value="@cat.Id">@cat.Description</option>
                 }
             </InputSelect>
+
+            @if(selectedCategory.Id != 0)
+            {
+                <button @onclick="@(() => DeleteCategory(selectedCategory))">Delete</button>
+            }
         </EditForm>
     </fieldset>
-
-    if(selectedCategory.Id != 0)
-    {
-        <button @onclick="@(() => DeleteCategory(selectedCategory))">Delete</button>
-    }
 }
 
 @if (habitList != null)
@@ -40,7 +36,6 @@
     <table class="table">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Description</th>
                 <th>Last time</th>
                 <th>Delete</th>
@@ -51,7 +46,6 @@
             @foreach (var habit in habitList)
             {
                 <tr>
-                    <td>@habit.Id</td>
                     <td>@habit.Description</td>
                     <td>@(habit.TimeList.Count > 0 ? habit.TimeList.Last().DateTime : "Never")</td>
                     <td><button @onclick="@(() => DeleteHabit(habit))">Delete</button></td>
@@ -63,9 +57,8 @@
 }
 
 <fieldset>
-    <legend>Add new habit</legend>
     <EditForm Model="@newHabit" OnValidSubmit="@SaveNewHabit">
-        <InputText @bind-Value="@newHabit.Description" placeholder="Description..." />
+        <InputText @bind-Value="@newHabit.Description" placeholder="Add new habit..." />
         <button type="submit">Add</button>
 
         <p><Microsoft.AspNetCore.Components.Forms.ValidationSummary /></p>
