@@ -16,18 +16,23 @@
 
 @if(categoryList != null)
 {
-<fieldset>
-    <legend>Category:</legend>
-    <EditForm Model="@selectedCategory">
-        <InputSelect Value="@selectedCategory.Id" ValueExpression="@(() => selectedCategory.Id)" ValueChanged="async (long val) => { selectedCategory.Id = val; await LoadHabitList(); }">
-            <option value="0">All</option>
-            @foreach (var cat in categoryList)
-            {
-                <option value="@cat.Id">@cat.Description</option>
-            }
-        </InputSelect>
-    </EditForm>
-</fieldset>
+    <fieldset>
+        <legend>Category:</legend>
+        <EditForm Model="@selectedCategory">
+            <InputSelect Value="@selectedCategory.Id" ValueExpression="@(() => selectedCategory.Id)" ValueChanged="async (long val) => { selectedCategory.Id = val; await LoadHabitList(); }">
+                <option value="0">All</option>
+                @foreach (var cat in categoryList)
+                {
+                    <option value="@cat.Id">@cat.Description</option>
+                }
+            </InputSelect>
+        </EditForm>
+    </fieldset>
+
+    if(selectedCategory.Id != 0)
+    {
+        <button @onclick="@(() => DeleteCategory(selectedCategory))">Delete</button>
+    }
 }
 
 @if (habitList != null)
@@ -37,7 +42,9 @@
             <tr>
                 <th>ID</th>
                 <th>Description</th>
+                <th>Last time</th>
                 <th>Delete</th>
+                <th>Done</th>
             </tr>
         </thead>
         <tbody>
@@ -46,7 +53,9 @@
                 <tr>
                     <td>@habit.Id</td>
                     <td>@habit.Description</td>
+                    <td>@(habit.TimeList.Count > 0 ? habit.TimeList.Last().DateTime : "Never")</td>
                     <td><button @onclick="@(() => DeleteHabit(habit))">Delete</button></td>
+                    <td><button @onclick="@(() => DoneHabit(habit))">Done</button></td>
                 </tr>
             }
         </tbody>

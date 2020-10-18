@@ -12,8 +12,14 @@ namespace TheLastTime.Pages
         Category selectedCategory = new Category();
 
         Habit newHabit = new Habit();
-        List<Habit> habitList;
+
         List<Category> categoryList;
+        List<Habit> habitList;
+        List<Time> timeList;
+
+        Dictionary<long, Category> categoryDict;
+        Dictionary<long, Habit> habitDict;
+        Dictionary<long, Time> timeDict;
 
         protected override async Task OnInitializedAsync()
         {
@@ -21,6 +27,23 @@ namespace TheLastTime.Pages
 
             categoryList = db.Categories.ToList();
             habitList = db.Habits.ToList();
+            timeList = db.Times.ToList();
+
+            categoryDict = categoryList.ToDictionary(category => category.Id);
+            habitDict = habitList.ToDictionary(habit => habit.Id);
+            timeDict = timeList.ToDictionary(time => time.Id);
+
+            foreach (Time time in timeList)
+            {
+                if (habitDict.ContainsKey(time.HabitId))
+                    habitDict[time.HabitId].TimeList.Add(time);
+            }
+
+            foreach (Habit habit in habitList)
+            {
+                if (categoryDict.ContainsKey(habit.CategoryId))
+                    categoryDict[habit.CategoryId].HabitList.Add(habit);
+            }
         }
 
         async Task LoadHabitList()
@@ -50,6 +73,15 @@ namespace TheLastTime.Pages
             newCategory = new Category();
         }
 
+        async Task DeleteCategory(Category category)
+        {
+            using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
+            db.Categories.Remove(category);
+            await db.SaveChanges();
+
+            await OnInitializedAsync();
+        }
+
         async Task SaveNewHabit()
         {
             using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
@@ -71,6 +103,23 @@ namespace TheLastTime.Pages
             await db.SaveChanges();
 
             await LoadHabitList();
+        }
+
+        async Task DoneHabit(Habit habit)
+        {
+            using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
+
+            Time time = new Time
+            {
+                HabitId = habit.Id,
+                DateTime = DateTime.Now
+            };
+
+            db.Times.Add(time);
+
+            await db.SaveChanges();
+
+            await OnInitializedAsync();
         }
     }
 }
