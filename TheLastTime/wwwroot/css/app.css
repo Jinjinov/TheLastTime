@@ -165,6 +165,10 @@ app {
         cursor: pointer; /* Add a pointer on hover */
     }
 
+    #overlay th, #overlay td {
+        color: white;
+    }
+
     .main .top-row:not(.auth) {
         display: none;
     }

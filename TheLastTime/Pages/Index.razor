@@ -53,6 +53,7 @@
                                 <td>@(habit.TimeList.Count > 0 ? habit.TimeList.Last().DateTime : "Never")</td>
                                 <td><button @onclick="@(() => DeleteHabit(habit))">Delete</button></td>
                                 <td><button @onclick="@(() => DoneHabit(habit))">Done</button></td>
+                                <td><button @onclick="@(() => selectedHabit = habit)">Details</button></td>
                             </tr>
                         }
                     </tbody>
@@ -77,6 +78,25 @@
 
             <button @onclick="@(() => ExportFile())">Export</button>
         </div>
-        <div id="overlay" class="col-sm-12 col-md-6 p-3">Hello world!</div>
+        @if (selectedHabit != null)
+        {
+            <div id="overlay" class="col-sm-12 col-md-6 p-3">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Last time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var time in timeList.Where(t => t.HabitId == selectedHabit.Id))
+                        {
+                            <tr>
+                                <td>@time.DateTime</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
     </div>
 </div>

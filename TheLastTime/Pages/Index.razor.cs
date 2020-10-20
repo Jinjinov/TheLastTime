@@ -16,6 +16,7 @@ namespace TheLastTime.Pages
         Category selectedCategory = new Category();
 
         Habit newHabit = new Habit();
+        Habit selectedHabit = null;
 
         List<Category> categoryList;
         List<Habit> habitList;
