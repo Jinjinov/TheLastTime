@@ -1,5 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.JSInterop;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using TheLastTime.Data;
@@ -120,6 +124,32 @@ namespace TheLastTime.Pages
             await db.SaveChanges();
 
             await OnInitializedAsync();
+        }
+
+        string text = string.Empty;
+
+        async Task ImportFile(InputFileChangeEventArgs e)
+        {
+            Stream stream = e.File.OpenReadStream();
+
+            using StreamReader streamReader = new StreamReader(stream);
+
+            text = await streamReader.ReadToEndAsync();
+        }
+
+        [Inject]
+        IJSRuntime jsRuntime { get; set; }
+
+        async Task ExportFile()
+        {
+            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(text);
+
+            await SaveAs(jsRuntime, "HelloWorld.txt", bytes);
+        }
+
+        async Task SaveAs(IJSRuntime js, string filename, byte[] data)
+        {
+            await js.InvokeAsync<object>("saveAsFile", filename, Convert.ToBase64String(data));
         }
     }
 }

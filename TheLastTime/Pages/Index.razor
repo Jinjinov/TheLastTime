@@ -65,3 +65,11 @@
         <DataAnnotationsValidator />
     </EditForm>
 </fieldset>
+
+<InputFile OnChange="@ImportFile" />
+
+<p>
+@text
+</p>
+
+<button @onclick="@(() => ExportFile())">Export</button>
