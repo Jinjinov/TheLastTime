@@ -1,75 +1,82 @@
 ﻿@page "/"
 @inject IIndexedDbFactory DbFactory
 
-<fieldset>
-    <EditForm Model="@newCategory" OnValidSubmit="@SaveNewCategory">
-        <InputText @bind-Value="@newCategory.Description" placeholder="Add new category..." />
-        <button type="submit">Add</button>
+<div id="container-index" class="container-fluid bg-success">
+    <div class="row">
+        <div class="col-sm-12 col-md-6">
+            <fieldset>
+                <EditForm Model="@newCategory" OnValidSubmit="@SaveNewCategory">
+                    <InputText @bind-Value="@newCategory.Description" placeholder="Add new category..." />
+                    <button type="submit">Add</button>
 
-        <p><Microsoft.AspNetCore.Components.Forms.ValidationSummary /></p>
-        <DataAnnotationsValidator />
-    </EditForm>
-</fieldset>
+                    <p><Microsoft.AspNetCore.Components.Forms.ValidationSummary /></p>
+                    <DataAnnotationsValidator />
+                </EditForm>
+            </fieldset>
 
-@if(categoryList != null)
-{
-    <fieldset>
-        <EditForm Model="@selectedCategory">
-            <InputSelect Value="@selectedCategory.Id" ValueExpression="@(() => selectedCategory.Id)" ValueChanged="async (long val) => { selectedCategory.Id = val; await LoadHabitList(); }">
-                <option value="0">All categories</option>
-                @foreach (var cat in categoryList)
-                {
-                    <option value="@cat.Id">@cat.Description</option>
-                }
-            </InputSelect>
-
-            @if(selectedCategory.Id != 0)
+            @if (categoryList != null)
             {
-                <button @onclick="@(() => DeleteCategory(selectedCategory))">Delete</button>
-            }
-        </EditForm>
-    </fieldset>
-}
+                <fieldset>
+                    <EditForm Model="@selectedCategory">
+                        <InputSelect Value="@selectedCategory.Id" ValueExpression="@(() => selectedCategory.Id)" ValueChanged="async (long val) => { selectedCategory.Id = val; await LoadHabitList(); }">
+                            <option value="0">All categories</option>
+                            @foreach (var cat in categoryList)
+                            {
+                                <option value="@cat.Id">@cat.Description</option>
+                            }
+                        </InputSelect>
 
-@if (habitList != null)
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Description</th>
-                <th>Last time</th>
-                <th>Delete</th>
-                <th>Done</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var habit in habitList)
+                        @if (selectedCategory.Id != 0)
+                        {
+                            <button @onclick="@(() => DeleteCategory(selectedCategory))">Delete</button>
+                        }
+                    </EditForm>
+                </fieldset>
+            }
+
+            @if (habitList != null)
             {
-                <tr>
-                    <td>@habit.Description</td>
-                    <td>@(habit.TimeList.Count > 0 ? habit.TimeList.Last().DateTime : "Never")</td>
-                    <td><button @onclick="@(() => DeleteHabit(habit))">Delete</button></td>
-                    <td><button @onclick="@(() => DoneHabit(habit))">Done</button></td>
-                </tr>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Last time</th>
+                            <th>Delete</th>
+                            <th>Done</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var habit in habitList)
+                        {
+                            <tr>
+                                <td>@habit.Description</td>
+                                <td>@(habit.TimeList.Count > 0 ? habit.TimeList.Last().DateTime : "Never")</td>
+                                <td><button @onclick="@(() => DeleteHabit(habit))">Delete</button></td>
+                                <td><button @onclick="@(() => DoneHabit(habit))">Done</button></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             }
-        </tbody>
-    </table>
-}
 
-<fieldset>
-    <EditForm Model="@newHabit" OnValidSubmit="@SaveNewHabit">
-        <InputText @bind-Value="@newHabit.Description" placeholder="Add new habit..." />
-        <button type="submit">Add</button>
+            <fieldset>
+                <EditForm Model="@newHabit" OnValidSubmit="@SaveNewHabit">
+                    <InputText @bind-Value="@newHabit.Description" placeholder="Add new habit..." />
+                    <button type="submit">Add</button>
 
-        <p><Microsoft.AspNetCore.Components.Forms.ValidationSummary /></p>
-        <DataAnnotationsValidator />
-    </EditForm>
-</fieldset>
+                    <p><Microsoft.AspNetCore.Components.Forms.ValidationSummary /></p>
+                    <DataAnnotationsValidator />
+                </EditForm>
+            </fieldset>
 
-<InputFile OnChange="@ImportFile" />
+            <InputFile OnChange="@ImportFile" />
 
-<p>
-@text
-</p>
+            <p>
+                @text
+            </p>
 
-<button @onclick="@(() => ExportFile())">Export</button>
+            <button @onclick="@(() => ExportFile())">Export</button>
+        </div>
+        <div id="overlay" class="col-sm-12 col-md-6 p-3">Hello world!</div>
+    </div>
+</div>
