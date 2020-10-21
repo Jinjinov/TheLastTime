@@ -12,6 +12,9 @@ namespace TheLastTime.Pages
 {
     public partial class Index
     {
+        //string bootswatchTheme = string.Empty;
+        string bootswatchTheme = "slate";
+
         Category newCategory = new Category();
         Category selectedCategory = new Category();
 

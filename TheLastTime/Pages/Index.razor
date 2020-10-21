@@ -1,13 +1,25 @@
 ﻿@page "/"
 @inject IIndexedDbFactory DbFactory
 
-<div id="container-index" class="container-fluid bg-success">
+<Title Value="The Last Time"></Title>
+
+@if (!string.IsNullOrEmpty(bootswatchTheme))
+{
+    <Link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
+}
+else
+{
+    <Link rel="stylesheet" href="@("https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/" + bootswatchTheme + "/bootstrap.min.css")" integrity="sha384-8iuq0iaMHpnH2vSyvZMSIqQuUnQA7QM+f6srIdlgBrTSEyd//AWNMyEaSF2yPzNQ" crossorigin="anonymous" />
+}
+@*<Link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cyborg/bootstrap.min.css" integrity="sha384-nEnU7Ae+3lD52AK+RGNzgieBWMnEfgTbRHIwEvp1XXPdqdO6uLTd/NwXbzboqjc2" crossorigin="anonymous" />*@
+
+<div id="container-index" class="container-fluid">
     <div class="row">
         <div class="col-sm-12 col-md-6">
             <fieldset>
                 <EditForm Model="@newCategory" OnValidSubmit="@SaveNewCategory">
-                    <InputText @bind-Value="@newCategory.Description" placeholder="Add new category..." />
-                    <button type="submit">Add</button>
+                    <InputText class="form-control form-control-sm" @bind-Value="@newCategory.Description" placeholder="Add new category..." />
+                    <button type="submit" class="btn btn-primary btn-sm">Add</button>
 
                     <p><Microsoft.AspNetCore.Components.Forms.ValidationSummary /></p>
                     <DataAnnotationsValidator />
@@ -18,7 +30,7 @@
             {
                 <fieldset>
                     <EditForm Model="@selectedCategory">
-                        <InputSelect Value="@selectedCategory.Id" ValueExpression="@(() => selectedCategory.Id)" ValueChanged="async (long val) => { selectedCategory.Id = val; await LoadHabitList(); }">
+                        <InputSelect class="form-control form-control-sm" Value="@selectedCategory.Id" ValueExpression="@(() => selectedCategory.Id)" ValueChanged="async (long val) => { selectedCategory.Id = val; await LoadHabitList(); }">
                             <option value="0">All categories</option>
                             @foreach (var cat in categoryList)
                             {
@@ -28,7 +40,7 @@
 
                         @if (selectedCategory.Id != 0)
                         {
-                            <button @onclick="@(() => DeleteCategory(selectedCategory))">Delete</button>
+                            <button class="btn btn-primary btn-sm" @onclick="@(() => DeleteCategory(selectedCategory))">Delete</button>
                         }
                     </EditForm>
                 </fieldset>
@@ -36,66 +48,51 @@
 
             @if (habitList != null)
             {
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Description</th>
-                            <th>Last time</th>
-                            <th>Delete</th>
-                            <th>Done</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <div class="card w-100 h-100">
+                    <div class="card-body">
                         @foreach (var habit in habitList)
                         {
-                            <tr>
-                                <td>@habit.Description</td>
-                                <td>@(habit.TimeList.Count > 0 ? habit.TimeList.Last().DateTime : "Never")</td>
-                                <td><button @onclick="@(() => DeleteHabit(habit))">Delete</button></td>
-                                <td><button @onclick="@(() => DoneHabit(habit))">Done</button></td>
-                                <td><button @onclick="@(() => selectedHabit = habit)">Details</button></td>
-                            </tr>
+                            <div class="d-flex">
+                                <div>@habit.Description</div>
+                                <div>@(habit.TimeList.Count > 0 ? habit.TimeList.Last().DateTime : "Never")</div>
+                                <div><button class="btn btn-primary btn-sm" @onclick="@(() => DeleteHabit(habit))">Delete</button></div>
+                                <div><button class="btn btn-primary btn-sm" @onclick="@(() => DoneHabit(habit))">Done</button></div>
+                                <div><button class="btn btn-primary btn-sm" @onclick="@(() => selectedHabit = habit)">Details</button></div>
+                            </div>
                         }
-                    </tbody>
-                </table>
+                    </div>
+                </div>
             }
 
             <fieldset>
                 <EditForm Model="@newHabit" OnValidSubmit="@SaveNewHabit">
-                    <InputText @bind-Value="@newHabit.Description" placeholder="Add new habit..." />
-                    <button type="submit">Add</button>
+                    <InputText class="form-control form-control-sm" @bind-Value="@newHabit.Description" placeholder="Add new habit..." />
+                    <button type="submit" class="btn btn-primary btn-sm">Add</button>
 
                     <p><Microsoft.AspNetCore.Components.Forms.ValidationSummary /></p>
                     <DataAnnotationsValidator />
                 </EditForm>
             </fieldset>
 
-            <InputFile OnChange="@ImportFile" />
+            <InputFile class="form-control form-control-sm" OnChange="@ImportFile" />
 
             <p>
                 @text
             </p>
 
-            <button @onclick="@(() => ExportFile())">Export</button>
+            <button class="btn btn-primary btn-sm" @onclick="@(() => ExportFile())">Export</button>
         </div>
         @if (selectedHabit != null)
         {
-            <div id="overlay" class="col-sm-12 col-md-6 p-3">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Last time</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+            <div id="overlay" class="col-sm-12 col-md-6">
+                <div class="card w-100 h-100">
+                    <div class="card-body">
                         @foreach (var time in timeList.Where(t => t.HabitId == selectedHabit.Id))
                         {
-                            <tr>
-                                <td>@time.DateTime</td>
-                            </tr>
+                            <div>@time.DateTime</div>
                         }
-                    </tbody>
-                </table>
+                    </div>
+                </div>
             </div>
         }
     </div>
