@@ -53,11 +53,11 @@ else
                         @foreach (var habit in habitList)
                         {
                             <div class="d-flex">
-                                <div>@habit.Description</div>
-                                <div>@(habit.TimeList.Count > 0 ? habit.TimeList.Last().DateTime : "Never")</div>
-                                <div><button class="btn btn-primary btn-sm" @onclick="@(() => DeleteHabit(habit))">Delete</button></div>
-                                <div><button class="btn btn-primary btn-sm" @onclick="@(() => DoneHabit(habit))">Done</button></div>
-                                <div><button class="btn btn-primary btn-sm" @onclick="@(() => selectedHabit = habit)">Details</button></div>
+                                <div class="flex-fill">@habit.Description</div>
+                                <div class="flex-fill">@(habit.TimeList.Count > 0 ? habit.TimeList.Last().DateTime : "Never")</div>
+                                <div class="m-1 ml-auto"><button class="btn btn-primary btn-sm" @onclick="@(() => DeleteHabit(habit))">Delete</button></div>
+                                <div class="m-1"><button class="btn btn-primary btn-sm" @onclick="@(() => DoneHabit(habit))">Done</button></div>
+                                <div class="m-1"><button class="btn btn-primary btn-sm" @onclick="@(() => selectedHabit = habit)">Details</button></div>
                             </div>
                         }
                     </div>
