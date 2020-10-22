@@ -1,8 +1,8 @@
 ﻿@page "/"
 @inject IIndexedDbFactory DbFactory
 
-<div id="overlay-parent" class="d-flex flex-grow-1">
-    <div class="row flex-grow-1 no-gutters">
+<div id="overlay-parent" class="container-fluid d-flex flex-grow-1">
+    <div class="row flex-grow-1 py-2">
         <div class="col-sm-12 col-md-6">
             <fieldset>
                 <EditForm Model="@newCategory" OnValidSubmit="@SaveNewCategory">

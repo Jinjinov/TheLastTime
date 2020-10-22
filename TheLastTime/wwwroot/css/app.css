@@ -63,6 +63,10 @@ app {
     .main .top-row:not(.auth) {
         display: none;
     }
+
+    app {
+        height: 100vh;
+    }
 }
 
 @media (min-width: 768px) {
