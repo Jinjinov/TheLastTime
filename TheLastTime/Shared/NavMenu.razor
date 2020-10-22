@@ -1,4 +1,15 @@
-﻿<div class="top-row navbar navbar-dark bg-primary">
+﻿<Title Value="The Last Time"></Title>
+
+@if (bootswatchThemeDict.ContainsKey(bootswatchTheme))
+{
+    <Link rel="stylesheet" href="@("https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/" + bootswatchTheme + "/bootstrap.min.css")" integrity="@(bootswatchThemeDict[bootswatchTheme])" crossorigin="anonymous" />
+}
+else
+{
+    <Link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
+}
+
+<div class="top-row navbar navbar-dark bg-primary">
     <a class="navbar-text" href="">The Last Time</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
@@ -7,8 +18,8 @@
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+        <li class="nav-item p-2">
+            <NavLink class="nav-link btn btn-sm btn-primary" href="" Match="NavLinkMatch.All">
                 <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
         </li>
@@ -29,16 +40,16 @@
             </NavLink>
         </li>
         -->
+        <li class="nav-item p-2">
+            <EditForm Model="@bootswatchTheme">
+                <InputSelect multiple size="@(bootswatchThemeDict.Count + 1)" class="form-control form-control-sm" Value="@bootswatchTheme" ValueExpression="@(() => bootswatchTheme)" ValueChanged="async (string val) => { bootswatchTheme = val; }">
+                    <option value="default">default</option>
+                    @foreach (var theme in bootswatchThemeDict.Keys)
+                    {
+                        <option value="@theme">@theme</option>
+                    }
+                </InputSelect>
+            </EditForm>
+        </li>
     </ul>
 </div>
-
-@code {
-    private bool collapseNavMenu = true;
-
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}

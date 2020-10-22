@@ -1,17 +1,6 @@
 ﻿@page "/"
 @inject IIndexedDbFactory DbFactory
 
-<Title Value="The Last Time"></Title>
-
-@if (bootswatchThemeDict.ContainsKey(bootswatchTheme))
-{
-    <Link rel="stylesheet" href="@("https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/" + bootswatchTheme + "/bootstrap.min.css")" integrity="sha384-8iuq0iaMHpnH2vSyvZMSIqQuUnQA7QM+f6srIdlgBrTSEyd//AWNMyEaSF2yPzNQ" crossorigin="anonymous" />
-}
-else
-{
-    <Link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
-}
-
 <div id="overlay-parent" class="d-flex flex-grow-1">
     <div class="row flex-grow-1 no-gutters">
         <div class="col-sm-12 col-md-6">
