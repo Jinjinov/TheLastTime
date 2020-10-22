@@ -39,21 +39,36 @@
 
             @if (habitList != null)
             {
-                <div class="card">
-                    <div class="card-body">
-                        accordion
-                        @foreach (var habit in habitList)
-                        {
-                            <div class="d-flex">
-                                <div class="flex-fill">@habit.Description</div>
-                                <div class="flex-fill">@(habit.TimeList.Count > 0 ? habit.TimeList.Last().DateTime : "Never")</div>
-                                <div class="m-1 ml-auto"><button class="btn btn-sm btn-primary" @onclick="@(() => DeleteHabit(habit))">Delete</button></div>
-                                <div class="m-1"><button class="btn btn-sm btn-primary" @onclick="@(() => DoneHabit(habit))">Done</button></div>
-                                <div class="m-1"><button class="btn btn-sm btn-primary" @onclick="@(() => selectedHabit = habit)">Details</button></div>
-                                <div class="m-1"><button class="btn btn-sm btn-primary" @onclick="@(() => {})">Edit</button></div>
+                <div class="accordion" id="accordion-parent">
+
+                    @*<div class="card">
+                        <div class="card-header">
+                            <button class="btn" data-toggle="collapse" data-target="#collapseOne">
+                            </button>
+                        </div>
+                        <div id="collapseOne" class="collapse show" data-parent="#accordion-parent">
+                            <div class="card-body">
                             </div>
-                        }
-                    </div>
+                        </div>
+                    </div>*@
+
+                    @foreach (var habit in habitList)
+                    {
+                        <div class="card">
+                            <button class="card-header collapsed btn d-flex" data-toggle="collapse" data-target="@("#collapse-" + habit.Id)" @onclick="@(() => selectedHabit = habit)">
+                                <div class="m-1">@habit.Description</div>
+                                <div class="m-1 ml-auto">@(habit.TimeList.Count > 0 ? habit.TimeList.Last().DateTime : "Never")</div>
+                            </button>
+                            <div id="@("collapse-" + habit.Id)" class="collapse" data-parent="#accordion-parent">
+                                <div class="card-body d-flex">
+                                    <div class="m-1 ml-auto"><button class="btn btn-sm btn-primary" @onclick="@(() => DeleteHabit(habit))">Delete</button></div>
+                                    <div class="m-1"><button class="btn btn-sm btn-primary" @onclick="@(() => DoneHabit(habit))">Done</button></div>
+                                    <div class="m-1"><button class="btn btn-sm btn-primary" @onclick="@(() => {})">Edit</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
                 </div>
             }
 
