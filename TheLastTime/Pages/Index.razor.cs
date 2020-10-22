@@ -53,6 +53,7 @@ namespace TheLastTime.Pages
 
         async Task LoadHabitList()
         {
+            /*
             using IndexedDatabase db = await DbFactory.Create<IndexedDatabase>();
 
             if (selectedCategory.Id == 0)
@@ -63,6 +64,9 @@ namespace TheLastTime.Pages
             {
                 habitList = db.Habits.Where(habit => habit.CategoryId == selectedCategory.Id).ToList();
             }
+            /**/
+
+            await OnInitializedAsync();
 
             StateHasChanged();
         }

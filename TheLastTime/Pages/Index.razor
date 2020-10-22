@@ -1,8 +1,8 @@
 ﻿@page "/"
 @inject IIndexedDbFactory DbFactory
 
-<div id="overlay-parent" class="container-fluid d-flex flex-grow-1">
-    <div class="row flex-grow-1 py-2">
+<div class="container-fluid py-3 d-flex flex-grow-1">
+    <div id="overlay-parent" class="row flex-grow-1">
         <div class="col-sm-12 col-md-6">
             <fieldset>
                 <EditForm Model="@newCategory" OnValidSubmit="@SaveNewCategory">
@@ -21,7 +21,7 @@
             {
                 <fieldset>
                     <EditForm Model="@selectedCategory">
-                        <InputSelect class="form-control form-control-sm" Value="@selectedCategory.Id" ValueExpression="@(() => selectedCategory.Id)" ValueChanged="async (long val) => { selectedCategory.Id = val; await LoadHabitList(); }">
+                        <InputSelect class="form-control form-control-sm" Value="@selectedCategory.Id" ValueExpression="@(() => selectedCategory.Id)" ValueChanged="async (long val) => { selectedCategory.Id = val; /* await LoadHabitList(); */ }">
                             <option value="0">All categories</option>
                             @foreach (var cat in categoryList)
                             {
@@ -52,7 +52,7 @@
                         </div>
                     </div>*@
 
-                    @foreach (var habit in habitList)
+                    @foreach (var habit in habitList.Where(habit => habit.CategoryId == selectedCategory.Id || selectedCategory.Id == 0))
                     {
                         <div class="card">
                             <button class="card-header collapsed btn d-flex" data-toggle="collapse" data-target="@("#collapse-" + habit.Id)" @onclick="@(() => selectedHabit = habit)">
@@ -61,8 +61,8 @@
                             </button>
                             <div id="@("collapse-" + habit.Id)" class="collapse" data-parent="#accordion-parent">
                                 <div class="card-body d-flex">
-                                    <div class="m-1 ml-auto"><button class="btn btn-sm btn-primary" @onclick="@(() => DeleteHabit(habit))">Delete</button></div>
                                     <div class="m-1"><button class="btn btn-sm btn-primary" @onclick="@(() => DoneHabit(habit))">Done</button></div>
+                                    <div class="m-1 ml-auto"><button class="btn btn-sm btn-primary" @onclick="@(() => DeleteHabit(habit))">Delete</button></div>
                                     <div class="m-1"><button class="btn btn-sm btn-primary" @onclick="@(() => {})">Edit</button></div>
                                 </div>
                             </div>
@@ -97,6 +97,11 @@
             <div id="overlay" class="col-sm-12 col-md-6 d-flex">
                 <div class="card flex-grow-1">
                     <div class="card-body">
+
+                        <button class="btn btn-sm btn-primary" @onclick="@(() => {})">Back</button>
+
+                        <button class="btn btn-sm btn-primary" @onclick="@(() => {})">Change category</button>
+
                         @foreach (var time in timeList.Where(t => t.HabitId == selectedHabit.Id))
                         {
                             <div>@time.DateTime</div>
