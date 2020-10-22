@@ -3,28 +3,30 @@
 
 <Title Value="The Last Time"></Title>
 
-@if (!string.IsNullOrEmpty(bootswatchTheme))
-{
-    <Link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
-}
-else
+@if (bootswatchThemeDict.ContainsKey(bootswatchTheme))
 {
     <Link rel="stylesheet" href="@("https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/" + bootswatchTheme + "/bootstrap.min.css")" integrity="sha384-8iuq0iaMHpnH2vSyvZMSIqQuUnQA7QM+f6srIdlgBrTSEyd//AWNMyEaSF2yPzNQ" crossorigin="anonymous" />
 }
-@*<Link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cyborg/bootstrap.min.css" integrity="sha384-nEnU7Ae+3lD52AK+RGNzgieBWMnEfgTbRHIwEvp1XXPdqdO6uLTd/NwXbzboqjc2" crossorigin="anonymous" />*@
+else
+{
+    <Link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
+}
 
-<div id="container-index" class="container-fluid">
-    <div class="row">
+<div id="overlay-parent" class="d-flex flex-grow-1">
+    <div class="row flex-grow-1 no-gutters">
         <div class="col-sm-12 col-md-6">
             <fieldset>
                 <EditForm Model="@newCategory" OnValidSubmit="@SaveNewCategory">
                     <InputText class="form-control form-control-sm" @bind-Value="@newCategory.Description" placeholder="Add new category..." />
-                    <button type="submit" class="btn btn-primary btn-sm">Add</button>
+                    <button type="submit" class="btn btn-sm btn-primary">Save</button>
 
                     <p><Microsoft.AspNetCore.Components.Forms.ValidationSummary /></p>
                     <DataAnnotationsValidator />
                 </EditForm>
             </fieldset>
+
+            <button class="btn btn-sm btn-primary" @onclick="@(() => {})">New</button>
+            <button class="btn btn-sm btn-primary" @onclick="@(() => {})">Edit</button>
 
             @if (categoryList != null)
             {
@@ -40,7 +42,7 @@ else
 
                         @if (selectedCategory.Id != 0)
                         {
-                            <button class="btn btn-primary btn-sm" @onclick="@(() => DeleteCategory(selectedCategory))">Delete</button>
+                            <button class="btn btn-sm btn-primary" @onclick="@(() => DeleteCategory(selectedCategory))">Delete</button>
                         }
                     </EditForm>
                 </fieldset>
@@ -48,26 +50,30 @@ else
 
             @if (habitList != null)
             {
-                <div class="card w-100 h-100">
+                <div class="card">
                     <div class="card-body">
+                        accordion
                         @foreach (var habit in habitList)
                         {
                             <div class="d-flex">
                                 <div class="flex-fill">@habit.Description</div>
                                 <div class="flex-fill">@(habit.TimeList.Count > 0 ? habit.TimeList.Last().DateTime : "Never")</div>
-                                <div class="m-1 ml-auto"><button class="btn btn-primary btn-sm" @onclick="@(() => DeleteHabit(habit))">Delete</button></div>
-                                <div class="m-1"><button class="btn btn-primary btn-sm" @onclick="@(() => DoneHabit(habit))">Done</button></div>
-                                <div class="m-1"><button class="btn btn-primary btn-sm" @onclick="@(() => selectedHabit = habit)">Details</button></div>
+                                <div class="m-1 ml-auto"><button class="btn btn-sm btn-primary" @onclick="@(() => DeleteHabit(habit))">Delete</button></div>
+                                <div class="m-1"><button class="btn btn-sm btn-primary" @onclick="@(() => DoneHabit(habit))">Done</button></div>
+                                <div class="m-1"><button class="btn btn-sm btn-primary" @onclick="@(() => selectedHabit = habit)">Details</button></div>
+                                <div class="m-1"><button class="btn btn-sm btn-primary" @onclick="@(() => {})">Edit</button></div>
                             </div>
                         }
                     </div>
                 </div>
             }
 
+            <button class="btn btn-sm btn-primary" @onclick="@(() => {})">New</button>
+
             <fieldset>
                 <EditForm Model="@newHabit" OnValidSubmit="@SaveNewHabit">
                     <InputText class="form-control form-control-sm" @bind-Value="@newHabit.Description" placeholder="Add new habit..." />
-                    <button type="submit" class="btn btn-primary btn-sm">Add</button>
+                    <button type="submit" class="btn btn-sm btn-primary">Save</button>
 
                     <p><Microsoft.AspNetCore.Components.Forms.ValidationSummary /></p>
                     <DataAnnotationsValidator />
@@ -80,16 +86,20 @@ else
                 @text
             </p>
 
-            <button class="btn btn-primary btn-sm" @onclick="@(() => ExportFile())">Export</button>
+            <button class="btn btn-sm btn-primary" @onclick="@(() => ExportFile())">Export</button>
         </div>
         @if (selectedHabit != null)
         {
-            <div id="overlay" class="col-sm-12 col-md-6">
-                <div class="card w-100 h-100">
+            <div id="overlay" class="col-sm-12 col-md-6 d-flex">
+                <div class="card flex-grow-1">
                     <div class="card-body">
                         @foreach (var time in timeList.Where(t => t.HabitId == selectedHabit.Id))
                         {
                             <div>@time.DateTime</div>
+
+                            <button class="btn btn-sm btn-primary" @onclick="@(() => {})">Delete</button>
+                            <button class="btn btn-sm btn-primary" @onclick="@(() => {})">Edit</button>
+                            <button class="btn btn-sm btn-primary" @onclick="@(() => {})">Save</button>
                         }
                     </div>
                 </div>

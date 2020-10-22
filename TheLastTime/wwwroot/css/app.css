@@ -39,12 +39,12 @@ app {
     top: 0.5rem;
 }
 
-#container-index {
+#overlay-parent {
     /*overflow: auto;*/
 }
 
 @media (max-width: 767.98px) {
-    #container-index {
+    #overlay-parent {
         position: relative;
     }
 
@@ -88,6 +88,6 @@ app {
 
     .sidebar .collapse {
         /* Never collapse the sidebar for wide screens */
-        display: block;
+        display: block !important;
     }
 }
