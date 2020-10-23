@@ -10,7 +10,6 @@
 
   <ItemGroup>
 	<!--<PackageReference Include="Blazorise.Bootstrap" Version="0.9.1.2" />-->
-	<!--<PackageReference Include="Blazorise.Icons.FontAwesome" Version="0.9.1.2" />-->
 	
     <PackageReference Include="Microsoft.AspNetCore.Components" Version="5.0.0-rc.2.*" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.0-rc.2.*" />

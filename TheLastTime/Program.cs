@@ -1,7 +1,6 @@
 using Blazor.IndexedDB.Framework;
 //using Blazorise;
 //using Blazorise.Bootstrap;
-//using Blazorise.Icons.FontAwesome;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,8 +24,7 @@ namespace TheLastTime
             //    {
             //        options.ChangeTextOnKeyPress = true;
             //    })
-            //    .AddBootstrapProviders()
-            //    .AddFontAwesomeIcons();
+            //    .AddBootstrapProviders();
 
             builder.RootComponents.Add<App>("app");
 
@@ -37,8 +35,7 @@ namespace TheLastTime
             var host = builder.Build();
 
             //host.Services
-            //    .UseBootstrapProviders()
-            //    .UseFontAwesomeIcons();
+            //    .UseBootstrapProviders();
 
             await host.RunAsync();
         }
