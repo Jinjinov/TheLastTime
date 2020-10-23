@@ -1,5 +1,4 @@
 ﻿@page "/"
-@inject IIndexedDbFactory DbFactory
 
 <div class="container-fluid py-3 d-flex flex-grow-1">
     <div id="overlay-parent" class="row flex-grow-1">
@@ -75,13 +74,6 @@
 
             <button class="btn btn-sm btn-primary" @onclick="@(() => { selectedHabit = new Habit(); editHabit = true; })">New Habit</button>
 
-            <InputFile class="form-control form-control-sm" OnChange="@ImportFile" />
-
-            <p>
-                @text
-            </p>
-
-            <button class="btn btn-sm btn-primary" @onclick="@(() => ExportFile())">Export</button>
         </div>
         @if (selectedHabit != null)
         {
@@ -113,12 +105,12 @@
                         {
                             <div>@time.DateTime</div>
 
-                            <button class="btn btn-sm btn-primary" @onclick="@(() => {})">Delete Time</button>
+                            <button class="btn btn-sm btn-primary" @onclick="@(() => DeleteTime(time))">Delete Time</button>
                             <button class="btn btn-sm btn-primary" @onclick="@(() => { editTime = true; })">Edit Time</button>
 
                             @if (editTime)
                             {
-                                <button class="btn btn-sm btn-primary" @onclick="@(() => { })">Save Time</button>
+                                <button class="btn btn-sm btn-primary" @onclick="@(() => {})">Save Time</button>
                             }
                         }
                     </div>

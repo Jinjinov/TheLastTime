@@ -1,4 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using Blazor.IndexedDB.Framework;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.JSInterop;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.Json;
+using System.Threading.Tasks;
+using TheLastTime.Data;
 
 namespace TheLastTime.Shared
 {
@@ -38,6 +48,56 @@ namespace TheLastTime.Shared
         private void ToggleNavMenu()
         {
             collapseNavMenu = !collapseNavMenu;
+        }
+
+        async Task ImportFile(InputFileChangeEventArgs e)
+        {
+            Stream stream = e.File.OpenReadStream();
+
+            using StreamReader streamReader = new StreamReader(stream);
+
+            string jsonString = await streamReader.ReadToEndAsync();
+        }
+
+        [Inject]
+        IIndexedDbFactory DbFactory { get; set; } = null!;
+
+        [Inject]
+        IJSRuntime JSRuntime { get; set; } = null!;
+
+        async Task ExportFile()
+        {
+            using IndexedDatabase db = await DbFactory.Create<IndexedDatabase>();
+
+            List<Category> categoryList = db.Categories.ToList();
+            List<Habit> habitList = db.Habits.ToList();
+            List<Time> timeList = db.Times.ToList();
+
+            Dictionary<long, Category> categoryDict = categoryList.ToDictionary(category => category.Id);
+            Dictionary<long, Habit> habitDict = habitList.ToDictionary(habit => habit.Id);
+
+            foreach (Time time in timeList)
+            {
+                if (habitDict.ContainsKey(time.HabitId))
+                    habitDict[time.HabitId].TimeList.Add(time);
+            }
+
+            foreach (Habit habit in habitList)
+            {
+                if (categoryDict.ContainsKey(habit.CategoryId))
+                    categoryDict[habit.CategoryId].HabitList.Add(habit);
+            }
+
+            string jsonString = JsonSerializer.Serialize(categoryList, new JsonSerializerOptions { IncludeFields = true, WriteIndented = true });
+
+            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(jsonString);
+
+            await SaveAs(JSRuntime, "TheLastTime.json", bytes);
+        }
+
+        static async Task SaveAs(IJSRuntime js, string filename, byte[] data)
+        {
+            await js.InvokeAsync<object>("saveAsFile", filename, Convert.ToBase64String(data));
         }
     }
 }

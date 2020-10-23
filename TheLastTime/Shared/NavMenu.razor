@@ -21,17 +21,18 @@ else
     <ul class="nav flex-column">
 
         <li class="nav-item p-2">
-            <button class="btn btn-sm btn-primary" @onclick="@(() => {})">Export</button>
+            <a class="d-block btn btn-sm btn-primary" @onclick="@(() => ExportFile())">Export</a>
         </li>
         <li class="nav-item p-2">
-            <button class="btn btn-sm btn-primary" @onclick="@(() => {})">Import</button>
+            <label for="file-upload" class="d-block btn btn-sm btn-primary mb-0">Import</label>
+            <InputFile id="file-upload" class="d-none" OnChange="@ImportFile" />
         </li>
         <li class="nav-item p-2">
-            <button class="btn btn-sm btn-primary" @onclick="@(() => {})">Delete all</button>
+            <a class="d-block btn btn-sm btn-primary" @onclick="@(() => {})">Delete all</a>
         </li>
 
         <li class="nav-item p-2">
-            <NavLink class="nav-link btn btn-sm btn-primary" href="" Match="NavLinkMatch.All">
+            <NavLink class="d-block btn btn-sm btn-primary" href="" Match="NavLinkMatch.All">
                 <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
         </li>

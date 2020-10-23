@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Blazor.IndexedDB.Framework;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
 using System;
@@ -28,6 +29,9 @@ namespace TheLastTime.Pages
         bool editCategory;
         bool editHabit;
         bool editTime;
+
+        [Inject]
+        IIndexedDbFactory DbFactory { get; set; } = null!;
 
         protected override async Task OnInitializedAsync()
         {
@@ -128,6 +132,15 @@ namespace TheLastTime.Pages
             await LoadHabitList();
         }
 
+        async Task DeleteTime(Time time)
+        {
+            using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
+            db.Times.Remove(time);
+            await db.SaveChanges();
+
+            await LoadHabitList();
+        }
+
         async Task DoneHabit(Habit habit)
         {
             using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
@@ -143,34 +156,6 @@ namespace TheLastTime.Pages
             await db.SaveChanges();
 
             await OnInitializedAsync();
-        }
-
-        string text = string.Empty;
-
-        async Task ImportFile(InputFileChangeEventArgs e)
-        {
-            Stream stream = e.File.OpenReadStream();
-
-            using StreamReader streamReader = new StreamReader(stream);
-
-            text = await streamReader.ReadToEndAsync();
-        }
-
-        [Inject]
-        IJSRuntime JSRuntime { get; set; } = null!;
-
-        async Task ExportFile()
-        {
-            string jsonString = JsonSerializer.Serialize(categoryList, new JsonSerializerOptions { IncludeFields = true, WriteIndented = true });
-
-            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(jsonString);
-
-            await SaveAs(JSRuntime, "TheLastTime.json", bytes);
-        }
-
-        static async Task SaveAs(IJSRuntime js, string filename, byte[] data)
-        {
-            await js.InvokeAsync<object>("saveAsFile", filename, Convert.ToBase64String(data));
         }
     }
 }
