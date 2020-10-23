@@ -74,7 +74,7 @@
 
             <div class="py-5"></div>
 
-            <button class="btn btn-lg btn-primary add-habit" @onclick="@(() => { selectedHabit = new Habit(); editHabit = true; })">New Habit</button>
+            <button class="btn btn-lg btn-primary rounded-circle add-habit" @onclick="@(() => { selectedHabit = new Habit(); editHabit = true; })"><span class="oi oi-plus"></span></button>
 
         </div>
         @if (selectedHabit != null)

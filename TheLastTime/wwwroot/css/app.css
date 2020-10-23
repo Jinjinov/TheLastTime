@@ -20,6 +20,9 @@ app {
     position: fixed;
     right: calc(50% - 95px);
     bottom: 30px;
+    padding: 0 !important;
+    width: 54px;
+    height: 54px;
 }
 
 #blazor-error-ui {
