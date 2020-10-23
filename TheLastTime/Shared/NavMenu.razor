@@ -55,7 +55,8 @@ else
         -->
         <li class="nav-item p-2">
             <EditForm Model="@bootswatchTheme">
-                <InputSelect multiple size="@(bootswatchThemeDict.Count + 1)" class="form-control form-control-sm" Value="@bootswatchTheme" ValueExpression="@(() => bootswatchTheme)" ValueChanged="async (string val) => { bootswatchTheme = val; }">
+                <label for="theme" class="text-light">Theme:</label>
+                <InputSelect id="theme" multiple size="@(bootswatchThemeDict.Count + 1)" class="form-control form-control-sm" Value="@bootswatchTheme" ValueExpression="@(() => bootswatchTheme)" ValueChanged="async (string val) => { bootswatchTheme = val; }">
                     <option value="default">default</option>
                     @foreach (var theme in bootswatchThemeDict.Keys)
                     {

@@ -19,7 +19,7 @@ app {
 .add-habit {
     position: fixed;
     right: calc(50% - 95px);
-    bottom: 15px;
+    bottom: 30px;
 }
 
 #blazor-error-ui {
@@ -61,7 +61,7 @@ app {
     .add-habit {
         position: fixed;
         right: 30px;
-        bottom: 15px;
+        bottom: 30px;
     }
 }
 
