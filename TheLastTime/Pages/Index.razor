@@ -3,7 +3,7 @@
 
 <div class="container-fluid py-3 d-flex flex-grow-1">
     <div id="overlay-parent" class="row flex-grow-1">
-        <div class="col-sm-12 col-md-6">
+        <div class="col-md-12 col-lg-6">
             <fieldset>
                 <EditForm Model="@newCategory" OnValidSubmit="@SaveNewCategory">
                     <InputText class="form-control form-control-sm" @bind-Value="@newCategory.Description" placeholder="Add new category..." />
@@ -94,7 +94,7 @@
         </div>
         @if (selectedHabit != null)
         {
-            <div id="overlay" class="col-sm-12 col-md-6 d-flex">
+            <div id="overlay" class="col-md-12 col-lg-6 d-flex">
                 <div class="card flex-grow-1">
                     <div class="card-body">
 
