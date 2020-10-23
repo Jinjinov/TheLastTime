@@ -82,6 +82,8 @@
                     <div class="card-body">
                         <button class="close" @onclick="@(() => { selectedHabit = null; })">&#10005;</button>
 
+                        <button class="btn btn-sm btn-primary" @onclick="@(() => {})">Change category</button>
+
                         @if (editHabit)
                         {
                             <EditForm Model="@selectedHabit" OnValidSubmit="@SaveHabit">
@@ -94,12 +96,10 @@
                         }
                         else
                         {
-                            @selectedHabit.Description
-                            <div class="m-1"><button class="btn btn-sm btn-primary" @onclick="@(() => { editHabit = true; })">Edit Habit</button></div>
-                            <div class="m-1"><button class="btn btn-sm btn-primary" @onclick="@(() => DeleteHabit(selectedHabit))">Delete Habit</button></div>
+                            <p>@selectedHabit.Description</p>
+                            <button class="btn btn-sm btn-primary" @onclick="@(() => { editHabit = true; })">Edit Habit</button>
+                            <button class="btn btn-sm btn-primary" @onclick="@(() => DeleteHabit(selectedHabit))">Delete Habit</button>
                         }
-
-                        <button class="btn btn-sm btn-primary" @onclick="@(() => {})">Change category</button>
 
                         @foreach (var time in timeList.Where(t => t.HabitId == selectedHabit.Id))
                         {
