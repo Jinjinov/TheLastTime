@@ -13,19 +13,21 @@ namespace TheLastTime.Pages
 {
     public partial class Index
     {
-        Category newCategory = new Category();
-        Category selectedCategory = new Category();
+        protected Category selectedCategory = new Category();
 
-        Habit newHabit = new Habit();
-        Habit selectedHabit = null;
+        protected Habit? selectedHabit;
 
-        List<Category> categoryList;
-        List<Habit> habitList;
-        List<Time> timeList;
+        List<Category> categoryList = new List<Category>();
+        List<Habit> habitList = new List<Habit>();
+        List<Time> timeList = new List<Time>();
 
-        Dictionary<long, Category> categoryDict;
-        Dictionary<long, Habit> habitDict;
-        Dictionary<long, Time> timeDict;
+        Dictionary<long, Category> categoryDict = new Dictionary<long, Category>();
+        Dictionary<long, Habit> habitDict = new Dictionary<long, Habit>();
+        //Dictionary<long, Time> timeDict = new Dictionary<long, Time>();
+
+        bool editCategory;
+        bool editHabit;
+        bool editTime;
 
         protected override async Task OnInitializedAsync()
         {
@@ -37,7 +39,7 @@ namespace TheLastTime.Pages
 
             categoryDict = categoryList.ToDictionary(category => category.Id);
             habitDict = habitList.ToDictionary(habit => habit.Id);
-            timeDict = timeList.ToDictionary(time => time.Id);
+            //timeDict = timeList.ToDictionary(time => time.Id);
 
             foreach (Time time in timeList)
             {
@@ -72,15 +74,20 @@ namespace TheLastTime.Pages
             StateHasChanged();
         }
 
-        async Task SaveNewCategory()
+        async Task SaveCategory()
         {
             using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
-            db.Categories.Add(newCategory);
+
+            if (selectedCategory.Id == 0)
+            {
+                db.Categories.Add(selectedCategory);
+            }
+
             await db.SaveChanges();
 
             await OnInitializedAsync();
 
-            newCategory = new Category();
+            editCategory = false;
         }
 
         async Task DeleteCategory(Category category)
@@ -92,18 +99,24 @@ namespace TheLastTime.Pages
             await OnInitializedAsync();
         }
 
-        async Task SaveNewHabit()
+        async Task SaveHabit()
         {
+            if (selectedHabit == null)
+                return;
+
             using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
 
-            newHabit.CategoryId = selectedCategory.Id;
-            db.Habits.Add(newHabit);
+            if (selectedHabit.Id == 0)
+            {
+                selectedHabit.CategoryId = selectedCategory.Id;
+                db.Habits.Add(selectedHabit);
+            }
 
             await db.SaveChanges();
 
             await LoadHabitList();
 
-            newHabit = new Habit();
+            editHabit = false;
         }
 
         async Task DeleteHabit(Habit habit)
@@ -144,7 +157,7 @@ namespace TheLastTime.Pages
         }
 
         [Inject]
-        IJSRuntime jsRuntime { get; set; }
+        IJSRuntime JSRuntime { get; set; } = null!;
 
         async Task ExportFile()
         {
@@ -152,10 +165,10 @@ namespace TheLastTime.Pages
 
             byte[] bytes = System.Text.Encoding.UTF8.GetBytes(jsonString);
 
-            await SaveAs(jsRuntime, "TheLastTime.json", bytes);
+            await SaveAs(JSRuntime, "TheLastTime.json", bytes);
         }
 
-        async Task SaveAs(IJSRuntime js, string filename, byte[] data)
+        static async Task SaveAs(IJSRuntime js, string filename, byte[] data)
         {
             await js.InvokeAsync<object>("saveAsFile", filename, Convert.ToBase64String(data));
         }

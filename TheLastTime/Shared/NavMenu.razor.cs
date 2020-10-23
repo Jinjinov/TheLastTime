@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace TheLastTime.Shared
 {
     public partial class NavMenu
     {
-        //string bootswatchTheme = string.Empty;
-        string bootswatchTheme = "superhero";
+        protected string bootswatchTheme = "superhero";
 
-        Dictionary<string, string> bootswatchThemeDict = new Dictionary<string, string>()
+        readonly Dictionary<string, string> bootswatchThemeDict = new Dictionary<string, string>()
         {
             //{ "cerulean", "sha384-3fdgwJw17Bi87e1QQ4fsLn4rUFqWw//KU0g8TvV6quvahISRewev6/EocKNuJmEw" },
             { "cosmo", "sha384-5QFXyVb+lrCzdN228VS3HmzpiE7ZVwLQtkt+0d9W43LQMzz4HBnnqvVxKg6O+04d" },
@@ -37,7 +33,7 @@ namespace TheLastTime.Shared
 
         private bool collapseNavMenu = true;
 
-        private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+        private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
         private void ToggleNavMenu()
         {

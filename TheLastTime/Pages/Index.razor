@@ -4,22 +4,22 @@
 <div class="container-fluid py-3 d-flex flex-grow-1">
     <div id="overlay-parent" class="row flex-grow-1">
         <div class="col-md-12 col-lg-6">
-            <fieldset>
-                <EditForm Model="@newCategory" OnValidSubmit="@SaveNewCategory">
-                    <InputText class="form-control form-control-sm" @bind-Value="@newCategory.Description" placeholder="Add new category..." />
+            <button class="btn btn-sm btn-primary" @onclick="@(() => { selectedCategory = new Category(); editCategory = true; })">New Category</button>
+
+            @if (editCategory)
+            {
+                <EditForm Model="@selectedCategory" OnValidSubmit="@SaveCategory">
+                    <InputText class="form-control form-control-sm" @bind-Value="@selectedCategory.Description" placeholder="Add new category..." />
                     <button type="submit" class="btn btn-sm btn-primary">Save Category</button>
 
                     <p><Microsoft.AspNetCore.Components.Forms.ValidationSummary /></p>
                     <DataAnnotationsValidator />
                 </EditForm>
-            </fieldset>
-
-            <button class="btn btn-sm btn-primary" @onclick="@(() => {})">New Category</button>
-            <button class="btn btn-sm btn-primary" @onclick="@(() => {})">Edit Category</button>
-
-            @if (categoryList != null)
+            }
+            else
             {
-                <fieldset>
+                @if (categoryList != null)
+                {
                     <EditForm Model="@selectedCategory">
                         <InputSelect class="form-control form-control-sm" Value="@selectedCategory.Id" ValueExpression="@(() => selectedCategory.Id)" ValueChanged="async (long val) => { selectedCategory.Id = val; /* await LoadHabitList(); */ }">
                             <option value="0">All categories</option>
@@ -28,13 +28,15 @@
                                 <option value="@cat.Id">@cat.Description</option>
                             }
                         </InputSelect>
-
-                        @if (selectedCategory.Id != 0)
-                        {
-                            <button class="btn btn-sm btn-primary" @onclick="@(() => DeleteCategory(selectedCategory))">Delete Category</button>
-                        }
                     </EditForm>
-                </fieldset>
+
+                    @if (selectedCategory.Id != 0)
+                    {
+                        <button class="btn btn-sm btn-primary" @onclick="@(() => DeleteCategory(selectedCategory))">Delete Category</button>
+                        
+                        <button class="btn btn-sm btn-primary" @onclick="@(() => { editCategory = true; })">Edit Category</button>
+                    }
+                }
             }
 
             @if (habitList != null)
@@ -71,17 +73,7 @@
                 </div>
             }
 
-            <button class="btn btn-sm btn-primary" @onclick="@(() => {})">New Habit</button>
-
-            <fieldset>
-                <EditForm Model="@newHabit" OnValidSubmit="@SaveNewHabit">
-                    <InputText class="form-control form-control-sm" @bind-Value="@newHabit.Description" placeholder="Add new habit..." />
-                    <button type="submit" class="btn btn-sm btn-primary">Save Habit</button>
-
-                    <p><Microsoft.AspNetCore.Components.Forms.ValidationSummary /></p>
-                    <DataAnnotationsValidator />
-                </EditForm>
-            </fieldset>
+            <button class="btn btn-sm btn-primary" @onclick="@(() => { selectedHabit = new Habit(); editHabit = true; })">New Habit</button>
 
             <InputFile class="form-control form-control-sm" OnChange="@ImportFile" />
 
@@ -96,20 +88,38 @@
             <div id="overlay" class="col-md-12 col-lg-6 d-flex">
                 <div class="card flex-grow-1">
                     <div class="card-body">
-
                         <button class="close" @onclick="@(() => { selectedHabit = null; })">&#10005;</button>
 
+                        @if (editHabit)
+                        {
+                            <EditForm Model="@selectedHabit" OnValidSubmit="@SaveHabit">
+                                <InputText class="form-control form-control-sm" @bind-Value="@selectedHabit.Description" placeholder="Add new habit..." />
+                                <button type="submit" class="btn btn-sm btn-primary">Save Habit</button>
+
+                                <p><Microsoft.AspNetCore.Components.Forms.ValidationSummary /></p>
+                                <DataAnnotationsValidator />
+                            </EditForm>
+                        }
+                        else
+                        {
+                            @selectedHabit.Description
+                            <div class="m-1"><button class="btn btn-sm btn-primary" @onclick="@(() => { editHabit = true; })">Edit Habit</button></div>
+                            <div class="m-1"><button class="btn btn-sm btn-primary" @onclick="@(() => DeleteHabit(selectedHabit))">Delete Habit</button></div>
+                        }
+
                         <button class="btn btn-sm btn-primary" @onclick="@(() => {})">Change category</button>
-                        <div class="m-1"><button class="btn btn-sm btn-primary" @onclick="@(() => {})">Edit Habit</button></div>
-                        <div class="m-1"><button class="btn btn-sm btn-primary" @onclick="@(() => DeleteHabit(selectedHabit))">Delete Habit</button></div>
 
                         @foreach (var time in timeList.Where(t => t.HabitId == selectedHabit.Id))
                         {
                             <div>@time.DateTime</div>
 
                             <button class="btn btn-sm btn-primary" @onclick="@(() => {})">Delete Time</button>
-                            <button class="btn btn-sm btn-primary" @onclick="@(() => {})">Edit Time</button>
-                            <button class="btn btn-sm btn-primary" @onclick="@(() => {})">Save Time</button>
+                            <button class="btn btn-sm btn-primary" @onclick="@(() => { editTime = true; })">Edit Time</button>
+
+                            @if (editTime)
+                            {
+                                <button class="btn btn-sm btn-primary" @onclick="@(() => { })">Save Time</button>
+                            }
                         }
                     </div>
                 </div>
