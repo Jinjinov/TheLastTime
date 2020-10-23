@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using TheLastTime.Data;
 
@@ -147,9 +148,11 @@ namespace TheLastTime.Pages
 
         async Task ExportFile()
         {
-            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(text);
+            string jsonString = JsonSerializer.Serialize(categoryList, new JsonSerializerOptions { IncludeFields = true, WriteIndented = true });
 
-            await SaveAs(jsRuntime, "HelloWorld.txt", bytes);
+            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(jsonString);
+
+            await SaveAs(jsRuntime, "TheLastTime.json", bytes);
         }
 
         async Task SaveAs(IJSRuntime js, string filename, byte[] data)
