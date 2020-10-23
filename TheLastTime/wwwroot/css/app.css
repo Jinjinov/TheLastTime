@@ -16,6 +16,12 @@ app {
     flex: 1;
 }
 
+.add-habit {
+    position: fixed;
+    right: calc(50% - 95px);
+    bottom: 15px;
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
@@ -50,6 +56,12 @@ app {
         right: 0;
         bottom: 0;
         z-index: 2;
+    }
+
+    .add-habit {
+        position: fixed;
+        right: 30px;
+        bottom: 15px;
     }
 }
 
