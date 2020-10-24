@@ -85,7 +85,7 @@
 
                         <EditForm Model="@selectedHabit.CategoryId">
 
-                            <InputSelect class="form-control form-control-sm" Value="@selectedHabit.CategoryId" ValueExpression="@(() => selectedHabit.CategoryId)" ValueChanged="async (long val) => { selectedHabit.CategoryId = val; }">
+                            <InputSelect class="form-control form-control-sm" Value="@selectedHabit.CategoryId" ValueExpression="@(() => selectedHabit.CategoryId)" ValueChanged="async (long val) => { selectedHabit.CategoryId = val; if (!editHabit) { await DataService.SaveHabit(selectedHabit); } }">
                                 @foreach (var cat in DataService.CategoryList)
                                 {
                                     <option value="@cat.Id">@cat.Description</option>
