@@ -99,7 +99,14 @@ namespace TheLastTime.Data
         public async Task DeleteCategory(Category category)
         {
             using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
+
+            foreach (Habit habit in category.HabitList)
+            {
+                habit.CategoryId = 1;
+            }
+
             db.Categories.Remove(category);
+
             await db.SaveChanges();
 
             await LoadData();
@@ -122,7 +129,14 @@ namespace TheLastTime.Data
         public async Task DeleteHabit(Habit habit)
         {
             using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
+
+            foreach (Time time in habit.TimeList)
+            {
+                db.Times.Remove(time);
+            }
+
             db.Habits.Remove(habit);
+
             await db.SaveChanges();
 
             await LoadData();
