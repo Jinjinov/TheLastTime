@@ -1,6 +1,7 @@
 using Blazor.IndexedDB.Framework;
-//using Blazorise;
-//using Blazorise.Bootstrap;
+using Blazorise;
+using Blazorise.Bootstrap;
+using Blazorise.Icons.FontAwesome;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,12 +21,13 @@ namespace TheLastTime
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
-            //builder.Services
-            //    .AddBlazorise(options =>
-            //    {
-            //        options.ChangeTextOnKeyPress = true;
-            //    })
-            //    .AddBootstrapProviders();
+            builder.Services
+                .AddBlazorise(options =>
+                {
+                    options.ChangeTextOnKeyPress = true;
+                })
+                .AddBootstrapProviders()
+                .AddFontAwesomeIcons();
 
             builder.RootComponents.Add<App>("app");
 
@@ -37,8 +39,9 @@ namespace TheLastTime
 
             var host = builder.Build();
 
-            //host.Services
-            //    .UseBootstrapProviders();
+            host.Services
+                .UseBootstrapProviders()
+                .UseFontAwesomeIcons();
 
             await host.Services.GetRequiredService<DataService>().LoadData();
 

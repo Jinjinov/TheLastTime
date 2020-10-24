@@ -43,7 +43,7 @@
                             <div class="input-group-append">
                                 <button class="btn btn-sm btn-outline-primary" @onclick="@(() => { editCategory = true; })">Edit Category</button>
 
-                                <button class="btn btn-sm btn-outline-primary" @onclick="@(async () => { await DataService.DeleteCategory(selectedCategory); selectedCategoryId = 0; })">Delete Category</button>
+                                <button class="btn btn-sm btn-outline-primary" @onclick="@(async () => { await DataService.DeleteCategory(selectedCategory); selectedCategoryId = 0; })"><span class="fa fa-trash"></span></button>
                             </div>
                         }
                     </div>
@@ -73,7 +73,7 @@
 
             <div class="py-5"></div>
 
-            <button class="btn btn-lg btn-primary rounded-circle add-habit" @onclick="@(() => { selectedHabit = new Habit{ CategoryId = selectedCategoryId != 0 ? selectedCategoryId : 1 }; editHabit = true; })"><span class="oi oi-plus"></span></button>
+            <button class="btn btn-lg btn-primary rounded-circle add-habit" @onclick="@(() => { selectedHabit = new Habit{ CategoryId = selectedCategoryId != 0 ? selectedCategoryId : 1 }; editHabit = true; })"><span class="fa fa-plus"></span></button>
         </div>
 
         @if (selectedHabit != null)
@@ -119,7 +119,7 @@
 
                                 <div class="input-group-append">
                                     <button class="btn btn-sm btn-primary" @onclick="@(() => { editHabit = true; })">Edit Habit</button>
-                                    <button class="btn btn-sm btn-primary" @onclick="@(async () => { await DataService.DeleteHabit(selectedHabit); selectedHabit = null; })">Delete Habit</button>
+                                    <button class="btn btn-sm btn-primary" @onclick="@(async () => { await DataService.DeleteHabit(selectedHabit); selectedHabit = null; })"><span class="fa fa-trash"></span></button>
                                 </div>
                             </div>
                         }
@@ -140,7 +140,7 @@
                                     else
                                     {
                                         <button class="btn btn-sm btn-primary" @onclick="@(() => { editTime = true; })">Edit Time</button>
-                                        <button class="btn btn-sm btn-primary" @onclick="@(async () => { await DataService.DeleteTime(time); selectedHabit = DataService.HabitDict[time.HabitId]; })">Delete Time</button>
+                                        <button class="btn btn-sm btn-primary" @onclick="@(async () => { await DataService.DeleteTime(time); selectedHabit = DataService.HabitDict[time.HabitId]; })"><span class="fa fa-trash"></span></button>
                                     }
 
                                 </div>
