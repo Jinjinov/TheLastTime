@@ -11,8 +11,8 @@
                     <div class="input-group">
                         <InputText class="form-control form-control-sm" @bind-Value="@selectedCategory.Description" placeholder="Add new category..." />
                         <div class="input-group-append">
-                            <button type="submit" class="btn btn-sm btn-outline-primary">Save Category</button>
-                            <button class="btn btn-sm btn-outline-primary" @onclick="@(() => { editCategory = false; })">Cancel</button>
+                            <button type="submit" class="btn btn-sm btn-outline-primary"><span class="fa fa-save"></span></button>
+                            <button class="btn btn-sm btn-outline-primary" @onclick="@(() => { editCategory = false; })"><span class="fa fa-times"></span></button>
                         </div>
                     </div>
 
@@ -27,7 +27,7 @@
 
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <button class="btn btn-sm btn-outline-primary" @onclick="@(() => { selectedCategory = new Category(); editCategory = true; })">New Category</button>
+                            <button class="btn btn-sm btn-outline-primary" @onclick="@(() => { selectedCategory = new Category(); editCategory = true; })"><span class="fa fa-plus"></span></button>
                         </div>
 
                         <InputSelect class="form-control form-control-sm" Value="@selectedCategoryId" ValueExpression="@(() => selectedCategoryId)" ValueChanged="async (long val) => { selectedCategoryId = val; if (DataService.CategoryDict.ContainsKey(val)) { selectedCategory = DataService.CategoryDict[val]; } }">
@@ -41,9 +41,9 @@
                         @if (selectedCategoryId > 1)
                         {
                             <div class="input-group-append">
-                                <button class="btn btn-sm btn-outline-primary" @onclick="@(() => { editCategory = true; })">Edit Category</button>
+                                <button class="btn btn-sm btn-outline-primary" @onclick="@(() => { editCategory = true; })"><span class="fa fa-edit"></span></button>
 
-                                <button class="btn btn-sm btn-outline-primary" @onclick="@(async () => { await DataService.DeleteCategory(selectedCategory); selectedCategoryId = 0; })"><span class="fa fa-trash"></span></button>
+                                <button class="btn btn-sm btn-outline-primary" @onclick="@(async () => { await DataService.DeleteCategory(selectedCategory); selectedCategoryId = 0; })"><span class="fa fa-trash-alt"></span></button>
                             </div>
                         }
                     </div>
@@ -81,7 +81,7 @@
             <div id="overlay" class="col-md-12 col-lg-6 d-flex">
                 <div class="card flex-grow-1">
                     <div class="card-body">
-                        <button class="close" @onclick="@(() => { selectedHabit = null; })">&#10005;</button>
+                        <button class="close" @onclick="@(() => { selectedHabit = null; })"><span class="fa fa-times"></span></button>
 
                         <EditForm Model="@selectedHabit.CategoryId">
 
@@ -101,8 +101,8 @@
                                 <div class="input-group my-3">
                                     <InputText class="form-control form-control-sm" @bind-Value="@selectedHabit.Description" placeholder="Add new habit..." />
                                     <div class="input-group-append">
-                                        <button type="submit" class="btn btn-sm btn-primary">Save Habit</button>
-                                        <button class="btn btn-sm btn-primary" @onclick="@(() => { editHabit = false; })">Cancel</button>
+                                        <button type="submit" class="btn btn-sm btn-outline-primary"><span class="fa fa-save"></span></button>
+                                        <button class="btn btn-sm btn-outline-primary" @onclick="@(() => { editHabit = false; })"><span class="fa fa-times"></span></button>
                                     </div>
                                 </div>
 
@@ -118,8 +118,8 @@
                                 <div class="border p-1">@selectedHabit.TimeList.Count x</div>
 
                                 <div class="input-group-append">
-                                    <button class="btn btn-sm btn-primary" @onclick="@(() => { editHabit = true; })">Edit Habit</button>
-                                    <button class="btn btn-sm btn-primary" @onclick="@(async () => { await DataService.DeleteHabit(selectedHabit); selectedHabit = null; })"><span class="fa fa-trash"></span></button>
+                                    <button class="btn btn-sm btn-outline-primary" @onclick="@(() => { editHabit = true; })"><span class="fa fa-edit"></span></button>
+                                    <button class="btn btn-sm btn-outline-primary" @onclick="@(async () => { await DataService.DeleteHabit(selectedHabit); selectedHabit = null; })"><span class="fa fa-trash-alt"></span></button>
                                 </div>
                             </div>
                         }
@@ -134,13 +134,13 @@
 
                                     @if (editTime)
                                     {
-                                        <button class="btn btn-sm btn-primary" @onclick="@(() => {})">Save Time</button>
-                                        <button class="btn btn-sm btn-primary" @onclick="@(() => { editTime = false; })">Cancel</button>
+                                        <button class="btn btn-sm btn-outline-primary" @onclick="@(() => {})"><span class="fa fa-save"></span></button>
+                                        <button class="btn btn-sm btn-outline-primary" @onclick="@(() => { editTime = false; })"><span class="fa fa-times"></span></button>
                                     }
                                     else
                                     {
-                                        <button class="btn btn-sm btn-primary" @onclick="@(() => { editTime = true; })">Edit Time</button>
-                                        <button class="btn btn-sm btn-primary" @onclick="@(async () => { await DataService.DeleteTime(time); selectedHabit = DataService.HabitDict[time.HabitId]; })"><span class="fa fa-trash"></span></button>
+                                        <button class="btn btn-sm btn-outline-primary" @onclick="@(() => { editTime = true; })"><span class="fa fa-edit"></span></button>
+                                        <button class="btn btn-sm btn-outline-primary" @onclick="@(async () => { await DataService.DeleteTime(time); selectedHabit = DataService.HabitDict[time.HabitId]; })"><span class="fa fa-trash-alt"></span></button>
                                     }
 
                                 </div>
