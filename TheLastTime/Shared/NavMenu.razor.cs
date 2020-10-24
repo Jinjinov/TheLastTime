@@ -38,6 +38,9 @@ namespace TheLastTime.Shared
         };
 
         [Inject]
+        NavigationManager NavigationManager { get; set; }
+
+        [Inject]
         DataService DataService { get; set; } = null!;
 
         protected string bootswatchTheme

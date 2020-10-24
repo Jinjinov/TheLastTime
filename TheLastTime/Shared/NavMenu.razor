@@ -28,7 +28,7 @@ else
             <InputFile id="file-upload" class="d-none" OnChange="@ImportFile" />
         </li>
         <li class="nav-item p-2">
-            <a class="d-block btn btn-sm btn-primary" @onclick="@(() => {})">Delete all</a>
+            <a class="d-block btn btn-sm btn-primary" @onclick="@(async () => { await DataService.ClearData(); NavigationManager.NavigateTo("/", true); })">Delete all</a>
         </li>
 
         <li class="nav-item p-2">

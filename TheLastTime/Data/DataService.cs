@@ -82,6 +82,19 @@ namespace TheLastTime.Data
             }
         }
 
+        public async Task ClearData()
+        {
+            using IndexedDatabase db = await DbFactory.Create<IndexedDatabase>();
+
+            db.Categories.Clear();
+            db.Habits.Clear();
+            db.Times.Clear();
+
+            await db.SaveChanges();
+
+            await LoadData();
+        }
+
         public async Task SaveCategory(Category category)
         {
             using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
