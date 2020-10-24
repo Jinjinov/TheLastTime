@@ -4,34 +4,41 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TheLastTime.Data;
 
-namespace TheLastTime.Pages
+namespace TheLastTime.Data
 {
-    public partial class Index
+    public class DataService
     {
-        protected Category selectedCategory = new Category();
+        public Settings Settings = new Settings();
 
-        protected Habit? selectedHabit;
+        public List<Category> categoryList { get; set; } = new List<Category>();
+        public List<Habit> habitList { get; set; } = new List<Habit>();
+        public List<Time> timeList { get; set; } = new List<Time>();
 
-        List<Category> categoryList = new List<Category>();
-        List<Habit> habitList = new List<Habit>();
-        List<Time> timeList = new List<Time>();
-
-        Dictionary<long, Category> categoryDict = new Dictionary<long, Category>();
-        Dictionary<long, Habit> habitDict = new Dictionary<long, Habit>();
-        //Dictionary<long, Time> timeDict = new Dictionary<long, Time>();
-
-        bool editCategory;
-        bool editHabit;
-        bool editTime;
+        public Dictionary<long, Category> categoryDict { get; set; } = new Dictionary<long, Category>();
+        public Dictionary<long, Habit> habitDict { get; set; } = new Dictionary<long, Habit>();
+        public Dictionary<long, Time> timeDict { get; set; } = new Dictionary<long, Time>();
 
         [Inject]
         IIndexedDbFactory DbFactory { get; set; } = null!;
 
-        protected override async Task OnInitializedAsync()
+        public async Task LoadData()
         {
             using IndexedDatabase db = await DbFactory.Create<IndexedDatabase>();
+
+            if (db.Settings.Count == 0)
+            {
+                db.Settings.Add(new Settings());
+                await db.SaveChanges();
+            }
+
+            Settings = db.Settings.First();
+
+            if (db.Categories.Count == 0)
+            {
+                db.Categories.Add(new Category());
+                await db.SaveChanges();
+            }
 
             categoryList = db.Categories.ToList();
             habitList = db.Habits.ToList();
@@ -39,7 +46,7 @@ namespace TheLastTime.Pages
 
             categoryDict = categoryList.ToDictionary(category => category.Id);
             habitDict = habitList.ToDictionary(habit => habit.Id);
-            //timeDict = timeList.ToDictionary(time => time.Id);
+            timeDict = timeList.ToDictionary(time => time.Id);
 
             foreach (Time time in timeList)
             {
@@ -65,7 +72,7 @@ namespace TheLastTime.Pages
 
             await db.SaveChanges();
 
-            await OnInitializedAsync();
+            await LoadData();
         }
 
         async Task DeleteCategory(Category category)
@@ -74,7 +81,7 @@ namespace TheLastTime.Pages
             db.Categories.Remove(category);
             await db.SaveChanges();
 
-            await OnInitializedAsync();
+            await LoadData();
         }
 
         async Task SaveHabit(Habit habit)
@@ -88,7 +95,7 @@ namespace TheLastTime.Pages
 
             await db.SaveChanges();
 
-            await OnInitializedAsync();
+            await LoadData();
         }
 
         async Task DeleteHabit(Habit habit)
@@ -97,7 +104,7 @@ namespace TheLastTime.Pages
             db.Habits.Remove(habit);
             await db.SaveChanges();
 
-            await OnInitializedAsync();
+            await LoadData();
         }
 
         async Task DeleteTime(Time time)
@@ -106,7 +113,7 @@ namespace TheLastTime.Pages
             db.Times.Remove(time);
             await db.SaveChanges();
 
-            await OnInitializedAsync();
+            await LoadData();
         }
 
         async Task AddTime(Habit habit)
@@ -123,7 +130,7 @@ namespace TheLastTime.Pages
 
             await db.SaveChanges();
 
-            await OnInitializedAsync();
+            await LoadData();
         }
     }
 }

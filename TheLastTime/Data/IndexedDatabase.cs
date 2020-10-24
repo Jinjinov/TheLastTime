@@ -10,5 +10,6 @@ namespace TheLastTime.Data
         public IndexedSet<Category> Categories { get; set; } = null!;
         public IndexedSet<Habit> Habits { get; set; } = null!;
         public IndexedSet<Time> Times { get; set; } = null!;
+        public IndexedSet<Settings> Settings { get; set; } = null!;
     }
 }
