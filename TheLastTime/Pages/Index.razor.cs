@@ -18,9 +18,9 @@ namespace TheLastTime.Pages
         [Inject]
         DataService DataService { get; set; } = null!;
 
-        protected override async Task OnInitializedAsync()
-        {
-            await DataService.LoadData();
-        }
+        //protected override async Task OnInitializedAsync()
+        //{
+        //    await DataService.LoadData();
+        //}
     }
 }

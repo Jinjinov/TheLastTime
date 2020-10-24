@@ -12,6 +12,7 @@
                         <InputText class="form-control form-control-sm" @bind-Value="@selectedCategory.Description" placeholder="Add new category..." />
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-sm btn-outline-primary">Save Category</button>
+                            <button class="btn btn-sm btn-outline-primary" @onclick="@(() => { editCategory = false; })">Cancel</button>
                         </div>
                     </div>
 
@@ -37,12 +38,12 @@
                             }
                         </InputSelect>
 
-                        @if (selectedCategoryId != 0)
+                        @if (selectedCategoryId > 1)
                         {
                             <div class="input-group-append">
-                                <button class="btn btn-sm btn-outline-primary" @onclick="@(() => DataService.DeleteCategory(selectedCategory))">Delete Category</button>
-
                                 <button class="btn btn-sm btn-outline-primary" @onclick="@(() => { editCategory = true; })">Edit Category</button>
+
+                                <button class="btn btn-sm btn-outline-primary" @onclick="@(() => DataService.DeleteCategory(selectedCategory))">Delete Category</button>
                             </div>
                         }
                     </div>
@@ -82,6 +83,8 @@
                     <div class="card-body">
                         <button class="close" @onclick="@(() => { selectedHabit = null; })">&#10005;</button>
 
+                        <div class="border p-1 flex-grow-1">@selectedHabit.CategoryId</div>
+
                         <button class="btn btn-sm btn-primary" @onclick="@(() => {})">Change category</button>
 
                         @if (editHabit)
@@ -92,6 +95,7 @@
                                     <InputText class="form-control form-control-sm" @bind-Value="@selectedHabit.Description" placeholder="Add new habit..." />
                                     <div class="input-group-append">
                                         <button type="submit" class="btn btn-sm btn-primary">Save Habit</button>
+                                        <button class="btn btn-sm btn-primary" @onclick="@(() => { editHabit = false; })">Cancel</button>
                                     </div>
                                 </div>
 
@@ -120,12 +124,13 @@
 
                                 <div class="input-group-append">
 
-                                    <button class="btn btn-sm btn-primary" @onclick="@(() => DataService.DeleteTime(time))">Delete Time</button>
                                     <button class="btn btn-sm btn-primary" @onclick="@(() => { editTime = true; })">Edit Time</button>
+                                    <button class="btn btn-sm btn-primary" @onclick="@(() => DataService.DeleteTime(time))">Delete Time</button>
 
                                     @if (editTime)
                                     {
                                         <button class="btn btn-sm btn-primary" @onclick="@(() => {})">Save Time</button>
+                                        <button class="btn btn-sm btn-primary" @onclick="@(() => { editTime = false; })">Cancel</button>
                                     }
 
                                 </div>

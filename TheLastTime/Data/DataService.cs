@@ -25,21 +25,39 @@ namespace TheLastTime.Data
             DbFactory = dbFactory;
         }
 
+        public async Task SaveSettings()
+        {
+            using IndexedDatabase db = await DbFactory.Create<IndexedDatabase>();
+
+            Settings settings = db.Settings.Single();
+
+            settings.Theme = Settings.Theme;
+
+            await db.SaveChanges();
+        }
+
         public async Task LoadData()
         {
             using IndexedDatabase db = await DbFactory.Create<IndexedDatabase>();
 
+            bool save = false;
+
             if (db.Settings.Count == 0)
             {
-                db.Settings.Add(new Settings());
-                await db.SaveChanges();
+                db.Settings.Add(new Settings() { Theme = "superhero" });
+                save = true;
             }
 
-            Settings = db.Settings.First();
+            Settings = db.Settings.Single();
 
             if (db.Categories.Count == 0)
             {
                 db.Categories.Add(new Category() { Description = "No category" });
+                save = true;
+            }
+
+            if (save)
+            {
                 await db.SaveChanges();
             }
 

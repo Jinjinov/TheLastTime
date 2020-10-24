@@ -40,6 +40,8 @@ namespace TheLastTime
             //host.Services
             //    .UseBootstrapProviders();
 
+            await host.Services.GetRequiredService<DataService>().LoadData();
+
             await host.RunAsync();
         }
     }

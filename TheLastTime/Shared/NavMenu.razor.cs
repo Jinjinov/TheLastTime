@@ -14,8 +14,6 @@ namespace TheLastTime.Shared
 {
     public partial class NavMenu
     {
-        protected string bootswatchTheme = "superhero";
-
         readonly Dictionary<string, string> bootswatchThemeDict = new Dictionary<string, string>()
         {
             //{ "cerulean", "sha384-3fdgwJw17Bi87e1QQ4fsLn4rUFqWw//KU0g8TvV6quvahISRewev6/EocKNuJmEw" },
@@ -41,6 +39,24 @@ namespace TheLastTime.Shared
             { "yeti", "sha384-mLBxp+1RMvmQmXOjBzRjqqr0dP9VHU2tb3FK6VB0fJN/AOu7/y+CAeYeWJZ4b3ii" },
         };
 
+        [Inject]
+        DataService DataService { get; set; } = null!;
+
+        protected string bootswatchTheme
+        {
+            get => DataService.Settings.Theme;
+            set
+            {
+                DataService.Settings.Theme = value;
+                DataService.SaveSettings().Wait();
+            }
+        }
+
+        //protected override async Task OnInitializedAsync()
+        //{
+        //    await DataService.LoadData();
+        //}
+
         private bool collapseNavMenu = true;
 
         private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
@@ -60,35 +76,11 @@ namespace TheLastTime.Shared
         }
 
         [Inject]
-        IIndexedDbFactory DbFactory { get; set; } = null!;
-
-        [Inject]
         IJSRuntime JSRuntime { get; set; } = null!;
 
         async Task ExportFile()
         {
-            using IndexedDatabase db = await DbFactory.Create<IndexedDatabase>();
-
-            List<Category> categoryList = db.Categories.ToList();
-            List<Habit> habitList = db.Habits.ToList();
-            List<Time> timeList = db.Times.ToList();
-
-            Dictionary<long, Category> categoryDict = categoryList.ToDictionary(category => category.Id);
-            Dictionary<long, Habit> habitDict = habitList.ToDictionary(habit => habit.Id);
-
-            foreach (Time time in timeList)
-            {
-                if (habitDict.ContainsKey(time.HabitId))
-                    habitDict[time.HabitId].TimeList.Add(time);
-            }
-
-            foreach (Habit habit in habitList)
-            {
-                if (categoryDict.ContainsKey(habit.CategoryId))
-                    categoryDict[habit.CategoryId].HabitList.Add(habit);
-            }
-
-            string jsonString = JsonSerializer.Serialize(categoryList, new JsonSerializerOptions { IncludeFields = true, WriteIndented = true });
+            string jsonString = JsonSerializer.Serialize(DataService.categoryList, new JsonSerializerOptions { IncludeFields = true, WriteIndented = true });
 
             byte[] bytes = System.Text.Encoding.UTF8.GetBytes(jsonString);
 
