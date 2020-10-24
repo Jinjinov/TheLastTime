@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using System.Threading.Tasks;
 using TheLastTime.Data;
 
 namespace TheLastTime.Pages
@@ -19,10 +18,5 @@ namespace TheLastTime.Pages
 
         [Inject]
         DataService DataService { get; set; } = null!;
-
-        //protected override async Task OnInitializedAsync()
-        //{
-        //    await DataService.LoadData();
-        //}
     }
 }

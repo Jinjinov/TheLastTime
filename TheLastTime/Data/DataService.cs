@@ -1,5 +1,4 @@
 ﻿using Blazor.IndexedDB.Framework;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -87,7 +86,6 @@ namespace TheLastTime.Data
         {
             using IndexedDatabase db = await DbFactory.Create<IndexedDatabase>();
 
-            //db.Categories.Clear();
             foreach (Category category in db.Categories)
             {
                 if (category.Id != 1)
