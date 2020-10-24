@@ -70,11 +70,13 @@ namespace TheLastTime.Shared
 
             string jsonString = await streamReader.ReadToEndAsync();
 
-            List<Category>? categoryList = JsonSerializer.Deserialize<List<Category>>(jsonString);
+            List<Category>? categoryList = JsonSerializer.Deserialize<List<Category>>(jsonString, new JsonSerializerOptions { IncludeFields = true, WriteIndented = true });
 
             if (categoryList != null)
             {
                 await DataService.AddData(categoryList);
+
+                NavigationManager.NavigateTo("/", true);
             }
         }
 
