@@ -126,15 +126,15 @@
 
                         @foreach (var time in DataService.TimeList.Where(t => t.HabitId == selectedHabit.Id))
                         {
-                            @if (editTime)
+                            @if (editTime && selectedTime == time)
                             {
-                                <EditForm Model="@time" OnValidSubmit="@(async () => { await DataService.SaveTime(time); editHabit = false; })">
+                                <EditForm Model="@time" OnValidSubmit="@(async () => { await DataService.SaveTime(time); selectedTime = null; editTime = false; })">
 
                                     <div class="input-group mb-1">
                                         <InputDate class="form-control form-control-sm" @bind-Value="@time.DateTime" placeholder="Set time..." />
                                         <div class="input-group-append">
                                             <button type="submit" class="btn btn-sm btn-outline-primary"><span class="fa fa-save"></span></button>
-                                            <button class="btn btn-sm btn-outline-primary" @onclick="@(() => { editTime = false; })"><span class="fa fa-times"></span></button>
+                                            <button class="btn btn-sm btn-outline-primary" @onclick="@(() => { selectedTime = null; editTime = false; })"><span class="fa fa-times"></span></button>
                                         </div>
                                     </div>
 
@@ -148,7 +148,7 @@
                                     <div class="border p-1 flex-grow-1">@time.DateTime</div>
 
                                     <div class="input-group-append">
-                                        <button class="btn btn-sm btn-outline-primary" @onclick="@(() => { editTime = true; })"><span class="fa fa-edit"></span></button>
+                                        <button class="btn btn-sm btn-outline-primary" @onclick="@(() => { selectedTime = time; editTime = true; })"><span class="fa fa-edit"></span></button>
                                         <button class="btn btn-sm btn-outline-primary" @onclick="@(async () => { await DataService.DeleteTime(time); selectedHabit = DataService.HabitDict[time.HabitId]; })"><span class="fa fa-trash-alt"></span></button>
                                     </div>
                                 </div>

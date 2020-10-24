@@ -11,6 +11,8 @@ namespace TheLastTime.Pages
 
         protected Habit? selectedHabit;
 
+        protected Time? selectedTime;
+
         protected bool editCategory;
         protected bool editHabit;
         protected bool editTime;
