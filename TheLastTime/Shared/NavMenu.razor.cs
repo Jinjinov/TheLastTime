@@ -1,11 +1,9 @@
-﻿using Blazor.IndexedDB.Framework;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using TheLastTime.Data;
@@ -51,11 +49,6 @@ namespace TheLastTime.Shared
                 DataService.SaveSettings().Wait();
             }
         }
-
-        //protected override async Task OnInitializedAsync()
-        //{
-        //    await DataService.LoadData();
-        //}
 
         private bool collapseNavMenu = true;
 

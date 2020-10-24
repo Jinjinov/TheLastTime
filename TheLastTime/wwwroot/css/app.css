@@ -25,6 +25,10 @@ app {
     height: 54px;
 }
 
+.close:focus {
+    outline: none !important;
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
