@@ -31,12 +31,12 @@ else
             <a class="d-block btn btn-sm btn-primary" @onclick="@(async () => { await DataService.ClearData(); NavigationManager.NavigateTo("/", true); })">Delete all</a>
         </li>
 
+        <!--
         <li class="nav-item p-2">
             <NavLink class="d-block btn btn-sm btn-primary" href="" Match="NavLinkMatch.All">
                 <span class="fa fa-home" aria-hidden="true"></span> Home
             </NavLink>
         </li>
-        <!--
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="counter">
                 <span class="fa fa-plus" aria-hidden="true"></span> Counter
@@ -53,6 +53,7 @@ else
             </NavLink>
         </li>
         -->
+
         <li class="nav-item p-2">
             <EditForm Model="@BootswatchTheme">
                 <label for="theme" class="text-light">Theme:</label>
@@ -65,5 +66,6 @@ else
                 </InputSelect>
             </EditForm>
         </li>
+
     </ul>
 </div>
