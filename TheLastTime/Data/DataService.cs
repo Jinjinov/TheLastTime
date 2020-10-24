@@ -1,5 +1,4 @@
 ﻿using Blazor.IndexedDB.Framework;
-using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,8 +18,12 @@ namespace TheLastTime.Data
         public Dictionary<long, Habit> habitDict { get; set; } = new Dictionary<long, Habit>();
         public Dictionary<long, Time> timeDict { get; set; } = new Dictionary<long, Time>();
 
-        [Inject]
-        IIndexedDbFactory DbFactory { get; set; } = null!;
+        readonly IIndexedDbFactory DbFactory;
+
+        public DataService(IIndexedDbFactory dbFactory)
+        {
+            DbFactory = dbFactory;
+        }
 
         public async Task LoadData()
         {
@@ -36,7 +39,7 @@ namespace TheLastTime.Data
 
             if (db.Categories.Count == 0)
             {
-                db.Categories.Add(new Category());
+                db.Categories.Add(new Category() { Description = "No category" });
                 await db.SaveChanges();
             }
 
@@ -61,7 +64,7 @@ namespace TheLastTime.Data
             }
         }
 
-        async Task SaveCategory(Category category)
+        public async Task SaveCategory(Category category)
         {
             using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
 
@@ -75,7 +78,7 @@ namespace TheLastTime.Data
             await LoadData();
         }
 
-        async Task DeleteCategory(Category category)
+        public async Task DeleteCategory(Category category)
         {
             using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
             db.Categories.Remove(category);
@@ -84,7 +87,7 @@ namespace TheLastTime.Data
             await LoadData();
         }
 
-        async Task SaveHabit(Habit habit)
+        public async Task SaveHabit(Habit habit)
         {
             using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
 
@@ -98,7 +101,7 @@ namespace TheLastTime.Data
             await LoadData();
         }
 
-        async Task DeleteHabit(Habit habit)
+        public async Task DeleteHabit(Habit habit)
         {
             using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
             db.Habits.Remove(habit);
@@ -107,7 +110,7 @@ namespace TheLastTime.Data
             await LoadData();
         }
 
-        async Task DeleteTime(Time time)
+        public async Task DeleteTime(Time time)
         {
             using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
             db.Times.Remove(time);
@@ -116,7 +119,7 @@ namespace TheLastTime.Data
             await LoadData();
         }
 
-        async Task AddTime(Habit habit)
+        public async Task AddTime(Habit habit)
         {
             using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
 

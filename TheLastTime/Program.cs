@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using TheLastTime.Data;
 
 namespace TheLastTime
 {
@@ -31,6 +32,8 @@ namespace TheLastTime
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
             builder.Services.AddScoped<IIndexedDbFactory, IndexedDbFactory>();
+
+            builder.Services.AddScoped<DataService>();
 
             var host = builder.Build();
 
