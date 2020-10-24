@@ -29,7 +29,7 @@
                             <button class="btn btn-sm btn-outline-primary" @onclick="@(() => { selectedCategory = new Category(); editCategory = true; })">New Category</button>
                         </div>
 
-                        <InputSelect class="form-control form-control-sm" Value="@selectedCategory.Id" ValueExpression="@(() => selectedCategory.Id)" ValueChanged="async (long val) => { selectedCategory.Id = val; }">
+                        <InputSelect class="form-control form-control-sm" Value="@selectedCategory.Id" ValueExpression="@(() => selectedCategory.Id)" ValueChanged="async (long val) => { selectedCategory.Id = val; if (categoryDict.ContainsKey(val)) { selectedCategory = categoryDict[val]; } }">
                             <option value="0">All categories</option>
                             @foreach (var cat in categoryList)
                             {
@@ -72,7 +72,7 @@
 
             <div class="py-5"></div>
 
-            <button class="btn btn-lg btn-primary rounded-circle add-habit" @onclick="@(() => { selectedHabit = new Habit{ CategoryId = selectedCategory.Id }; editHabit = true; })"><span class="oi oi-plus"></span></button>
+            <button class="btn btn-lg btn-primary rounded-circle add-habit" @onclick="@(() => { selectedHabit = new Habit{ CategoryId = selectedCategory.Id != 0 ? selectedCategory.Id : 1 }; editHabit = true; })"><span class="oi oi-plus"></span></button>
         </div>
 
         @if (selectedHabit != null)
@@ -101,8 +101,10 @@
                         }
                         else
                         {
-                            <div class="input-group my-3">
-                                <div class="border">@selectedHabit.Description</div>
+                            <div class="input-group my-3 d-flex">
+
+                                <div class="border p-1 flex-grow-1">@selectedHabit.Description</div>
+
                                 <div class="input-group-append">
                                     <button class="btn btn-sm btn-primary" @onclick="@(() => { editHabit = true; })">Edit Habit</button>
                                     <button class="btn btn-sm btn-primary" @onclick="@(() => DeleteHabit(selectedHabit))">Delete Habit</button>
@@ -112,9 +114,9 @@
 
                         @foreach (var time in timeList.Where(t => t.HabitId == selectedHabit.Id))
                         {
-                            <div class="input-group">
+                            <div class="input-group mb-1 d-flex">
 
-                                <div class="border">@time.DateTime</div>
+                                <div class="border p-1 flex-grow-1">@time.DateTime</div>
 
                                 <div class="input-group-append">
 
