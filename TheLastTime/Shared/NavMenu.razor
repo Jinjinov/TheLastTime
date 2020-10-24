@@ -31,33 +31,10 @@ else
             <a class="d-block btn btn-sm btn-primary" @onclick="@(async () => { await DataService.ClearData(); NavigationManager.NavigateTo("/", true); })">Delete all</a>
         </li>
 
-        <!--
-        <li class="nav-item p-2">
-            <NavLink class="d-block btn btn-sm btn-primary" href="" Match="NavLinkMatch.All">
-                <span class="fa fa-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="fa fa-plus" aria-hidden="true"></span> Counter
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="fa fa-list" aria-hidden="true"></span> Fetch data
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="people">
-                <span class="fa fa-list" aria-hidden="true"></span> People
-            </NavLink>
-        </li>
-        -->
-
         <li class="nav-item p-2">
             <EditForm Model="@BootswatchTheme">
                 <label for="theme" class="text-light">Theme:</label>
-                <InputSelect id="theme" multiple size="@(bootswatchThemeDict.Count + 1)" class="form-control form-control-sm" Value="@BootswatchTheme" ValueExpression="@(() => BootswatchTheme)" ValueChanged="async (string val) => { BootswatchTheme = val; }">
+                <InputSelect id="theme" size="@(bootswatchThemeDict.Count + 1)" class="form-control form-control-sm" Value="@BootswatchTheme" ValueExpression="@(() => BootswatchTheme)" ValueChanged="async (string val) => { BootswatchTheme = val; }">
                     <option value="default">default</option>
                     @foreach (var theme in bootswatchThemeDict.Keys)
                     {

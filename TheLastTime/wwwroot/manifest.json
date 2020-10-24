@@ -1,6 +1,6 @@
 {
-  "name": "TheLastTime",
-  "short_name": "TheLastTime",
+  "name": "When was the last time?",
+  "short_name": "The last time",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
