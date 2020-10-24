@@ -1,8 +1,8 @@
 ﻿<Title Value="The last time"></Title>
 
-@if (bootswatchThemeDict.ContainsKey(bootswatchTheme))
+@if (bootswatchThemeDict.ContainsKey(BootswatchTheme))
 {
-    <Link rel="stylesheet" href="@("https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/" + bootswatchTheme + "/bootstrap.min.css")" integrity="@(bootswatchThemeDict[bootswatchTheme])" crossorigin="anonymous" />
+    <Link rel="stylesheet" href="@("https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/" + BootswatchTheme + "/bootstrap.min.css")" integrity="@(bootswatchThemeDict[BootswatchTheme])" crossorigin="anonymous" />
 }
 else
 {
@@ -54,9 +54,9 @@ else
         </li>
         -->
         <li class="nav-item p-2">
-            <EditForm Model="@bootswatchTheme">
+            <EditForm Model="@BootswatchTheme">
                 <label for="theme" class="text-light">Theme:</label>
-                <InputSelect id="theme" multiple size="@(bootswatchThemeDict.Count + 1)" class="form-control form-control-sm" Value="@bootswatchTheme" ValueExpression="@(() => bootswatchTheme)" ValueChanged="async (string val) => { bootswatchTheme = val; }">
+                <InputSelect id="theme" multiple size="@(bootswatchThemeDict.Count + 1)" class="form-control form-control-sm" Value="@BootswatchTheme" ValueExpression="@(() => BootswatchTheme)" ValueChanged="async (string val) => { BootswatchTheme = val; }">
                     <option value="default">default</option>
                     @foreach (var theme in bootswatchThemeDict.Keys)
                     {

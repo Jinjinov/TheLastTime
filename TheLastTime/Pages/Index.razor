@@ -30,9 +30,9 @@
                             <button class="btn btn-sm btn-outline-primary" @onclick="@(() => { selectedCategory = new Category(); editCategory = true; })">New Category</button>
                         </div>
 
-                        <InputSelect class="form-control form-control-sm" Value="@selectedCategoryId" ValueExpression="@(() => selectedCategoryId)" ValueChanged="async (long val) => { selectedCategoryId = val; if (DataService.categoryDict.ContainsKey(val)) { selectedCategory = DataService.categoryDict[val]; } }">
+                        <InputSelect class="form-control form-control-sm" Value="@selectedCategoryId" ValueExpression="@(() => selectedCategoryId)" ValueChanged="async (long val) => { selectedCategoryId = val; if (DataService.CategoryDict.ContainsKey(val)) { selectedCategory = DataService.CategoryDict[val]; } }">
                             <option value="0">All categories</option>
-                            @foreach (var cat in DataService.categoryList)
+                            @foreach (var cat in DataService.CategoryList)
                             {
                                 <option value="@cat.Id">@cat.Description</option>
                             }
@@ -53,7 +53,7 @@
 
             <div class="accordion" id="accordion-parent">
 
-                @foreach (var habit in DataService.habitList.Where(habit => habit.CategoryId == selectedCategoryId || selectedCategoryId == 0))
+                @foreach (var habit in DataService.HabitList.Where(habit => habit.CategoryId == selectedCategoryId || selectedCategoryId == 0))
                 {
                     <div class="card">
                         <button class="card-header collapsed btn d-flex" data-toggle="collapse" data-target="@("#collapse-" + habit.Id)">
@@ -63,7 +63,7 @@
                         <div id="@("collapse-" + habit.Id)" class="collapse" data-parent="#accordion-parent">
                             <div class="card-body p-3 d-flex">
                                 <div class="m-1"><button class="btn btn-sm btn-primary" @onclick="@(() => { selectedHabit = habit; })">Details</button></div>
-                                <div class="m-1 ml-auto"><button class="btn btn-sm btn-primary" @onclick="@(async () => { await DataService.AddTime(habit); if (selectedHabit != null) { selectedHabit = DataService.habitDict[habit.Id]; } })">Done</button></div>
+                                <div class="m-1 ml-auto"><button class="btn btn-sm btn-primary" @onclick="@(async () => { await DataService.AddTime(habit); if (selectedHabit != null) { selectedHabit = DataService.HabitDict[habit.Id]; } })">Done</button></div>
                             </div>
                         </div>
                     </div>
@@ -117,7 +117,7 @@
                             </div>
                         }
 
-                        @foreach (var time in DataService.timeList.Where(t => t.HabitId == selectedHabit.Id))
+                        @foreach (var time in DataService.TimeList.Where(t => t.HabitId == selectedHabit.Id))
                         {
                             <div class="input-group mb-1 d-flex">
 
@@ -133,7 +133,7 @@
                                     else
                                     {
                                         <button class="btn btn-sm btn-primary" @onclick="@(() => { editTime = true; })">Edit Time</button>
-                                        <button class="btn btn-sm btn-primary" @onclick="@(async () => { await DataService.DeleteTime(time); selectedHabit = DataService.habitDict[time.HabitId]; })">Delete Time</button>
+                                        <button class="btn btn-sm btn-primary" @onclick="@(async () => { await DataService.DeleteTime(time); selectedHabit = DataService.HabitDict[time.HabitId]; })">Delete Time</button>
                                     }
 
                                 </div>

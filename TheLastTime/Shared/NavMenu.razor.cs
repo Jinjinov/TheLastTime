@@ -38,12 +38,12 @@ namespace TheLastTime.Shared
         };
 
         [Inject]
-        NavigationManager NavigationManager { get; set; }
+        NavigationManager NavigationManager { get; set; } = null!;
 
         [Inject]
         DataService DataService { get; set; } = null!;
 
-        protected string bootswatchTheme
+        protected string BootswatchTheme
         {
             get => DataService.Settings.Theme;
             set
@@ -69,6 +69,13 @@ namespace TheLastTime.Shared
             using StreamReader streamReader = new StreamReader(stream);
 
             string jsonString = await streamReader.ReadToEndAsync();
+
+            List<Category>? categoryList = JsonSerializer.Deserialize<List<Category>>(jsonString);
+
+            if (categoryList != null)
+            {
+                await DataService.AddData(categoryList);
+            }
         }
 
         [Inject]
@@ -76,7 +83,7 @@ namespace TheLastTime.Shared
 
         async Task ExportFile()
         {
-            string jsonString = JsonSerializer.Serialize(DataService.categoryList, new JsonSerializerOptions { IncludeFields = true, WriteIndented = true });
+            string jsonString = JsonSerializer.Serialize(DataService.CategoryList, new JsonSerializerOptions { IncludeFields = true, WriteIndented = true });
 
             byte[] bytes = System.Text.Encoding.UTF8.GetBytes(jsonString);
 

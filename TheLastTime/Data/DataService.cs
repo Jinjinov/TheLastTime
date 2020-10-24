@@ -10,13 +10,13 @@ namespace TheLastTime.Data
     {
         public Settings Settings = new Settings();
 
-        public List<Category> categoryList { get; set; } = new List<Category>();
-        public List<Habit> habitList { get; set; } = new List<Habit>();
-        public List<Time> timeList { get; set; } = new List<Time>();
+        public List<Category> CategoryList { get; set; } = new List<Category>();
+        public List<Habit> HabitList { get; set; } = new List<Habit>();
+        public List<Time> TimeList { get; set; } = new List<Time>();
 
-        public Dictionary<long, Category> categoryDict { get; set; } = new Dictionary<long, Category>();
-        public Dictionary<long, Habit> habitDict { get; set; } = new Dictionary<long, Habit>();
-        public Dictionary<long, Time> timeDict { get; set; } = new Dictionary<long, Time>();
+        public Dictionary<long, Category> CategoryDict { get; set; } = new Dictionary<long, Category>();
+        public Dictionary<long, Habit> HabitDict { get; set; } = new Dictionary<long, Habit>();
+        public Dictionary<long, Time> TimeDict { get; set; } = new Dictionary<long, Time>();
 
         readonly IIndexedDbFactory DbFactory;
 
@@ -61,24 +61,24 @@ namespace TheLastTime.Data
                 await db.SaveChanges();
             }
 
-            categoryList = db.Categories.ToList();
-            habitList = db.Habits.ToList();
-            timeList = db.Times.ToList();
+            CategoryList = db.Categories.ToList();
+            HabitList = db.Habits.ToList();
+            TimeList = db.Times.ToList();
 
-            categoryDict = categoryList.ToDictionary(category => category.Id);
-            habitDict = habitList.ToDictionary(habit => habit.Id);
-            timeDict = timeList.ToDictionary(time => time.Id);
+            CategoryDict = CategoryList.ToDictionary(category => category.Id);
+            HabitDict = HabitList.ToDictionary(habit => habit.Id);
+            TimeDict = TimeList.ToDictionary(time => time.Id);
 
-            foreach (Time time in timeList)
+            foreach (Time time in TimeList)
             {
-                if (habitDict.ContainsKey(time.HabitId))
-                    habitDict[time.HabitId].TimeList.Add(time);
+                if (HabitDict.ContainsKey(time.HabitId))
+                    HabitDict[time.HabitId].TimeList.Add(time);
             }
 
-            foreach (Habit habit in habitList)
+            foreach (Habit habit in HabitList)
             {
-                if (categoryDict.ContainsKey(habit.CategoryId))
-                    categoryDict[habit.CategoryId].HabitList.Add(habit);
+                if (CategoryDict.ContainsKey(habit.CategoryId))
+                    CategoryDict[habit.CategoryId].HabitList.Add(habit);
             }
         }
 
@@ -86,9 +86,39 @@ namespace TheLastTime.Data
         {
             using IndexedDatabase db = await DbFactory.Create<IndexedDatabase>();
 
-            db.Categories.Clear();
+            //db.Categories.Clear();
+            foreach (Category category in db.Categories)
+            {
+                if (category.Id != 1)
+                    db.Categories.Remove(category);
+            }
+
             db.Habits.Clear();
             db.Times.Clear();
+
+            await db.SaveChanges();
+
+            await LoadData();
+        }
+
+        public async Task AddData(List<Category> categoryList)
+        {
+            using IndexedDatabase db = await DbFactory.Create<IndexedDatabase>();
+
+            foreach (Category category in categoryList)
+            {
+                db.Categories.Add(category);
+
+                foreach (Habit habit in category.HabitList)
+                {
+                    db.Habits.Add(habit);
+
+                    foreach (Time time in habit.TimeList)
+                    {
+                        db.Times.Add(time);
+                    }
+                }
+            }
 
             await db.SaveChanges();
 
