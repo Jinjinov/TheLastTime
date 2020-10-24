@@ -63,7 +63,7 @@
                         <div id="@("collapse-" + habit.Id)" class="collapse" data-parent="#accordion-parent">
                             <div class="card-body p-3 d-flex">
                                 <div class="m-1"><button class="btn btn-sm btn-primary" @onclick="@(() => { selectedHabit = habit; })">Details</button></div>
-                                <div class="m-1 ml-auto"><button class="btn btn-sm btn-primary" @onclick="@(async () => { await DataService.AddTime(habit); if (selectedHabit != null) { selectedHabit = DataService.HabitDict[habit.Id]; } })">Done</button></div>
+                                <div class="m-1 ml-auto"><button class="btn btn-sm btn-primary" @onclick="@(async () => { await DataService.SaveTime(new Time { HabitId = habit.Id, DateTime = DateTime.Now }); if (selectedHabit != null) { selectedHabit = DataService.HabitDict[habit.Id]; } })">Done</button></div>
                             </div>
                         </div>
                     </div>
@@ -126,25 +126,33 @@
 
                         @foreach (var time in DataService.TimeList.Where(t => t.HabitId == selectedHabit.Id))
                         {
-                            <div class="input-group mb-1 d-flex">
+                            @if (editTime)
+                            {
+                                <EditForm Model="@time" OnValidSubmit="@(async () => { await DataService.SaveTime(time); editHabit = false; })">
 
-                                <div class="border p-1 flex-grow-1">@time.DateTime</div>
+                                    <div class="input-group mb-1">
+                                        <InputDate class="form-control form-control-sm" @bind-Value="@time.DateTime" placeholder="Set time..." />
+                                        <div class="input-group-append">
+                                            <button type="submit" class="btn btn-sm btn-outline-primary"><span class="fa fa-save"></span></button>
+                                            <button class="btn btn-sm btn-outline-primary" @onclick="@(() => { editTime = false; })"><span class="fa fa-times"></span></button>
+                                        </div>
+                                    </div>
 
-                                <div class="input-group-append">
+                                    <div><Microsoft.AspNetCore.Components.Forms.ValidationSummary /></div>
+                                    <DataAnnotationsValidator />
+                                </EditForm>
+                            }
+                            else
+                            {
+                                <div class="input-group mb-1 d-flex">
+                                    <div class="border p-1 flex-grow-1">@time.DateTime</div>
 
-                                    @if (editTime)
-                                    {
-                                        <button class="btn btn-sm btn-outline-primary" @onclick="@(() => {})"><span class="fa fa-save"></span></button>
-                                        <button class="btn btn-sm btn-outline-primary" @onclick="@(() => { editTime = false; })"><span class="fa fa-times"></span></button>
-                                    }
-                                    else
-                                    {
+                                    <div class="input-group-append">
                                         <button class="btn btn-sm btn-outline-primary" @onclick="@(() => { editTime = true; })"><span class="fa fa-edit"></span></button>
                                         <button class="btn btn-sm btn-outline-primary" @onclick="@(async () => { await DataService.DeleteTime(time); selectedHabit = DataService.HabitDict[time.HabitId]; })"><span class="fa fa-trash-alt"></span></button>
-                                    }
-
+                                    </div>
                                 </div>
-                            </div>
+                            }
                         }
                     </div>
                 </div>

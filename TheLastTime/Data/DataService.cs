@@ -31,6 +31,7 @@ namespace TheLastTime.Data
 
             Settings settings = db.Settings.Single();
 
+            settings.Size = Settings.Size;
             settings.Theme = Settings.Theme;
 
             await db.SaveChanges();
@@ -133,6 +134,10 @@ namespace TheLastTime.Data
             {
                 db.Categories.Add(category);
             }
+            else if (db.Categories.SingleOrDefault(c => c.Id == category.Id) is Category dbCategory)
+            {
+                dbCategory.Description = category.Description;
+            }
 
             await db.SaveChanges();
 
@@ -163,6 +168,11 @@ namespace TheLastTime.Data
             {
                 db.Habits.Add(habit);
             }
+            else if (db.Habits.SingleOrDefault(h => h.Id == habit.Id) is Habit dbHabit)
+            {
+                dbHabit.CategoryId = habit.CategoryId;
+                dbHabit.Description = habit.Description;
+            }
 
             await db.SaveChanges();
 
@@ -185,27 +195,28 @@ namespace TheLastTime.Data
             await LoadData();
         }
 
-        public async Task DeleteTime(Time time)
+        public async Task SaveTime(Time time)
         {
             using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
-            db.Times.Remove(time);
+
+            if (time.Id == 0)
+            {
+                db.Times.Add(time);
+            }
+            else if (db.Times.SingleOrDefault(t => t.Id == time.Id) is Time dbTime)
+            {
+                dbTime.DateTime = time.DateTime;
+            }
+
             await db.SaveChanges();
 
             await LoadData();
         }
 
-        public async Task AddTime(Habit habit)
+        public async Task DeleteTime(Time time)
         {
             using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
-
-            Time time = new Time
-            {
-                HabitId = habit.Id,
-                DateTime = DateTime.Now
-            };
-
-            db.Times.Add(time);
-
+            db.Times.Remove(time);
             await db.SaveChanges();
 
             await LoadData();
