@@ -83,9 +83,16 @@
                     <div class="card-body">
                         <button class="close" @onclick="@(() => { selectedHabit = null; })">&#10005;</button>
 
-                        <div class="border p-1 flex-grow-1">@selectedHabit.CategoryId</div>
+                        <EditForm Model="@selectedHabit.CategoryId">
 
-                        <button class="btn btn-sm btn-primary" @onclick="@(() => {})">Change category</button>
+                            <InputSelect class="form-control form-control-sm" Value="@selectedHabit.CategoryId" ValueExpression="@(() => selectedHabit.CategoryId)" ValueChanged="async (long val) => { selectedHabit.CategoryId = val; }">
+                                @foreach (var cat in DataService.CategoryList)
+                                {
+                                    <option value="@cat.Id">@cat.Description</option>
+                                }
+                            </InputSelect>
+
+                        </EditForm>
 
                         @if (editHabit)
                         {
