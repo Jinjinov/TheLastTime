@@ -83,7 +83,7 @@
                     <div class="card-body">
                         <button class="close" @onclick="@(() => { selectedHabit = null; })"><span class="fa fa-times"></span></button>
 
-                        <EditForm Model="@selectedHabit.CategoryId">
+                        <EditForm style="padding-right: 4rem !important;" Model="@selectedHabit.CategoryId">
 
                             <InputSelect class="form-control form-control-sm" Value="@selectedHabit.CategoryId" ValueExpression="@(() => selectedHabit.CategoryId)" ValueChanged="async (long val) => { selectedHabit.CategoryId = val; if (!editHabit) { await DataService.SaveHabit(selectedHabit); } }">
                                 @foreach (var cat in DataService.CategoryList)
