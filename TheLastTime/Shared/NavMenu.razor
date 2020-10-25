@@ -1,12 +1,12 @@
-﻿<Title Value="The last time"></Title>
+﻿<Microsoft.AspNetCore.Components.Web.Extensions.Head.Title Value="The last time"></Microsoft.AspNetCore.Components.Web.Extensions.Head.Title>
 
 @if (bootswatchThemeDict.ContainsKey(BootswatchTheme))
 {
-    <Link rel="stylesheet" href="@("https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/" + BootswatchTheme + "/bootstrap.min.css")" integrity="@(bootswatchThemeDict[BootswatchTheme])" crossorigin="anonymous" />
+    <Microsoft.AspNetCore.Components.Web.Extensions.Head.Link rel="stylesheet" href="@("https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/" + BootswatchTheme + "/bootstrap.min.css")" integrity="@(bootswatchThemeDict[BootswatchTheme])" crossorigin="anonymous" />
 }
 else
 {
-    <Link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
+    <Microsoft.AspNetCore.Components.Web.Extensions.Head.Link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
 }
 
 <div class="top-row navbar navbar-dark bg-primary">

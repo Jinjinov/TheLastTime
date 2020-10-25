@@ -222,7 +222,7 @@ namespace TheLastTime.Data
             await LoadData();
         }
 
-        private void Seed(IndexedDatabase db)
+        private static void Seed(IndexedDatabase db)
         {
             db.Categories.Add(new Category() { Id = 2, Description = "Health" });
             db.Categories.Add(new Category() { Id = 3, Description = "Exercise" });
