@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Blazorise;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
 using System;
@@ -42,6 +43,36 @@ namespace TheLastTime.Shared
 
         [Inject]
         DataService DataService { get; set; } = null!;
+
+        readonly string[] elementSizes = new string[] { "small", "medium", "large" };
+
+        string ElementSize
+        {
+            get => DataService.Settings.Size;
+            set
+            {
+                DataService.Settings.Size = value;
+                DataService.SaveSettings().Wait();
+            }
+        }
+
+        readonly Dictionary<string, ButtonSize> ButtonSizeDict = new Dictionary<string, ButtonSize>()
+        {
+            { "small", ButtonSize.Small },
+            { "medium", ButtonSize.None },
+            { "large", ButtonSize.Large }
+        };
+
+        ButtonSize ButtonSize => ButtonSizeDict[ElementSize];
+
+        readonly Dictionary<string, Size> SizeDict = new Dictionary<string, Size>()
+        {
+            { "small", Size.Small },
+            { "medium", Size.None },
+            { "large", Size.Large }
+        };
+
+        Size Size => SizeDict[ElementSize];
 
         protected string BootswatchTheme
         {

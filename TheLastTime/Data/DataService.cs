@@ -44,7 +44,7 @@ namespace TheLastTime.Data
 
             if (db.Settings.Count == 0)
             {
-                db.Settings.Add(new Settings() { Theme = "superhero" });
+                db.Settings.Add(new Settings() { Size= "medium", Theme = "superhero" });
                 save = true;
             }
 

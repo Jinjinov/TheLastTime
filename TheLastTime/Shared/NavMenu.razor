@@ -32,6 +32,18 @@ else
         </li>
 
         <li class="nav-item p-2">
+            <EditForm Model="@ElementSize">
+                <label for="size" class="text-light">Size:</label>
+                <InputSelect id="size" size="3" class="form-control form-control-sm" Value="@ElementSize" ValueExpression="@(() => ElementSize)" ValueChanged="async (string val) => { ElementSize = val; }">
+                    @foreach (var size in elementSizes)
+                    {
+                        <option value="@size">@size</option>
+                    }
+                </InputSelect>
+            </EditForm>
+        </li>
+
+        <li class="nav-item p-2">
             <EditForm Model="@BootswatchTheme">
                 <label for="theme" class="text-light">Theme:</label>
                 <InputSelect id="theme" size="@(bootswatchThemeDict.Count + 1)" class="form-control form-control-sm" Value="@BootswatchTheme" ValueExpression="@(() => BootswatchTheme)" ValueChanged="async (string val) => { BootswatchTheme = val; }">
