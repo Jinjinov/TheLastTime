@@ -94,10 +94,11 @@
                         {
                             <div class="input-group my-3 d-flex">
 
-                                <div class="border p-1 flex-grow-1">@selectedHabit.Description</div>
-                                <div class="border p-1">@selectedHabit.TimeList.Count x</div>
+                                <TextEdit Size="@Size" ReadOnly="true" Text="@selectedHabit.Description" />
 
                                 <div class="input-group-append">
+                                    <TextEdit Size="@Size" ReadOnly="true" Text="@(selectedHabit.TimeList.Count + "x")" VisibleCharacters="@((selectedHabit.TimeList.Count + "x").Length)" />
+
                                     <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(() => { editHabit = true; })"><span class="fa fa-edit"></span></Button>
                                     <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(async () => { await DataService.DeleteHabit(selectedHabit); selectedHabit = null; })"><span class="fa fa-trash-alt"></span></Button>
                                 </div>
