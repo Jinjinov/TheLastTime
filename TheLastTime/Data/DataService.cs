@@ -1,12 +1,24 @@
 ﻿using Blazor.IndexedDB.Framework;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace TheLastTime.Data
 {
-    public class DataService
+    public class DataService : INotifyPropertyChanged
     {
+        #region INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string propertyname = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
+        }
+
+        #endregion
+
         public Settings Settings = new Settings();
 
         public List<Category> CategoryList { get; set; } = new List<Category>();
@@ -34,6 +46,8 @@ namespace TheLastTime.Data
             settings.Theme = Settings.Theme;
 
             await db.SaveChanges();
+
+            OnPropertyChanged(nameof(Settings));
         }
 
         public async Task LoadData()

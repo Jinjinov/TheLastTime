@@ -24,7 +24,7 @@ else
             <Button Color="Color.Primary" Size="@ButtonSize" Block="true" @onclick="@(() => ExportFile())">Export</Button>
         </li>
         <li class="nav-item p-2">
-            <label for="file-upload" class="d-block btn btn-sm btn-primary mb-0">Import</label>
+            <label for="file-upload" class="d-block btn @ButtonSizeClass btn-primary mb-0">Import</label>
             <InputFile id="file-upload" class="d-none" OnChange="@ImportFile" />
         </li>
         <li class="nav-item p-2">

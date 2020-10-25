@@ -51,8 +51,11 @@ namespace TheLastTime.Shared
             get => DataService.Settings.Size;
             set
             {
-                DataService.Settings.Size = value;
-                DataService.SaveSettings().Wait();
+                if (DataService.Settings.Size != value)
+                {
+                    DataService.Settings.Size = value;
+                    DataService.SaveSettings().Wait();
+                }
             }
         }
 
@@ -64,6 +67,15 @@ namespace TheLastTime.Shared
         };
 
         ButtonSize ButtonSize => ButtonSizeDict[ElementSize];
+
+        readonly Dictionary<string, string> ButtonSizeClassDict = new Dictionary<string, string>()
+        {
+            { "small", "btn-sm" },
+            { "medium", "" },
+            { "large", "btn-lg" }
+        };
+
+        string ButtonSizeClass => ButtonSizeClassDict[ElementSize];
 
         readonly Dictionary<string, Size> SizeDict = new Dictionary<string, Size>()
         {
@@ -79,8 +91,11 @@ namespace TheLastTime.Shared
             get => DataService.Settings.Theme;
             set
             {
-                DataService.Settings.Theme = value;
-                DataService.SaveSettings().Wait();
+                if (DataService.Settings.Theme != value)
+                {
+                    DataService.Settings.Theme = value;
+                    DataService.SaveSettings().Wait();
+                }
             }
         }
 
