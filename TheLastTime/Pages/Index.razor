@@ -109,8 +109,8 @@
                             @if (editTime && selectedTime == time)
                             {
                                 <div class="input-group mb-1">
-                                    <DateEdit TValue="DateTime" Size="@Size" Date="@time.DateTime" DateChanged="@((dateTime) => { time.DateTime = dateTime.Date + time.DateTime.TimeOfDay; })" Placeholder="Set date..." />
-                                    <TimeEdit TValue="TimeSpan" Size="@Size" Time="@time.DateTime.TimeOfDay" TimeChanged="@((timeSpan) => { time.DateTime = time.DateTime.Date + timeSpan; })" Placeholder="Set time..." />
+                                    <DateEdit TValue="DateTime" Size="@Size" Date="@time.DateTime" DateChanged="@((dateTime) => { time.DateTime = dateTime.Date + time.DateTime.TimeOfDay; })" />
+                                    <TimeEdit TValue="TimeSpan" Size="@Size" Time="@time.DateTime.TimeOfDay" TimeChanged="@((timeSpan) => { time.DateTime = time.DateTime.Date + timeSpan; })" />
                                     <div class="input-group-append">
                                         <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(async () => { await DataService.SaveTime(time); selectedTime = null; editTime = false; })"><span class="fa fa-save"></span></Button>
                                         <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(() => { selectedTime = null; editTime = false; })"><span class="fa fa-times"></span></Button>
@@ -120,7 +120,8 @@
                             else
                             {
                                 <div class="input-group mb-1 d-flex">
-                                    <div class="border p-1 flex-grow-1">@time.DateTime</div>
+                                    <DateEdit TValue="DateTime" Size="@Size" ReadOnly="true" Date="@time.DateTime" />
+                                    <TimeEdit TValue="TimeSpan" Size="@Size" ReadOnly="true" Time="@time.DateTime.TimeOfDay" />
 
                                     <div class="input-group-append">
                                         <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(() => { selectedTime = time; editTime = true; })"><span class="fa fa-edit"></span></Button>
