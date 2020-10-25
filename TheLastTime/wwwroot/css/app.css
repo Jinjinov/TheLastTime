@@ -6,8 +6,12 @@
 
 .top-row {
     display: flex;
-    z-index: 3;
+    z-index: 4;
     position: relative;
+}
+
+.sidebar {
+    z-index: 4;
 }
 
 .main {
@@ -21,6 +25,7 @@
     padding: 0 !important;
     width: 54px;
     height: 54px;
+    z-index: 2;
 }
 
 .close:focus {
@@ -60,7 +65,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        z-index: 2;
+        z-index: 3;
     }
 
     .add-habit {
@@ -90,6 +95,7 @@
         height: 100vh;
         position: sticky;
         top: 0;
+        overflow: hidden;
     }
 
     .main .top-row {
