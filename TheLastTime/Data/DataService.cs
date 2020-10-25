@@ -52,8 +52,10 @@ namespace TheLastTime.Data
 
             if (db.Categories.Count == 0)
             {
-                db.Categories.Add(new Category() { Description = "No category" });
+                db.Categories.Add(new Category() { Id = 1, Description = "No category" });
                 save = true;
+
+                Seed(db);
             }
 
             if (save)
@@ -218,6 +220,48 @@ namespace TheLastTime.Data
             await db.SaveChanges();
 
             await LoadData();
+        }
+
+        private void Seed(IndexedDatabase db)
+        {
+            db.Categories.Add(new Category() { Id = 2, Description = "Health" });
+            db.Categories.Add(new Category() { Id = 3, Description = "Exercise" });
+            db.Categories.Add(new Category() { Id = 4, Description = "Appearance" });
+
+            db.Categories.Add(new Category() { Id = 5, Description = "Peace of mind" });
+            db.Categories.Add(new Category() { Id = 6, Description = "Relationships" });
+            db.Categories.Add(new Category() { Id = 7, Description = "Relaxation" });
+
+            db.Categories.Add(new Category() { Id = 8, Description = "Hobbies" });
+            db.Categories.Add(new Category() { Id = 9, Description = "Chores" });
+            db.Categories.Add(new Category() { Id = 10, Description = "Job" });
+
+            db.Habits.Add(new Habit() { Id = 1, CategoryId = 2, Description = "Drink a glass of water" });
+            db.Habits.Add(new Habit() { Id = 2, CategoryId = 2, Description = "Eat a piece of fruit" });
+
+            db.Habits.Add(new Habit() { Id = 3, CategoryId = 3, Description = "Stretch & workout" });
+            db.Habits.Add(new Habit() { Id = 4, CategoryId = 3, Description = "Go hiking" });
+
+            db.Habits.Add(new Habit() { Id = 5, CategoryId = 4, Description = "Go to a hairdresser" });
+            db.Habits.Add(new Habit() { Id = 6, CategoryId = 4, Description = "Buy new clothes" });
+
+            db.Habits.Add(new Habit() { Id = 7, CategoryId = 5, Description = "Take a walk" });
+            db.Habits.Add(new Habit() { Id = 8, CategoryId = 5, Description = "Meditate" });
+
+            db.Habits.Add(new Habit() { Id = 9, CategoryId = 6, Description = "Call parents" });
+            db.Habits.Add(new Habit() { Id = 10, CategoryId = 6, Description = "Do someone a favor" });
+
+            db.Habits.Add(new Habit() { Id = 11, CategoryId = 7, Description = "Read a book" });
+            db.Habits.Add(new Habit() { Id = 12, CategoryId = 7, Description = "Get a massage" });
+
+            db.Habits.Add(new Habit() { Id = 13, CategoryId = 8, Description = "Learn Spanish" });
+            db.Habits.Add(new Habit() { Id = 14, CategoryId = 8, Description = "Play the piano" });
+
+            db.Habits.Add(new Habit() { Id = 15, CategoryId = 9, Description = "Clean dust under the bed" });
+            db.Habits.Add(new Habit() { Id = 16, CategoryId = 9, Description = "Clean the windows" });
+
+            db.Habits.Add(new Habit() { Id = 17, CategoryId = 10, Description = "Ask for a raise" });
+            db.Habits.Add(new Habit() { Id = 18, CategoryId = 10, Description = "Take a break" });
         }
     }
 }
