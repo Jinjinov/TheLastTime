@@ -108,19 +108,14 @@
                         {
                             @if (editTime && selectedTime == time)
                             {
-                                <EditForm Model="@time" OnValidSubmit="@(async () => { await DataService.SaveTime(time); selectedTime = null; editTime = false; })">
-
-                                    <div class="input-group mb-1">
-                                        <InputDate class="form-control form-control-sm" @bind-Value="@time.DateTime" placeholder="Set time..." />
-                                        <div class="input-group-append">
-                                            <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" Type="ButtonType.Submit"><span class="fa fa-save"></span></Button>
-                                            <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(() => { selectedTime = null; editTime = false; })"><span class="fa fa-times"></span></Button>
-                                        </div>
+                                <div class="input-group mb-1">
+                                    <DateEdit TValue="DateTime" Size="@Size" Date="@time.DateTime" DateChanged="@((dateTime) => { time.DateTime = dateTime.Date + time.DateTime.TimeOfDay; })" Placeholder="Set date..." />
+                                    <TimeEdit TValue="TimeSpan" Size="@Size" Time="@time.DateTime.TimeOfDay" TimeChanged="@((timeSpan) => { time.DateTime = time.DateTime.Date + timeSpan; })" Placeholder="Set time..." />
+                                    <div class="input-group-append">
+                                        <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(async () => { await DataService.SaveTime(time); selectedTime = null; editTime = false; })"><span class="fa fa-save"></span></Button>
+                                        <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(() => { selectedTime = null; editTime = false; })"><span class="fa fa-times"></span></Button>
                                     </div>
-
-                                    <div><Microsoft.AspNetCore.Components.Forms.ValidationSummary /></div>
-                                    <DataAnnotationsValidator />
-                                </EditForm>
+                                </div>
                             }
                             else
                             {
