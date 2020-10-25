@@ -6,49 +6,38 @@
 
             @if (editCategory)
             {
-                <EditForm Model="@selectedCategory" OnValidSubmit="@(async () => { await DataService.SaveCategory(selectedCategory); editCategory = false; })">
-
-                    <div class="input-group">
-                        <InputText class="form-control form-control-sm" @bind-Value="@selectedCategory.Description" placeholder="Add new category..." />
-                        <div class="input-group-append">
-                            <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" Type="ButtonType.Submit"><span class="fa fa-save"></span></Button>
-                            <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(() => { editCategory = false; })"><span class="fa fa-times"></span></Button>
-                        </div>
+                <div class="input-group">
+                    <TextEdit Size="@Size" @bind-Text="@selectedCategory.Description" Placeholder="Add new category..." />
+                    <div class="input-group-append">
+                        <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(async () => { await DataService.SaveCategory(selectedCategory); editCategory = false; })"><span class="fa fa-save"></span></Button>
+                        <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(() => { editCategory = false; })"><span class="fa fa-times"></span></Button>
                     </div>
-
-                    <div><Microsoft.AspNetCore.Components.Forms.ValidationSummary /></div>
-                    <DataAnnotationsValidator />
-
-                </EditForm>
+                </div>
             }
             else
             {
-                <EditForm Model="@selectedCategoryId">
-
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(() => { selectedCategory = new Category(); editCategory = true; })"><span class="fa fa-plus"></span></Button>
-                        </div>
-
-                        <InputSelect class="form-control form-control-sm" Value="@selectedCategoryId" ValueExpression="@(() => selectedCategoryId)" ValueChanged="async (long val) => { selectedCategoryId = val; if (DataService.CategoryDict.ContainsKey(val)) { selectedCategory = DataService.CategoryDict[val]; } }">
-                            <option value="0">All categories</option>
-                            @foreach (var cat in DataService.CategoryList)
-                            {
-                                <option value="@cat.Id">@cat.Description</option>
-                            }
-                        </InputSelect>
-
-                        @if (selectedCategoryId > 1)
-                        {
-                            <div class="input-group-append">
-                                <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(() => { editCategory = true; })"><span class="fa fa-edit"></span></Button>
-
-                                <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(async () => { await DataService.DeleteCategory(selectedCategory); selectedCategoryId = 0; })"><span class="fa fa-trash-alt"></span></Button>
-                            </div>
-                        }
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(() => { selectedCategory = new Category(); editCategory = true; })"><span class="fa fa-plus"></span></Button>
                     </div>
 
-                </EditForm>
+                    <Select TValue="long" Size="@Size" SelectedValue="@selectedCategoryId" SelectedValueChanged="async (long val) => { selectedCategoryId = val; if (DataService.CategoryDict.ContainsKey(val)) { selectedCategory = DataService.CategoryDict[val]; } }">
+                        <SelectItem Value="0">All categories</SelectItem>
+                        @foreach (var cat in DataService.CategoryList)
+                        {
+                            <SelectItem Value="@cat.Id">@cat.Description</SelectItem>
+                        }
+                    </Select>
+
+                    @if (selectedCategoryId > 1)
+                    {
+                        <div class="input-group-append">
+                            <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(() => { editCategory = true; })"><span class="fa fa-edit"></span></Button>
+
+                            <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(async () => { await DataService.DeleteCategory(selectedCategory); selectedCategoryId = 0; })"><span class="fa fa-trash-alt"></span></Button>
+                        </div>
+                    }
+                </div>
             }
 
             <div class="">
@@ -80,32 +69,26 @@
                     <div class="card-body">
                         <Button class="close" @onclick="@(() => { selectedHabit = null; })"><span class="fa fa-times"></span></Button>
 
-                        <EditForm style="padding-right: 4rem !important;" Model="@selectedHabit.CategoryId">
+                        <div style="padding-right: 40px;">
 
-                            <InputSelect class="form-control form-control-sm" Value="@selectedHabit.CategoryId" ValueExpression="@(() => selectedHabit.CategoryId)" ValueChanged="async (long val) => { selectedHabit.CategoryId = val; if (!editHabit) { await DataService.SaveHabit(selectedHabit); } }">
+                            <Select TValue="long" Size="@Size" SelectedValue="@selectedHabit.CategoryId" SelectedValueChanged="async (long val) => { selectedHabit.CategoryId = val; if (!editHabit) { await DataService.SaveHabit(selectedHabit); } }">
                                 @foreach (var cat in DataService.CategoryList)
                                 {
-                                    <option value="@cat.Id">@cat.Description</option>
+                                    <SelectItem Value="@cat.Id">@cat.Description</SelectItem>
                                 }
-                            </InputSelect>
+                            </Select>
 
-                        </EditForm>
+                        </div>
 
                         @if (editHabit)
                         {
-                            <EditForm Model="@selectedHabit" OnValidSubmit="@(async () => { await DataService.SaveHabit(selectedHabit); editHabit = false; })">
-
-                                <div class="input-group my-3">
-                                    <InputText class="form-control form-control-sm" @bind-Value="@selectedHabit.Description" placeholder="Add new habit..." />
-                                    <div class="input-group-append">
-                                        <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" Type="ButtonType.Submit"><span class="fa fa-save"></span></Button>
-                                        <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(() => { editHabit = false; })"><span class="fa fa-times"></span></Button>
-                                    </div>
+                            <div class="input-group my-3">
+                                <TextEdit Size="@Size" @bind-Text="@selectedHabit.Description" Placeholder="Add new habit..." />
+                                <div class="input-group-append">
+                                    <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(async () => { await DataService.SaveHabit(selectedHabit); editHabit = false; })"><span class="fa fa-save"></span></Button>
+                                    <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(() => { editHabit = false; })"><span class="fa fa-times"></span></Button>
                                 </div>
-
-                                <div><Microsoft.AspNetCore.Components.Forms.ValidationSummary /></div>
-                                <DataAnnotationsValidator />
-                            </EditForm>
+                            </div>
                         }
                         else
                         {
