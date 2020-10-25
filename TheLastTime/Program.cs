@@ -15,7 +15,7 @@ namespace TheLastTime
     {
         public static async Task Main(string[] args)
         {
-            var builder = WebAssemblyHostBuilder.CreateDefault(args);
+            WebAssemblyHostBuilder builder = WebAssemblyHostBuilder.CreateDefault(args);
 
             builder.Services
                 .AddBlazorise(options =>
@@ -33,7 +33,7 @@ namespace TheLastTime
 
             builder.Services.AddScoped<DataService>();
 
-            var host = builder.Build();
+            WebAssemblyHost host = builder.Build();
 
             host.Services
                 .UseBootstrapProviders()

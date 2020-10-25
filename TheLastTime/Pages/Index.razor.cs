@@ -3,23 +3,22 @@ using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using TheLastTime.Data;
 
 namespace TheLastTime.Pages
 {
-    public partial class Index : IDisposable
+    public sealed partial class Index : IDisposable
     {
-        protected Category selectedCategory = new Category();
-        protected long selectedCategoryId;
+        public Category selectedCategory = new Category();
+        public long selectedCategoryId;
 
-        protected Habit? selectedHabit;
+        public Habit? selectedHabit;
 
-        protected Time? selectedTime;
+        public Time? selectedTime;
 
-        protected bool editCategory;
-        protected bool editHabit;
-        protected bool editTime;
+        public bool editCategory;
+        public bool editHabit;
+        public bool editTime;
 
         [Inject]
         DataService DataService { get; set; } = null!;
@@ -32,6 +31,15 @@ namespace TheLastTime.Pages
         };
 
         ButtonSize ButtonSize => ButtonSizeDict[DataService.Settings.Size];
+
+        readonly Dictionary<string, string> ButtonSizeClassDict = new Dictionary<string, string>()
+        {
+            { "small", "btn-sm" },
+            { "medium", "" },
+            { "large", "btn-lg" }
+        };
+
+        string ButtonSizeClass => ButtonSizeClassDict[DataService.Settings.Size];
 
         readonly Dictionary<string, Size> SizeDict = new Dictionary<string, Size>()
         {
@@ -47,7 +55,7 @@ namespace TheLastTime.Pages
             DataService.PropertyChanged += DataService_PropertyChanged;
         }
 
-        private void DataService_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        void DataService_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             StateHasChanged();
         }

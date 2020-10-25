@@ -23,7 +23,7 @@
 
                     <Select TValue="long" Size="@Size" SelectedValue="@selectedCategoryId" SelectedValueChanged="async (long val) => { selectedCategoryId = val; if (DataService.CategoryDict.ContainsKey(val)) { selectedCategory = DataService.CategoryDict[val]; } }">
                         <SelectItem Value="0">All categories</SelectItem>
-                        @foreach (var cat in DataService.CategoryList)
+                        @foreach (Category cat in DataService.CategoryList)
                         {
                             <SelectItem Value="@cat.Id">@cat.Description</SelectItem>
                         }
@@ -41,11 +41,11 @@
             }
 
             <div class="">
-                @foreach (var habit in DataService.HabitList.Where(habit => habit.CategoryId == selectedCategoryId || selectedCategoryId == 0))
+                @foreach (Habit habit in DataService.HabitList.Where(habit => habit.CategoryId == selectedCategoryId || selectedCategoryId == 0))
                 {
                     <div class="input-group my-1">
                         <div class="input-group-prepend flex-grow-1">
-                            <div class="btn btn-secondary border border-right-0 flex-grow-1 d-flex" @onclick="@(() => { selectedHabit = habit; })">
+                            <div class="btn btn-secondary @ButtonSizeClass border border-right-0 flex-grow-1 d-flex" @onclick="@(() => { selectedHabit = habit; })">
                                 <div class="m-1">@habit.Description</div>
                                 <div class="m-1 ml-auto">@(habit.TimeList.Count > 0 ? habit.TimeList.Last().DateTime : "Never")</div>
                             </div>
@@ -72,7 +72,7 @@
                         <div style="padding-right: 40px;">
 
                             <Select TValue="long" Size="@Size" SelectedValue="@selectedHabit.CategoryId" SelectedValueChanged="async (long val) => { selectedHabit.CategoryId = val; if (!editHabit) { await DataService.SaveHabit(selectedHabit); } }">
-                                @foreach (var cat in DataService.CategoryList)
+                                @foreach (Category cat in DataService.CategoryList)
                                 {
                                     <SelectItem Value="@cat.Id">@cat.Description</SelectItem>
                                 }
@@ -104,7 +104,7 @@
                             </div>
                         }
 
-                        @foreach (var time in DataService.TimeList.Where(t => t.HabitId == selectedHabit.Id))
+                        @foreach (Time time in DataService.TimeList.Where(t => t.HabitId == selectedHabit.Id))
                         {
                             @if (editTime && selectedTime == time)
                             {

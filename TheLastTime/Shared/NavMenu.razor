@@ -32,28 +32,28 @@ else
         </li>
 
         <li class="nav-item px-2 py-1">
-            <EditForm Model="@ElementSize">
-                <label for="size" class="text-light">Size:</label>
-                <InputSelect id="size" size="3" class="form-control form-control-sm" Value="@ElementSize" ValueExpression="@(() => ElementSize)" ValueChanged="async (string val) => { ElementSize = val; }">
-                    @foreach (var size in elementSizes)
+            <Field>
+                <FieldLabel Class="text-light">Size:</FieldLabel>
+                <Select TValue="string" MaxVisibleItems="3" Size="@Size" SelectedValue="@ElementSize" SelectedValueChanged="async (string val) => { ElementSize = val; }">
+                    @foreach (string size in elementSizes)
                     {
-                        <option value="@size">@size</option>
+                        <SelectItem Value="@size">@size</SelectItem>
                     }
-                </InputSelect>
-            </EditForm>
+                </Select>
+            </Field>
         </li>
 
         <li class="nav-item px-2 py-1">
-            <EditForm Model="@BootswatchTheme">
-                <label for="theme" class="text-light">Theme:</label>
-                <InputSelect id="theme" size="@(bootswatchThemeDict.Count + 1)" class="form-control form-control-sm" Value="@BootswatchTheme" ValueExpression="@(() => BootswatchTheme)" ValueChanged="async (string val) => { BootswatchTheme = val; }">
-                    <option value="default">default</option>
-                    @foreach (var theme in bootswatchThemeDict.Keys)
+            <Field>
+                <FieldLabel Class="text-light">Theme:</FieldLabel>
+                <Select TValue="string" MaxVisibleItems="@(bootswatchThemeDict.Count + 1)" Size="@Size" SelectedValue="@BootswatchTheme" SelectedValueChanged="async (string val) => { BootswatchTheme = val; }">
+                    <SelectItem Value="@("default")">default</SelectItem>
+                    @foreach (string theme in bootswatchThemeDict.Keys)
                     {
-                        <option value="@theme">@theme</option>
+                        <SelectItem Value="@theme">@theme</SelectItem>
                     }
-                </InputSelect>
-            </EditForm>
+                </Select>
+            </Field>
         </li>
 
     </ul>
