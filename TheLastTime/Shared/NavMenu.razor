@@ -21,17 +21,17 @@ else
     <ul class="nav flex-column">
 
         <li class="nav-item p-2">
-            <a class="d-block btn btn-sm btn-primary" @onclick="@(() => ExportFile())">Export</a>
+            <Button Color="Color.Primary" Size="@ButtonSize" Block="true" @onclick="@(() => ExportFile())">Export</Button>
         </li>
         <li class="nav-item p-2">
             <label for="file-upload" class="d-block btn btn-sm btn-primary mb-0">Import</label>
             <InputFile id="file-upload" class="d-none" OnChange="@ImportFile" />
         </li>
         <li class="nav-item p-2">
-            <a class="d-block btn btn-sm btn-primary" @onclick="@(async () => { await DataService.ClearData(); NavigationManager.NavigateTo("/", true); })">Delete all</a>
+            <Button Color="Color.Primary" Size="@ButtonSize" Block="true" @onclick="@(async () => { await DataService.ClearData(); NavigationManager.NavigateTo("/", true); })">Delete all</Button>
         </li>
 
-        <li class="nav-item p-2">
+        <li class="nav-item px-2 py-1">
             <EditForm Model="@ElementSize">
                 <label for="size" class="text-light">Size:</label>
                 <InputSelect id="size" size="3" class="form-control form-control-sm" Value="@ElementSize" ValueExpression="@(() => ElementSize)" ValueChanged="async (string val) => { ElementSize = val; }">
@@ -43,7 +43,7 @@ else
             </EditForm>
         </li>
 
-        <li class="nav-item p-2">
+        <li class="nav-item px-2 py-1">
             <EditForm Model="@BootswatchTheme">
                 <label for="theme" class="text-light">Theme:</label>
                 <InputSelect id="theme" size="@(bootswatchThemeDict.Count + 1)" class="form-control form-control-sm" Value="@BootswatchTheme" ValueExpression="@(() => BootswatchTheme)" ValueChanged="async (string val) => { BootswatchTheme = val; }">

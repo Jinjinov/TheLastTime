@@ -11,8 +11,8 @@
                     <div class="input-group">
                         <InputText class="form-control form-control-sm" @bind-Value="@selectedCategory.Description" placeholder="Add new category..." />
                         <div class="input-group-append">
-                            <button type="submit" class="btn btn-sm btn-outline-primary"><span class="fa fa-save"></span></button>
-                            <button class="btn btn-sm btn-outline-primary" @onclick="@(() => { editCategory = false; })"><span class="fa fa-times"></span></button>
+                            <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" Type="ButtonType.Submit"><span class="fa fa-save"></span></Button>
+                            <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(() => { editCategory = false; })"><span class="fa fa-times"></span></Button>
                         </div>
                     </div>
 
@@ -27,7 +27,7 @@
 
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <button class="btn btn-sm btn-outline-primary" @onclick="@(() => { selectedCategory = new Category(); editCategory = true; })"><span class="fa fa-plus"></span></button>
+                            <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(() => { selectedCategory = new Category(); editCategory = true; })"><span class="fa fa-plus"></span></Button>
                         </div>
 
                         <InputSelect class="form-control form-control-sm" Value="@selectedCategoryId" ValueExpression="@(() => selectedCategoryId)" ValueChanged="async (long val) => { selectedCategoryId = val; if (DataService.CategoryDict.ContainsKey(val)) { selectedCategory = DataService.CategoryDict[val]; } }">
@@ -41,9 +41,9 @@
                         @if (selectedCategoryId > 1)
                         {
                             <div class="input-group-append">
-                                <button class="btn btn-sm btn-outline-primary" @onclick="@(() => { editCategory = true; })"><span class="fa fa-edit"></span></button>
+                                <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(() => { editCategory = true; })"><span class="fa fa-edit"></span></Button>
 
-                                <button class="btn btn-sm btn-outline-primary" @onclick="@(async () => { await DataService.DeleteCategory(selectedCategory); selectedCategoryId = 0; })"><span class="fa fa-trash-alt"></span></button>
+                                <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(async () => { await DataService.DeleteCategory(selectedCategory); selectedCategoryId = 0; })"><span class="fa fa-trash-alt"></span></Button>
                             </div>
                         }
                     </div>
@@ -62,7 +62,7 @@
                             </div>
                         </div>
                         <div class="input-group-append">
-                            <button class="btn btn-sm btn-outline-primary" @onclick="@(async () => { await DataService.SaveTime(new Time { HabitId = habit.Id, DateTime = DateTime.Now }); if (selectedHabit != null) { selectedHabit = DataService.HabitDict[habit.Id]; } })"><span class="fa fa-check"></span></button>
+                            <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(async () => { await DataService.SaveTime(new Time { HabitId = habit.Id, DateTime = DateTime.Now }); if (selectedHabit != null) { selectedHabit = DataService.HabitDict[habit.Id]; } })"><span class="fa fa-check"></span></Button>
                         </div>
                     </div>
                 }
@@ -70,7 +70,7 @@
 
             <div class="py-5"></div>
 
-            <button class="btn btn-lg btn-primary rounded-circle add-habit" @onclick="@(() => { selectedHabit = new Habit{ CategoryId = selectedCategoryId != 0 ? selectedCategoryId : 1 }; editHabit = true; })"><span class="fa fa-plus"></span></button>
+            <Button class="btn btn-lg btn-primary rounded-circle add-habit" @onclick="@(() => { selectedHabit = new Habit{ CategoryId = selectedCategoryId != 0 ? selectedCategoryId : 1 }; editHabit = true; })"><span class="fa fa-plus"></span></Button>
         </div>
 
         @if (selectedHabit != null)
@@ -78,7 +78,7 @@
             <div id="overlay" class="col-md-12 col-lg-6 d-flex">
                 <div class="card flex-grow-1">
                     <div class="card-body">
-                        <button class="close" @onclick="@(() => { selectedHabit = null; })"><span class="fa fa-times"></span></button>
+                        <Button class="close" @onclick="@(() => { selectedHabit = null; })"><span class="fa fa-times"></span></Button>
 
                         <EditForm style="padding-right: 4rem !important;" Model="@selectedHabit.CategoryId">
 
@@ -98,8 +98,8 @@
                                 <div class="input-group my-3">
                                     <InputText class="form-control form-control-sm" @bind-Value="@selectedHabit.Description" placeholder="Add new habit..." />
                                     <div class="input-group-append">
-                                        <button type="submit" class="btn btn-sm btn-outline-primary"><span class="fa fa-save"></span></button>
-                                        <button class="btn btn-sm btn-outline-primary" @onclick="@(() => { editHabit = false; })"><span class="fa fa-times"></span></button>
+                                        <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" Type="ButtonType.Submit"><span class="fa fa-save"></span></Button>
+                                        <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(() => { editHabit = false; })"><span class="fa fa-times"></span></Button>
                                     </div>
                                 </div>
 
@@ -115,8 +115,8 @@
                                 <div class="border p-1">@selectedHabit.TimeList.Count x</div>
 
                                 <div class="input-group-append">
-                                    <button class="btn btn-sm btn-outline-primary" @onclick="@(() => { editHabit = true; })"><span class="fa fa-edit"></span></button>
-                                    <button class="btn btn-sm btn-outline-primary" @onclick="@(async () => { await DataService.DeleteHabit(selectedHabit); selectedHabit = null; })"><span class="fa fa-trash-alt"></span></button>
+                                    <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(() => { editHabit = true; })"><span class="fa fa-edit"></span></Button>
+                                    <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(async () => { await DataService.DeleteHabit(selectedHabit); selectedHabit = null; })"><span class="fa fa-trash-alt"></span></Button>
                                 </div>
                             </div>
                         }
@@ -130,8 +130,8 @@
                                     <div class="input-group mb-1">
                                         <InputDate class="form-control form-control-sm" @bind-Value="@time.DateTime" placeholder="Set time..." />
                                         <div class="input-group-append">
-                                            <button type="submit" class="btn btn-sm btn-outline-primary"><span class="fa fa-save"></span></button>
-                                            <button class="btn btn-sm btn-outline-primary" @onclick="@(() => { selectedTime = null; editTime = false; })"><span class="fa fa-times"></span></button>
+                                            <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" Type="ButtonType.Submit"><span class="fa fa-save"></span></Button>
+                                            <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(() => { selectedTime = null; editTime = false; })"><span class="fa fa-times"></span></Button>
                                         </div>
                                     </div>
 
@@ -145,8 +145,8 @@
                                     <div class="border p-1 flex-grow-1">@time.DateTime</div>
 
                                     <div class="input-group-append">
-                                        <button class="btn btn-sm btn-outline-primary" @onclick="@(() => { selectedTime = time; editTime = true; })"><span class="fa fa-edit"></span></button>
-                                        <button class="btn btn-sm btn-outline-primary" @onclick="@(async () => { await DataService.DeleteTime(time); selectedHabit = DataService.HabitDict[time.HabitId]; })"><span class="fa fa-trash-alt"></span></button>
+                                        <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(() => { selectedTime = time; editTime = true; })"><span class="fa fa-edit"></span></Button>
+                                        <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(async () => { await DataService.DeleteTime(time); selectedHabit = DataService.HabitDict[time.HabitId]; })"><span class="fa fa-trash-alt"></span></Button>
                                     </div>
                                 </div>
                             }
