@@ -51,8 +51,7 @@
                 </EditForm>
             }
 
-            <div class="accordion" id="accordion-parent">
-
+            @*<div class="accordion" id="accordion-parent">
                 @foreach (var habit in DataService.HabitList.Where(habit => habit.CategoryId == selectedCategoryId || selectedCategoryId == 0))
                 {
                     <div class="card">
@@ -68,7 +67,23 @@
                         </div>
                     </div>
                 }
+            </div>*@
 
+            <div class="">
+                @foreach (var habit in DataService.HabitList.Where(habit => habit.CategoryId == selectedCategoryId || selectedCategoryId == 0))
+                {
+                    <div class="input-group my-1">
+                        <div class="input-group-prepend flex-grow-1">
+                            <div class="btn btn-secondary border border-right-0 flex-grow-1 d-flex" @onclick="@(() => { selectedHabit = habit; })">
+                                <div class="m-1">@habit.Description</div>
+                                <div class="m-1 ml-auto">@(habit.TimeList.Count > 0 ? habit.TimeList.Last().DateTime : "Never")</div>
+                            </div>
+                        </div>
+                        <div class="input-group-append">
+                            <button class="btn btn-sm btn-outline-primary" @onclick="@(async () => { await DataService.SaveTime(new Time { HabitId = habit.Id, DateTime = DateTime.Now }); if (selectedHabit != null) { selectedHabit = DataService.HabitDict[habit.Id]; } })"><span class="fa fa-check"></span></button>
+                        </div>
+                    </div>
+                }
             </div>
 
             <div class="py-5"></div>
