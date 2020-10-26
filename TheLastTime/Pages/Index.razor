@@ -6,7 +6,7 @@
 
             @if (editCategory)
             {
-                <div class="input-group">
+                <div class="input-group flex-nowrap">
                     <TextEdit Size="@Size" @bind-Text="@selectedCategory.Description" Placeholder="Add new category..." />
                     <div class="input-group-append">
                         <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(async () => { await DataService.SaveCategory(selectedCategory); editCategory = false; })"><span class="fa fa-save"></span></Button>
@@ -16,7 +16,7 @@
             }
             else
             {
-                <div class="input-group">
+                <div class="input-group flex-nowrap">
                     <div class="input-group-prepend">
                         <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(() => { selectedCategory = new Category(); editCategory = true; })"><span class="fa fa-plus"></span></Button>
                     </div>
@@ -43,7 +43,7 @@
             <div class="">
                 @foreach (Habit habit in DataService.HabitList.Where(habit => habit.CategoryId == selectedCategoryId || selectedCategoryId == 0))
                 {
-                    <div class="input-group my-1">
+                    <div class="input-group flex-nowrap my-1">
                         <div class="input-group-prepend flex-grow-1">
                             <div class="btn btn-secondary @ButtonSizeClass border border-right-0 flex-grow-1 d-flex" @onclick="@(() => { selectedHabit = habit; })">
                                 <div class="m-1">@habit.Description</div>
@@ -82,7 +82,7 @@
 
                         @if (editHabit)
                         {
-                            <div class="input-group my-3">
+                            <div class="input-group flex-nowrap my-3">
                                 <TextEdit Size="@Size" @bind-Text="@selectedHabit.Description" Placeholder="Add new habit..." />
                                 <div class="input-group-append">
                                     <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(async () => { await DataService.SaveHabit(selectedHabit); editHabit = false; })"><span class="fa fa-save"></span></Button>
@@ -92,7 +92,7 @@
                         }
                         else
                         {
-                            <div class="input-group my-3 d-flex">
+                            <div class="input-group flex-nowrap my-3 d-flex">
 
                                 <TextEdit Size="@Size" ReadOnly="true" Text="@selectedHabit.Description" />
 
@@ -109,7 +109,7 @@
                         {
                             @if (editTime && selectedTime == time)
                             {
-                                <div class="input-group mb-1">
+                                <div class="input-group flex-nowrap mb-1">
                                     <DateEdit TValue="DateTime" Size="@Size" Date="@time.DateTime" DateChanged="@((dateTime) => { time.DateTime = dateTime.Date + time.DateTime.TimeOfDay; })" />
                                     <TimeEdit TValue="TimeSpan" Size="@Size" Time="@time.DateTime.TimeOfDay" TimeChanged="@((timeSpan) => { time.DateTime = time.DateTime.Date + timeSpan; })" />
                                     <div class="input-group-append">
@@ -120,7 +120,7 @@
                             }
                             else
                             {
-                                <div class="input-group mb-1 d-flex">
+                                <div class="input-group flex-nowrap mb-1 d-flex">
                                     <DateEdit TValue="DateTime" Size="@Size" ReadOnly="true" Date="@time.DateTime" />
                                     <TimeEdit TValue="TimeSpan" Size="@Size" ReadOnly="true" Time="@time.DateTime.TimeOfDay" />
 
