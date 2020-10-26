@@ -98,7 +98,7 @@
                                 <TextEdit Size="@Size" ReadOnly="true" Text="@selectedHabit.Description" />
 
                                 <div class="input-group-append">
-                                    <TextEdit Size="@Size" ReadOnly="true" Text="@(selectedHabit.TimeList.Count + "x")" VisibleCharacters="@((selectedHabit.TimeList.Count + "x").Length)" />
+                                    <TextEdit Class="rounded-0 border-right-0" Size="@Size" ReadOnly="true" Text="@(selectedHabit.TimeList.Count + "x")" VisibleCharacters="@((selectedHabit.TimeList.Count + "x").Length)" />
 
                                     <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(() => { editHabit = true; })"><span class="fa fa-edit"></span></Button>
                                     <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(async () => { await DataService.DeleteHabit(selectedHabit); selectedHabit = null; })"><span class="fa fa-trash-alt"></span></Button>
