@@ -1,9 +1,9 @@
 ﻿@page "/"
 
-<div class="container-fluid py-3 d-flex flex-grow-1">
-    <div id="overlay-parent" class="row flex-grow-1">
-        <div class="col-md-12 col-lg-6">
+<div class="container-fluid px-1 px-sm-0 py-2 py-sm-3 d-flex flex-grow-1">
+    <div id="overlay-parent" class="row mx-0 flex-grow-1">
 
+        <div class="col-md-12 col-lg-6 px-1 px-sm-3">
             @if (editCategory)
             {
                 <div class="input-group flex-nowrap">
@@ -64,9 +64,10 @@
 
         @if (selectedHabit != null)
         {
-            <div id="overlay" class="col-md-12 col-lg-6 d-flex">
+            <div id="overlay" class="col-md-12 col-lg-6 px-1 px-sm-3 d-flex">
                 <div class="card flex-grow-1">
-                    <div class="card-body">
+
+                    <div class="card-body p-2 p-sm-3">
                         <Button class="close" @onclick="@(() => { selectedHabit = null; })"><span class="fa fa-times"></span></Button>
 
                         <div style="padding-right: 40px;">
@@ -132,6 +133,7 @@
                             }
                         }
                     </div>
+
                 </div>
             </div>
         }
