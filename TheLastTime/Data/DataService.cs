@@ -68,8 +68,6 @@ namespace TheLastTime.Data
             {
                 db.Categories.Add(new Category() { Id = 1, Description = "No category" });
                 save = true;
-
-                Seed(db);
             }
 
             if (save)
@@ -236,8 +234,10 @@ namespace TheLastTime.Data
             await LoadData();
         }
 
-        private static void Seed(IndexedDatabase db)
+        public async Task SeedExamples()
         {
+            using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
+
             db.Categories.Add(new Category() { Id = 2, Description = "Health" });
             db.Categories.Add(new Category() { Id = 3, Description = "Exercise" });
             db.Categories.Add(new Category() { Id = 4, Description = "Appearance" });
@@ -276,6 +276,10 @@ namespace TheLastTime.Data
 
             db.Habits.Add(new Habit() { Id = 17, CategoryId = 10, Description = "Ask for a raise" });
             db.Habits.Add(new Habit() { Id = 18, CategoryId = 10, Description = "Take a break" });
+
+            await db.SaveChanges();
+
+            await LoadData();
         }
     }
 }

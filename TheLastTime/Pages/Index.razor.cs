@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using TheLastTime.Data;
 
 namespace TheLastTime.Pages
@@ -50,8 +51,16 @@ namespace TheLastTime.Pages
 
         Size Size => SizeDict[DataService.Settings.Size];
 
-        protected override void OnInitialized()
+        [Parameter]
+        public string? SeedExamples { get; set; }
+
+        protected async override Task OnInitializedAsync()
         {
+            if (SeedExamples == "examples")
+            {
+                await DataService.SeedExamples();
+            }
+
             DataService.PropertyChanged += DataService_PropertyChanged;
         }
 
