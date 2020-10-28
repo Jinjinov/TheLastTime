@@ -22,6 +22,9 @@ namespace TheLastTime.Pages
         public bool editTime;
 
         [Inject]
+        NavigationManager NavigationManager { get; set; } = null!;
+
+        [Inject]
         DataService DataService { get; set; } = null!;
 
         readonly Dictionary<string, ButtonSize> ButtonSizeDict = new Dictionary<string, ButtonSize>()
@@ -56,7 +59,9 @@ namespace TheLastTime.Pages
 
         protected async override Task OnInitializedAsync()
         {
-            if (SeedExamples == "examples")
+            string query = NavigationManager.ToAbsoluteUri(NavigationManager.Uri).Query;
+
+            if (SeedExamples == "examples" || query == "?examples")
             {
                 await DataService.SeedExamples();
             }
