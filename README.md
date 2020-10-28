@@ -5,4 +5,4 @@ https://what.should-i.be/
 
 How to use:
 
-https://what.should-i.be/examples
+https://what.should-i.be/?examples
