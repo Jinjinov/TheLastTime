@@ -5,9 +5,12 @@ using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using TheLastTime.Data;
+using YamlDotNet.Serialization;
 
 namespace TheLastTime.Shared
 {
@@ -114,9 +117,38 @@ namespace TheLastTime.Shared
 
             using StreamReader streamReader = new StreamReader(stream);
 
-            string jsonString = await streamReader.ReadToEndAsync();
+            string text = await streamReader.ReadToEndAsync();
 
-            List<Category>? categoryList = JsonSerializer.Deserialize<List<Category>>(jsonString, new JsonSerializerOptions { IncludeFields = true, WriteIndented = true });
+            List<Category>? categoryList = null;
+
+            if (e.File.Name.EndsWith(".json"))
+            {
+                categoryList = JsonSerializer.Deserialize<List<Category>>(text, new JsonSerializerOptions { IncludeFields = true, WriteIndented = true });
+            }
+
+            if (e.File.Name.EndsWith(".yaml"))
+            {
+                Deserializer deserializer = new Deserializer();
+                Dictionary<string, List<string>> dict = deserializer.Deserialize<Dictionary<string, List<string>>>(text);
+
+                categoryList = new List<Category>();
+
+                long maxId = DataService.CategoryList.Max(category => category.Id);
+
+                foreach (var pair in dict)
+                {
+                    Category category = new Category { Id = ++maxId, Description = pair.Key };
+
+                    foreach (var item in pair.Value)
+                    {
+                        Habit habit = new Habit { CategoryId = category.Id, Description = item };
+
+                        category.HabitList.Add(habit);
+                    }
+
+                    categoryList.Add(category);
+                }
+            }
 
             if (categoryList != null)
             {
@@ -126,21 +158,36 @@ namespace TheLastTime.Shared
             }
         }
 
-        [Inject]
-        IJSRuntime JSRuntime { get; set; } = null!;
+        protected bool allData = true;
 
         async Task ExportFile()
         {
-            string jsonString = JsonSerializer.Serialize(DataService.CategoryList, new JsonSerializerOptions { IncludeFields = true, WriteIndented = true });
+            if (allData)
+            {
+                string jsonString = JsonSerializer.Serialize(DataService.CategoryList, new JsonSerializerOptions { IncludeFields = true, WriteIndented = true });
 
-            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(jsonString);
+                await SaveAsUTF8("TheLastTime.json", jsonString);
+            }
+            else
+            {
+                ISerializer serializer = new SerializerBuilder().Build();
 
-            await SaveAs(JSRuntime, "TheLastTime.json", bytes);
+                var dict = DataService.CategoryList.ToDictionary(category => category.Description, category => category.HabitList.Select(habit => habit.Description));
+
+                string yamlString = serializer.Serialize(dict);
+
+                await SaveAsUTF8("TheLastTime.yaml", yamlString);
+            }
         }
 
-        static async Task SaveAs(IJSRuntime js, string filename, byte[] data)
+        [Inject]
+        IJSRuntime JSRuntime { get; set; } = null!;
+
+        async Task SaveAsUTF8(string filename, string content)
         {
-            await js.InvokeAsync<object>("saveAsFile", filename, Convert.ToBase64String(data));
+            byte[] data = Encoding.UTF8.GetBytes(content);
+
+            await JSRuntime.InvokeAsync<object>("saveAsFile", filename, Convert.ToBase64String(data));
         }
     }
 }

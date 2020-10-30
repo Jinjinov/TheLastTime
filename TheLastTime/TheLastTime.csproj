@@ -21,6 +21,7 @@
 	
     <PackageReference Include="Reshiru.Blazor.IndexedDB.Framework" Version="1.0.1" />
     <PackageReference Include="TG.Blazor.IndexedDB" Version="1.5.0-preview" />
+    <PackageReference Include="YamlDotNet" Version="8.1.2" />
   </ItemGroup>
 
   <ItemGroup>
