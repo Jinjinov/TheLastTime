@@ -11,7 +11,7 @@ https://what.should-i.be/?examples
 
 You can also write your own [yaml](https://en.wikipedia.org/wiki/YAML) list, save the file as `TheLastTime.yaml` and import it.
 
-Make sure that you use a proper [yaml format](http://www.yamllint.com/).
+Make sure that you use a proper [yaml format](http://www.yamllint.com/), for example:
 
     ---
     Health:
