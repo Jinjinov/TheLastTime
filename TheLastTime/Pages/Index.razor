@@ -41,7 +41,7 @@
                 </div>
             }
 
-            <div class="">
+            <div>
                 @foreach (Habit habit in DataService.HabitList.Where(habit => habit.CategoryId == selectedCategoryId || selectedCategoryId == 0))
                 {
                     <div class="input-group flex-nowrap my-1">
@@ -112,7 +112,7 @@
                             <p>@( "On average, every: " + ToReadableString(TimeSpan.FromMilliseconds(selectedHabit.TimeList.Zip(selectedHabit.TimeList.Skip(1), (x, y) => (y.DateTime - x.DateTime).TotalMilliseconds).Average())) )</p>
                         }
 
-                        @foreach (Time time in DataService.TimeList.Where(t => t.HabitId == selectedHabit.Id))
+                        @foreach (Time time in selectedHabit.TimeList.OrderByDescending(t => t.DateTime))
                         {
                             @if (editTime && selectedTime == time)
                             {
@@ -131,8 +131,7 @@
                                     @*<DateEdit TValue="DateTime" Size="@Size" ReadOnly="true" Date="@time.DateTime" />
                                     <TimeEdit TValue="TimeSpan" Size="@Size" ReadOnly="true" Time="@time.DateTime.TimeOfDay" />*@
 
-                                    <TextEdit Size="@Size" ReadOnly="true" Text="@(time.DateTime.ToString())" />
-                                    <TextEdit Class="rounded-0 border-right-0" Size="@Size" ReadOnly="true" Text="@(ToReadableString(DateTime.Now - time.DateTime) + " ago")" />
+                                    <TextEdit Size="@Size" ReadOnly="true" Text="@(ToReadableString(DateTime.Now - time.DateTime) + " ago")" />
 
                                     <div class="input-group-append">
                                         <Button Color="Color.Primary" Outline="true" Size="@ButtonSize" @onclick="@(() => { selectedTime = time; editTime = true; })"><span class="fa fa-edit"></span></Button>
