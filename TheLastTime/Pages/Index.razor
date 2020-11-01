@@ -22,7 +22,7 @@
                         <Button Color="Color.Primary" Outline="true" Size="@State.ButtonSize" @onclick="@(() => { State.selectedCategory = new Category(); editCategory = true; })"><span class="fa fa-plus"></span></Button>
                     </div>
 
-                    <Select TValue="long" Size="@State.Size" SelectedValue="@State.selectedCategoryId" SelectedValueChanged="async (long val) => { State.selectedCategoryId = val; if (DataService.CategoryDict.ContainsKey(val)) { State.selectedCategory = DataService.CategoryDict[val]; } }">
+                    <Select TValue="long" Size="@State.Size" SelectedValue="@State.selectedCategoryId" SelectedValueChanged="async (long val) => { State.selectedCategoryId = val; }">
                         <SelectItem Value="0">All categories</SelectItem>
                         @foreach (Category cat in DataService.CategoryList)
                         {
@@ -69,7 +69,7 @@
                 <div class="card flex-grow-1">
 
                     <div class="card-body p-2 p-sm-3">
-                        <Button class="close" @onclick="@(() => { State.selectedHabit = null; })"><span class="fa fa-times"></span></Button>
+                        <Button class="close" @onclick="@(() => { State.selectedHabit = null; })"><span class="fa fa-times text-muted"></span></Button>
 
                         <div style="padding-right: 40px;">
 

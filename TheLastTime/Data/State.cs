@@ -1,10 +1,22 @@
 ﻿using Blazorise;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace TheLastTime.Data
 {
-    public class State
+    public class State : INotifyPropertyChanged
     {
+        #region INotifyPropertyChanged
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string propertyname = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
+        }
+
+        #endregion
+
         readonly DataService DataService;
 
         public State(DataService dataService)
@@ -40,7 +52,25 @@ namespace TheLastTime.Data
         public Size Size => SizeDict[DataService.Settings.Size];
 
         public Category selectedCategory = new Category();
-        public long selectedCategoryId;
+        private long _selectedCategoryId;
+        public long selectedCategoryId
+        {
+            get => _selectedCategoryId;
+            set
+            {
+                if (_selectedCategoryId != value)
+                {
+                    _selectedCategoryId = value;
+
+                    if (DataService.CategoryDict.ContainsKey(value))
+                    {
+                        selectedCategory = DataService.CategoryDict[value];
+
+                        OnPropertyChanged(nameof(selectedCategory));
+                    }
+                }
+            }
+        }
 
         public Habit? selectedHabit;
 

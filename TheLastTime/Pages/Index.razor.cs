@@ -33,17 +33,19 @@ namespace TheLastTime.Pages
                 await DataService.SeedExamples();
             }
 
-            DataService.PropertyChanged += DataService_PropertyChanged;
+            DataService.PropertyChanged += PropertyChanged;
+            State.PropertyChanged += PropertyChanged;
         }
 
-        void DataService_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        void PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             StateHasChanged();
         }
 
         public void Dispose()
         {
-            DataService.PropertyChanged -= DataService_PropertyChanged;
+            DataService.PropertyChanged -= PropertyChanged;
+            State.PropertyChanged -= PropertyChanged;
         }
 
         public static string ToReadableString(TimeSpan span)
