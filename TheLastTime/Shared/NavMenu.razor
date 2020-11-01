@@ -32,20 +32,20 @@ else
         </li>
 
         <li class="nav-item px-2 pb-2">
-            <Button Color="Color.Primary" Size="@ButtonSize" Block="true" @onclick="@(() => ExportFile())">Export</Button>
+            <Button Color="Color.Primary" Size="@State.ButtonSize" Block="true" @onclick="@(() => ExportFile())">Export</Button>
         </li>
         <li class="nav-item p-2">
-            <label for="file-upload" class="d-block btn @ButtonSizeClass btn-primary mb-0">Import</label>
+            <label for="file-upload" class="d-block btn @State.ButtonSizeClass btn-primary mb-0">Import</label>
             <InputFile id="file-upload" class="d-none" OnChange="@ImportFile" />
         </li>
         <li class="nav-item p-2">
-            <Button Color="Color.Primary" Size="@ButtonSize" Block="true" @onclick="@(async () => { await DataService.ClearData(); NavigationManager.NavigateTo("/", true); })">Delete all</Button>
+            <Button Color="Color.Primary" Size="@State.ButtonSize" Block="true" @onclick="@(async () => { await DataService.ClearData(); NavigationManager.NavigateTo("/", true); })">Delete all</Button>
         </li>
 
         <li class="nav-item px-2 pt-2">
             <Field>
                 <FieldLabel Class="text-light">Size:</FieldLabel>
-                <Select TValue="string" MaxVisibleItems="3" Size="@Size" SelectedValue="@ElementSize" SelectedValueChanged="async (string val) => { ElementSize = val; }">
+                <Select TValue="string" MaxVisibleItems="3" Size="@State.Size" SelectedValue="@ElementSize" SelectedValueChanged="async (string val) => { ElementSize = val; }">
                     @foreach (string size in elementSizes)
                     {
                         <SelectItem Value="@size">@size</SelectItem>
@@ -57,7 +57,7 @@ else
         <li class="nav-item px-2 py-0">
             <Field>
                 <FieldLabel Class="text-light">Theme:</FieldLabel>
-                <Select TValue="string" MaxVisibleItems="@(bootswatchThemeDict.Count + 1)" Size="@Size" SelectedValue="@BootswatchTheme" SelectedValueChanged="async (string val) => { BootswatchTheme = val; }">
+                <Select TValue="string" MaxVisibleItems="@(bootswatchThemeDict.Count + 1)" Size="@State.Size" SelectedValue="@BootswatchTheme" SelectedValueChanged="async (string val) => { BootswatchTheme = val; }">
                     <SelectItem Value="@("default")">default</SelectItem>
                     @foreach (string theme in bootswatchThemeDict.Keys)
                     {

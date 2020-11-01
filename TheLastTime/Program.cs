@@ -33,6 +33,8 @@ namespace TheLastTime
 
             builder.Services.AddScoped<DataService>();
 
+            builder.Services.AddScoped<State>();
+
             WebAssemblyHost host = builder.Build();
 
             host.Services

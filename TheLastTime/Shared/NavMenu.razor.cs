@@ -1,5 +1,4 @@
-﻿using Blazorise;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
 using System;
@@ -41,11 +40,18 @@ namespace TheLastTime.Shared
             { "yeti", "sha384-mLBxp+1RMvmQmXOjBzRjqqr0dP9VHU2tb3FK6VB0fJN/AOu7/y+CAeYeWJZ4b3ii" }, /* square corners */
         };
 
-        [Inject]
-        NavigationManager NavigationManager { get; set; } = null!;
-
-        [Inject]
-        DataService DataService { get; set; } = null!;
+        protected string BootswatchTheme
+        {
+            get => DataService.Settings.Theme;
+            set
+            {
+                if (DataService.Settings.Theme != value)
+                {
+                    DataService.Settings.Theme = value;
+                    DataService.SaveSettings().Wait();
+                }
+            }
+        }
 
         readonly string[] elementSizes = new string[] { "small", "medium", "large" };
 
@@ -62,45 +68,14 @@ namespace TheLastTime.Shared
             }
         }
 
-        readonly Dictionary<string, ButtonSize> ButtonSizeDict = new Dictionary<string, ButtonSize>()
-        {
-            { "small", ButtonSize.Small },
-            { "medium", ButtonSize.None },
-            { "large", ButtonSize.Large }
-        };
+        [Inject]
+        NavigationManager NavigationManager { get; set; } = null!;
 
-        ButtonSize ButtonSize => ButtonSizeDict[ElementSize];
+        [Inject]
+        DataService DataService { get; set; } = null!;
 
-        readonly Dictionary<string, string> ButtonSizeClassDict = new Dictionary<string, string>()
-        {
-            { "small", "btn-sm" },
-            { "medium", "" },
-            { "large", "btn-lg" }
-        };
-
-        string ButtonSizeClass => ButtonSizeClassDict[ElementSize];
-
-        readonly Dictionary<string, Size> SizeDict = new Dictionary<string, Size>()
-        {
-            { "small", Size.Small },
-            { "medium", Size.None },
-            { "large", Size.Large }
-        };
-
-        Size Size => SizeDict[ElementSize];
-
-        protected string BootswatchTheme
-        {
-            get => DataService.Settings.Theme;
-            set
-            {
-                if (DataService.Settings.Theme != value)
-                {
-                    DataService.Settings.Theme = value;
-                    DataService.SaveSettings().Wait();
-                }
-            }
-        }
+        [Inject]
+        State State { get; set; } = null!;
 
         private bool collapseNavMenu = true;
 
