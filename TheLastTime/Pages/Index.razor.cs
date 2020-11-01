@@ -8,13 +8,6 @@ namespace TheLastTime.Pages
 {
     public sealed partial class Index : IDisposable
     {
-        public Category selectedCategory = new Category();
-        public long selectedCategoryId;
-
-        public Habit? selectedHabit;
-
-        public Time? selectedTime;
-
         public bool editCategory;
         public bool editHabit;
         public bool editTime;

@@ -38,5 +38,12 @@ namespace TheLastTime.Data
         };
 
         public Size Size => SizeDict[DataService.Settings.Size];
+
+        public Category selectedCategory = new Category();
+        public long selectedCategoryId;
+
+        public Habit? selectedHabit;
+
+        public Time? selectedTime;
     }
 }
