@@ -75,5 +75,25 @@ namespace TheLastTime.Data
         public Habit? selectedHabit;
 
         public Time? selectedTime;
+
+        public void NextCategory()
+        {
+            int index = DataService.CategoryList.IndexOf(selectedCategory);
+
+            if (index >= 0 && index < DataService.CategoryList.Count - 1)
+            {
+                selectedCategoryId = DataService.CategoryList[index + 1].Id;
+            }
+        }
+
+        public void PreviousCategory()
+        {
+            int index = DataService.CategoryList.IndexOf(selectedCategory);
+
+            if (index > 0 && index <= DataService.CategoryList.Count - 1)
+            {
+                selectedCategoryId = DataService.CategoryList[index - 1].Id;
+            }
+        }
     }
 }

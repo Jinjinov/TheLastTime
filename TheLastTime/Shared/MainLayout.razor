@@ -9,7 +9,7 @@
         <Pagination Class="m-0">
 
             <PaginationItem Disabled="@(State.selectedCategoryId == DataService.CategoryList.First().Id)">
-                <PaginationLink Clicked="(Page) => { State.selectedCategoryId -= 1; }">
+                <PaginationLink Clicked="(Page) => { State.PreviousCategory(); }">
                     <span aria-hidden="true">«</span>
                 </PaginationLink>
             </PaginationItem>
@@ -27,7 +27,7 @@
             }
 
             <PaginationItem Disabled="@(State.selectedCategoryId == DataService.CategoryList.Last().Id)">
-                <PaginationLink Clicked="(Page) => { State.selectedCategoryId += 1; }">
+                <PaginationLink Clicked="(Page) => { State.NextCategory(); }">
                     <span aria-hidden="true">»</span>
                 </PaginationLink>
             </PaginationItem>

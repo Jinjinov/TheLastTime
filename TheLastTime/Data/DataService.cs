@@ -154,6 +154,8 @@ namespace TheLastTime.Data
             await db.SaveChanges();
 
             await LoadData();
+
+            OnPropertyChanged(nameof(CategoryList));
         }
 
         public async Task DeleteCategory(Category category)
@@ -163,6 +165,9 @@ namespace TheLastTime.Data
             foreach (Habit habit in category.HabitList)
             {
                 habit.CategoryId = 1;
+
+                if (db.Habits.SingleOrDefault(h => h.Id == habit.Id) is Habit dbHabit)
+                    dbHabit.CategoryId = habit.CategoryId;
             }
 
             db.Categories.Remove(category);
@@ -170,6 +175,8 @@ namespace TheLastTime.Data
             await db.SaveChanges();
 
             await LoadData();
+
+            OnPropertyChanged(nameof(CategoryList));
         }
 
         public async Task SaveHabit(Habit habit)
@@ -280,6 +287,8 @@ namespace TheLastTime.Data
             await db.SaveChanges();
 
             await LoadData();
+
+            OnPropertyChanged(nameof(CategoryList));
         }
     }
 }
