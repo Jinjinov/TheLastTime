@@ -78,5 +78,14 @@ namespace TheLastTime.Pages
         {
             DataService.PropertyChanged -= DataService_PropertyChanged;
         }
+
+        public static string ToReadableString(TimeSpan span)
+        {
+            return span.TotalMinutes >= 1.0 ? (
+                (span.Days > 0 ? span.Days + " d" + (span.Hours > 0 || span.Minutes > 0 ? ", " : string.Empty) : string.Empty) +
+                (span.Hours > 0 ? span.Hours + " h" + (span.Minutes > 0 ? ", " : string.Empty) : string.Empty) +
+                (span.Minutes > 0 ? span.Minutes + " m" : string.Empty)
+                ) : "0 m";
+        }
     }
 }
