@@ -1,6 +1,7 @@
 ﻿using Blazorise;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace TheLastTime.Data
@@ -78,21 +79,29 @@ namespace TheLastTime.Data
 
         public void NextCategory()
         {
-            int index = DataService.CategoryList.IndexOf(selectedCategory);
+            int index = DataService.CategoryList.FindIndex(category => category.Id == selectedCategoryId);
 
             if (index >= 0 && index < DataService.CategoryList.Count - 1)
             {
                 selectedCategoryId = DataService.CategoryList[index + 1].Id;
             }
+            else if (DataService.CategoryList.Any())
+            {
+                selectedCategoryId = DataService.CategoryList.First().Id;
+            }
         }
 
         public void PreviousCategory()
         {
-            int index = DataService.CategoryList.IndexOf(selectedCategory);
+            int index = DataService.CategoryList.FindIndex(category => category.Id == selectedCategoryId);
 
             if (index > 0 && index <= DataService.CategoryList.Count - 1)
             {
                 selectedCategoryId = DataService.CategoryList[index - 1].Id;
+            }
+            else if (DataService.CategoryList.Any())
+            {
+                selectedCategoryId = DataService.CategoryList.Last().Id;
             }
         }
     }
