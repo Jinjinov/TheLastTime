@@ -52,9 +52,9 @@ namespace TheLastTime.Data
 
         public Size Size => SizeDict[DataService.Settings.Size];
 
-        public Category selectedCategory = new Category();
+        public Category SelectedCategory = new Category();
         private long _selectedCategoryId;
-        public long selectedCategoryId
+        public long SelectedCategoryId
         {
             get => _selectedCategoryId;
             set
@@ -65,43 +65,43 @@ namespace TheLastTime.Data
 
                     if (DataService.CategoryDict.ContainsKey(value))
                     {
-                        selectedCategory = DataService.CategoryDict[value];
+                        SelectedCategory = DataService.CategoryDict[value];
 
-                        OnPropertyChanged(nameof(selectedCategory));
+                        OnPropertyChanged(nameof(SelectedCategory));
                     }
                 }
             }
         }
 
-        public Habit? selectedHabit;
+        public Habit? SelectedHabit;
 
-        public Time? selectedTime;
+        public Time? SelectedTime;
 
         public void NextCategory()
         {
-            int index = DataService.CategoryList.FindIndex(category => category.Id == selectedCategoryId);
+            int index = DataService.CategoryList.FindIndex(category => category.Id == SelectedCategoryId);
 
             if (index >= 0 && index < DataService.CategoryList.Count - 1)
             {
-                selectedCategoryId = DataService.CategoryList[index + 1].Id;
+                SelectedCategoryId = DataService.CategoryList[index + 1].Id;
             }
             else if (DataService.CategoryList.Any())
             {
-                selectedCategoryId = DataService.CategoryList.First().Id;
+                SelectedCategoryId = DataService.CategoryList.First().Id;
             }
         }
 
         public void PreviousCategory()
         {
-            int index = DataService.CategoryList.FindIndex(category => category.Id == selectedCategoryId);
+            int index = DataService.CategoryList.FindIndex(category => category.Id == SelectedCategoryId);
 
             if (index > 0 && index <= DataService.CategoryList.Count - 1)
             {
-                selectedCategoryId = DataService.CategoryList[index - 1].Id;
+                SelectedCategoryId = DataService.CategoryList[index - 1].Id;
             }
             else if (DataService.CategoryList.Any())
             {
-                selectedCategoryId = DataService.CategoryList.Last().Id;
+                SelectedCategoryId = DataService.CategoryList.Last().Id;
             }
         }
     }

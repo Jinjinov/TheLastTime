@@ -8,7 +8,7 @@
     <div class="top-row navbar navbar-dark bg-primary">
         <Pagination Class="m-0">
 
-            <PaginationItem Disabled="@(State.selectedCategoryId == DataService.CategoryList.First().Id)">
+            <PaginationItem Disabled="@(State.SelectedCategoryId == DataService.CategoryList.First().Id)">
                 <PaginationLink Clicked="(Page) => { State.PreviousCategory(); }">
                     <span aria-hidden="true">«</span>
                 </PaginationLink>
@@ -19,14 +19,14 @@
                 int idx = i;
                 int index = i + 1;
 
-                <PaginationItem Active="@(State.selectedCategoryId == DataService.CategoryList[idx].Id)">
-                    <PaginationLink Page="@(DataService.CategoryList[idx].Id.ToString())" Clicked="(Page) => { State.selectedCategoryId = int.Parse(Page); }">
+                <PaginationItem Active="@(State.SelectedCategoryId == DataService.CategoryList[idx].Id)">
+                    <PaginationLink Page="@(DataService.CategoryList[idx].Id.ToString())" Clicked="(Page) => { State.SelectedCategoryId = int.Parse(Page); }">
                         @index
                     </PaginationLink>
                 </PaginationItem>
             }
 
-            <PaginationItem Disabled="@(State.selectedCategoryId == DataService.CategoryList.Last().Id)">
+            <PaginationItem Disabled="@(State.SelectedCategoryId == DataService.CategoryList.Last().Id)">
                 <PaginationLink Clicked="(Page) => { State.NextCategory(); }">
                     <span aria-hidden="true">»</span>
                 </PaginationLink>
