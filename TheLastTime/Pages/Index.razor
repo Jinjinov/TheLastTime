@@ -48,7 +48,7 @@
                         <div class="input-group-prepend flex-grow-1">
                             <div class="btn btn-secondary @State.ButtonSizeClass border border-right-0 flex-grow-1 d-flex" @onclick="@(() => { State.SelectedHabit = habit; })">
                                 <div class="m-1">@habit.Description</div>
-                                <div class="m-1 ml-auto">@(habit.TimeList.Count > 0 ? ToReadableString(DateTime.Now - habit.TimeList.Last().DateTime) + " ago" : "Never")</div>
+                                <div class="m-1 ml-auto">@(habit.TimeList.Count > 0 ? ToHighestValueString(DateTime.Now - habit.TimeList.Last().DateTime) + " ago" : "Never")</div>
                             </div>
                         </div>
                         <div class="input-group-append">
