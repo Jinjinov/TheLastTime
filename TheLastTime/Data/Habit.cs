@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace TheLastTime.Data
@@ -13,6 +14,18 @@ namespace TheLastTime.Data
 
         [Required]
         public long CategoryId { get; set; }
+
+        [Required]
+        public bool IsPinned { get; set; }
+
+        [Required]
+        public bool IsStarred { get; set; }
+
+        [Required]
+        public int Priority { get; set; }
+
+        [Required]
+        public TimeSpan DesiredInterval { get; set; }
 
         public List<Time> TimeList = new List<Time>();
     }
