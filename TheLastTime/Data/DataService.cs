@@ -149,6 +149,8 @@ namespace TheLastTime.Data
             else if (db.Categories.SingleOrDefault(c => c.Id == category.Id) is Category dbCategory)
             {
                 dbCategory.Description = category.Description;
+                dbCategory.Color = category.Color;
+                dbCategory.Icon = category.Icon;
             }
 
             await db.SaveChanges();
@@ -191,6 +193,10 @@ namespace TheLastTime.Data
             {
                 dbHabit.CategoryId = habit.CategoryId;
                 dbHabit.Description = habit.Description;
+                dbHabit.IsPinned = habit.IsPinned;
+                dbHabit.IsStarred = habit.IsStarred;
+                dbHabit.Priority = habit.Priority;
+                dbHabit.DesiredInterval = habit.DesiredInterval;
             }
 
             await db.SaveChanges();

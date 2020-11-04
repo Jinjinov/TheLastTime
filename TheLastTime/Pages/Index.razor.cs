@@ -24,7 +24,7 @@ namespace TheLastTime.Pages
         [Parameter]
         public string? SeedExamples { get; set; }
 
-        protected async override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             string query = NavigationManager.ToAbsoluteUri(NavigationManager.Uri).Query;
 
@@ -46,6 +46,22 @@ namespace TheLastTime.Pages
         {
             DataService.PropertyChanged -= PropertyChanged;
             State.PropertyChanged -= PropertyChanged;
+        }
+
+        async Task OnHabitDone(Habit habit)
+        {
+            if (habit.IsPinned)
+            {
+                habit.IsPinned = false;
+                await DataService.SaveHabit(habit);
+            }
+
+            await DataService.SaveTime(new Time { HabitId = habit.Id, DateTime = DateTime.Now });
+
+            if (State.SelectedHabit != null)
+            {
+                State.SelectedHabit = DataService.HabitDict[habit.Id];
+            }
         }
 
         public static string ToReadableString(TimeSpan span)

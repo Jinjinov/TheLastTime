@@ -5,6 +5,32 @@
     <div id="overlay-parent" class="row mx-0 flex-grow-1">
 
         <div class="col-md-12 col-lg-6 px-1 px-sm-3">
+
+            <div>
+                @foreach (Habit habit in DataService.HabitList.Where(habit => habit.IsPinned))
+                {
+                    <div class="input-group flex-nowrap my-1">
+                        <div class="input-group-prepend flex-grow-1">
+                            <div class="btn btn-secondary @State.ButtonSizeClass border border-right-0 flex-grow-1 d-flex" @onclick="@(() => { State.SelectedHabit = habit; })">
+                                @if (habit.IsPinned)
+                                {
+                                    <div class="m-1"><span class="fa fa-fw fa-thumbtack"></span></div>
+                                }
+                                @if (habit.IsStarred)
+                                {
+                                    <div class="m-1"><span class="fa fa-fw fa-star"></span></div>
+                                }
+                                <div class="m-1">@habit.Description</div>
+                                <div class="m-1 ml-auto">@(habit.TimeList.Count > 0 ? ToHighestValueString(DateTime.Now - habit.TimeList.Last().DateTime) + " ago" : "Never")</div>
+                            </div>
+                        </div>
+                        <div class="input-group-append">
+                            <Button Color="Color.Primary" Outline="true" Size="@State.ButtonSize" @onclick="@(() => OnHabitDone(habit))"><span class="fa fa-fw fa-check"></span></Button>
+                        </div>
+                    </div>
+                }
+            </div>
+
             @if (editCategory)
             {
                 <div class="input-group flex-nowrap">
@@ -42,17 +68,21 @@
             }
 
             <div>
-                @foreach (Habit habit in DataService.HabitList.Where(habit => habit.CategoryId == State.SelectedCategoryId || State.SelectedCategoryId == 0))
+                @foreach (Habit habit in DataService.HabitList.Where(habit => !habit.IsPinned && (habit.CategoryId == State.SelectedCategoryId || State.SelectedCategoryId == 0)))
                 {
                     <div class="input-group flex-nowrap my-1">
                         <div class="input-group-prepend flex-grow-1">
                             <div class="btn btn-secondary @State.ButtonSizeClass border border-right-0 flex-grow-1 d-flex" @onclick="@(() => { State.SelectedHabit = habit; })">
+                                @if (habit.IsStarred)
+                                {
+                                    <div class="m-1"><span class="fa fa-fw fa-star"></span></div>
+                                }
                                 <div class="m-1">@habit.Description</div>
                                 <div class="m-1 ml-auto">@(habit.TimeList.Count > 0 ? ToHighestValueString(DateTime.Now - habit.TimeList.Last().DateTime) + " ago" : "Never")</div>
                             </div>
                         </div>
                         <div class="input-group-append">
-                            <Button Color="Color.Primary" Outline="true" Size="@State.ButtonSize" @onclick="@(async () => { await DataService.SaveTime(new Time { HabitId = habit.Id, DateTime = DateTime.Now }); if (State.SelectedHabit != null) { State.SelectedHabit = DataService.HabitDict[habit.Id]; } })"><span class="fa fa-fw fa-check"></span></Button>
+                            <Button Color="Color.Primary" Outline="true" Size="@State.ButtonSize" @onclick="@(() => OnHabitDone(habit))"><span class="fa fa-fw fa-check"></span></Button>
                         </div>
                     </div>
                 }
@@ -71,15 +101,37 @@
                     <div class="card-body p-2 p-sm-3">
                         <Button class="close" @onclick="@(() => { State.SelectedHabit = null; })"><span class="fa fa-fw fa-times text-muted"></span></Button>
 
-                        <div style="padding-right: 40px;">
+                        <p>
+                            <span class="m-1" style="cursor: pointer;" @onclick="@(async () => { State.SelectedHabit.IsPinned = !State.SelectedHabit.IsPinned; if (!editHabit) { await DataService.SaveHabit(State.SelectedHabit); } })">
+                                @if (State.SelectedHabit.IsPinned)
+                                {
+                                    <span class="fas fa-fw fa-thumbtack"></span><span class="font-weight-bold"> pinned</span>
+                                }
+                                else
+                                {
+                                    <span class="fas fa-fw fa-thumbtack fa-rotate-90"></span><span class="font-italic"> pin</span>
+                                }
+                            </span>
 
+                            <span class="m-1" style="cursor: pointer;" @onclick="@(async () => { State.SelectedHabit.IsStarred = !State.SelectedHabit.IsStarred; if (!editHabit) { await DataService.SaveHabit(State.SelectedHabit); } })">
+                                @if (State.SelectedHabit.IsStarred)
+                                {
+                                    <span class="fas fa-fw fa-star"></span><span class="font-weight-bold"> starred</span>
+                                }
+                                else
+                                {
+                                    <span class="far fa-fw fa-star"></span><span class="font-italic"> star</span>
+                                }
+                            </span>
+                        </p>
+
+                        <div>
                             <Select TValue="long" Size="@State.Size" SelectedValue="@State.SelectedHabit.CategoryId" SelectedValueChanged="async (long val) => { State.SelectedHabit.CategoryId = val; if (!editHabit) { await DataService.SaveHabit(State.SelectedHabit); } }">
                                 @foreach (Category cat in DataService.CategoryList)
                                 {
                                     <SelectItem Value="@cat.Id">@cat.Description</SelectItem>
                                 }
                             </Select>
-
                         </div>
 
                         @if (editHabit)
