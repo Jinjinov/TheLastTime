@@ -8,6 +8,12 @@ namespace TheLastTime.Data
         public long Id { get; set; }
 
         [Required]
+        public bool ShowOnlyStarred { get; set; }
+
+        [Required]
+        public bool ShowOnlyOverdue { get; set; }
+
+        [Required]
         public string Size { get; set; } = string.Empty;
 
         [Required]

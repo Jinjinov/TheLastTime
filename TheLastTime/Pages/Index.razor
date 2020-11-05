@@ -7,7 +7,7 @@
         <div class="col-md-12 col-lg-6 px-1 px-sm-3">
 
             <div>
-                @foreach (Habit habit in DataService.HabitList.Where(habit => habit.IsPinned))
+                @foreach (Habit habit in DataService.HabitList.Where(habit => habit.IsPinned && (habit.IsStarred || !DataService.Settings.ShowOnlyStarred) && (habit.IsOverdue || !DataService.Settings.ShowOnlyOverdue)))
                 {
                     <div class="input-group flex-nowrap my-1">
                         <div class="input-group-prepend flex-grow-1">
@@ -22,12 +22,9 @@
                                 }
                                 <div class="m-1">@habit.Description</div>
                                 <div class="m-1 ml-auto">@(habit.TimeList.Count > 0 ? ToHighestValueString(DateTime.Now - habit.TimeList.Last().DateTime) + " ago" : "Never")</div>
-                                @if (habit.TimeList.Count > 1)
+                                @if (habit.IsOverdue)
                                 {
-                                    @if ((DateTime.Now - habit.TimeList.Last().DateTime) > habit.DesiredInterval)
-                                    {
-                                        <div class="m-1"><span class="fa fa-fw fa-exclamation"></span></div>
-                                    }
+                                    <div class="m-1"><span class="fa fa-fw fa-exclamation"></span></div>
                                 }
                             </div>
                         </div>
@@ -75,7 +72,7 @@
             }
 
             <div>
-                @foreach (Habit habit in DataService.HabitList.Where(habit => !habit.IsPinned && (habit.CategoryId == State.SelectedCategoryId || State.SelectedCategoryId == 0)))
+                @foreach (Habit habit in DataService.HabitList.Where(habit => !habit.IsPinned && (habit.IsStarred || !DataService.Settings.ShowOnlyStarred) && (habit.IsOverdue || !DataService.Settings.ShowOnlyOverdue) && (habit.CategoryId == State.SelectedCategoryId || State.SelectedCategoryId == 0)))
                 {
                     <div class="input-group flex-nowrap my-1">
                         <div class="input-group-prepend flex-grow-1">
@@ -86,12 +83,9 @@
                                 }
                                 <div class="m-1">@habit.Description</div>
                                 <div class="m-1 ml-auto">@(habit.TimeList.Count > 0 ? ToHighestValueString(DateTime.Now - habit.TimeList.Last().DateTime) + " ago" : "Never")</div>
-                                @if (habit.TimeList.Count > 1)
+                                @if (habit.IsOverdue)
                                 {
-                                    @if ((DateTime.Now - habit.TimeList.Last().DateTime) > habit.DesiredInterval)
-                                    {
-                                        <div class="m-1"><span class="fa fa-fw fa-exclamation"></span></div>
-                                    }
+                                    <div class="m-1"><span class="fa fa-fw fa-exclamation"></span></div>
                                 }
                             </div>
                         </div>
@@ -177,7 +171,7 @@
                         {
                             <p><span class="fas fa-fw fa-stopwatch"></span> @( "On average, every: " + ToReadableString(State.SelectedHabit.DesiredInterval) )</p>
 
-                            @if ((DateTime.Now - State.SelectedHabit.TimeList.Last().DateTime) > State.SelectedHabit.DesiredInterval)
+                            @if (State.SelectedHabit.IsOverdue)
                             {
                                 <p><span class="fas fa-fw fa-exclamation"></span><span class="font-weight-bold"> Overdue</span></p>
                             }

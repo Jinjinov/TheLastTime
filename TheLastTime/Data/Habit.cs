@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace TheLastTime.Data
 {
@@ -28,5 +29,7 @@ namespace TheLastTime.Data
         public TimeSpan DesiredInterval { get; set; }
 
         public List<Time> TimeList = new List<Time>();
+
+        internal bool IsOverdue => (TimeList.Count > 1) && (DateTime.Now - TimeList.Last().DateTime) > DesiredInterval;
     }
 }

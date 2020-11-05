@@ -43,6 +43,8 @@ namespace TheLastTime.Data
 
             Settings settings = db.Settings.Single();
 
+            settings.ShowOnlyStarred = Settings.ShowOnlyStarred;
+            settings.ShowOnlyOverdue = Settings.ShowOnlyOverdue;
             settings.Size = Settings.Size;
             settings.Theme = Settings.Theme;
 
@@ -59,7 +61,7 @@ namespace TheLastTime.Data
 
             if (db.Settings.Count == 0)
             {
-                db.Settings.Add(new Settings() { Size= "medium", Theme = "superhero" });
+                db.Settings.Add(new Settings() { Size = "medium", Theme = "superhero" });
                 save = true;
             }
 
