@@ -22,6 +22,13 @@
                                 }
                                 <div class="m-1">@habit.Description</div>
                                 <div class="m-1 ml-auto">@(habit.TimeList.Count > 0 ? ToHighestValueString(DateTime.Now - habit.TimeList.Last().DateTime) + " ago" : "Never")</div>
+                                @if (habit.TimeList.Count > 1)
+                                {
+                                    @if ((DateTime.Now - habit.TimeList.Last().DateTime) > habit.DesiredInterval)
+                                    {
+                                        <div class="m-1"><span class="fa fa-fw fa-exclamation"></span></div>
+                                    }
+                                }
                             </div>
                         </div>
                         <div class="input-group-append">
@@ -79,6 +86,13 @@
                                 }
                                 <div class="m-1">@habit.Description</div>
                                 <div class="m-1 ml-auto">@(habit.TimeList.Count > 0 ? ToHighestValueString(DateTime.Now - habit.TimeList.Last().DateTime) + " ago" : "Never")</div>
+                                @if (habit.TimeList.Count > 1)
+                                {
+                                    @if ((DateTime.Now - habit.TimeList.Last().DateTime) > habit.DesiredInterval)
+                                    {
+                                        <div class="m-1"><span class="fa fa-fw fa-exclamation"></span></div>
+                                    }
+                                }
                             </div>
                         </div>
                         <div class="input-group-append">
@@ -161,7 +175,12 @@
 
                         @if (State.SelectedHabit.TimeList.Count > 1)
                         {
-                            <p>@( "On average, every: " + ToReadableString(TimeSpan.FromMilliseconds(State.SelectedHabit.TimeList.Zip(State.SelectedHabit.TimeList.Skip(1), (x, y) => (y.DateTime - x.DateTime).TotalMilliseconds).Average())) )</p>
+                            <p><span class="fas fa-fw fa-stopwatch"></span> @( "On average, every: " + ToReadableString(State.SelectedHabit.DesiredInterval) )</p>
+
+                            @if ((DateTime.Now - State.SelectedHabit.TimeList.Last().DateTime) > State.SelectedHabit.DesiredInterval)
+                            {
+                                <p><span class="fas fa-fw fa-exclamation"></span><span class="font-weight-bold"> Overdue</span></p>
+                            }
                         }
 
                         @foreach (Time time in State.SelectedHabit.TimeList.OrderByDescending(t => t.DateTime))

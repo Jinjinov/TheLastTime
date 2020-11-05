@@ -1,4 +1,5 @@
 ﻿using Blazor.IndexedDB.Framework;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -91,6 +92,9 @@ namespace TheLastTime.Data
 
             foreach (Habit habit in HabitList)
             {
+                if (habit.TimeList.Count > 1)
+                    habit.DesiredInterval = TimeSpan.FromMilliseconds(habit.TimeList.Zip(habit.TimeList.Skip(1), (x, y) => (y.DateTime - x.DateTime).TotalMilliseconds).Average());
+
                 if (CategoryDict.ContainsKey(habit.CategoryId))
                     CategoryDict[habit.CategoryId].HabitList.Add(habit);
             }
