@@ -119,22 +119,22 @@
                             <span class="m-1" style="cursor: pointer;" @onclick="@(async () => { State.SelectedHabit.IsPinned = !State.SelectedHabit.IsPinned; if (!editHabit) { await DataService.SaveHabit(State.SelectedHabit); } })">
                                 @if (State.SelectedHabit.IsPinned)
                                 {
-                                    <span class="fas fa-fw fa-thumbtack"></span><span class="font-weight-bold"> pinned</span>
+                                    <span class="fas fa-fw fa-thumbtack"></span><span class="font-weight-bold"> Pinned</span>
                                 }
                                 else
                                 {
-                                    <span class="fas fa-fw fa-thumbtack fa-rotate-90"></span><span class="font-italic"> pin</span>
+                                    <span class="fas fa-fw fa-thumbtack fa-rotate-90"></span><span class="font-italic"> Pin</span>
                                 }
                             </span>
 
                             <span class="m-1" style="cursor: pointer;" @onclick="@(async () => { State.SelectedHabit.IsStarred = !State.SelectedHabit.IsStarred; if (!editHabit) { await DataService.SaveHabit(State.SelectedHabit); } })">
                                 @if (State.SelectedHabit.IsStarred)
                                 {
-                                    <span class="fas fa-fw fa-star"></span><span class="font-weight-bold"> starred</span>
+                                    <span class="fas fa-fw fa-star"></span><span class="font-weight-bold"> Starred</span>
                                 }
                                 else
                                 {
-                                    <span class="far fa-fw fa-star"></span><span class="font-italic"> star</span>
+                                    <span class="far fa-fw fa-star"></span><span class="font-italic"> Star</span>
                                 }
                             </span>
                         </p>
