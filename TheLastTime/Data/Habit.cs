@@ -30,6 +30,8 @@ namespace TheLastTime.Data
 
         public List<Time> TimeList = new List<Time>();
 
-        internal bool IsOverdue => (TimeList.Count > 1) && (DateTime.Now - TimeList.Last().DateTime) > DesiredInterval;
+        internal TimeSpan SinceLastTime => DateTime.Now - TimeList.Last().DateTime;
+
+        internal bool IsOverdue => (TimeList.Count > 1) && (SinceLastTime > DesiredInterval);
     }
 }

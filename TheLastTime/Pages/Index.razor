@@ -21,7 +21,7 @@
                                     <div class="m-1"><span class="fa fa-fw fa-star"></span></div>
                                 }
                                 <div class="m-1">@habit.Description</div>
-                                <div class="m-1 ml-auto">@(habit.TimeList.Count > 0 ? ToHighestValueString(DateTime.Now - habit.TimeList.Last().DateTime) + " ago" : "Never")</div>
+                                <div class="m-1 ml-auto">@(habit.TimeList.Count > 0 ? ToHighestValueString(habit.SinceLastTime) + " ago" : "Never")</div>
                                 @if (habit.IsOverdue)
                                 {
                                     <div class="m-1"><span class="fa fa-fw fa-exclamation"></span></div>
@@ -82,7 +82,7 @@
                                     <div class="m-1"><span class="fa fa-fw fa-star"></span></div>
                                 }
                                 <div class="m-1">@habit.Description</div>
-                                <div class="m-1 ml-auto">@(habit.TimeList.Count > 0 ? ToHighestValueString(DateTime.Now - habit.TimeList.Last().DateTime) + " ago" : "Never")</div>
+                                <div class="m-1 ml-auto">@(habit.TimeList.Count > 0 ? ToHighestValueString(habit.SinceLastTime) + " ago" : "Never")</div>
                                 @if (habit.IsOverdue)
                                 {
                                     <div class="m-1"><span class="fa fa-fw fa-exclamation"></span></div>
@@ -173,7 +173,7 @@
 
                             @if (State.SelectedHabit.IsOverdue)
                             {
-                                <p><span class="fas fa-fw fa-exclamation"></span><span class="font-weight-bold"> Overdue</span></p>
+                                <p><span class="fas fa-fw fa-exclamation"></span><span class="font-weight-bold"> @( "Overdue by: " + ToReadableString(State.SelectedHabit.SinceLastTime - State.SelectedHabit.DesiredInterval) )</span></p>
                             }
                         }
 
