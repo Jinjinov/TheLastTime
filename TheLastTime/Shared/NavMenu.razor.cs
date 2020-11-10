@@ -15,7 +15,7 @@ namespace TheLastTime.Shared
 {
     public partial class NavMenu
     {
-        readonly Dictionary<string, string> bootswatchThemeDict = new Dictionary<string, string>()
+        protected readonly Dictionary<string, string> bootswatchThemeDict = new Dictionary<string, string>()
         {
             { "cerulean", "sha384-3fdgwJw17Bi87e1QQ4fsLn4rUFqWw//KU0g8TvV6quvahISRewev6/EocKNuJmEw" },
             { "cosmo", "sha384-5QFXyVb+lrCzdN228VS3HmzpiE7ZVwLQtkt+0d9W43LQMzz4HBnnqvVxKg6O+04d" }, /* square corners */
@@ -53,9 +53,9 @@ namespace TheLastTime.Shared
             }
         }
 
-        readonly string[] elementSizes = new string[] { "small", "medium", "large" };
+        protected readonly string[] elementSizes = new string[] { "small", "medium", "large" };
 
-        string ElementSize
+        protected string ElementSize
         {
             get => DataService.Settings.Size;
             set
@@ -79,14 +79,14 @@ namespace TheLastTime.Shared
 
         private bool collapseNavMenu = true;
 
-        private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+        protected string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
-        private void ToggleNavMenu()
+        protected void ToggleNavMenu()
         {
             collapseNavMenu = !collapseNavMenu;
         }
 
-        async Task ImportFile(InputFileChangeEventArgs e)
+        protected async Task ImportFile(InputFileChangeEventArgs e)
         {
             Stream stream = e.File.OpenReadStream();
 
@@ -135,7 +135,7 @@ namespace TheLastTime.Shared
 
         protected bool allData = true;
 
-        async Task ExportFile()
+        protected async Task ExportFile()
         {
             if (allData)
             {
