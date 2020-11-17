@@ -60,10 +60,18 @@ namespace TheLastTime.Pages
             {
                 habit.IsPinned = false;
 
-                await SaveHabit(habit);
+                await DataService.SaveHabit(habit);
             }
 
             await DataService.SaveTime(new Time { HabitId = habit.Id, DateTime = DateTime.Now });
+
+            if (State.SelectedHabit != null)
+            {
+                if (DataService.HabitDict.ContainsKey(habit.Id))
+                    State.SelectedHabit = DataService.HabitDict[habit.Id];
+                else
+                    State.SelectedHabit = DataService.HabitList.LastOrDefault();
+            }
         }
 
         private async Task SaveHabit(Habit habit)
