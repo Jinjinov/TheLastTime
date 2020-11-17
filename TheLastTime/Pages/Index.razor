@@ -118,7 +118,7 @@
                         <Button class="close" @onclick="@(() => { State.SelectedHabit = null; })"><span class="fa fa-fw fa-times text-muted"></span></Button>
 
                         <p>
-                            <span class="m-1" style="cursor: pointer;" @onclick="@(async () => { State.SelectedHabit.IsPinned = !State.SelectedHabit.IsPinned; if (!editHabit) { await DataService.SaveHabit(State.SelectedHabit); } })">
+                            <span class="m-1" style="cursor: pointer;" @onclick="@(async () => { State.SelectedHabit.IsPinned = !State.SelectedHabit.IsPinned; if (!editHabit) { await SaveHabit(State.SelectedHabit); } })">
                                 @if (State.SelectedHabit.IsPinned)
                                 {
                                     <span class="fas fa-fw fa-thumbtack"></span><span class="font-weight-bold"> Pinned</span>
@@ -129,7 +129,7 @@
                                 }
                             </span>
 
-                            <span class="m-1" style="cursor: pointer;" @onclick="@(async () => { State.SelectedHabit.IsStarred = !State.SelectedHabit.IsStarred; if (!editHabit) { await DataService.SaveHabit(State.SelectedHabit); } })">
+                            <span class="m-1" style="cursor: pointer;" @onclick="@(async () => { State.SelectedHabit.IsStarred = !State.SelectedHabit.IsStarred; if (!editHabit) { await SaveHabit(State.SelectedHabit); } })">
                                 @if (State.SelectedHabit.IsStarred)
                                 {
                                     <span class="fas fa-fw fa-star"></span><span class="font-weight-bold"> Starred</span>
@@ -142,7 +142,7 @@
                         </p>
 
                         <div>
-                            <Select TValue="long" Size="@State.Size" SelectedValue="@State.SelectedHabit.CategoryId" SelectedValueChanged="async (long val) => { State.SelectedHabit.CategoryId = val; if (!editHabit) { await DataService.SaveHabit(State.SelectedHabit); } }">
+                            <Select TValue="long" Size="@State.Size" SelectedValue="@State.SelectedHabit.CategoryId" SelectedValueChanged="async (long val) => { State.SelectedHabit.CategoryId = val; if (!editHabit) { await SaveHabit(State.SelectedHabit); } }">
                                 @foreach (Category cat in DataService.CategoryList)
                                 {
                                     <SelectItem Value="@cat.Id">@cat.Description</SelectItem>
@@ -155,7 +155,7 @@
                             <div class="input-group flex-nowrap my-3">
                                 <TextEdit Size="@State.Size" @bind-Text="@State.SelectedHabit.Description" Placeholder="Add new habit..." />
                                 <div class="input-group-append">
-                                    <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(async () => { await DataService.SaveHabit(State.SelectedHabit); editHabit = false; })"><span class="fa fa-fw fa-save"></span></Button>
+                                    <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(async () => { await SaveHabit(State.SelectedHabit); editHabit = false; })"><span class="fa fa-fw fa-save"></span></Button>
                                     <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => { editHabit = false; })"><span class="fa fa-fw fa-times"></span></Button>
                                 </div>
                             </div>

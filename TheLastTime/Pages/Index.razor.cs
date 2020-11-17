@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using TheLastTime.Data;
 
@@ -58,14 +59,23 @@ namespace TheLastTime.Pages
             if (habit.IsPinned)
             {
                 habit.IsPinned = false;
-                await DataService.SaveHabit(habit);
+
+                await SaveHabit(habit);
             }
 
             await DataService.SaveTime(new Time { HabitId = habit.Id, DateTime = DateTime.Now });
+        }
+
+        private async Task SaveHabit(Habit habit)
+        {
+            await DataService.SaveHabit(habit);
 
             if (State.SelectedHabit != null)
             {
-                State.SelectedHabit = DataService.HabitDict[habit.Id];
+                if(DataService.HabitDict.ContainsKey(habit.Id))
+                    State.SelectedHabit = DataService.HabitDict[habit.Id];
+                else
+                    State.SelectedHabit = DataService.HabitList.LastOrDefault();
             }
         }
 
