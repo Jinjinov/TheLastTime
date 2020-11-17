@@ -150,6 +150,19 @@
                             </Select>
                         </div>
 
+                        @if (State.Advanced)
+                        {
+                            <div class="input-group flex-nowrap my-3">
+                                <div class="input-group-prepend">
+                                    <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => {  })"><span class="fa fa-fw fa-arrow-up"></span></Button>
+                                </div>
+                                <TextEdit Size="@State.Size" ReadOnly="true" Text="@State.SelectedHabit.Id.ToString()" />
+                                <div class="input-group-append">
+                                    <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => {  })"><span class="fa fa-fw fa-arrow-down"></span></Button>
+                                </div>
+                            </div>
+                        }
+
                         @if (editHabit)
                         {
                             <div class="input-group flex-nowrap my-3">
