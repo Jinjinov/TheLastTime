@@ -53,7 +53,7 @@
             {
                 <div class="input-group flex-nowrap">
                     <div class="input-group-prepend">
-                        <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => { State.SelectedCategory = new Category(); editCategory = true; })"><span class="fa fa-fw fa-plus"></span></Button>
+                        <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => { State.NewCategory(); editCategory = true; })"><span class="fa fa-fw fa-plus"></span></Button>
                     </div>
 
                     <Select TValue="long" Size="@State.Size" SelectedValue="@State.SelectedCategoryId" SelectedValueChanged="async (long val) => { State.SelectedCategoryId = val; }">

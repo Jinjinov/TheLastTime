@@ -45,7 +45,7 @@ namespace TheLastTime.Data
 
         public Size Size => SizeDict[DataService.Settings.Size];
 
-        public Category SelectedCategory = new Category();
+        public Category SelectedCategory { get; private set; } = new Category();
         private long _selectedCategoryId;
         public long SelectedCategoryId
         {
@@ -69,6 +69,14 @@ namespace TheLastTime.Data
         public Habit? SelectedHabit;
 
         public Time? SelectedTime;
+
+        public void NewCategory()
+        {
+            SelectedCategory = new Category();
+
+            if (DataService.CategoryList.Any())
+                _selectedCategoryId = DataService.CategoryList.Last().Id + 1;
+        }
 
         public void NextCategory()
         {
