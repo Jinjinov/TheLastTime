@@ -18,21 +18,14 @@ namespace TheLastTime.Data
 
         #endregion
 
+        public bool Advanced { get; set; }
+
         readonly DataService DataService;
 
         public State(DataService dataService)
         {
             DataService = dataService;
         }
-
-        readonly Dictionary<string, ButtonSize> ButtonSizeDict = new Dictionary<string, ButtonSize>()
-        {
-            { "small", ButtonSize.Small },
-            { "medium", ButtonSize.None },
-            { "large", ButtonSize.Large }
-        };
-
-        public ButtonSize ButtonSize => ButtonSizeDict[DataService.Settings.Size];
 
         readonly Dictionary<string, string> ButtonSizeClassDict = new Dictionary<string, string>()
         {

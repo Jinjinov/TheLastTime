@@ -22,13 +22,18 @@ namespace TheLastTime.Pages
         State State { get; set; } = null!;
 
         [Parameter]
-        public string? SeedExamples { get; set; }
+        public string? RouteParameter { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
             string query = NavigationManager.ToAbsoluteUri(NavigationManager.Uri).Query;
 
-            if (SeedExamples == "examples" || query == "?examples")
+            if (RouteParameter == "advanced" || query == "?advanced")
+            {
+                State.Advanced = true;
+            }
+
+            if (RouteParameter == "examples" || query == "?examples")
             {
                 await DataService.SeedExamples();
             }

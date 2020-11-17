@@ -2,23 +2,23 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-	<LangVersion>9.0</LangVersion>
-	<Nullable>enable</Nullable>
-	<RazorLangVersion>3.0</RazorLangVersion>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <RazorLangVersion>3.0</RazorLangVersion>
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
   </PropertyGroup>
 
   <ItemGroup>
-	<PackageReference Include="Blazorise.Bootstrap" Version="0.9.1.2" />
-	<PackageReference Include="Blazorise.Icons.FontAwesome" Version="0.9.1.2" />
-	
+    <PackageReference Include="Blazorise.Bootstrap" Version="0.9.2" />
+    <PackageReference Include="Blazorise.Icons.FontAwesome" Version="0.9.2" />
+
     <PackageReference Include="Microsoft.AspNetCore.Components" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web.Extensions" Version="5.0.0-preview9.20513.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.0" PrivateAssets="all" />
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
-	
+
     <PackageReference Include="Reshiru.Blazor.IndexedDB.Framework" Version="1.0.1" />
     <PackageReference Include="TG.Blazor.IndexedDB" Version="1.5.0-preview" />
     <PackageReference Include="YamlDotNet" Version="8.1.2" />
