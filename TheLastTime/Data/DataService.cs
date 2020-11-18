@@ -226,6 +226,74 @@ namespace TheLastTime.Data
             await LoadData();
         }
 
+        public async Task HabitUp(Habit habit)
+        {
+            using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
+
+            if (habit.Id > 1 && db.Habits.SingleOrDefault(h => h.Id == habit.Id) is Habit dbHabit)
+            {
+                long newId = habit.Id - 1;
+
+                if (db.Habits.SingleOrDefault(h => h.Id == newId) is Habit otherHabit)
+                {
+                    otherHabit.Id = habit.Id;
+
+                    foreach (Time time in HabitDict[newId].TimeList)
+                    {
+                        if (db.Times.SingleOrDefault(t => t.Id == time.Id) is Time dbTime)
+                            dbTime.HabitId = habit.Id;
+                    }
+                }
+
+                dbHabit.Id = newId;
+
+                foreach (Time time in habit.TimeList)
+                {
+                    if (db.Times.SingleOrDefault(t => t.Id == time.Id) is Time dbTime)
+                        dbTime.HabitId = newId;
+                }
+
+                await db.SaveChanges();
+
+                await LoadData();
+            }
+        }
+
+        public async Task HabitDown(Habit habit)
+        {
+            using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
+
+            long maxId = db.Habits.Any() ? db.Habits.Max(habit => habit.Id) : 0;
+
+            if (habit.Id < maxId && db.Habits.SingleOrDefault(h => h.Id == habit.Id) is Habit dbHabit)
+            {
+                long newId = habit.Id + 1;
+
+                if (db.Habits.SingleOrDefault(h => h.Id == newId) is Habit otherHabit)
+                {
+                    otherHabit.Id = habit.Id;
+
+                    foreach (Time time in HabitDict[newId].TimeList)
+                    {
+                        if (db.Times.SingleOrDefault(t => t.Id == time.Id) is Time dbTime)
+                            dbTime.HabitId = habit.Id;
+                    }
+                }
+
+                dbHabit.Id = newId;
+
+                foreach (Time time in habit.TimeList)
+                {
+                    if (db.Times.SingleOrDefault(t => t.Id == time.Id) is Time dbTime)
+                        dbTime.HabitId = newId;
+                }
+
+                await db.SaveChanges();
+
+                await LoadData();
+            }
+        }
+
         public async Task SaveTime(Time time)
         {
             using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();

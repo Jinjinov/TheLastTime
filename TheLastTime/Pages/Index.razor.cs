@@ -65,6 +65,11 @@ namespace TheLastTime.Pages
 
             await DataService.SaveTime(new Time { HabitId = habit.Id, DateTime = DateTime.Now });
 
+            SetSelectedHabit(habit);
+        }
+
+        private void SetSelectedHabit(Habit habit)
+        {
             if (State.SelectedHabit != null)
             {
                 if (DataService.HabitDict.ContainsKey(habit.Id))
@@ -78,13 +83,25 @@ namespace TheLastTime.Pages
         {
             await DataService.SaveHabit(habit);
 
-            if (State.SelectedHabit != null)
-            {
-                if(DataService.HabitDict.ContainsKey(habit.Id))
-                    State.SelectedHabit = DataService.HabitDict[habit.Id];
-                else
-                    State.SelectedHabit = DataService.HabitList.LastOrDefault();
-            }
+            SetSelectedHabit(habit);
+        }
+
+        private async Task HabitUp(Habit habit)
+        {
+            await DataService.HabitUp(habit);
+
+            // TODO:: select with the NEW id
+
+            SetSelectedHabit(habit);
+        }
+
+        private async Task HabitDown(Habit habit)
+        {
+            await DataService.HabitDown(habit);
+
+            // TODO:: select with the NEW id
+
+            SetSelectedHabit(habit);
         }
 
         public static string ToReadableString(TimeSpan span)
