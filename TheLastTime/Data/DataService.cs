@@ -226,7 +226,7 @@ namespace TheLastTime.Data
             await LoadData();
         }
 
-        public async Task HabitUp(Habit habit)
+        public async Task<bool> HabitUp(Habit habit)
         {
             using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
 
@@ -256,10 +256,14 @@ namespace TheLastTime.Data
                 await db.SaveChanges();
 
                 await LoadData();
+
+                return true;
             }
+
+            return false;
         }
 
-        public async Task HabitDown(Habit habit)
+        public async Task<bool> HabitDown(Habit habit)
         {
             using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
 
@@ -291,7 +295,11 @@ namespace TheLastTime.Data
                 await db.SaveChanges();
 
                 await LoadData();
+
+                return true;
             }
+
+            return false;
         }
 
         public async Task SaveTime(Time time)
