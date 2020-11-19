@@ -41,3 +41,7 @@ Make sure that you use a proper [yaml format](http://www.yamllint.com/), for exa
     Job:
     - Ask for a raise
     - Take a break
+
+You can sort the list in advanced mode:
+
+https://what.should-i.be/?advanced
