@@ -59,9 +59,9 @@ namespace TheLastTime.Data
                     if (DataService.CategoryDict.ContainsKey(value))
                     {
                         SelectedCategory = DataService.CategoryDict[value];
-
-                        OnPropertyChanged(nameof(SelectedCategory));
                     }
+
+                    OnPropertyChanged(nameof(SelectedCategory));
                 }
             }
         }
