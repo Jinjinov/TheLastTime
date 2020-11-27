@@ -33,5 +33,7 @@ namespace TheLastTime.Data
         internal TimeSpan SinceLastTime => DateTime.Now - TimeList.Last().DateTime;
 
         internal bool IsOverdue => (TimeList.Count > 1) && (SinceLastTime > DesiredInterval);
+
+        internal double OverduePercent => TimeList.Count > 1 ? SinceLastTime / DesiredInterval * 100.0 : 0.0;
     }
 }

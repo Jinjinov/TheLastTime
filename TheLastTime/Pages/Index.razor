@@ -28,6 +28,7 @@
                                 <div class="m-1 ml-auto">@(habit.TimeList.Count > 0 ? ToHighestValueString(habit.SinceLastTime) + " ago" : "Never")</div>
                                 @if (habit.IsOverdue)
                                 {
+                                    <div class="m-1">( @habit.OverduePercent.ToString("N0") % )</div>
                                     <div class="m-1"><span class="fa fa-fw fa-exclamation"></span></div>
                                 }
                             </div>
@@ -93,6 +94,7 @@
                                 <div class="m-1 ml-auto">@(habit.TimeList.Count > 0 ? ToHighestValueString(habit.SinceLastTime) + " ago" : "Never")</div>
                                 @if (habit.IsOverdue)
                                 {
+                                    <div class="m-1">( @habit.OverduePercent.ToString("N0") % )</div>
                                     <div class="m-1"><span class="fa fa-fw fa-exclamation"></span></div>
                                 }
                             </div>
@@ -194,7 +196,7 @@
 
                             @if (State.SelectedHabit.IsOverdue)
                             {
-                                <p><span class="fas fa-fw fa-exclamation"></span><span class="font-weight-bold"> @( "Overdue by: " + ToReadableString(State.SelectedHabit.SinceLastTime - State.SelectedHabit.DesiredInterval) )</span></p>
+                                <p><span class="fas fa-fw fa-exclamation"></span><span class="font-weight-bold"> @( "Overdue by: " + ToReadableString(State.SelectedHabit.SinceLastTime - State.SelectedHabit.DesiredInterval) + " ( " + State.SelectedHabit.OverduePercent.ToString("N0") + " % )" )</span></p>
                             }
                         }
 
