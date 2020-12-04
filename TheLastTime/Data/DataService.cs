@@ -43,6 +43,7 @@ namespace TheLastTime.Data
 
             Settings settings = db.Settings.Single();
 
+            settings.ShowPercentMin = Settings.ShowPercentMin;
             settings.ShowOnlyStarred = Settings.ShowOnlyStarred;
             settings.ShowOnlyOverdue = Settings.ShowOnlyOverdue;
             settings.Size = Settings.Size;

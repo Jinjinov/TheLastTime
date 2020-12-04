@@ -8,6 +8,9 @@ namespace TheLastTime.Data
         public long Id { get; set; }
 
         [Required]
+        public long ShowPercentMin { get; set; }
+
+        [Required]
         public bool ShowOnlyStarred { get; set; }
 
         [Required]

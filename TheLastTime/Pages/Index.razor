@@ -7,7 +7,10 @@
         <div class="col-md-12 col-lg-6 px-1 px-sm-3">
 
             <div>
-                @foreach (Habit habit in DataService.HabitList.Where(habit => habit.IsPinned && (habit.IsStarred || !DataService.Settings.ShowOnlyStarred) && (habit.IsOverdue || !DataService.Settings.ShowOnlyOverdue)))
+                @foreach (Habit habit in DataService.HabitList.Where(habit => habit.IsPinned && 
+                                                                             (habit.IsStarred || !DataService.Settings.ShowOnlyStarred) && 
+                                                                             (habit.IsOverdue || !DataService.Settings.ShowOnlyOverdue) && 
+                                                                             (habit.OverduePercent >= DataService.Settings.ShowPercentMin)))
                 {
                     <div class="input-group flex-nowrap my-1">
                         <div class="input-group-prepend flex-grow-1">
@@ -29,11 +32,15 @@
                                 @if (habit.IsOverdue)
                                 {
                                     <div class="m-1 font-weight-bold text-danger">( @habit.OverduePercent.ToString("N0") % )</div>
-                                    <div class="m-1"><span class="fa fa-fw fa-exclamation"></span></div>
+                                    @*<div class="m-1"><span class="fa fa-fw fa-exclamation"></span></div>*@
                                 }
-                                else if (habit.OverduePercent >= 90)
+                                else if (habit.OverduePercent >= 80)
                                 {
                                     <div class="m-1 font-weight-bold text-warning">( @habit.OverduePercent.ToString("N0") % )</div>
+                                }
+                                else if (habit.TimeList.Count > 0)
+                                {
+                                    <div class="m-1 font-weight-bold text-info">( @habit.OverduePercent.ToString("N0") % )</div>
                                 }
                             </div>
                         </div>
@@ -81,7 +88,11 @@
             }
 
             <div>
-                @foreach (Habit habit in DataService.HabitList.Where(habit => !habit.IsPinned && (habit.IsStarred || !DataService.Settings.ShowOnlyStarred) && (habit.IsOverdue || !DataService.Settings.ShowOnlyOverdue) && (habit.CategoryId == State.SelectedCategoryId || State.SelectedCategoryId == 0)))
+                @foreach (Habit habit in DataService.HabitList.Where(habit => !habit.IsPinned && 
+                                                                              (habit.IsStarred || !DataService.Settings.ShowOnlyStarred) && 
+                                                                              (habit.IsOverdue || !DataService.Settings.ShowOnlyOverdue) && 
+                                                                              (habit.CategoryId == State.SelectedCategoryId || State.SelectedCategoryId == 0) && 
+                                                                              (habit.OverduePercent >= DataService.Settings.ShowPercentMin)))
                 {
                     <div class="input-group flex-nowrap my-1">
                         <div class="input-group-prepend flex-grow-1">
@@ -99,11 +110,15 @@
                                 @if (habit.IsOverdue)
                                 {
                                     <div class="m-1 font-weight-bold text-danger">( @habit.OverduePercent.ToString("N0") % )</div>
-                                    <div class="m-1"><span class="fa fa-fw fa-exclamation"></span></div>
+                                    @*<div class="m-1"><span class="fa fa-fw fa-exclamation"></span></div>*@
                                 }
-                                else if (habit.OverduePercent >= 90)
+                                else if (habit.OverduePercent >= 80)
                                 {
                                     <div class="m-1 font-weight-bold text-warning">( @habit.OverduePercent.ToString("N0") % )</div>
+                                }
+                                else if (habit.TimeList.Count > 0)
+                                {
+                                    <div class="m-1 font-weight-bold text-info">( @habit.OverduePercent.ToString("N0") % )</div>
                                 }
                             </div>
                         </div>
