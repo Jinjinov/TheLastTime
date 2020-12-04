@@ -32,15 +32,18 @@
                                 @if (habit.IsOverdue)
                                 {
                                     <div class="m-1 font-weight-bold text-danger">( @habit.OverduePercent.ToString("N0") % )</div>
-                                    @*<div class="m-1"><span class="fa fa-fw fa-exclamation"></span></div>*@
                                 }
                                 else if (habit.OverduePercent >= 80)
                                 {
                                     <div class="m-1 font-weight-bold text-warning">( @habit.OverduePercent.ToString("N0") % )</div>
                                 }
-                                else if (habit.TimeList.Count > 0)
+                                else if (habit.TimeList.Count > 1)
                                 {
                                     <div class="m-1 font-weight-bold text-info">( @habit.OverduePercent.ToString("N0") % )</div>
+                                }
+                                else
+                                {
+                                    <div class="m-1"><span class="fa fa-fw fa-exclamation"></span></div>
                                 }
                             </div>
                         </div>
@@ -110,15 +113,18 @@
                                 @if (habit.IsOverdue)
                                 {
                                     <div class="m-1 font-weight-bold text-danger">( @habit.OverduePercent.ToString("N0") % )</div>
-                                    @*<div class="m-1"><span class="fa fa-fw fa-exclamation"></span></div>*@
                                 }
                                 else if (habit.OverduePercent >= 80)
                                 {
                                     <div class="m-1 font-weight-bold text-warning">( @habit.OverduePercent.ToString("N0") % )</div>
                                 }
-                                else if (habit.TimeList.Count > 0)
+                                else if (habit.TimeList.Count > 1)
                                 {
                                     <div class="m-1 font-weight-bold text-info">( @habit.OverduePercent.ToString("N0") % )</div>
+                                }
+                                else
+                                {
+                                    <div class="m-1"><span class="fa fa-fw fa-exclamation"></span></div>
                                 }
                             </div>
                         </div>
