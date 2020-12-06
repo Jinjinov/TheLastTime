@@ -225,7 +225,7 @@
 
                             @if (State.SelectedHabit.IsOverdue)
                             {
-                                <p><span class="fas fa-fw fa-exclamation"></span><span class="font-weight-bold"> @( "Overdue by: " + ToReadableString(State.SelectedHabit.SinceLastTime - State.SelectedHabit.DesiredInterval) + " ( " + State.SelectedHabit.OverduePercent.ToString("N0") + " % )" )</span></p>
+                                <p><span class="fas fa-fw fa-exclamation"></span><span class="font-weight-bold"> @( "Overdue by: " + ToReadableString(State.SelectedHabit.SinceLastTime - State.SelectedHabit.DesiredInterval) + " ( " + (State.SelectedHabit.OverduePercent - 100).ToString("N0") + " % )" )</span></p>
                             }
                         }
 

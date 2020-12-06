@@ -15,7 +15,7 @@ namespace TheLastTime.Shared
 {
     public partial class NavMenu
     {
-        protected readonly Dictionary<string, string> bootswatchThemeDict = new Dictionary<string, string>()
+        protected readonly SortedList<string, string> bootswatchThemeDict = new SortedList<string, string>()
         {
             { "cerulean", "sha384-3fdgwJw17Bi87e1QQ4fsLn4rUFqWw//KU0g8TvV6quvahISRewev6/EocKNuJmEw" },
             { "cosmo", "sha384-5QFXyVb+lrCzdN228VS3HmzpiE7ZVwLQtkt+0d9W43LQMzz4HBnnqvVxKg6O+04d" }, /* square corners */
@@ -84,6 +84,50 @@ namespace TheLastTime.Shared
         protected void ToggleNavMenu()
         {
             collapseNavMenu = !collapseNavMenu;
+        }
+
+        protected async Task PreviousSize()
+        {
+            int idx = Array.IndexOf(elementSizes, DataService.Settings.Size);
+
+            if (1 <= idx && idx < elementSizes.Length)
+            {
+                DataService.Settings.Size = elementSizes[idx - 1];
+                await DataService.SaveSettings();
+            }
+        }
+
+        protected async Task NextSize()
+        {
+            int idx = Array.IndexOf(elementSizes, DataService.Settings.Size);
+
+            if (0 <= idx && idx < elementSizes.Length - 1)
+            {
+                DataService.Settings.Size = elementSizes[idx + 1];
+                await DataService.SaveSettings();
+            }
+        }
+
+        protected async Task PreviousTheme()
+        {
+            int idx = bootswatchThemeDict.IndexOfKey(DataService.Settings.Theme);
+
+            if (1 <= idx && idx < bootswatchThemeDict.Count)
+            {
+                DataService.Settings.Theme = bootswatchThemeDict.Keys[idx - 1];
+                await DataService.SaveSettings();
+            }
+        }
+
+        protected async Task NextTheme()
+        {
+            int idx = bootswatchThemeDict.IndexOfKey(DataService.Settings.Theme);
+
+            if (0 <= idx && idx < bootswatchThemeDict.Count - 1)
+            {
+                DataService.Settings.Theme = bootswatchThemeDict.Keys[idx + 1];
+                await DataService.SaveSettings();
+            }
         }
 
         protected async Task ImportFile(InputFileChangeEventArgs e)
