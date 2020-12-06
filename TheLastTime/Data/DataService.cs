@@ -1,4 +1,5 @@
 ﻿using Blazor.IndexedDB.Framework;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +9,12 @@ using System.Threading.Tasks;
 
 namespace TheLastTime.Data
 {
+    class Dimensions
+    {
+        public int Width { get; set; }
+        public int Height { get; set; }
+    }
+
     public class DataService : INotifyPropertyChanged
     {
         #region INotifyPropertyChanged
@@ -30,10 +37,12 @@ namespace TheLastTime.Data
         public Dictionary<long, Habit> HabitDict { get; set; } = new Dictionary<long, Habit>();
         public Dictionary<long, Time> TimeDict { get; set; } = new Dictionary<long, Time>();
 
+        readonly IJSRuntime JSRuntime;
         readonly IIndexedDbFactory DbFactory;
 
-        public DataService(IIndexedDbFactory dbFactory)
+        public DataService(IJSRuntime jsRuntime, IIndexedDbFactory dbFactory)
         {
+            JSRuntime = jsRuntime;
             DbFactory = dbFactory;
         }
 
@@ -62,7 +71,13 @@ namespace TheLastTime.Data
 
             if (db.Settings.Count == 0)
             {
-                db.Settings.Add(new Settings() { Size = "medium", Theme = "superhero" });
+                Dimensions dimensions = await JSRuntime.InvokeAsync<Dimensions>("getDimensions");
+
+                if (dimensions.Width < 576)
+                    db.Settings.Add(new Settings() { Size = "small", Theme = "lumen" });
+                else
+                    db.Settings.Add(new Settings() { Size = "medium", Theme = "superhero" });
+
                 save = true;
             }
 
