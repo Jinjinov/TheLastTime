@@ -1,4 +1,7 @@
 .vs
 .vscode
+.htaccess
+*.user
 bin
 obj
+PublishProfiles
