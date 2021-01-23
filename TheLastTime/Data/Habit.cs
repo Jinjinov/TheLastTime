@@ -5,12 +5,6 @@ using System.Linq;
 
 namespace TheLastTime.Data
 {
-    public enum Interval
-    {
-        Average,
-        Desired
-    }
-
     public class Habit
     {
         [Key]

@@ -2,6 +2,20 @@
 
 namespace TheLastTime.Data
 {
+    public enum Interval
+    {
+        Average,
+        Desired
+    }
+
+    public enum Sort
+    {
+        Index,
+        Description,
+        ElapsedTime,
+        ElapsedPercent
+    }
+
     public class Settings
     {
         [Key]
@@ -24,5 +38,8 @@ namespace TheLastTime.Data
 
         [Required]
         public Interval Interval { get; set; }
+
+        [Required]
+        public Sort Sort { get; set; }
     }
 }

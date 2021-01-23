@@ -46,6 +46,37 @@ namespace TheLastTime.Data
             DbFactory = dbFactory;
         }
 
+        private IEnumerable<Habit> GetSorted(IEnumerable<Habit> habits)
+        {
+            return Settings.Sort switch
+            {
+                Sort.Index => habits.OrderBy(habit => habit.Id),
+                Sort.Description => habits.OrderBy(habit => habit.Description),
+                Sort.ElapsedTime => habits.OrderByDescending(habit => habit.SinceLastTime),
+                Sort.ElapsedPercent => habits.OrderByDescending(habit => habit.OverduePercent(Settings.Interval)),
+                _ => throw new ArgumentException("Invalid argument: " + nameof(Settings.Sort))
+            };
+        }
+
+        public IEnumerable<Habit> GetPinnedHabits()
+        {
+            IEnumerable<Habit> habits = HabitList.Where(habit => habit.IsPinned &&
+                                                                (habit.IsStarred || !Settings.ShowOnlyStarred) &&
+                                                                (habit.IsOverdue(Settings.Interval) || !Settings.ShowOnlyOverdue) &&
+                                                                (habit.OverduePercent(Settings.Interval) >= Settings.ShowPercentMin));
+            return GetSorted(habits);
+        }
+
+        public IEnumerable<Habit> GetHabits(long categoryId)
+        {
+            IEnumerable<Habit> habits = HabitList.Where(habit => !habit.IsPinned &&
+                                                                (habit.IsStarred || !Settings.ShowOnlyStarred) &&
+                                                                (habit.IsOverdue(Settings.Interval) || !Settings.ShowOnlyOverdue) &&
+                                                                (habit.CategoryId == categoryId || categoryId == 0) &&
+                                                                (habit.OverduePercent(Settings.Interval) >= Settings.ShowPercentMin));
+            return GetSorted(habits);
+        }
+
         public async Task SaveSettings()
         {
             using IndexedDatabase db = await DbFactory.Create<IndexedDatabase>();
