@@ -73,7 +73,7 @@ else
                     @if (!State.Advanced)
                     {
                         <div class="input-group-prepend">
-                            <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => { })"><span class="fa fa-fw fa-chevron-left"></span></Button>
+                            <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => PreviousSort())"><span class="fa fa-fw fa-chevron-left"></span></Button>
                         </div>
                     }
 
@@ -87,7 +87,7 @@ else
                     @if (!State.Advanced)
                     {
                         <div class="input-group-append">
-                            <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => { })"><span class="fa fa-fw fa-chevron-right"></span></Button>
+                            <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => NextSort())"><span class="fa fa-fw fa-chevron-right"></span></Button>
                         </div>
                     }
 

@@ -99,6 +99,24 @@ namespace TheLastTime.Shared
             collapseNavMenu = !collapseNavMenu;
         }
 
+        protected async Task PreviousSort()
+        {
+            if (DataService.Settings.Sort > Sort.Index)
+            {
+                DataService.Settings.Sort -= 1;
+                await DataService.SaveSettings();
+            }
+        }
+
+        protected async Task NextSort()
+        {
+            if (DataService.Settings.Sort < Sort.ElapsedPercent)
+            {
+                DataService.Settings.Sort += 1;
+                await DataService.SaveSettings();
+            }
+        }
+
         protected async Task PreviousSize()
         {
             int idx = Array.IndexOf(elementSizes, DataService.Settings.Size);
