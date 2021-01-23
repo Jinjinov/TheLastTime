@@ -5,6 +5,12 @@ using System.Linq;
 
 namespace TheLastTime.Data
 {
+    public enum Interval
+    {
+        Average,
+        Desired
+    }
+
     public class Habit
     {
         [Key]
@@ -26,14 +32,46 @@ namespace TheLastTime.Data
         public int Priority { get; set; }
 
         [Required]
-        public TimeSpan DesiredInterval { get; set; }
+        public long AverageIntervalTicks { get => AverageInterval.Ticks; set => AverageInterval = new TimeSpan(value); }
+
+        [Required]
+        public long DesiredIntervalTicks { get => DesiredInterval.Ticks; set => DesiredInterval = new TimeSpan(value); }
+
+        internal TimeSpan AverageInterval { get; set; }
+
+        internal TimeSpan DesiredInterval { get; set; } = new TimeSpan(1, 0, 0, 0);
 
         public List<Time> TimeList = new List<Time>();
 
         internal TimeSpan SinceLastTime => DateTime.Now - TimeList.Last().DateTime;
 
-        internal bool IsOverdue => (TimeList.Count > 1) && (SinceLastTime > DesiredInterval);
+        internal bool IsAverageOverdue => (TimeList.Count > 1) && (SinceLastTime > AverageInterval);
 
-        internal double OverduePercent => TimeList.Count > 1 ? SinceLastTime / DesiredInterval * 100.0 : 0.0;
+        internal double AverageOverduePercent => TimeList.Count > 1 ? SinceLastTime / AverageInterval * 100.0 : 0.0;
+
+        internal bool IsDesiredOverdue => (TimeList.Count > 1) && (SinceLastTime > DesiredInterval);
+
+        internal double DesiredOverduePercent => TimeList.Count > 1 ? SinceLastTime / DesiredInterval * 100.0 : 0.0;
+
+        internal TimeSpan GetInterval(Interval interval) => interval switch
+        {
+            Interval.Average => AverageInterval,
+            Interval.Desired => DesiredInterval,
+            _ => throw new ArgumentException("Invalid argument: " + nameof(interval))
+        };
+
+        internal bool IsOverdue(Interval interval) => interval switch
+        {
+            Interval.Average => IsAverageOverdue,
+            Interval.Desired => IsDesiredOverdue,
+            _ => throw new ArgumentException("Invalid argument: " + nameof(interval))
+        };
+
+        internal double OverduePercent(Interval interval) => interval switch
+        {
+            Interval.Average => AverageOverduePercent,
+            Interval.Desired => DesiredOverduePercent,
+            _ => throw new ArgumentException("Invalid argument: " + nameof(interval))
+        };
     }
 }

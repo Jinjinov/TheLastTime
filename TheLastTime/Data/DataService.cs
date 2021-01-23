@@ -57,6 +57,7 @@ namespace TheLastTime.Data
             settings.ShowOnlyOverdue = Settings.ShowOnlyOverdue;
             settings.Size = Settings.Size;
             settings.Theme = Settings.Theme;
+            settings.Interval = Settings.Interval;
 
             await db.SaveChanges();
 
@@ -111,7 +112,10 @@ namespace TheLastTime.Data
             foreach (Habit habit in HabitList)
             {
                 if (habit.TimeList.Count > 1)
-                    habit.DesiredInterval = TimeSpan.FromMilliseconds(habit.TimeList.Zip(habit.TimeList.Skip(1), (x, y) => (y.DateTime - x.DateTime).TotalMilliseconds).Average());
+                    habit.AverageInterval = TimeSpan.FromMilliseconds(habit.TimeList.Zip(habit.TimeList.Skip(1), (x, y) => (y.DateTime - x.DateTime).TotalMilliseconds).Average());
+
+                //if (habit.DesiredInterval == TimeSpan.Zero)
+                //    habit.DesiredInterval = new TimeSpan(1, 0, 0, 0);
 
                 if (CategoryDict.ContainsKey(habit.CategoryId))
                     CategoryDict[habit.CategoryId].HabitList.Add(habit);
@@ -218,7 +222,8 @@ namespace TheLastTime.Data
                 dbHabit.IsPinned = habit.IsPinned;
                 dbHabit.IsStarred = habit.IsStarred;
                 dbHabit.Priority = habit.Priority;
-                dbHabit.DesiredInterval = habit.DesiredInterval;
+                dbHabit.AverageIntervalTicks = habit.AverageIntervalTicks;
+                dbHabit.DesiredIntervalTicks = habit.DesiredIntervalTicks;
             }
 
             await db.SaveChanges();

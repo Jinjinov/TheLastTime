@@ -21,5 +21,8 @@ namespace TheLastTime.Data
 
         [Required]
         public string Theme { get; set; } = string.Empty;
+
+        [Required]
+        public Interval Interval { get; set; }
     }
 }

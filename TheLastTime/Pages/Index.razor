@@ -9,8 +9,8 @@
             <div>
                 @foreach (Habit habit in DataService.HabitList.Where(habit => habit.IsPinned && 
                                                                              (habit.IsStarred || !DataService.Settings.ShowOnlyStarred) && 
-                                                                             (habit.IsOverdue || !DataService.Settings.ShowOnlyOverdue) && 
-                                                                             (habit.OverduePercent >= DataService.Settings.ShowPercentMin)))
+                                                                             (habit.IsOverdue(DataService.Settings.Interval) || !DataService.Settings.ShowOnlyOverdue) && 
+                                                                             (habit.OverduePercent(DataService.Settings.Interval) >= DataService.Settings.ShowPercentMin)))
                 {
                     <div class="input-group flex-nowrap my-1">
                         <div class="input-group-prepend flex-grow-1">
@@ -29,17 +29,17 @@
                                 }
                                 <div class="m-1">@habit.Description</div>
                                 <div class="m-1 ml-auto">@(habit.TimeList.Count > 0 ? ToHighestValueString(habit.SinceLastTime) + " ago" : "Never")</div>
-                                @if (habit.IsOverdue)
+                                @if (habit.IsOverdue(DataService.Settings.Interval))
                                 {
-                                    <div class="m-1 font-weight-bold text-danger">( @habit.OverduePercent.ToString("N0") % )</div>
+                                    <div class="m-1 font-weight-bold text-danger">( @habit.OverduePercent(DataService.Settings.Interval).ToString("N0") % )</div>
                                 }
-                                else if (habit.OverduePercent >= 80)
+                                else if (habit.OverduePercent(DataService.Settings.Interval) >= 80)
                                 {
-                                    <div class="m-1 font-weight-bold text-warning">( @habit.OverduePercent.ToString("N0") % )</div>
+                                    <div class="m-1 font-weight-bold text-warning">( @habit.OverduePercent(DataService.Settings.Interval).ToString("N0") % )</div>
                                 }
                                 else if (habit.TimeList.Count > 1)
                                 {
-                                    <div class="m-1 font-weight-bold text-info">( @habit.OverduePercent.ToString("N0") % )</div>
+                                    <div class="m-1 font-weight-bold text-info">( @habit.OverduePercent(DataService.Settings.Interval).ToString("N0") % )</div>
                                 }
                                 else
                                 {
@@ -93,9 +93,9 @@
             <div>
                 @foreach (Habit habit in DataService.HabitList.Where(habit => !habit.IsPinned && 
                                                                               (habit.IsStarred || !DataService.Settings.ShowOnlyStarred) && 
-                                                                              (habit.IsOverdue || !DataService.Settings.ShowOnlyOverdue) && 
+                                                                              (habit.IsOverdue(DataService.Settings.Interval) || !DataService.Settings.ShowOnlyOverdue) && 
                                                                               (habit.CategoryId == State.SelectedCategoryId || State.SelectedCategoryId == 0) && 
-                                                                              (habit.OverduePercent >= DataService.Settings.ShowPercentMin)))
+                                                                              (habit.OverduePercent(DataService.Settings.Interval) >= DataService.Settings.ShowPercentMin)))
                 {
                     <div class="input-group flex-nowrap my-1">
                         <div class="input-group-prepend flex-grow-1">
@@ -110,17 +110,17 @@
                                 }
                                 <div class="m-1">@habit.Description</div>
                                 <div class="m-1 ml-auto">@(habit.TimeList.Count > 0 ? ToHighestValueString(habit.SinceLastTime) + " ago" : "Never")</div>
-                                @if (habit.IsOverdue)
+                                @if (habit.IsOverdue(DataService.Settings.Interval))
                                 {
-                                    <div class="m-1 font-weight-bold text-danger">( @habit.OverduePercent.ToString("N0") % )</div>
+                                    <div class="m-1 font-weight-bold text-danger">( @habit.OverduePercent(DataService.Settings.Interval).ToString("N0") % )</div>
                                 }
-                                else if (habit.OverduePercent >= 80)
+                                else if (habit.OverduePercent(DataService.Settings.Interval) >= 80)
                                 {
-                                    <div class="m-1 font-weight-bold text-warning">( @habit.OverduePercent.ToString("N0") % )</div>
+                                    <div class="m-1 font-weight-bold text-warning">( @habit.OverduePercent(DataService.Settings.Interval).ToString("N0") % )</div>
                                 }
                                 else if (habit.TimeList.Count > 1)
                                 {
-                                    <div class="m-1 font-weight-bold text-info">( @habit.OverduePercent.ToString("N0") % )</div>
+                                    <div class="m-1 font-weight-bold text-info">( @habit.OverduePercent(DataService.Settings.Interval).ToString("N0") % )</div>
                                 }
                                 else
                                 {
@@ -137,7 +137,7 @@
 
             <div class="py-5"></div>
 
-            <Button class="btn btn-lg btn-primary rounded-circle add-habit" @onclick="@(() => { State.SelectedHabit = new Habit{ CategoryId = State.SelectedCategoryId != 0 ? State.SelectedCategoryId : 1 }; editHabit = true; })"><span class="fa fa-fw fa-plus"></span></Button>
+            <Button class="btn btn-lg btn-primary rounded-circle add-habit" @onclick="@(() => { State.SelectedHabit = new Habit { CategoryId = State.SelectedCategoryId != 0 ? State.SelectedCategoryId : 1 }; editHabit = true; })"><span class="fa fa-fw fa-plus"></span></Button>
         </div>
 
         @if (State.SelectedHabit != null)
@@ -221,11 +221,26 @@
 
                         @if (State.SelectedHabit.TimeList.Count > 1)
                         {
-                            <p><span class="fas fa-fw fa-stopwatch"></span> @( "On average, every: " + ToReadableString(State.SelectedHabit.DesiredInterval) )</p>
+                            <p><span class="fas fa-fw fa-stopwatch"></span> @( "Average interval: " + ToReadableString(State.SelectedHabit.AverageInterval) )</p>
 
-                            @if (State.SelectedHabit.IsOverdue)
+                            @if (State.SelectedHabit.IsAverageOverdue)
                             {
-                                <p><span class="fas fa-fw fa-exclamation"></span><span class="font-weight-bold"> @( "Overdue by: " + ToReadableString(State.SelectedHabit.SinceLastTime - State.SelectedHabit.DesiredInterval) + " ( " + (State.SelectedHabit.OverduePercent - 100).ToString("N0") + " % )" )</span></p>
+                                <p><span class="fas fa-fw fa-exclamation"></span><span class="font-weight-bold"> @( "Average interval is overdue by: " + ToReadableString(State.SelectedHabit.SinceLastTime - State.SelectedHabit.AverageInterval) + " ( " + (State.SelectedHabit.AverageOverduePercent - 100).ToString("N0") + " % )" )</span></p>
+                            }
+
+                            <p>
+                                <span class="fas fa-fw fa-stopwatch"></span> @("Desired interval:")
+                                <div class="input-group flex-nowrap my-1">
+                                    <NumericEdit TValue="int" Min="0" Max="9000" Value="State.SelectedHabit.DesiredInterval.Days" ValueChanged="async (val) => { State.SelectedHabit.DesiredInterval = new TimeSpan(val, State.SelectedHabit.DesiredInterval.Hours, State.SelectedHabit.DesiredInterval.Minutes, State.SelectedHabit.DesiredInterval.Seconds); await SaveHabit(State.SelectedHabit); }" />
+                                    <TextEdit Size="@State.Size" ReadOnly="true" Text="@(State.SelectedHabit.DesiredInterval.Days == 1 ? "day" : "days")" />
+                                    <NumericEdit TValue="int" Min="0" Max="23" Value="State.SelectedHabit.DesiredInterval.Hours" ValueChanged="async (val) => { State.SelectedHabit.DesiredInterval = new TimeSpan(State.SelectedHabit.DesiredInterval.Days, val, State.SelectedHabit.DesiredInterval.Minutes, State.SelectedHabit.DesiredInterval.Seconds); await SaveHabit(State.SelectedHabit); }" />
+                                    <TextEdit Size="@State.Size" ReadOnly="true" Text="@(State.SelectedHabit.DesiredInterval.Hours == 1 ? "hour" : "hours")" />
+                                </div>
+                            </p>
+
+                            @if (State.SelectedHabit.IsDesiredOverdue)
+                            {
+                                <p><span class="fas fa-fw fa-exclamation"></span><span class="font-weight-bold"> @( "Desired interval is overdue by: " + ToReadableString(State.SelectedHabit.SinceLastTime - State.SelectedHabit.DesiredInterval) + " ( " + (State.SelectedHabit.DesiredOverduePercent - 100).ToString("N0") + " % )" )</span></p>
                             }
                         }
 
@@ -246,7 +261,7 @@
                             {
                                 <div class="input-group flex-nowrap mb-1 d-flex">
                                     @*<DateEdit TValue="DateTime" Size="@State.Size" ReadOnly="true" Date="@time.DateTime" />
-                                    <TimeEdit TValue="TimeSpan" Size="@State.Size" ReadOnly="true" Time="@time.DateTime.TimeOfDay" />*@
+                    <TimeEdit TValue="TimeSpan" Size="@State.Size" ReadOnly="true" Time="@time.DateTime.TimeOfDay" />*@
 
                                     <TextEdit Size="@State.Size" ReadOnly="true" Text="@(ToReadableString(DateTime.Now - time.DateTime) + " ago")" />
 

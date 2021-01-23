@@ -30,6 +30,13 @@ else
         </li>
 
         <li class="nav-item px-2 pt-2">
+            <RadioGroup TValue="Interval" CheckedValue="@DataService.Settings.Interval" CheckedValueChanged="@(async (val) => { DataService.Settings.Interval = val; await DataService.SaveSettings(); })">
+                <Radio TValue="Interval" Value="@(Interval.Average)"><span class="text-light">Show % of average interval</span></Radio>
+                <Radio TValue="Interval" Value="@(Interval.Desired)"><span class="text-light">Show % of desired interval</span></Radio>
+            </RadioGroup>
+        </li>
+
+        <li class="nav-item px-2 pt-2">
             <Field>
                 <FieldLabel Class="text-light">Show only @DataService.Settings.ShowPercentMin % elapsed</FieldLabel>
                 <Slider TValue="long" Min="0" Max="100" Step="5" Value="@DataService.Settings.ShowPercentMin" ValueChanged="@(async (val) => { DataService.Settings.ShowPercentMin = val; await DataService.SaveSettings(); })" />
