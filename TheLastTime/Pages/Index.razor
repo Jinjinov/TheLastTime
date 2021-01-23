@@ -214,15 +214,17 @@
 
                         @if (State.SelectedHabit.TimeList.Count > 1)
                         {
-                            <div><span class="fas fa-fw fa-stopwatch"></span> @( "Average interval: " + ToReadableString(State.SelectedHabit.AverageInterval) )</div>
+                            <p>
+                                <span class="fas fa-fw fa-stopwatch"></span> @( "Average interval: " + ToReadableString(State.SelectedHabit.AverageInterval) )
 
-                            @if (State.SelectedHabit.IsAverageOverdue)
-                            {
-                                <p><span class="fas fa-fw fa-exclamation"></span><span class="font-weight-bold"> @( "Average interval is overdue by: " + ToReadableString(State.SelectedHabit.SinceLastTime - State.SelectedHabit.AverageInterval) + " ( " + (State.SelectedHabit.AverageOverduePercent - 100).ToString("N0") + " % )" )</span></p>
-                            }
+                                @if (State.SelectedHabit.IsAverageOverdue)
+                                {
+                                    <div><span class="fas fa-fw fa-exclamation"></span><span class="font-weight-bold"> @( "Average interval is overdue by: " + ToReadableString(State.SelectedHabit.SinceLastTime - State.SelectedHabit.AverageInterval) + " ( " + (State.SelectedHabit.AverageOverduePercent - 100).ToString("N0") + " % )" )</span></div>
+                                }
+                            </p>
                         }
 
-                        <div>
+                        <p>
                             <span class="fas fa-fw fa-stopwatch"></span> @("Desired interval:")
                             <div class="input-group flex-nowrap my-1">
                                 <NumericEdit TValue="int" Min="0" Max="9000" Value="State.SelectedHabit.DesiredInterval.Days" ValueChanged="async (val) => { State.SelectedHabit.DesiredInterval = new TimeSpan(val, State.SelectedHabit.DesiredInterval.Hours, State.SelectedHabit.DesiredInterval.Minutes, State.SelectedHabit.DesiredInterval.Seconds); await SaveHabit(State.SelectedHabit); }" />
@@ -230,12 +232,12 @@
                                 <NumericEdit TValue="int" Min="0" Max="23" Value="State.SelectedHabit.DesiredInterval.Hours" ValueChanged="async (val) => { State.SelectedHabit.DesiredInterval = new TimeSpan(State.SelectedHabit.DesiredInterval.Days, val, State.SelectedHabit.DesiredInterval.Minutes, State.SelectedHabit.DesiredInterval.Seconds); await SaveHabit(State.SelectedHabit); }" />
                                 <TextEdit Size="@State.Size" ReadOnly="true" Text="@(State.SelectedHabit.DesiredInterval.Hours == 1 ? "hour" : "hours")" />
                             </div>
-                        </div>
 
-                        @if (State.SelectedHabit.IsDesiredOverdue)
-                        {
-                            <p><span class="fas fa-fw fa-exclamation"></span><span class="font-weight-bold"> @( "Desired interval is overdue by: " + ToReadableString(State.SelectedHabit.SinceLastTime - State.SelectedHabit.DesiredInterval) + " ( " + (State.SelectedHabit.DesiredOverduePercent - 100).ToString("N0") + " % )" )</span></p>
-                        }
+                            @if (State.SelectedHabit.IsDesiredOverdue)
+                            {
+                                <div><span class="fas fa-fw fa-exclamation"></span><span class="font-weight-bold"> @( "Desired interval is overdue by: " + ToReadableString(State.SelectedHabit.SinceLastTime - State.SelectedHabit.DesiredInterval) + " ( " + (State.SelectedHabit.DesiredOverduePercent - 100).ToString("N0") + " % )" )</span></div>
+                            }
+                        </p>
 
                         @foreach (Time time in State.SelectedHabit.TimeList.OrderByDescending(t => t.DateTime))
                         {
