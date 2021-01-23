@@ -68,6 +68,19 @@ namespace TheLastTime.Shared
             }
         }
 
+        protected Sort Sort
+        {
+            get => DataService.Settings.Sort;
+            set
+            {
+                if (DataService.Settings.Sort != value)
+                {
+                    DataService.Settings.Sort = value;
+                    DataService.SaveSettings().Wait();
+                }
+            }
+        }
+
         [Inject]
         NavigationManager NavigationManager { get; set; } = null!;
 

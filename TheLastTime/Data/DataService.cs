@@ -89,6 +89,7 @@ namespace TheLastTime.Data
             settings.Size = Settings.Size;
             settings.Theme = Settings.Theme;
             settings.Interval = Settings.Interval;
+            settings.Sort = Settings.Sort;
 
             await db.SaveChanges();
 

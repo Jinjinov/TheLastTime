@@ -37,7 +37,7 @@ namespace TheLastTime.Data
 
         public List<Time> TimeList = new List<Time>();
 
-        internal TimeSpan SinceLastTime => DateTime.Now - TimeList.Last().DateTime;
+        internal TimeSpan SinceLastTime => TimeList.Any() ? DateTime.Now - TimeList.Last().DateTime : TimeSpan.Zero;
 
         internal bool IsAverageOverdue => (TimeList.Count > 1) && (SinceLastTime > AverageInterval);
 

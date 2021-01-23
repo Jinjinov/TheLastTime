@@ -66,6 +66,38 @@ else
 
         <li class="nav-item px-2 pt-2">
             <Field>
+                <FieldLabel Class="text-light">Sort:</FieldLabel>
+
+                <div class="input-group flex-nowrap">
+
+                    @if (!State.Advanced)
+                    {
+                        <div class="input-group-prepend">
+                            <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => { })"><span class="fa fa-fw fa-chevron-left"></span></Button>
+                        </div>
+                    }
+
+                    <Select TValue="Sort" MaxVisibleItems="@(State.Advanced ? 4 : null)" Size="@State.Size" SelectedValue="@Sort" SelectedValueChanged="async (Sort val) => { Sort = val; }">
+                        <SelectItem Value="@Sort.Index">Index</SelectItem>
+                        <SelectItem Value="@Sort.Description">Description</SelectItem>
+                        <SelectItem Value="@Sort.ElapsedTime">Elapsed time</SelectItem>
+                        <SelectItem Value="@Sort.ElapsedPercent">Elapsed percent</SelectItem>
+                    </Select>
+
+                    @if (!State.Advanced)
+                    {
+                        <div class="input-group-append">
+                            <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => { })"><span class="fa fa-fw fa-chevron-right"></span></Button>
+                        </div>
+                    }
+
+                </div>
+
+            </Field>
+        </li>
+
+        <li class="nav-item px-2 pt-2">
+            <Field>
                 <FieldLabel Class="text-light">Size:</FieldLabel>
 
                 <div class="input-group flex-nowrap">
