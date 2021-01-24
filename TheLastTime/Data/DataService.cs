@@ -54,6 +54,7 @@ namespace TheLastTime.Data
                 Sort.Description => habits.OrderBy(habit => habit.Description),
                 Sort.ElapsedTime => habits.OrderByDescending(habit => habit.SinceLastTime),
                 Sort.ElapsedPercent => habits.OrderByDescending(habit => habit.OverduePercent(Settings.Interval)),
+                Sort.AverageToDesiredRatio => habits.OrderByDescending(habit => habit.AverageInterval / habit.DesiredInterval),
                 _ => throw new ArgumentException("Invalid argument: " + nameof(Settings.Sort))
             };
         }
@@ -62,6 +63,7 @@ namespace TheLastTime.Data
         {
             IEnumerable<Habit> habits = HabitList.Where(habit => habit.IsPinned &&
                                                                 (habit.IsStarred || !Settings.ShowOnlyStarred) &&
+                                                                (habit.IsTwoMinute || !Settings.ShowOnlyTwoMinute) &&
                                                                 (habit.IsOverdue(Settings.Interval) || !Settings.ShowOnlyOverdue) &&
                                                                 (habit.OverduePercent(Settings.Interval) >= Settings.ShowPercentMin));
             return GetSorted(habits);
@@ -71,6 +73,7 @@ namespace TheLastTime.Data
         {
             IEnumerable<Habit> habits = HabitList.Where(habit => !habit.IsPinned &&
                                                                 (habit.IsStarred || !Settings.ShowOnlyStarred) &&
+                                                                (habit.IsTwoMinute || !Settings.ShowOnlyTwoMinute) &&
                                                                 (habit.IsOverdue(Settings.Interval) || !Settings.ShowOnlyOverdue) &&
                                                                 (habit.CategoryId == categoryId || categoryId == 0) &&
                                                                 (habit.OverduePercent(Settings.Interval) >= Settings.ShowPercentMin));
@@ -85,6 +88,7 @@ namespace TheLastTime.Data
 
             settings.ShowPercentMin = Settings.ShowPercentMin;
             settings.ShowOnlyStarred = Settings.ShowOnlyStarred;
+            settings.ShowOnlyTwoMinute = Settings.ShowOnlyTwoMinute;
             settings.ShowOnlyOverdue = Settings.ShowOnlyOverdue;
             settings.ShowHabitId = Settings.ShowHabitId;
             settings.ShowHabitIdUpDownButtons = Settings.ShowHabitIdUpDownButtons;

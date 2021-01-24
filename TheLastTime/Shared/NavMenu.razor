@@ -26,6 +26,10 @@ else
         </li>
 
         <li class="nav-item px-2 pt-2">
+            <Check TValue="bool" Checked="@DataService.Settings.ShowOnlyTwoMinute" CheckedChanged="@(async (val) => { DataService.Settings.ShowOnlyTwoMinute = val; await DataService.SaveSettings(); })"><span class="text-light">Show only 2 min</span></Check>
+        </li>
+
+        <li class="nav-item px-2 pt-2">
             <Check TValue="bool" Checked="@DataService.Settings.ShowOnlyOverdue" CheckedChanged="@(async (val) => { DataService.Settings.ShowOnlyOverdue = val; await DataService.SaveSettings(); })"><span class="text-light">Show only overdue</span></Check>
         </li>
 
@@ -98,6 +102,7 @@ else
                         <SelectItem Value="@Sort.Description">Description</SelectItem>
                         <SelectItem Value="@Sort.ElapsedTime">Elapsed time</SelectItem>
                         <SelectItem Value="@Sort.ElapsedPercent">Elapsed percent</SelectItem>
+                        <SelectItem Value="@Sort.AverageToDesiredRatio">Average / Desired</SelectItem>
                     </Select>
 
                     @if (!DataService.Settings.ShowAllSelectOptions)

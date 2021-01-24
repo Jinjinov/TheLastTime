@@ -13,7 +13,8 @@ namespace TheLastTime.Data
         Index,
         Description,
         ElapsedTime,
-        ElapsedPercent
+        ElapsedPercent,
+        AverageToDesiredRatio
     }
 
     public class Settings
@@ -26,6 +27,9 @@ namespace TheLastTime.Data
 
         [Required]
         public bool ShowOnlyStarred { get; set; }
+
+        [Required]
+        public bool ShowOnlyTwoMinute { get; set; }
 
         [Required]
         public bool ShowOnlyOverdue { get; set; }
