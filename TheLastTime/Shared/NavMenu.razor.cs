@@ -109,20 +109,20 @@ namespace TheLastTime.Shared
 
             if (DataService.Settings.Sort == Sort.Index)
             {
-                DataService.Settings.Sort = Sort.AverageToDesiredRatio;
+                DataService.Settings.Sort = Sort.AverageToDesiredIntervalRatio;
                 await DataService.SaveSettings();
             }
         }
 
         protected async Task NextSort()
         {
-            if (DataService.Settings.Sort < Sort.AverageToDesiredRatio)
+            if (DataService.Settings.Sort < Sort.AverageToDesiredIntervalRatio)
             {
                 DataService.Settings.Sort += 1;
                 await DataService.SaveSettings();
             }
 
-            if (DataService.Settings.Sort == Sort.AverageToDesiredRatio)
+            if (DataService.Settings.Sort == Sort.AverageToDesiredIntervalRatio)
             {
                 DataService.Settings.Sort = Sort.Index;
                 await DataService.SaveSettings();

@@ -54,7 +54,7 @@ namespace TheLastTime.Data
                 Sort.Description => habits.OrderBy(habit => habit.Description),
                 Sort.ElapsedTime => habits.OrderByDescending(habit => habit.SinceLastTime),
                 Sort.ElapsedPercent => habits.OrderByDescending(habit => habit.OverduePercent(Settings.Interval)),
-                Sort.AverageToDesiredRatio => habits.OrderByDescending(habit => habit.AverageInterval / habit.DesiredInterval),
+                Sort.AverageToDesiredIntervalRatio => habits.OrderByDescending(habit => habit.AverageInterval / habit.DesiredInterval),
                 _ => throw new ArgumentException("Invalid argument: " + nameof(Settings.Sort))
             };
         }

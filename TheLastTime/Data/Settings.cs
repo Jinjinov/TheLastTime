@@ -14,7 +14,7 @@ namespace TheLastTime.Data
         Description,
         ElapsedTime,
         ElapsedPercent,
-        AverageToDesiredRatio
+        AverageToDesiredIntervalRatio
     }
 
     public class Settings
