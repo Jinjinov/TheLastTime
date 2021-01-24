@@ -102,11 +102,11 @@ else
                     }
 
                     <Select TValue="Sort" MaxVisibleItems="@(DataService.Settings.ShowAllSelectOptions ? 4 : null)" Size="@State.Size" SelectedValue="@Sort" SelectedValueChanged="async (Sort val) => { Sort = val; }">
-                        <SelectItem Value="@Sort.Index">Index</SelectItem>
-                        <SelectItem Value="@Sort.Description">Description</SelectItem>
-                        <SelectItem Value="@Sort.ElapsedTime">Elapsed time</SelectItem>
-                        <SelectItem Value="@Sort.ElapsedPercent">Elapsed percent</SelectItem>
-                        <SelectItem Value="@Sort.AverageToDesiredIntervalRatio">Average interval / Desired interval</SelectItem>
+                        <SelectItem Value="@Sort.Index">index</SelectItem>
+                        <SelectItem Value="@Sort.Description">description</SelectItem>
+                        <SelectItem Value="@Sort.ElapsedTime">elapsed time</SelectItem>
+                        <SelectItem Value="@Sort.ElapsedTimeToIntervalRatio">elapsed time / interval</SelectItem>
+                        <SelectItem Value="@Sort.AverageToDesiredIntervalRatio">average interval / desired interval</SelectItem>
                     </Select>
 
                     @if (!DataService.Settings.ShowAllSelectOptions)

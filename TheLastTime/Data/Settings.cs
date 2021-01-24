@@ -14,7 +14,7 @@ namespace TheLastTime.Data
         Index,
         Description,
         ElapsedTime,
-        ElapsedPercent,
+        ElapsedTimeToIntervalRatio,
         AverageToDesiredIntervalRatio
     }
 
