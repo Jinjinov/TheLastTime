@@ -53,8 +53,7 @@ namespace TheLastTime.Data
                 Sort.Index => habits.OrderBy(habit => habit.Id),
                 Sort.Description => habits.OrderBy(habit => habit.Description),
                 Sort.ElapsedTime => habits.OrderByDescending(habit => habit.ElapsedTime),
-                Sort.ElapsedTimeToIntervalRatio => habits.OrderByDescending(habit => habit.GetRatio(Settings.Ratio)),
-                Sort.AverageToDesiredIntervalRatio => habits.OrderByDescending(habit => habit.AverageInterval / habit.DesiredInterval),
+                Sort.SelectedRatio => habits.OrderByDescending(habit => habit.GetRatio(Settings.Ratio)),
                 _ => throw new ArgumentException("Invalid argument: " + nameof(Settings.Sort))
             };
         }

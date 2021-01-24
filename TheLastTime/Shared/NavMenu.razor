@@ -90,7 +90,7 @@ else
 
         <li class="nav-item px-2 pt-2">
             <Field>
-                <FieldLabel Class="text-light">Sort:</FieldLabel>
+                <FieldLabel Class="text-light">Sort by:</FieldLabel>
 
                 <div class="input-group flex-nowrap">
 
@@ -105,8 +105,7 @@ else
                         <SelectItem Value="@Sort.Index">index</SelectItem>
                         <SelectItem Value="@Sort.Description">description</SelectItem>
                         <SelectItem Value="@Sort.ElapsedTime">elapsed time</SelectItem>
-                        <SelectItem Value="@Sort.ElapsedTimeToIntervalRatio">elapsed time / interval</SelectItem>
-                        <SelectItem Value="@Sort.AverageToDesiredIntervalRatio">average interval / desired interval</SelectItem>
+                        <SelectItem Value="@Sort.SelectedRatio">selected ratio</SelectItem>
                     </Select>
 
                     @if (!DataService.Settings.ShowAllSelectOptions)
