@@ -63,7 +63,7 @@ namespace TheLastTime.Data
             IEnumerable<Habit> habits = HabitList.Where(habit => habit.IsPinned &&
                                                                 (habit.IsStarred || !Settings.ShowOnlyStarred) &&
                                                                 (habit.IsTwoMinute || !Settings.ShowOnlyTwoMinute) &&
-                                                                (habit.IsRatioOverOne(Settings.Ratio) || !Settings.ShowOnlyOverdue) &&
+                                                                (habit.IsRatioOverOne(Settings.Ratio) || !Settings.ShowOnlyRatioOverOne) &&
                                                                 (habit.GetRatio(Settings.Ratio) >= Settings.ShowPercentMin));
             return GetSorted(habits);
         }
@@ -73,7 +73,7 @@ namespace TheLastTime.Data
             IEnumerable<Habit> habits = HabitList.Where(habit => !habit.IsPinned &&
                                                                 (habit.IsStarred || !Settings.ShowOnlyStarred) &&
                                                                 (habit.IsTwoMinute || !Settings.ShowOnlyTwoMinute) &&
-                                                                (habit.IsRatioOverOne(Settings.Ratio) || !Settings.ShowOnlyOverdue) &&
+                                                                (habit.IsRatioOverOne(Settings.Ratio) || !Settings.ShowOnlyRatioOverOne) &&
                                                                 (habit.CategoryId == categoryId || categoryId == 0) &&
                                                                 (habit.GetRatio(Settings.Ratio) >= Settings.ShowPercentMin));
             return GetSorted(habits);
@@ -88,7 +88,7 @@ namespace TheLastTime.Data
             settings.ShowPercentMin = Settings.ShowPercentMin;
             settings.ShowOnlyStarred = Settings.ShowOnlyStarred;
             settings.ShowOnlyTwoMinute = Settings.ShowOnlyTwoMinute;
-            settings.ShowOnlyOverdue = Settings.ShowOnlyOverdue;
+            settings.ShowOnlyRatioOverOne = Settings.ShowOnlyRatioOverOne;
             settings.ShowHabitId = Settings.ShowHabitId;
             settings.ShowHabitIdUpDownButtons = Settings.ShowHabitIdUpDownButtons;
             settings.ShowAllSelectOptions = Settings.ShowAllSelectOptions;

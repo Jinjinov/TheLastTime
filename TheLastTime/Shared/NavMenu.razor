@@ -30,12 +30,12 @@ else
         </li>
 
         <li class="nav-item px-2 pt-2">
-            <Check TValue="bool" Checked="@DataService.Settings.ShowOnlyOverdue" CheckedChanged="@(async (val) => { DataService.Settings.ShowOnlyOverdue = val; await DataService.SaveSettings(); })"><span class="text-light">Show only overdue</span></Check>
+            <Check TValue="bool" Checked="@DataService.Settings.ShowOnlyRatioOverOne" CheckedChanged="@(async (val) => { DataService.Settings.ShowOnlyRatioOverOne = val; await DataService.SaveSettings(); })"><span class="text-light">Show ratio over 100 %</span></Check>
         </li>
 
         <li class="nav-item px-2 pt-2">
             <Field>
-                <FieldLabel Class="text-light">Show ratio:</FieldLabel>
+                <FieldLabel Class="text-light">Select ratio:</FieldLabel>
                 <RadioGroup TValue="Ratio" CheckedValue="@DataService.Settings.Ratio" CheckedValueChanged="@(async (val) => { DataService.Settings.Ratio = val; await DataService.SaveSettings(); })">
                     <Radio TValue="Ratio" Value="@(Ratio.ElapsedToAverage)"><span class="text-light">Elapsed time / average interval</span></Radio>
                     <Radio TValue="Ratio" Value="@(Ratio.ElapsedToDesired)"><span class="text-light">Elapsed time / desired interval</span></Radio>
@@ -46,7 +46,7 @@ else
 
         <li class="nav-item px-2 py-0">
             <Field>
-                <FieldLabel Class="text-light">Show only @DataService.Settings.ShowPercentMin % elapsed</FieldLabel>
+                <FieldLabel Class="text-light">Show ratio over @DataService.Settings.ShowPercentMin %</FieldLabel>
                 <Slider TValue="long" Min="0" Max="100" Step="5" Value="@DataService.Settings.ShowPercentMin" ValueChanged="@(async (val) => { DataService.Settings.ShowPercentMin = val; await DataService.SaveSettings(); })" />
             </Field>
         </li>
