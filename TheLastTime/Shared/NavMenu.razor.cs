@@ -106,8 +106,7 @@ namespace TheLastTime.Shared
                 DataService.Settings.Sort -= 1;
                 await DataService.SaveSettings();
             }
-
-            if (DataService.Settings.Sort == Sort.Index)
+            else if (DataService.Settings.Sort == Sort.Index)
             {
                 DataService.Settings.Sort = Sort.SelectedRatio;
                 await DataService.SaveSettings();
@@ -121,8 +120,7 @@ namespace TheLastTime.Shared
                 DataService.Settings.Sort += 1;
                 await DataService.SaveSettings();
             }
-
-            if (DataService.Settings.Sort == Sort.SelectedRatio)
+            else if (DataService.Settings.Sort == Sort.SelectedRatio)
             {
                 DataService.Settings.Sort = Sort.Index;
                 await DataService.SaveSettings();
