@@ -86,6 +86,10 @@ namespace TheLastTime.Data
             settings.ShowPercentMin = Settings.ShowPercentMin;
             settings.ShowOnlyStarred = Settings.ShowOnlyStarred;
             settings.ShowOnlyOverdue = Settings.ShowOnlyOverdue;
+            settings.ShowHabitId = Settings.ShowHabitId;
+            settings.ShowHabitIdUpDownButtons = Settings.ShowHabitIdUpDownButtons;
+            settings.ShowAllSelectOptions = Settings.ShowAllSelectOptions;
+            settings.ShowCategoriesInHeader = Settings.ShowCategoriesInHeader;
             settings.Size = Settings.Size;
             settings.Theme = Settings.Theme;
             settings.Interval = Settings.Interval;
@@ -253,7 +257,7 @@ namespace TheLastTime.Data
                 dbHabit.Description = habit.Description;
                 dbHabit.IsPinned = habit.IsPinned;
                 dbHabit.IsStarred = habit.IsStarred;
-                dbHabit.Priority = habit.Priority;
+                dbHabit.IsTwoMinute = habit.IsTwoMinute;
                 dbHabit.AverageIntervalTicks = habit.AverageIntervalTicks;
                 dbHabit.DesiredIntervalTicks = habit.DesiredIntervalTicks;
             }

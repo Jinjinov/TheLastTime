@@ -23,7 +23,7 @@ namespace TheLastTime.Data
         public bool IsStarred { get; set; }
 
         [Required]
-        public int Priority { get; set; }
+        public bool IsTwoMinute { get; set; }
 
         [Required]
         public long AverageIntervalTicks { get => AverageInterval.Ticks; set => AverageInterval = new TimeSpan(value); }

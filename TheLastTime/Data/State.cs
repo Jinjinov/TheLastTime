@@ -18,8 +18,6 @@ namespace TheLastTime.Data
 
         #endregion
 
-        public bool Advanced { get; set; }
-
         readonly DataService DataService;
 
         public State(DataService dataService)

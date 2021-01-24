@@ -29,11 +29,6 @@ namespace TheLastTime.Pages
         {
             string query = NavigationManager.ToAbsoluteUri(NavigationManager.Uri).Query;
 
-            if (RouteParameter == "advanced" || query == "?advanced")
-            {
-                State.Advanced = true;
-            }
-
             if (RouteParameter == "examples" || query == "?examples")
             {
                 await DataService.SeedExamples();

@@ -12,7 +12,7 @@
                     <div class="input-group flex-nowrap my-1">
                         <div class="input-group-prepend flex-grow-1">
                             <div class="btn btn-secondary @State.ButtonSizeClass border border-right-0 flex-grow-1 d-flex" @onclick="@(() => { State.SelectedHabit = habit; })">
-                                @if (State.Advanced)
+                                @if (DataService.Settings.ShowHabitId)
                                 {
                                     <div class="m-1">@habit.Id</div>
                                 }
@@ -93,7 +93,7 @@
                     <div class="input-group flex-nowrap my-1">
                         <div class="input-group-prepend flex-grow-1">
                             <div class="btn btn-secondary @State.ButtonSizeClass border border-right-0 flex-grow-1 d-flex" @onclick="@(() => { State.SelectedHabit = habit; })">
-                                @if (State.Advanced)
+                                @if (DataService.Settings.ShowHabitId)
                                 {
                                     <div class="m-1">@habit.Id</div>
                                 }
@@ -174,7 +174,7 @@
                             </Select>
                         </div>
 
-                        @if (State.Advanced)
+                        @if (DataService.Settings.ShowHabitIdUpDownButtons)
                         {
                             <div class="input-group flex-nowrap my-3">
                                 <div class="input-group-prepend">

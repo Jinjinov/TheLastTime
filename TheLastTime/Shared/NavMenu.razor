@@ -65,26 +65,42 @@ else
         </li>
 
         <li class="nav-item px-2 pt-2">
+            <Check TValue="bool" Checked="@DataService.Settings.ShowHabitId" CheckedChanged="@(async (val) => { DataService.Settings.ShowHabitId = val; await DataService.SaveSettings(); })"><span class="text-light">Show index</span></Check>
+        </li>
+
+        <li class="nav-item px-2 pt-2">
+            <Check TValue="bool" Checked="@DataService.Settings.ShowHabitIdUpDownButtons" CheckedChanged="@(async (val) => { DataService.Settings.ShowHabitIdUpDownButtons = val; await DataService.SaveSettings(); })"><span class="text-light">Show index buttons</span></Check>
+        </li>
+
+        <li class="nav-item px-2 pt-2">
+            <Check TValue="bool" Checked="@DataService.Settings.ShowAllSelectOptions" CheckedChanged="@(async (val) => { DataService.Settings.ShowAllSelectOptions = val; await DataService.SaveSettings(); })"><span class="text-light">Show all select options</span></Check>
+        </li>
+
+        <li class="nav-item px-2 pt-2">
+            <Check TValue="bool" Checked="@DataService.Settings.ShowCategoriesInHeader" CheckedChanged="@(async (val) => { DataService.Settings.ShowCategoriesInHeader = val; await DataService.SaveSettings(); })"><span class="text-light">Show categories in header</span></Check>
+        </li>
+
+        <li class="nav-item px-2 pt-2">
             <Field>
                 <FieldLabel Class="text-light">Sort:</FieldLabel>
 
                 <div class="input-group flex-nowrap">
 
-                    @if (!State.Advanced)
+                    @if (!DataService.Settings.ShowAllSelectOptions)
                     {
                         <div class="input-group-prepend">
                             <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => PreviousSort())"><span class="fa fa-fw fa-chevron-left"></span></Button>
                         </div>
                     }
 
-                    <Select TValue="Sort" MaxVisibleItems="@(State.Advanced ? 4 : null)" Size="@State.Size" SelectedValue="@Sort" SelectedValueChanged="async (Sort val) => { Sort = val; }">
+                    <Select TValue="Sort" MaxVisibleItems="@(DataService.Settings.ShowAllSelectOptions ? 4 : null)" Size="@State.Size" SelectedValue="@Sort" SelectedValueChanged="async (Sort val) => { Sort = val; }">
                         <SelectItem Value="@Sort.Index">Index</SelectItem>
                         <SelectItem Value="@Sort.Description">Description</SelectItem>
                         <SelectItem Value="@Sort.ElapsedTime">Elapsed time</SelectItem>
                         <SelectItem Value="@Sort.ElapsedPercent">Elapsed percent</SelectItem>
                     </Select>
 
-                    @if (!State.Advanced)
+                    @if (!DataService.Settings.ShowAllSelectOptions)
                     {
                         <div class="input-group-append">
                             <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => NextSort())"><span class="fa fa-fw fa-chevron-right"></span></Button>
@@ -96,27 +112,27 @@ else
             </Field>
         </li>
 
-        <li class="nav-item px-2 pt-2">
+        <li class="nav-item px-2 py-0">
             <Field>
                 <FieldLabel Class="text-light">Size:</FieldLabel>
 
                 <div class="input-group flex-nowrap">
 
-                    @if (!State.Advanced)
+                    @if (!DataService.Settings.ShowAllSelectOptions)
                     {
                         <div class="input-group-prepend">
                             <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => PreviousSize())"><span class="fa fa-fw fa-chevron-left"></span></Button>
                         </div>
                     }
 
-                    <Select TValue="string" MaxVisibleItems="@(State.Advanced ? 3 : null)" Size="@State.Size" SelectedValue="@ElementSize" SelectedValueChanged="async (string val) => { ElementSize = val; }">
+                    <Select TValue="string" MaxVisibleItems="@(DataService.Settings.ShowAllSelectOptions ? 3 : null)" Size="@State.Size" SelectedValue="@ElementSize" SelectedValueChanged="async (string val) => { ElementSize = val; }">
                         @foreach (string size in elementSizes)
                         {
                             <SelectItem Value="@size">@size</SelectItem>
                         }
                     </Select>
 
-                    @if (!State.Advanced)
+                    @if (!DataService.Settings.ShowAllSelectOptions)
                     {
                         <div class="input-group-append">
                             <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => NextSize())"><span class="fa fa-fw fa-chevron-right"></span></Button>
@@ -134,14 +150,14 @@ else
 
                 <div class="input-group flex-nowrap">
 
-                    @if (!State.Advanced)
+                    @if (!DataService.Settings.ShowAllSelectOptions)
                     {
                         <div class="input-group-prepend">
                             <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => PreviousTheme())"><span class="fa fa-fw fa-chevron-left"></span></Button>
                         </div>
                     }
 
-                    <Select TValue="string" MaxVisibleItems="@(State.Advanced ? bootswatchThemeDict.Count + 1 : null)" Size="@State.Size" SelectedValue="@BootswatchTheme" SelectedValueChanged="async (string val) => { BootswatchTheme = val; }">
+                    <Select TValue="string" MaxVisibleItems="@(DataService.Settings.ShowAllSelectOptions ? bootswatchThemeDict.Count + 1 : null)" Size="@State.Size" SelectedValue="@BootswatchTheme" SelectedValueChanged="async (string val) => { BootswatchTheme = val; }">
                         <SelectItem Value="@("default")">default</SelectItem>
                         @foreach (string theme in bootswatchThemeDict.Keys)
                         {
@@ -149,7 +165,7 @@ else
                         }
                     </Select>
 
-                    @if (!State.Advanced)
+                    @if (!DataService.Settings.ShowAllSelectOptions)
                     {
                         <div class="input-group-append">
                             <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => NextTheme())"><span class="fa fa-fw fa-chevron-right"></span></Button>
