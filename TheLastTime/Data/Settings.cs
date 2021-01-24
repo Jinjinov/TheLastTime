@@ -2,10 +2,11 @@
 
 namespace TheLastTime.Data
 {
-    public enum Interval
+    public enum Ratio
     {
-        Average,
-        Desired
+        ElapsedToAverage,
+        ElapsedToDesired,
+        AverageToDesired
     }
 
     public enum Sort
@@ -53,7 +54,7 @@ namespace TheLastTime.Data
         public string Theme { get; set; } = string.Empty;
 
         [Required]
-        public Interval Interval { get; set; }
+        public Ratio Ratio { get; set; }
 
         [Required]
         public Sort Sort { get; set; }

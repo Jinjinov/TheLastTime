@@ -52,8 +52,8 @@ namespace TheLastTime.Data
             {
                 Sort.Index => habits.OrderBy(habit => habit.Id),
                 Sort.Description => habits.OrderBy(habit => habit.Description),
-                Sort.ElapsedTime => habits.OrderByDescending(habit => habit.SinceLastTime),
-                Sort.ElapsedPercent => habits.OrderByDescending(habit => habit.OverduePercent(Settings.Interval)),
+                Sort.ElapsedTime => habits.OrderByDescending(habit => habit.ElapsedTime),
+                Sort.ElapsedPercent => habits.OrderByDescending(habit => habit.GetRatio(Settings.Ratio)),
                 Sort.AverageToDesiredIntervalRatio => habits.OrderByDescending(habit => habit.AverageInterval / habit.DesiredInterval),
                 _ => throw new ArgumentException("Invalid argument: " + nameof(Settings.Sort))
             };
@@ -64,8 +64,8 @@ namespace TheLastTime.Data
             IEnumerable<Habit> habits = HabitList.Where(habit => habit.IsPinned &&
                                                                 (habit.IsStarred || !Settings.ShowOnlyStarred) &&
                                                                 (habit.IsTwoMinute || !Settings.ShowOnlyTwoMinute) &&
-                                                                (habit.IsOverdue(Settings.Interval) || !Settings.ShowOnlyOverdue) &&
-                                                                (habit.OverduePercent(Settings.Interval) >= Settings.ShowPercentMin));
+                                                                (habit.IsRatioOverOne(Settings.Ratio) || !Settings.ShowOnlyOverdue) &&
+                                                                (habit.GetRatio(Settings.Ratio) >= Settings.ShowPercentMin));
             return GetSorted(habits);
         }
 
@@ -74,9 +74,9 @@ namespace TheLastTime.Data
             IEnumerable<Habit> habits = HabitList.Where(habit => !habit.IsPinned &&
                                                                 (habit.IsStarred || !Settings.ShowOnlyStarred) &&
                                                                 (habit.IsTwoMinute || !Settings.ShowOnlyTwoMinute) &&
-                                                                (habit.IsOverdue(Settings.Interval) || !Settings.ShowOnlyOverdue) &&
+                                                                (habit.IsRatioOverOne(Settings.Ratio) || !Settings.ShowOnlyOverdue) &&
                                                                 (habit.CategoryId == categoryId || categoryId == 0) &&
-                                                                (habit.OverduePercent(Settings.Interval) >= Settings.ShowPercentMin));
+                                                                (habit.GetRatio(Settings.Ratio) >= Settings.ShowPercentMin));
             return GetSorted(habits);
         }
 
@@ -96,7 +96,7 @@ namespace TheLastTime.Data
             settings.ShowCategoriesInHeader = Settings.ShowCategoriesInHeader;
             settings.Size = Settings.Size;
             settings.Theme = Settings.Theme;
-            settings.Interval = Settings.Interval;
+            settings.Ratio = Settings.Ratio;
             settings.Sort = Settings.Sort;
 
             await db.SaveChanges();

@@ -37,35 +37,30 @@ namespace TheLastTime.Data
 
         public List<Time> TimeList = new List<Time>();
 
-        internal TimeSpan SinceLastTime => TimeList.Any() ? DateTime.Now - TimeList.Last().DateTime : TimeSpan.Zero;
+        internal TimeSpan ElapsedTime => TimeList.Any() ? DateTime.Now - TimeList.Last().DateTime : TimeSpan.Zero;
 
-        internal bool IsAverageOverdue => (TimeList.Count > 1) && (SinceLastTime > AverageInterval);
+        internal bool IsElapsedOverAverage => (TimeList.Count > 1) && (ElapsedTime > AverageInterval);
 
-        internal double AverageOverduePercent => TimeList.Count > 1 ? SinceLastTime / AverageInterval * 100.0 : 0.0;
+        internal double ElapsedToAverageRatio => TimeList.Count > 1 ? ElapsedTime / AverageInterval * 100.0 : 0.0;
 
-        internal bool IsDesiredOverdue => (TimeList.Count > 1) && (SinceLastTime > DesiredInterval);
+        internal bool IsElapsedOverDesired => (TimeList.Count > 1) && (ElapsedTime > DesiredInterval);
 
-        internal double DesiredOverduePercent => TimeList.Count > 1 ? SinceLastTime / DesiredInterval * 100.0 : 0.0;
+        internal double ElapsedToDesiredRatio => TimeList.Count > 1 ? ElapsedTime / DesiredInterval * 100.0 : 0.0;
 
-        internal TimeSpan GetInterval(Interval interval) => interval switch
+        internal bool IsRatioOverOne(Ratio ratio) => ratio switch
         {
-            Interval.Average => AverageInterval,
-            Interval.Desired => DesiredInterval,
-            _ => throw new ArgumentException("Invalid argument: " + nameof(interval))
+            Ratio.ElapsedToAverage => IsElapsedOverAverage,
+            Ratio.ElapsedToDesired => IsElapsedOverDesired,
+            Ratio.AverageToDesired => AverageInterval > DesiredInterval,
+            _ => throw new ArgumentException("Invalid argument: " + nameof(ratio))
         };
 
-        internal bool IsOverdue(Interval interval) => interval switch
+        internal double GetRatio(Ratio ratio) => ratio switch
         {
-            Interval.Average => IsAverageOverdue,
-            Interval.Desired => IsDesiredOverdue,
-            _ => throw new ArgumentException("Invalid argument: " + nameof(interval))
-        };
-
-        internal double OverduePercent(Interval interval) => interval switch
-        {
-            Interval.Average => AverageOverduePercent,
-            Interval.Desired => DesiredOverduePercent,
-            _ => throw new ArgumentException("Invalid argument: " + nameof(interval))
+            Ratio.ElapsedToAverage => ElapsedToAverageRatio,
+            Ratio.ElapsedToDesired => ElapsedToDesiredRatio,
+            Ratio.AverageToDesired => AverageInterval / DesiredInterval * 100.0,
+            _ => throw new ArgumentException("Invalid argument: " + nameof(ratio))
         };
     }
 }

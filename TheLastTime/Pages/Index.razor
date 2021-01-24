@@ -29,18 +29,18 @@
                                     <div class="m-1"><span class="fas fa-fw fa-hourglass"></span></div>
                                 }
                                 <div class="m-1">@habit.Description</div>
-                                <div class="m-1 ml-auto">@(habit.TimeList.Count > 0 ? ToHighestValueString(habit.SinceLastTime) + " ago" : "Never")</div>
-                                @if (habit.IsOverdue(DataService.Settings.Interval))
+                                <div class="m-1 ml-auto">@(habit.TimeList.Count > 0 ? ToHighestValueString(habit.ElapsedTime) + " ago" : "Never")</div>
+                                @if (habit.IsRatioOverOne(DataService.Settings.Ratio))
                                 {
-                                    <div class="m-1 font-weight-bold text-danger">( @habit.OverduePercent(DataService.Settings.Interval).ToString("N0") % )</div>
+                                    <div class="m-1 font-weight-bold text-danger">( @habit.GetRatio(DataService.Settings.Ratio).ToString("N0") % )</div>
                                 }
-                                else if (habit.OverduePercent(DataService.Settings.Interval) >= 80)
+                                else if (habit.GetRatio(DataService.Settings.Ratio) >= 80)
                                 {
-                                    <div class="m-1 font-weight-bold text-warning">( @habit.OverduePercent(DataService.Settings.Interval).ToString("N0") % )</div>
+                                    <div class="m-1 font-weight-bold text-warning">( @habit.GetRatio(DataService.Settings.Ratio).ToString("N0") % )</div>
                                 }
                                 else if (habit.TimeList.Count > 1)
                                 {
-                                    <div class="m-1 font-weight-bold text-info">( @habit.OverduePercent(DataService.Settings.Interval).ToString("N0") % )</div>
+                                    <div class="m-1 font-weight-bold text-info">( @habit.GetRatio(DataService.Settings.Ratio).ToString("N0") % )</div>
                                 }
                                 else
                                 {
@@ -110,18 +110,18 @@
                                     <div class="m-1"><span class="fas fa-fw fa-hourglass"></span></div>
                                 }
                                 <div class="m-1">@habit.Description</div>
-                                <div class="m-1 ml-auto">@(habit.TimeList.Count > 0 ? ToHighestValueString(habit.SinceLastTime) + " ago" : "Never")</div>
-                                @if (habit.IsOverdue(DataService.Settings.Interval))
+                                <div class="m-1 ml-auto">@(habit.TimeList.Count > 0 ? ToHighestValueString(habit.ElapsedTime) + " ago" : "Never")</div>
+                                @if (habit.IsRatioOverOne(DataService.Settings.Ratio))
                                 {
-                                    <div class="m-1 font-weight-bold text-danger">( @habit.OverduePercent(DataService.Settings.Interval).ToString("N0") % )</div>
+                                    <div class="m-1 font-weight-bold text-danger">( @habit.GetRatio(DataService.Settings.Ratio).ToString("N0") % )</div>
                                 }
-                                else if (habit.OverduePercent(DataService.Settings.Interval) >= 80)
+                                else if (habit.GetRatio(DataService.Settings.Ratio) >= 80)
                                 {
-                                    <div class="m-1 font-weight-bold text-warning">( @habit.OverduePercent(DataService.Settings.Interval).ToString("N0") % )</div>
+                                    <div class="m-1 font-weight-bold text-warning">( @habit.GetRatio(DataService.Settings.Ratio).ToString("N0") % )</div>
                                 }
                                 else if (habit.TimeList.Count > 1)
                                 {
-                                    <div class="m-1 font-weight-bold text-info">( @habit.OverduePercent(DataService.Settings.Interval).ToString("N0") % )</div>
+                                    <div class="m-1 font-weight-bold text-info">( @habit.GetRatio(DataService.Settings.Ratio).ToString("N0") % )</div>
                                 }
                                 else
                                 {
@@ -236,9 +236,9 @@
                             <p>
                                 <span class="fas fa-fw fa-stopwatch"></span> @( "Average interval: " + ToReadableString(State.SelectedHabit.AverageInterval) )
 
-                                @if (State.SelectedHabit.IsAverageOverdue)
+                                @if (State.SelectedHabit.IsElapsedOverAverage)
                                 {
-                                    <div><span class="fas fa-fw fa-exclamation"></span><span class="font-weight-bold"> @( "Average interval is overdue by: " + ToReadableString(State.SelectedHabit.SinceLastTime - State.SelectedHabit.AverageInterval) + " ( " + (State.SelectedHabit.AverageOverduePercent - 100).ToString("N0") + " % )" )</span></div>
+                                    <div><span class="fas fa-fw fa-exclamation"></span><span class="font-weight-bold"> @( "Average interval is overdue by: " + ToReadableString(State.SelectedHabit.ElapsedTime - State.SelectedHabit.AverageInterval) + " ( " + (State.SelectedHabit.ElapsedToAverageRatio - 100).ToString("N0") + " % )" )</span></div>
                                 }
                             </p>
                         }
@@ -252,9 +252,9 @@
                                 <TextEdit Size="@State.Size" ReadOnly="true" Text="@(State.SelectedHabit.DesiredInterval.Hours == 1 ? "hour" : "hours")" />
                             </div>
 
-                            @if (State.SelectedHabit.IsDesiredOverdue)
+                            @if (State.SelectedHabit.IsElapsedOverDesired)
                             {
-                                <div><span class="fas fa-fw fa-exclamation"></span><span class="font-weight-bold"> @( "Desired interval is overdue by: " + ToReadableString(State.SelectedHabit.SinceLastTime - State.SelectedHabit.DesiredInterval) + " ( " + (State.SelectedHabit.DesiredOverduePercent - 100).ToString("N0") + " % )" )</span></div>
+                                <div><span class="fas fa-fw fa-exclamation"></span><span class="font-weight-bold"> @( "Desired interval is overdue by: " + ToReadableString(State.SelectedHabit.ElapsedTime - State.SelectedHabit.DesiredInterval) + " ( " + (State.SelectedHabit.ElapsedToDesiredRatio - 100).ToString("N0") + " % )" )</span></div>
                             }
                         </p>
 

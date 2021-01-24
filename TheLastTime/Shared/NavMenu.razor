@@ -34,13 +34,17 @@ else
         </li>
 
         <li class="nav-item px-2 pt-2">
-            <RadioGroup TValue="Interval" CheckedValue="@DataService.Settings.Interval" CheckedValueChanged="@(async (val) => { DataService.Settings.Interval = val; await DataService.SaveSettings(); })">
-                <Radio TValue="Interval" Value="@(Interval.Average)"><span class="text-light">Show % of average interval</span></Radio>
-                <Radio TValue="Interval" Value="@(Interval.Desired)"><span class="text-light">Show % of desired interval</span></Radio>
-            </RadioGroup>
+            <Field>
+                <FieldLabel Class="text-light">Show ratio:</FieldLabel>
+                <RadioGroup TValue="Ratio" CheckedValue="@DataService.Settings.Ratio" CheckedValueChanged="@(async (val) => { DataService.Settings.Ratio = val; await DataService.SaveSettings(); })">
+                    <Radio TValue="Ratio" Value="@(Ratio.ElapsedToAverage)"><span class="text-light">Elapsed time / Average interval</span></Radio>
+                    <Radio TValue="Ratio" Value="@(Ratio.ElapsedToDesired)"><span class="text-light">Elapsed time / Desired interval</span></Radio>
+                    <Radio TValue="Ratio" Value="@(Ratio.AverageToDesired)"><span class="text-light">Average interval / Desired interval</span></Radio>
+                </RadioGroup>
+            </Field>
         </li>
 
-        <li class="nav-item px-2 pt-2">
+        <li class="nav-item px-2 py-0">
             <Field>
                 <FieldLabel Class="text-light">Show only @DataService.Settings.ShowPercentMin % elapsed</FieldLabel>
                 <Slider TValue="long" Min="0" Max="100" Step="5" Value="@DataService.Settings.ShowPercentMin" ValueChanged="@(async (val) => { DataService.Settings.ShowPercentMin = val; await DataService.SaveSettings(); })" />
@@ -102,7 +106,7 @@ else
                         <SelectItem Value="@Sort.Description">Description</SelectItem>
                         <SelectItem Value="@Sort.ElapsedTime">Elapsed time</SelectItem>
                         <SelectItem Value="@Sort.ElapsedPercent">Elapsed percent</SelectItem>
-                        <SelectItem Value="@Sort.AverageToDesiredIntervalRatio">Average / desired interval</SelectItem>
+                        <SelectItem Value="@Sort.AverageToDesiredIntervalRatio">Average interval / Desired interval</SelectItem>
                     </Select>
 
                     @if (!DataService.Settings.ShowAllSelectOptions)
