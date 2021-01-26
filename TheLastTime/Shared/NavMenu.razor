@@ -77,7 +77,7 @@ else
         </li>
 
         <li class="nav-item px-2 pt-2">
-            <Check TValue="bool" Checked="@DataService.Settings.ShowHabitIdUpDownButtons" CheckedChanged="@(async (val) => { DataService.Settings.ShowHabitIdUpDownButtons = val; await DataService.SaveSettings(); })"><span class="text-light">Show index buttons</span></Check>
+            <Check TValue="bool" Checked="@DataService.Settings.ShowHabitIdUpDownButtons" CheckedChanged="@(async (val) => { DataService.Settings.ShowHabitIdUpDownButtons = val; await DataService.SaveSettings(); })"><span class="text-light">Show buttons for manual sorting</span></Check>
         </li>
 
         <li class="nav-item px-2 pt-2">
