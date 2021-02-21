@@ -284,52 +284,11 @@ namespace TheLastTime.Data
             await LoadData();
         }
 
-        public async Task<bool> HabitUp(Habit habit)
+        public async Task<bool> HabitUpDown(Habit habit, long newId)
         {
             using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
 
             long maxId = db.Habits.Any() ? db.Habits.Max(habit => habit.Id) : 0;
-
-            long newId = habit.Id - 1;
-
-            if (1 <= newId && newId <= maxId && db.Habits.SingleOrDefault(h => h.Id == habit.Id) is Habit dbHabit)
-            {
-                if (db.Habits.SingleOrDefault(h => h.Id == newId) is Habit otherHabit)
-                {
-                    otherHabit.Id = habit.Id;
-
-                    foreach (Time time in HabitDict[newId].TimeList)
-                    {
-                        if (db.Times.SingleOrDefault(t => t.Id == time.Id) is Time dbTime)
-                            dbTime.HabitId = habit.Id;
-                    }
-                }
-
-                dbHabit.Id = newId;
-
-                foreach (Time time in habit.TimeList)
-                {
-                    if (db.Times.SingleOrDefault(t => t.Id == time.Id) is Time dbTime)
-                        dbTime.HabitId = newId;
-                }
-
-                await db.SaveChanges();
-
-                await LoadData();
-
-                return true;
-            }
-
-            return false;
-        }
-
-        public async Task<bool> HabitDown(Habit habit)
-        {
-            using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
-
-            long maxId = db.Habits.Any() ? db.Habits.Max(habit => habit.Id) : 0;
-
-            long newId = habit.Id + 1;
 
             if (1 <= newId && newId <= maxId && db.Habits.SingleOrDefault(h => h.Id == habit.Id) is Habit dbHabit)
             {

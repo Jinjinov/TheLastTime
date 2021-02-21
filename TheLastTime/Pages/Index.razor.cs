@@ -81,16 +81,10 @@ namespace TheLastTime.Pages
             SetSelectedHabit(habit.Id);
         }
 
-        private async Task HabitUp(Habit habit)
+        private async Task HabitUpDown(Habit habit, long newId)
         {
-            if (await DataService.HabitUp(habit))
-                SetSelectedHabit(habit.Id - 1);
-        }
-
-        private async Task HabitDown(Habit habit)
-        {
-            if (await DataService.HabitDown(habit))
-                SetSelectedHabit(habit.Id + 1);
+            if (await DataService.HabitUpDown(habit, newId))
+                SetSelectedHabit(newId);
         }
 
         public static string ToReadableString(TimeSpan span)
