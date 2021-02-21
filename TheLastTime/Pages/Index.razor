@@ -202,7 +202,7 @@
                                     <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(async () => { await HabitUpDown(State.SelectedHabit.Id, State.SelectedHabit.Id - 1); })"><span class="fa fa-fw fa-arrow-up"></span></Button>
                                 </div>
                                 }
-                                <NumericEdit Size="@State.Size" TValue="long" Min="0" Max="9000" Value="State.SelectedHabit.Id" ValueChanged="(val) => { newHabitId = val; }" />
+                                <NumericEdit Size="@State.Size" TValue="long" Min="1" Max="9000" Value="State.SelectedHabit.Id" ValueChanged="(val) => { newHabitId = val; }" />
                                 @if (newHabitId == -1)
                                 {
                                 <div class="input-group-append">
@@ -259,9 +259,9 @@
                         <p>
                             <span class="fas fa-fw fa-stopwatch"></span> @("Desired interval:")
                             <div class="input-group flex-nowrap my-1">
-                                <NumericEdit Size="@State.Size" TValue="int" Min="0" Max="9000" Value="State.SelectedHabit.DesiredInterval.Days" ValueChanged="async (val) => { State.SelectedHabit.DesiredInterval = new TimeSpan(val, State.SelectedHabit.DesiredInterval.Hours, State.SelectedHabit.DesiredInterval.Minutes, State.SelectedHabit.DesiredInterval.Seconds); await SaveHabit(State.SelectedHabit); }" />
+                                <NumericEdit Size="@State.Size" TValue="int?" Min="0" Max="9000" Value="State.SelectedHabit.DesiredInterval.Days" ValueChanged="async (val) => { State.SelectedHabit.DesiredInterval = new TimeSpan(val ?? 0, State.SelectedHabit.DesiredInterval.Hours, State.SelectedHabit.DesiredInterval.Minutes, State.SelectedHabit.DesiredInterval.Seconds); await SaveHabit(State.SelectedHabit); }" />
                                 <TextEdit Size="@State.Size" ReadOnly="true" Text="@(State.SelectedHabit.DesiredInterval.Days == 1 ? "day" : "days")" />
-                                <NumericEdit Size="@State.Size" TValue="int" Min="0" Max="23" Value="State.SelectedHabit.DesiredInterval.Hours" ValueChanged="async (val) => { State.SelectedHabit.DesiredInterval = new TimeSpan(State.SelectedHabit.DesiredInterval.Days, val, State.SelectedHabit.DesiredInterval.Minutes, State.SelectedHabit.DesiredInterval.Seconds); await SaveHabit(State.SelectedHabit); }" />
+                                <NumericEdit Size="@State.Size" TValue="int?" Min="0" Max="23" Value="State.SelectedHabit.DesiredInterval.Hours" ValueChanged="async (val) => { State.SelectedHabit.DesiredInterval = new TimeSpan(State.SelectedHabit.DesiredInterval.Days, val ?? 0, State.SelectedHabit.DesiredInterval.Minutes, State.SelectedHabit.DesiredInterval.Seconds); await SaveHabit(State.SelectedHabit); }" />
                                 <TextEdit Size="@State.Size" ReadOnly="true" Text="@(State.SelectedHabit.DesiredInterval.Hours == 1 ? "hour" : "hours")" />
                             </div>
 
