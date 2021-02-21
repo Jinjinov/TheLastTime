@@ -213,6 +213,7 @@
                                 {
                                 <div class="input-group-append">
                                     <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(async () => { await HabitUpDown(State.SelectedHabit.Id, newHabitId); newHabitId = -1; })"><span class="fa fa-fw fa-save"></span></Button>
+                                    <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(async () => { newHabitId = -1; var temp = State.SelectedHabit; State.SelectedHabit = null; await Task.Delay(1); State.SelectedHabit = temp; })"><span class="fa fa-fw fa-times"></span></Button>
                                 </div>
                                 }
                             </div>
