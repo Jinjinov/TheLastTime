@@ -14,13 +14,13 @@ namespace TheLastTime.Pages
         public bool editTime;
 
         [Inject]
-        NavigationManager NavigationManager { get; set; } = null!;
-
-        [Inject]
         DataService DataService { get; set; } = null!;
 
         [Inject]
         State State { get; set; } = null!;
+
+        //[Inject]
+        //NavigationManager NavigationManager { get; set; } = null!;
 
         //[Parameter]
         //public string? RouteParameter { get; set; }

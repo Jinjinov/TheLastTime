@@ -82,9 +82,6 @@ namespace TheLastTime.Shared
         }
 
         [Inject]
-        NavigationManager NavigationManager { get; set; } = null!;
-
-        [Inject]
         DataService DataService { get; set; } = null!;
 
         [Inject]
@@ -213,8 +210,6 @@ namespace TheLastTime.Shared
             if (categoryList != null)
             {
                 await DataService.AddData(categoryList);
-
-                NavigationManager.NavigateTo("/", true);
             }
         }
 

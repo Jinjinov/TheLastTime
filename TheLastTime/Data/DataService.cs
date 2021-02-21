@@ -175,6 +175,8 @@ namespace TheLastTime.Data
             await db.SaveChanges();
 
             await LoadData();
+
+            OnPropertyChanged(nameof(CategoryList));
         }
 
         public async Task AddData(List<Category> categoryList)
@@ -199,6 +201,8 @@ namespace TheLastTime.Data
             await db.SaveChanges();
 
             await LoadData();
+
+            OnPropertyChanged(nameof(CategoryList));
         }
 
         public async Task SaveCategory(Category category)
