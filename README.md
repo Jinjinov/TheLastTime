@@ -5,13 +5,10 @@ https://what.should-i.be/
 
 **How to use:**
 
-You can load the examples:
+You can load examples from the menu to get a feel for the application.
 
-https://what.should-i.be/?examples
+You can also write your own [yaml](https://en.wikipedia.org/wiki/YAML) list, save the file as `TheLastTime.yaml` and import it:
 
-You can also write your own [yaml](https://en.wikipedia.org/wiki/YAML) list, save the file as `TheLastTime.yaml` and import it.
-
-Make sure that you use a proper [yaml format](http://www.yamllint.com/), for example:
 
     ---
     Health:
@@ -42,6 +39,4 @@ Make sure that you use a proper [yaml format](http://www.yamllint.com/), for exa
     - Ask for a raise
     - Take a break
 
-You can sort the list in advanced mode:
-
-https://what.should-i.be/?advanced
+Make sure that you use a proper [yaml format](http://www.yamllint.com/)!

@@ -22,17 +22,17 @@ namespace TheLastTime.Pages
         [Inject]
         State State { get; set; } = null!;
 
-        [Parameter]
-        public string? RouteParameter { get; set; }
+        //[Parameter]
+        //public string? RouteParameter { get; set; }
 
-        protected override async Task OnInitializedAsync()
+        protected override void OnInitialized()
         {
-            string query = NavigationManager.ToAbsoluteUri(NavigationManager.Uri).Query;
+            //string query = NavigationManager.ToAbsoluteUri(NavigationManager.Uri).Query;
 
-            if (RouteParameter == "examples" || query == "?examples")
-            {
-                await DataService.SeedExamples();
-            }
+            //if (RouteParameter == "examples" || query == "?examples")
+            //{
+            //    await DataService.SeedExamples();
+            //}
 
             DataService.PropertyChanged += PropertyChanged;
             State.PropertyChanged += PropertyChanged;
