@@ -288,36 +288,51 @@ namespace TheLastTime.Data
             await LoadData();
         }
 
-        public async Task<bool> HabitUpDown(Habit habit, long newId)
+        public async Task<bool> HabitUpDown(long oldId, long newId)
         {
             using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
 
             long maxId = db.Habits.Any() ? db.Habits.Max(habit => habit.Id) : 0;
 
-            if (1 <= newId && newId <= maxId && db.Habits.SingleOrDefault(h => h.Id == habit.Id) is Habit dbHabit)
+            bool changed = false;
+
+            if (ChangeId(oldId, newId, db, maxId))
+            {
+                changed = true;
+            }
+
+            if (changed)
+            {
+                await db.SaveChanges();
+
+                await LoadData();
+            }
+
+            return changed;
+        }
+
+        private bool ChangeId(long oldId, long newId, IndexedDatabase db, long maxId)
+        {
+            if (1 <= newId && newId <= maxId && db.Habits.SingleOrDefault(h => h.Id == oldId) is Habit dbHabit)
             {
                 if (db.Habits.SingleOrDefault(h => h.Id == newId) is Habit otherHabit)
                 {
-                    otherHabit.Id = habit.Id;
+                    otherHabit.Id = oldId;
 
                     foreach (Time time in HabitDict[newId].TimeList)
                     {
                         if (db.Times.SingleOrDefault(t => t.Id == time.Id) is Time dbTime)
-                            dbTime.HabitId = habit.Id;
+                            dbTime.HabitId = oldId;
                     }
                 }
 
                 dbHabit.Id = newId;
 
-                foreach (Time time in habit.TimeList)
+                foreach (Time time in HabitDict[oldId].TimeList)
                 {
                     if (db.Times.SingleOrDefault(t => t.Id == time.Id) is Time dbTime)
                         dbTime.HabitId = newId;
                 }
-
-                await db.SaveChanges();
-
-                await LoadData();
 
                 return true;
             }

@@ -83,7 +83,7 @@ namespace TheLastTime.Pages
 
         private async Task HabitUpDown(Habit habit, long newId)
         {
-            if (await DataService.HabitUpDown(habit, newId))
+            if (await DataService.HabitUpDown(habit.Id, newId))
                 SetSelectedHabit(newId);
         }
 
