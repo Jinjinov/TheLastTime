@@ -294,11 +294,31 @@ namespace TheLastTime.Data
 
             long maxId = db.Habits.Any() ? db.Habits.Max(habit => habit.Id) : 0;
 
+            if (newId < 1 || newId > maxId)
+                return false;
+
             bool changed = false;
 
-            if (ChangeId(oldId, newId, db, maxId))
+            if (oldId < newId)
             {
-                changed = true;
+                for (long i = oldId; i < newId; ++i)
+                {
+                    if (ChangeId(i, i + 1, db))
+                    {
+                        changed = true;
+                    }
+                }
+            }
+
+            if (oldId > newId)
+            {
+                for (long i = oldId; i > newId; --i)
+                {
+                    if (ChangeId(i, i - 1, db))
+                    {
+                        changed = true;
+                    }
+                }
             }
 
             if (changed)
@@ -311,9 +331,9 @@ namespace TheLastTime.Data
             return changed;
         }
 
-        private bool ChangeId(long oldId, long newId, IndexedDatabase db, long maxId)
+        private bool ChangeId(long oldId, long newId, IndexedDatabase db)
         {
-            if (1 <= newId && newId <= maxId && db.Habits.SingleOrDefault(h => h.Id == oldId) is Habit dbHabit)
+            if (db.Habits.SingleOrDefault(h => h.Id == oldId) is Habit dbHabit)
             {
                 if (db.Habits.SingleOrDefault(h => h.Id == newId) is Habit otherHabit)
                 {
