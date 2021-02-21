@@ -294,8 +294,7 @@ namespace TheLastTime.Data
 
             long maxId = db.Habits.Any() ? db.Habits.Max(habit => habit.Id) : 0;
 
-            if (newId < 1 || newId > maxId)
-                return false;
+            newId = Math.Clamp(newId, 1, maxId);
 
             bool changed = false;
 
@@ -335,6 +334,8 @@ namespace TheLastTime.Data
         {
             if (db.Habits.SingleOrDefault(h => h.Id == oldId) is Habit dbHabit)
             {
+                Habit habit = HabitDict[oldId];
+
                 if (db.Habits.SingleOrDefault(h => h.Id == newId) is Habit otherHabit)
                 {
                     otherHabit.Id = oldId;
@@ -344,11 +345,14 @@ namespace TheLastTime.Data
                         if (db.Times.SingleOrDefault(t => t.Id == time.Id) is Time dbTime)
                             dbTime.HabitId = oldId;
                     }
+
+                    HabitDict[oldId] = HabitDict[newId];
+                    HabitDict[newId] = habit;
                 }
 
                 dbHabit.Id = newId;
 
-                foreach (Time time in HabitDict[oldId].TimeList)
+                foreach (Time time in habit.TimeList)
                 {
                     if (db.Times.SingleOrDefault(t => t.Id == time.Id) is Time dbTime)
                         dbTime.HabitId = newId;

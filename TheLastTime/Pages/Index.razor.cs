@@ -13,6 +13,8 @@ namespace TheLastTime.Pages
         public bool editHabit;
         public bool editTime;
 
+        long newHabitId = -1;
+
         [Inject]
         DataService DataService { get; set; } = null!;
 
@@ -81,9 +83,9 @@ namespace TheLastTime.Pages
             SetSelectedHabit(habit.Id);
         }
 
-        private async Task HabitUpDown(Habit habit, long newId)
+        private async Task HabitUpDown(long oldId, long newId)
         {
-            if (await DataService.HabitUpDown(habit.Id, newId))
+            if (await DataService.HabitUpDown(oldId, newId))
                 SetSelectedHabit(newId);
         }
 
