@@ -288,10 +288,12 @@ namespace TheLastTime.Data
         {
             using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
 
-            if (habit.Id > 1 && db.Habits.SingleOrDefault(h => h.Id == habit.Id) is Habit dbHabit)
-            {
-                long newId = habit.Id - 1;
+            long maxId = db.Habits.Any() ? db.Habits.Max(habit => habit.Id) : 0;
 
+            long newId = habit.Id - 1;
+
+            if (1 <= newId && newId <= maxId && db.Habits.SingleOrDefault(h => h.Id == habit.Id) is Habit dbHabit)
+            {
                 if (db.Habits.SingleOrDefault(h => h.Id == newId) is Habit otherHabit)
                 {
                     otherHabit.Id = habit.Id;
@@ -327,10 +329,10 @@ namespace TheLastTime.Data
 
             long maxId = db.Habits.Any() ? db.Habits.Max(habit => habit.Id) : 0;
 
-            if (habit.Id < maxId && db.Habits.SingleOrDefault(h => h.Id == habit.Id) is Habit dbHabit)
-            {
-                long newId = habit.Id + 1;
+            long newId = habit.Id + 1;
 
+            if (1 <= newId && newId <= maxId && db.Habits.SingleOrDefault(h => h.Id == habit.Id) is Habit dbHabit)
+            {
                 if (db.Habits.SingleOrDefault(h => h.Id == newId) is Habit otherHabit)
                 {
                     otherHabit.Id = habit.Id;
