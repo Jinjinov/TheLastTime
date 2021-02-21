@@ -30,7 +30,7 @@
                                 }
                                 <div class="m-1">@habit.Description</div>
                                 <div class="m-1 ml-auto">@(habit.TimeList.Count > 0 ? ToHighestValueString(habit.ElapsedTime) + " ago" : "Never")</div>
-                                @if (habit.IsRatioOverOne(DataService.Settings.Ratio))
+                                @if (habit.GetRatio(DataService.Settings.Ratio) >= 100)
                                 {
                                     <div class="m-1 font-weight-bold text-danger">( @habit.GetRatio(DataService.Settings.Ratio).ToString("N0") % )</div>
                                 }
@@ -111,7 +111,7 @@
                                 }
                                 <div class="m-1">@habit.Description</div>
                                 <div class="m-1 ml-auto">@(habit.TimeList.Count > 0 ? ToHighestValueString(habit.ElapsedTime) + " ago" : "Never")</div>
-                                @if (habit.IsRatioOverOne(DataService.Settings.Ratio))
+                                @if (habit.GetRatio(DataService.Settings.Ratio) >= 100)
                                 {
                                     <div class="m-1 font-weight-bold text-danger">( @habit.GetRatio(DataService.Settings.Ratio).ToString("N0") % )</div>
                                 }

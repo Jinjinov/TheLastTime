@@ -32,7 +32,7 @@ namespace TheLastTime.Data
         public bool ShowOnlyTwoMinute { get; set; }
 
         [Required]
-        public bool ShowOnlyRatioOverOne { get; set; }
+        public bool ShowOnlyRatioOverPercentMin { get; set; }
 
         [Required]
         public bool ShowHabitId { get; set; }

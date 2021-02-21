@@ -47,13 +47,13 @@ namespace TheLastTime.Data
 
         internal double ElapsedToDesiredRatio => TimeList.Count > 1 ? ElapsedTime / DesiredInterval * 100.0 : 0.0;
 
-        internal bool IsRatioOverOne(Ratio ratio) => ratio switch
-        {
-            Ratio.ElapsedToAverage => IsElapsedOverAverage,
-            Ratio.ElapsedToDesired => IsElapsedOverDesired,
-            Ratio.AverageToDesired => AverageInterval > DesiredInterval,
-            _ => throw new ArgumentException("Invalid argument: " + nameof(ratio))
-        };
+        //internal bool IsRatioOverOne(Ratio ratio) => ratio switch
+        //{
+        //    Ratio.ElapsedToAverage => IsElapsedOverAverage,
+        //    Ratio.ElapsedToDesired => IsElapsedOverDesired,
+        //    Ratio.AverageToDesired => AverageInterval > DesiredInterval,
+        //    _ => throw new ArgumentException("Invalid argument: " + nameof(ratio))
+        //};
 
         internal double GetRatio(Ratio ratio) => ratio switch
         {
