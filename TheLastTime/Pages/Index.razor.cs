@@ -85,8 +85,10 @@ namespace TheLastTime.Pages
 
         private async Task HabitUpDown(long oldId, long newId)
         {
-            if (await DataService.HabitUpDown(oldId, newId))
-                SetSelectedHabit(newId);
+            var (changed, id) = await DataService.HabitUpDown(oldId, newId);
+
+            if (changed)
+                SetSelectedHabit(id);
         }
 
         public static string ToReadableString(TimeSpan span)

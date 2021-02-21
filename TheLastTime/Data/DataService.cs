@@ -288,7 +288,7 @@ namespace TheLastTime.Data
             await LoadData();
         }
 
-        public async Task<bool> HabitUpDown(long oldId, long newId)
+        public async Task<(bool changed, long id)> HabitUpDown(long oldId, long newId)
         {
             using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
 
@@ -327,7 +327,7 @@ namespace TheLastTime.Data
                 await LoadData();
             }
 
-            return changed;
+            return (changed, newId);
         }
 
         private bool ChangeId(long oldId, long newId, IndexedDatabase db)
