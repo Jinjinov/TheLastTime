@@ -1,7 +1,7 @@
 ﻿app {
     position: relative;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* The flexible items are displayed vertically, as a column */
 }
 
 .top-row {
@@ -10,14 +10,17 @@
     position: relative;
 }
 
+/* left side, including the top-row */
 .sidebar {
     z-index: 4;
 }
 
+/* right side, including the top-row */
 .main {
     flex: 1;
 }
 
+/* add habit button */
 .add-habit {
     position: fixed;
     right: calc(50% - 95px);
@@ -28,6 +31,7 @@
     z-index: 2;
 }
 
+/* close is a bootstrap class */
 .close:focus {
     outline: none !important;
 }
@@ -51,11 +55,15 @@
     top: 0.5rem;
 }
 
+/* On screens that are 991.98px or less, set the habit details overlay width to 100% */
 @media (max-width: 991.98px) {
+
+    /* main content body */
     #overlay-parent {
         position: relative;
     }
 
+    /* habit details overlay */
     #overlay {
         position: absolute;
         display: block;
@@ -73,6 +81,7 @@
     }
 }
 
+/* On screens that are 767.98px or less, hide the top row */
 @media (max-width: 767.98px) {
     .main .top-row {
         display: none;
@@ -83,9 +92,10 @@
     }
 }
 
+/* On screens that are 768px or more, show the sidebar menu and hide the menu toggler  */
 @media (min-width: 768px) {
     app {
-        flex-direction: row;
+        flex-direction: row; /* The flexible items are displayed horizontally, as a row */
     }
 
     .sidebar {
@@ -101,10 +111,12 @@
         top: 0;
     }
 
+    /* navbar-toggler is a bootstrap class */
     .navbar-toggler {
         display: none;
     }
 
+    /* collapse is a bootstrap class */
     .sidebar .collapse {
         display: block !important;
     }
