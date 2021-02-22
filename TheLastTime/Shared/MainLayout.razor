@@ -5,45 +5,8 @@
 </div>
 
 <div class="main d-flex flex-column">
-    <div class="top-row navbar navbar-dark bg-primary">
-        @if(DataService.Settings.ShowCategoriesInHeader)
-        {
-        <Pagination Class="m-0">
-
-            <PaginationItem Disabled="@(State.SelectedCategoryId == DataService.CategoryList.First().Id)">
-                <PaginationLink Clicked="(Page) => { State.PreviousCategory(); }">
-                    <span aria-hidden="true">«</span>
-                </PaginationLink>
-            </PaginationItem>
-
-            <PaginationItem Active="@(State.SelectedCategoryId == 0)">
-                <PaginationLink Page="0" Clicked="(Page) => { State.SelectedCategoryId = int.Parse(Page); }">
-                    0
-                </PaginationLink>
-            </PaginationItem>
-
-            @for (int i = 0; i < DataService.CategoryList.Count; ++i)
-            {
-                int idx = i;
-                int index = i + 1;
-
-                <PaginationItem Active="@(State.SelectedCategoryId == DataService.CategoryList[idx].Id)">
-                    <PaginationLink Page="@(DataService.CategoryList[idx].Id.ToString())" Clicked="(Page) => { State.SelectedCategoryId = int.Parse(Page); }">
-                        @index
-                    </PaginationLink>
-                </PaginationItem>
-            }
-
-            <PaginationItem Disabled="@(State.SelectedCategoryId == DataService.CategoryList.Last().Id)">
-                <PaginationLink Clicked="(Page) => { State.NextCategory(); }">
-                    <span aria-hidden="true">»</span>
-                </PaginationLink>
-            </PaginationItem>
-
-        </Pagination>
-        }
-        <span class="navbar-text ml-auto">&#169; 2020</span>
-    </div>
+    
+    <TheLastTime.Shared.Header />
 
     <div class="d-flex flex-grow-1">
         @Body

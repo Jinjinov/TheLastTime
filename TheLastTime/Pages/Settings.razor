@@ -1,0 +1,63 @@
+﻿<ul class="nav flex-column">
+
+    <li class="nav-item px-2 pt-2">
+        <Check TValue="bool" Checked="@DataService.Settings.ShowOnlyStarred" CheckedChanged="@(async (val) => { DataService.Settings.ShowOnlyStarred = val; await DataService.SaveSettings(); })"><span class="text-light">Show only starred</span></Check>
+    </li>
+
+    <li class="nav-item px-2 pt-2">
+        <Check TValue="bool" Checked="@DataService.Settings.ShowOnlyTwoMinute" CheckedChanged="@(async (val) => { DataService.Settings.ShowOnlyTwoMinute = val; await DataService.SaveSettings(); })"><span class="text-light">Show only 2 min</span></Check>
+    </li>
+
+    <li class="nav-item px-2 pt-2">
+        <Field>
+            <FieldLabel>
+                <Check TValue="bool" Checked="@DataService.Settings.ShowOnlyRatioOverPercentMin" CheckedChanged="@(async (val) => { DataService.Settings.ShowOnlyRatioOverPercentMin = val; await DataService.SaveSettings(); })"><span class="text-light">Show only ratio over @DataService.Settings.ShowPercentMin %</span></Check>
+            </FieldLabel>
+            <Slider TValue="long" Min="0" Max="100" Step="5" Value="@DataService.Settings.ShowPercentMin" ValueChanged="@(async (val) => { DataService.Settings.ShowPercentMin = val; await DataService.SaveSettings(); })" />
+        </Field>
+    </li>
+
+    <li class="nav-item px-2 py-0">
+        <Field>
+            <FieldLabel Class="text-light">Select ratio:</FieldLabel>
+            <RadioGroup TValue="Ratio" CheckedValue="@DataService.Settings.Ratio" CheckedValueChanged="@(async (val) => { DataService.Settings.Ratio = val; await DataService.SaveSettings(); })">
+                <Radio TValue="Ratio" Value="@(Ratio.ElapsedToAverage)"><span class="text-light">Elapsed time / average interval</span></Radio>
+                <Radio TValue="Ratio" Value="@(Ratio.ElapsedToDesired)"><span class="text-light">Elapsed time / desired interval</span></Radio>
+                <Radio TValue="Ratio" Value="@(Ratio.AverageToDesired)"><span class="text-light">Average / desired interval</span></Radio>
+            </RadioGroup>
+        </Field>
+    </li>
+
+    <li class="nav-item px-2 py-0">
+        <Field>
+            <FieldLabel Class="text-light">Sort by:</FieldLabel>
+
+            <div class="input-group flex-nowrap">
+
+                @if (!DataService.Settings.ShowAllSelectOptions)
+                {
+                    <div class="input-group-prepend">
+                        <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => PreviousSort())"><span class="fa fa-fw fa-chevron-left"></span></Button>
+                    </div>
+                }
+
+                <Select TValue="Sort" MaxVisibleItems="@(DataService.Settings.ShowAllSelectOptions ? 4 : null)" Size="@State.Size" SelectedValue="@Sort" SelectedValueChanged="async (Sort val) => { Sort = val; }">
+                    <SelectItem Value="@Sort.Index">index</SelectItem>
+                    <SelectItem Value="@Sort.Description">description</SelectItem>
+                    <SelectItem Value="@Sort.ElapsedTime">elapsed time</SelectItem>
+                    <SelectItem Value="@Sort.SelectedRatio">selected ratio</SelectItem>
+                </Select>
+
+                @if (!DataService.Settings.ShowAllSelectOptions)
+                {
+                    <div class="input-group-append">
+                        <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => NextSort())"><span class="fa fa-fw fa-chevron-right"></span></Button>
+                    </div>
+                }
+
+            </div>
+
+        </Field>
+    </li>
+
+</ul>

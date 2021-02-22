@@ -1,0 +1,120 @@
+﻿
+<Microsoft.AspNetCore.Components.Web.Extensions.Head.Title Value="The last time"></Microsoft.AspNetCore.Components.Web.Extensions.Head.Title>
+
+@if (bootswatchThemeDict.ContainsKey(BootswatchTheme))
+{
+    <Microsoft.AspNetCore.Components.Web.Extensions.Head.Link rel="stylesheet" href="@("https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/" + BootswatchTheme + "/bootstrap.min.css")" integrity="@(bootswatchThemeDict[BootswatchTheme])" crossorigin="anonymous" />
+}
+else
+{
+    <Microsoft.AspNetCore.Components.Web.Extensions.Head.Link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
+}
+
+<ul class="nav flex-column">
+
+    <li class="nav-item px-2">
+        <Field>
+            <FieldLabel Class="text-light">Export file format:</FieldLabel>
+            <RadioGroup TValue="bool" Name="format" @bind-CheckedValue="@allData">
+                <Radio TValue="bool" Value="true"><span class="text-light">Everything (json)</span></Radio>
+                <Radio TValue="bool" Value="false"><span class="text-light">Printable (yaml)</span></Radio>
+            </RadioGroup>
+        </Field>
+    </li>
+
+    <li class="nav-item px-2 pb-2">
+        <Button Color="Color.Primary" Size="@State.Size" Block="true" @onclick="@(() => ExportFile())">Export</Button>
+    </li>
+    <li class="nav-item p-2">
+        <label for="file-upload" class="d-block btn @State.ButtonSizeClass btn-primary mb-0">Import</label>
+        <InputFile id="file-upload" class="d-none" OnChange="@ImportFile" />
+    </li>
+    <li class="nav-item p-2">
+        <Button Color="Color.Primary" Size="@State.Size" Block="true" @onclick="@(async () => { await DataService.ClearData(); })">Delete all</Button>
+    </li>
+    <li class="nav-item p-2">
+        <Button Color="Color.Primary" Size="@State.Size" Block="true" @onclick="@(async () => { await DataService.SeedExamples(); })">Load examples</Button>
+    </li>
+
+    <li class="nav-item px-2 pt-2">
+        <Check TValue="bool" Checked="@DataService.Settings.ShowHabitId" CheckedChanged="@(async (val) => { DataService.Settings.ShowHabitId = val; await DataService.SaveSettings(); })"><span class="text-light">Show index</span></Check>
+    </li>
+
+    <li class="nav-item px-2 pt-2">
+        <Check TValue="bool" Checked="@DataService.Settings.ShowHabitIdUpDownButtons" CheckedChanged="@(async (val) => { DataService.Settings.ShowHabitIdUpDownButtons = val; await DataService.SaveSettings(); })"><span class="text-light">Show index settings</span></Check>
+    </li>
+
+    <li class="nav-item px-2 pt-2">
+        <Check TValue="bool" Checked="@DataService.Settings.ShowAllSelectOptions" CheckedChanged="@(async (val) => { DataService.Settings.ShowAllSelectOptions = val; await DataService.SaveSettings(); })"><span class="text-light">Show all select options</span></Check>
+    </li>
+
+    <li class="nav-item px-2 pt-2">
+        <Check TValue="bool" Checked="@DataService.Settings.ShowCategoriesInHeader" CheckedChanged="@(async (val) => { DataService.Settings.ShowCategoriesInHeader = val; await DataService.SaveSettings(); })"><span class="text-light">Show categories in header</span></Check>
+    </li>
+
+    <li class="nav-item px-2 pt-2">
+        <Field>
+            <FieldLabel Class="text-light">Size:</FieldLabel>
+
+            <div class="input-group flex-nowrap">
+
+                @if (!DataService.Settings.ShowAllSelectOptions)
+                {
+                    <div class="input-group-prepend">
+                        <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => PreviousSize())"><span class="fa fa-fw fa-chevron-left"></span></Button>
+                    </div>
+                }
+
+                <Select TValue="string" MaxVisibleItems="@(DataService.Settings.ShowAllSelectOptions ? 3 : null)" Size="@State.Size" SelectedValue="@ElementSize" SelectedValueChanged="async (string val) => { ElementSize = val; }">
+                    @foreach (string size in elementSizes)
+                    {
+                        <SelectItem Value="@size">@size</SelectItem>
+                    }
+                </Select>
+
+                @if (!DataService.Settings.ShowAllSelectOptions)
+                {
+                    <div class="input-group-append">
+                        <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => NextSize())"><span class="fa fa-fw fa-chevron-right"></span></Button>
+                    </div>
+                }
+
+            </div>
+
+        </Field>
+    </li>
+
+    <li class="nav-item px-2 py-0">
+        <Field>
+            <FieldLabel Class="text-light">Theme:</FieldLabel>
+
+            <div class="input-group flex-nowrap">
+
+                @if (!DataService.Settings.ShowAllSelectOptions)
+                {
+                    <div class="input-group-prepend">
+                        <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => PreviousTheme())"><span class="fa fa-fw fa-chevron-left"></span></Button>
+                    </div>
+                }
+
+                <Select TValue="string" MaxVisibleItems="@(DataService.Settings.ShowAllSelectOptions ? bootswatchThemeDict.Count + 1 : null)" Size="@State.Size" SelectedValue="@BootswatchTheme" SelectedValueChanged="async (string val) => { BootswatchTheme = val; }">
+                    <SelectItem Value="@("default")">default</SelectItem>
+                    @foreach (string theme in bootswatchThemeDict.Keys)
+                    {
+                        <SelectItem Value="@theme">@theme</SelectItem>
+                    }
+                </Select>
+
+                @if (!DataService.Settings.ShowAllSelectOptions)
+                {
+                    <div class="input-group-append">
+                        <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => NextTheme())"><span class="fa fa-fw fa-chevron-right"></span></Button>
+                    </div>
+                }
+
+            </div>
+
+        </Field>
+    </li>
+
+</ul>
