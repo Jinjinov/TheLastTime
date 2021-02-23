@@ -10,10 +10,6 @@ namespace TheLastTime.Pages
     public sealed partial class Index : IDisposable
     {
         public bool editCategory;
-        public bool editHabit;
-        public bool editTime;
-
-        long newHabitId = -1;
 
         [Inject]
         DataService DataService { get; set; } = null!;
@@ -62,42 +58,7 @@ namespace TheLastTime.Pages
 
             await DataService.SaveTime(new Time { HabitId = habit.Id, DateTime = DateTime.Now });
 
-            SetSelectedHabit(habit.Id);
-        }
-
-        private void SetSelectedHabit(long habitId)
-        {
-            if (State.SelectedHabit != null)
-            {
-                if (DataService.HabitDict.ContainsKey(habitId))
-                    State.SelectedHabit = DataService.HabitDict[habitId];
-                else
-                    State.SelectedHabit = DataService.HabitList.LastOrDefault();
-            }
-        }
-
-        private async Task SaveHabit(Habit habit)
-        {
-            await DataService.SaveHabit(habit);
-
-            SetSelectedHabit(habit.Id);
-        }
-
-        private async Task HabitUpDown(long oldId, long newId)
-        {
-            var (changed, id) = await DataService.HabitUpDown(oldId, newId);
-
-            if (changed)
-                SetSelectedHabit(id);
-        }
-
-        public static string ToReadableString(TimeSpan span)
-        {
-            return span.TotalMinutes >= 1.0 ? (
-                (span.Days > 0 ? span.Days + " d" + (span.Hours > 0 || span.Minutes > 0 ? ", " : string.Empty) : string.Empty) +
-                (span.Hours > 0 ? span.Hours + " h" + (span.Minutes > 0 ? ", " : string.Empty) : string.Empty) +
-                (span.Minutes > 0 ? span.Minutes + " m" : string.Empty)
-                ) : "0 minutes";
+            State.SetSelectedHabit(habit.Id);
         }
 
         public static string ToHighestValueString(TimeSpan span)
