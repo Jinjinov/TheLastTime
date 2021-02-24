@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 using TheLastTime.Data;
 using YamlDotNet.Serialization;
 
-namespace TheLastTime.Pages
+namespace TheLastTime.Components
 {
-    public sealed partial class Options : IDisposable
+    public sealed partial class OptionsComponent : IDisposable
     {
         [Inject]
         DataService DataService { get; set; } = null!;

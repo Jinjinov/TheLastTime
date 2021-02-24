@@ -4,9 +4,9 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using TheLastTime.Data;
 
-namespace TheLastTime.Pages
+namespace TheLastTime.Components
 {
-    public sealed partial class Settings : IDisposable
+    public sealed partial class SettingsComponent : IDisposable
     {
         [Inject]
         DataService DataService { get; set; } = null!;

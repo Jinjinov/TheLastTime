@@ -4,9 +4,9 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using TheLastTime.Data;
 
-namespace TheLastTime.Pages
+namespace TheLastTime.Components
 {
-    public sealed partial class SelectedHabit : IDisposable
+    public sealed partial class SelectedHabitComponent : IDisposable
     {
         public bool editTime;
 
