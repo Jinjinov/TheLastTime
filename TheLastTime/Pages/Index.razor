@@ -6,101 +6,11 @@
 
         <div class="col-md-12 col-lg-6 px-1 px-sm-3">
 
-            <div>
-                @foreach (Habit habit in DataService.GetPinnedHabits())
-                {
-                    <div class="input-group flex-nowrap my-1">
-                        <div class="input-group-prepend flex-grow-1">
-                            <div class="btn btn-secondary @State.ButtonSizeClass border border-right-0 flex-grow-1 d-flex" @onclick="@(() => { State.SelectedHabit = habit; })">
-                                @if (DataService.Settings.ShowHabitId)
-                                {
-                                    <div class="m-1">@habit.Id</div>
-                                }
-                                @if (habit.IsPinned)
-                                {
-                                    <div class="m-1"><span class="fa fa-fw fa-thumbtack"></span></div>
-                                }
-                                @if (habit.IsStarred)
-                                {
-                                    <div class="m-1"><span class="fa fa-fw fa-star"></span></div>
-                                }
-                                @if (habit.IsTwoMinute)
-                                {
-                                    <div class="m-1"><span class="fas fa-fw fa-hourglass"></span></div>
-                                }
-                                <div class="m-1">@habit.Description</div>
-                                <div class="m-1 ml-auto">@(habit.TimeList.Count > 0 ? ToHighestValueString(habit.ElapsedTime) + " ago" : "Never")</div>
-                                @if (habit.GetRatio(DataService.Settings.Ratio) >= 100)
-                                {
-                                    <div class="m-1 font-weight-bold text-danger">( @habit.GetRatio(DataService.Settings.Ratio).ToString("N0") % )</div>
-                                }
-                                else if (habit.GetRatio(DataService.Settings.Ratio) >= 80)
-                                {
-                                    <div class="m-1 font-weight-bold text-warning">( @habit.GetRatio(DataService.Settings.Ratio).ToString("N0") % )</div>
-                                }
-                                else if (habit.TimeList.Count > 1)
-                                {
-                                    <div class="m-1 font-weight-bold text-info">( @habit.GetRatio(DataService.Settings.Ratio).ToString("N0") % )</div>
-                                }
-                                else
-                                {
-                                    <div class="m-1"><span class="fa fa-fw fa-exclamation"></span></div>
-                                }
-                            </div>
-                        </div>
-                        <div class="input-group-append">
-                            <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => OnHabitDone(habit))"><span class="fa fa-fw fa-check"></span></Button>
-                        </div>
-                    </div>
-                }
-            </div>
+            <TheLastTime.Components.HabitComponent Pinned="true" />
 
             <TheLastTime.Components.CategoryComponent />
 
-            <div>
-                @foreach (Habit habit in DataService.GetHabits(State.SelectedCategoryId))
-                {
-                    <div class="input-group flex-nowrap my-1">
-                        <div class="input-group-prepend flex-grow-1">
-                            <div class="btn btn-secondary @State.ButtonSizeClass border border-right-0 flex-grow-1 d-flex" @onclick="@(() => { State.SelectedHabit = habit; })">
-                                @if (DataService.Settings.ShowHabitId)
-                                {
-                                    <div class="m-1">@habit.Id</div>
-                                }
-                                @if (habit.IsStarred)
-                                {
-                                    <div class="m-1"><span class="fa fa-fw fa-star"></span></div>
-                                }
-                                @if (habit.IsTwoMinute)
-                                {
-                                    <div class="m-1"><span class="fas fa-fw fa-hourglass"></span></div>
-                                }
-                                <div class="m-1">@habit.Description</div>
-                                <div class="m-1 ml-auto">@(habit.TimeList.Count > 0 ? ToHighestValueString(habit.ElapsedTime) + " ago" : "Never")</div>
-                                @if (habit.GetRatio(DataService.Settings.Ratio) >= 100)
-                                {
-                                    <div class="m-1 font-weight-bold text-danger">( @habit.GetRatio(DataService.Settings.Ratio).ToString("N0") % )</div>
-                                }
-                                else if (habit.GetRatio(DataService.Settings.Ratio) >= 80)
-                                {
-                                    <div class="m-1 font-weight-bold text-warning">( @habit.GetRatio(DataService.Settings.Ratio).ToString("N0") % )</div>
-                                }
-                                else if (habit.TimeList.Count > 1)
-                                {
-                                    <div class="m-1 font-weight-bold text-info">( @habit.GetRatio(DataService.Settings.Ratio).ToString("N0") % )</div>
-                                }
-                                else
-                                {
-                                    <div class="m-1"><span class="fa fa-fw fa-exclamation"></span></div>
-                                }
-                            </div>
-                        </div>
-                        <div class="input-group-append">
-                            <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => OnHabitDone(habit))"><span class="fa fa-fw fa-check"></span></Button>
-                        </div>
-                    </div>
-                }
-            </div>
+            <TheLastTime.Components.HabitComponent />
 
             <div class="py-5"></div>
 

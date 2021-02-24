@@ -59,21 +59,12 @@ namespace TheLastTime.Data
             };
         }
 
-        public IEnumerable<Habit> GetPinnedHabits()
+        public IEnumerable<Habit> GetHabits(bool pinned, long categoryId)
         {
-            IEnumerable<Habit> habits = HabitList.Where(habit => habit.IsPinned &&
+            IEnumerable<Habit> habits = HabitList.Where(habit => (habit.IsPinned == pinned) &&
                                                                 (habit.IsStarred || !Settings.ShowOnlyStarred) &&
                                                                 (habit.IsTwoMinute || !Settings.ShowOnlyTwoMinute) &&
-                                                                (habit.GetRatio(Settings.Ratio) >= Settings.ShowPercentMin || !Settings.ShowOnlyRatioOverPercentMin));
-            return GetSorted(habits);
-        }
-
-        public IEnumerable<Habit> GetHabits(long categoryId)
-        {
-            IEnumerable<Habit> habits = HabitList.Where(habit => !habit.IsPinned &&
-                                                                (habit.IsStarred || !Settings.ShowOnlyStarred) &&
-                                                                (habit.IsTwoMinute || !Settings.ShowOnlyTwoMinute) &&
-                                                                (habit.CategoryId == categoryId || categoryId == 0) &&
+                                                                (pinned || categoryId == 0 || habit.CategoryId == categoryId) &&
                                                                 (habit.GetRatio(Settings.Ratio) >= Settings.ShowPercentMin || !Settings.ShowOnlyRatioOverPercentMin));
             return GetSorted(habits);
         }
