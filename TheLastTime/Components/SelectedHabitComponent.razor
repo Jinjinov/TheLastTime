@@ -145,7 +145,7 @@
                     {
                         <div class="input-group flex-nowrap mb-1 d-flex">
                             @*<DateEdit TValue="DateTime" Size="@State.Size" ReadOnly="true" Date="@time.DateTime" />
-                                <TimeEdit TValue="TimeSpan" Size="@State.Size" ReadOnly="true" Time="@time.DateTime.TimeOfDay" />*@
+                            <TimeEdit TValue="TimeSpan" Size="@State.Size" ReadOnly="true" Time="@time.DateTime.TimeOfDay" />*@
 
                             <TextEdit Size="@State.Size" ReadOnly="true" Text="@(ToReadableString(DateTime.Now - time.DateTime) + " ago")" />
 
