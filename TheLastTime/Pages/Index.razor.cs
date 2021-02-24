@@ -10,8 +10,6 @@ namespace TheLastTime.Pages
 {
     public sealed partial class Index : IDisposable
     {
-        public bool editCategory;
-
         [Inject]
         DataService DataService { get; set; } = null!;
 
