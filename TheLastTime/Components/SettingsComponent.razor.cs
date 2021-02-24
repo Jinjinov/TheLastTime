@@ -3,6 +3,7 @@ using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using TheLastTime.Data;
+using TheLastTime.Models;
 
 namespace TheLastTime.Components
 {

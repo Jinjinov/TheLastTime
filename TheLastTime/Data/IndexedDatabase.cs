@@ -1,5 +1,6 @@
 ﻿using Blazor.IndexedDB.Framework;
 using Microsoft.JSInterop;
+using TheLastTime.Models;
 
 namespace TheLastTime.Data
 {

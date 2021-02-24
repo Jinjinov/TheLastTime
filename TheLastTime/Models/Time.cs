@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace TheLastTime.Data
+namespace TheLastTime.Models
 {
     public class Time
     {
