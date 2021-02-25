@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System;
 using System.Threading.Tasks;
 
 namespace TheLastTime.Components
@@ -20,24 +21,9 @@ namespace TheLastTime.Components
 
         private bool isChecked;
 
-        private ElementReference inputElement;
+        private ElementReference elementReference;
 
-        string? elementId;
-        public string ElementId
-        {
-            get
-            {
-                // generate ID only on first use
-                if (elementId == null)
-                    elementId = Blazorise.Utils.IDGenerator.Instance.Generate;
-
-                return elementId;
-            }
-            private set
-            {
-                elementId = value;
-            }
-        }
+        private string elementId = Guid.NewGuid().ToString();
 
         private async Task OnChange(ChangeEventArgs e)
         {
@@ -52,7 +38,7 @@ namespace TheLastTime.Components
 
             bool isIndeterminate = Checked == null;
 
-            await jsRuntime.InvokeVoidAsync("setElementProperty", inputElement, "indeterminate", isIndeterminate);
+            await jsRuntime.InvokeVoidAsync("setElementProperty", elementReference, "indeterminate", isIndeterminate);
 
             await CheckedChanged.InvokeAsync(Checked);
         }
