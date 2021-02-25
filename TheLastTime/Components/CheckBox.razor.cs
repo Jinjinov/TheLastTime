@@ -27,12 +27,12 @@ namespace TheLastTime.Components
 
         private async Task OnChange(ChangeEventArgs e)
         {
-            if (Checked == false)
-                Checked = true;
-            else if(Checked == true)
-                Checked = null;
-            else if (Checked == null)
-                Checked = false;
+            Checked = Checked switch
+            {
+                false => true,
+                true => null,
+                null => false,
+            };
 
             isChecked = Checked != false;
 
