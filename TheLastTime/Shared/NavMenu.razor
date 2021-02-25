@@ -1,10 +1,13 @@
 ﻿
 <div class="top-row navbar navbar-dark bg-primary">
-    <a class="navbar-text" href="https://github.com/Jinjinov/TheLastTime" target="_blank"><span class="fab fa-github"></span></a>
+    <button id="toggle-nav-menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
     <a class="navbar-text" href="">When was the last time?</a>
 
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
+    <button class="navbar-toggler" @onclick="ToggleOptions">
+        <span class="fa fa-cog"></span>
     </button>
 </div>
 
@@ -12,6 +15,6 @@
     
     <TheLastTime.Components.SettingsComponent />
 
-    <TheLastTime.Components.OptionsComponent />
+    @*<TheLastTime.Components.OptionsComponent />*@
     
 </div>

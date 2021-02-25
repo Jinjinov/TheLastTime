@@ -19,6 +19,9 @@ namespace TheLastTime.Components
         [Inject]
         State State { get; set; } = null!;
 
+        [Inject]
+        ThemeOptions Theme { get; set; } = null!;
+
         protected override void OnInitialized()
         {
             DataService.PropertyChanged += PropertyChanged;

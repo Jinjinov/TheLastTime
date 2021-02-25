@@ -1,22 +1,30 @@
 ﻿@page "/"
 @*@page "/{RouteParameter}"*@
 
-<div class="container-fluid px-1 px-sm-0 py-2 py-sm-3 d-flex flex-grow-1">
-    <div id="overlay-parent" class="row mx-0 flex-grow-1">
 
-        <div class="col-md-12 col-lg-6 px-1 px-sm-3">
+@if (State.ShowOptions)
+{
+    <TheLastTime.Components.OptionsComponent />
+}
+else
+{
+    <div class="container-fluid px-1 px-sm-0 py-2 py-sm-3 d-flex flex-grow-1">
+        <div id="overlay-parent" class="row mx-0 flex-grow-1">
 
-            <TheLastTime.Components.HabitComponent Pinned="true" />
+            <div class="col-md-12 col-lg-6 px-1 px-sm-3">
 
-            <TheLastTime.Components.CategoryComponent />
+                <TheLastTime.Components.HabitComponent Pinned="true" />
 
-            <TheLastTime.Components.HabitComponent />
+                <TheLastTime.Components.CategoryComponent />
 
-            <div class="py-5"></div>
+                <TheLastTime.Components.HabitComponent />
 
-            <Button class="btn btn-lg btn-primary rounded-circle add-habit" @onclick="@(() => { State.NewHabit(); })"><span class="fa fa-fw fa-plus"></span></Button>
+                <div class="py-5"></div>
+
+                <Button class="btn btn-lg btn-primary rounded-circle add-habit" @onclick="@(() => { State.NewHabit(); })"><span class="fa fa-fw fa-plus"></span></Button>
+            </div>
+
+            <TheLastTime.Components.SelectedHabitComponent />
         </div>
-
-        <TheLastTime.Components.SelectedHabitComponent />
     </div>
-</div>
+}

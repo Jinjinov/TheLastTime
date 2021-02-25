@@ -15,6 +15,9 @@ namespace TheLastTime.Components
         [Inject]
         State State { get; set; } = null!;
 
+        [Inject]
+        ThemeOptions Theme { get; set; } = null!;
+
         Sort Sort
         {
             get => DataService.Settings.Sort;

@@ -23,6 +23,42 @@ namespace TheLastTime.Data
 
         public bool EditHabit { get; set; }
 
+        private bool showOptions;
+        public bool ShowOptions
+        {
+            get => showOptions;
+            set
+            {
+                if (showOptions != value)
+                {
+                    showOptions = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public Category SelectedCategory { get; private set; } = new Category();
+
+        private long _selectedCategoryId;
+        public long SelectedCategoryId
+        {
+            get => _selectedCategoryId;
+            set
+            {
+                if (_selectedCategoryId != value)
+                {
+                    _selectedCategoryId = value;
+
+                    if (DataService.CategoryDict.ContainsKey(value))
+                    {
+                        SelectedCategory = DataService.CategoryDict[value];
+                    }
+
+                    OnPropertyChanged(nameof(SelectedCategory));
+                }
+            }
+        }
+
         private Habit? _selectedHabit;
         public Habit? SelectedHabit
         {
@@ -88,46 +124,6 @@ namespace TheLastTime.Data
             SelectedHabit.DesiredInterval = new TimeSpan(SelectedHabit.DesiredInterval.Days, hours, SelectedHabit.DesiredInterval.Minutes, SelectedHabit.DesiredInterval.Seconds);
 
             await SaveHabit(SelectedHabit);
-        }
-
-        readonly Dictionary<string, string> ButtonSizeClassDict = new Dictionary<string, string>()
-        {
-            { "small", "btn-sm" },
-            { "medium", "" },
-            { "large", "btn-lg" }
-        };
-
-        public string ButtonSizeClass => ButtonSizeClassDict[DataService.Settings.Size];
-
-        readonly Dictionary<string, Size> SizeDict = new Dictionary<string, Size>()
-        {
-            { "small", Size.Small },
-            { "medium", Size.None },
-            { "large", Size.Large }
-        };
-
-        public Size Size => SizeDict[DataService.Settings.Size];
-
-        public Category SelectedCategory { get; private set; } = new Category();
-
-        private long _selectedCategoryId;
-        public long SelectedCategoryId
-        {
-            get => _selectedCategoryId;
-            set
-            {
-                if (_selectedCategoryId != value)
-                {
-                    _selectedCategoryId = value;
-
-                    if (DataService.CategoryDict.ContainsKey(value))
-                    {
-                        SelectedCategory = DataService.CategoryDict[value];
-                    }
-
-                    OnPropertyChanged(nameof(SelectedCategory));
-                }
-            }
         }
 
         public void NewCategory()

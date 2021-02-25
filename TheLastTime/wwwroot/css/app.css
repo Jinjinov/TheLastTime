@@ -111,8 +111,7 @@
         top: 0;
     }
 
-    /* navbar-toggler is a bootstrap class */
-    .navbar-toggler {
+    #toggle-nav-menu {
         display: none;
     }
 

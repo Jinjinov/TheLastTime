@@ -3,7 +3,7 @@
     {
         <div class="input-group flex-nowrap my-1">
             <div class="input-group-prepend flex-grow-1">
-                <div class="btn btn-secondary @State.ButtonSizeClass border border-right-0 flex-grow-1 d-flex" @onclick="@(() => { State.SelectedHabit = habit; })">
+                <div class="btn btn-secondary @Theme.ButtonSizeClass border border-right-0 flex-grow-1 d-flex" @onclick="@(() => { State.SelectedHabit = habit; })">
                     @if (DataService.Settings.ShowHabitId)
                     {
                         <div class="m-1">@habit.Id</div>
@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="input-group-append">
-                <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => OnHabitDone(habit))"><span class="fa fa-fw fa-check"></span></Button>
+                <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => OnHabitDone(habit))"><span class="fa fa-fw fa-check"></span></Button>
             </div>
         </div>
     }

@@ -42,7 +42,7 @@
                 </p>
 
                 <div>
-                    <Select TValue="long" Size="@State.Size" SelectedValue="@State.SelectedHabit.CategoryId" SelectedValueChanged="async (long val) => { State.SelectedHabit.CategoryId = val; if (!State.EditHabit) { await SaveHabit(State.SelectedHabit); } }">
+                    <Select TValue="long" Size="@Theme.Size" SelectedValue="@State.SelectedHabit.CategoryId" SelectedValueChanged="async (long val) => { State.SelectedHabit.CategoryId = val; if (!State.EditHabit) { await SaveHabit(State.SelectedHabit); } }">
                         @foreach (Category cat in DataService.CategoryList)
                         {
                             <SelectItem Value="@cat.Id">@cat.Description</SelectItem>
@@ -56,21 +56,21 @@
                         @if (newHabitId == -1)
                         {
                             <div class="input-group-prepend">
-                                <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(async () => { await HabitUpDown(State.SelectedHabit.Id, State.SelectedHabit.Id - 1); })"><span class="fa fa-fw fa-arrow-up"></span></Button>
+                                <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => { await HabitUpDown(State.SelectedHabit.Id, State.SelectedHabit.Id - 1); })"><span class="fa fa-fw fa-arrow-up"></span></Button>
                             </div>
                         }
-                        <NumericEdit Size="@State.Size" TValue="long" Min="1" Max="9000" Value="State.SelectedHabit.Id" ValueChanged="(val) => { newHabitId = val; }" />
+                        <NumericEdit Size="@Theme.Size" TValue="long" Min="1" Max="9000" Value="State.SelectedHabit.Id" ValueChanged="(val) => { newHabitId = val; }" />
                         @if (newHabitId == -1)
                         {
                             <div class="input-group-append">
-                                <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(async () => { await HabitUpDown(State.SelectedHabit.Id, State.SelectedHabit.Id + 1); })"><span class="fa fa-fw fa-arrow-down"></span></Button>
+                                <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => { await HabitUpDown(State.SelectedHabit.Id, State.SelectedHabit.Id + 1); })"><span class="fa fa-fw fa-arrow-down"></span></Button>
                             </div>
                         }
                         @if (newHabitId != -1)
                         {
                             <div class="input-group-append">
-                                <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(async () => { await HabitUpDown(State.SelectedHabit.Id, newHabitId); newHabitId = -1; })"><span class="fa fa-fw fa-save"></span></Button>
-                                <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(async () => { newHabitId = -1; var temp = State.SelectedHabit; State.SelectedHabit = null; await Task.Delay(1); State.SelectedHabit = temp; })"><span class="fa fa-fw fa-times"></span></Button>
+                                <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => { await HabitUpDown(State.SelectedHabit.Id, newHabitId); newHabitId = -1; })"><span class="fa fa-fw fa-save"></span></Button>
+                                <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => { newHabitId = -1; var temp = State.SelectedHabit; State.SelectedHabit = null; await Task.Delay(1); State.SelectedHabit = temp; })"><span class="fa fa-fw fa-times"></span></Button>
                             </div>
                         }
                     </div>
@@ -79,10 +79,10 @@
                 @if (State.EditHabit)
                 {
                     <div class="input-group flex-nowrap my-3">
-                        <TextEdit Size="@State.Size" @bind-Text="@State.SelectedHabit.Description" Placeholder="Add new habit..." />
+                        <TextEdit Size="@Theme.Size" @bind-Text="@State.SelectedHabit.Description" Placeholder="Add new habit..." />
                         <div class="input-group-append">
-                            <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(async () => { await SaveHabit(State.SelectedHabit); State.EditHabit = false; })"><span class="fa fa-fw fa-save"></span></Button>
-                            <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => { State.EditHabit = false; })"><span class="fa fa-fw fa-times"></span></Button>
+                            <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => { await SaveHabit(State.SelectedHabit); State.EditHabit = false; })"><span class="fa fa-fw fa-save"></span></Button>
+                            <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.EditHabit = false; })"><span class="fa fa-fw fa-times"></span></Button>
                         </div>
                     </div>
                 }
@@ -90,13 +90,13 @@
                 {
                     <div class="input-group flex-nowrap my-3 d-flex">
 
-                        <TextEdit Size="@State.Size" ReadOnly="true" Text="@State.SelectedHabit.Description" />
+                        <TextEdit Size="@Theme.Size" ReadOnly="true" Text="@State.SelectedHabit.Description" />
 
                         <div class="input-group-append">
-                            <TextEdit Class="rounded-0 border-right-0" Size="@State.Size" ReadOnly="true" Text="@(State.SelectedHabit.TimeList.Count + "x")" VisibleCharacters="@((State.SelectedHabit.TimeList.Count + "x").Length)" />
+                            <TextEdit Class="rounded-0 border-right-0" Size="@Theme.Size" ReadOnly="true" Text="@(State.SelectedHabit.TimeList.Count + "x")" VisibleCharacters="@((State.SelectedHabit.TimeList.Count + "x").Length)" />
 
-                            <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => { State.EditHabit = true; })"><span class="fa fa-fw fa-edit"></span></Button>
-                            <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(async () => { await DataService.DeleteHabit(State.SelectedHabit); State.SelectedHabit = null; })"><span class="fa fa-fw fa-trash-alt"></span></Button>
+                            <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.EditHabit = true; })"><span class="fa fa-fw fa-edit"></span></Button>
+                            <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => { await DataService.DeleteHabit(State.SelectedHabit); State.SelectedHabit = null; })"><span class="fa fa-fw fa-trash-alt"></span></Button>
                         </div>
                     </div>
                 }
@@ -116,10 +116,10 @@
                 <p>
                     <span class="fas fa-fw fa-stopwatch"></span> @("Desired interval:")
                     <div class="input-group flex-nowrap my-1">
-                        <NumericEdit Size="@State.Size" TValue="int?" Min="0" Max="9000" Value="State.SelectedHabit.DesiredInterval.Days" ValueChanged="async (val) => { await State.SetDesiredIntervalDays(val ?? 0); }" />
-                        <TextEdit Size="@State.Size" ReadOnly="true" Text="@(State.SelectedHabit.DesiredInterval.Days == 1 ? "day" : "days")" />
-                        <NumericEdit Size="@State.Size" TValue="int?" Min="0" Max="23" Value="State.SelectedHabit.DesiredInterval.Hours" ValueChanged="async (val) => { await State.SetDesiredIntervalHours(val ?? 0); }" />
-                        <TextEdit Size="@State.Size" ReadOnly="true" Text="@(State.SelectedHabit.DesiredInterval.Hours == 1 ? "hour" : "hours")" />
+                        <NumericEdit Size="@Theme.Size" TValue="int?" Min="0" Max="9000" Value="State.SelectedHabit.DesiredInterval.Days" ValueChanged="async (val) => { await State.SetDesiredIntervalDays(val ?? 0); }" />
+                        <TextEdit Size="@Theme.Size" ReadOnly="true" Text="@(State.SelectedHabit.DesiredInterval.Days == 1 ? "day" : "days")" />
+                        <NumericEdit Size="@Theme.Size" TValue="int?" Min="0" Max="23" Value="State.SelectedHabit.DesiredInterval.Hours" ValueChanged="async (val) => { await State.SetDesiredIntervalHours(val ?? 0); }" />
+                        <TextEdit Size="@Theme.Size" ReadOnly="true" Text="@(State.SelectedHabit.DesiredInterval.Hours == 1 ? "hour" : "hours")" />
                     </div>
 
                     @if (State.SelectedHabit.IsElapsedOverDesired)
@@ -133,25 +133,25 @@
                     @if (editTime && State.SelectedTime == time)
                     {
                         <div class="input-group flex-nowrap mb-1">
-                            <DateEdit TValue="DateTime" Size="@State.Size" Date="@time.DateTime" DateChanged="@((dateTime) => { time.DateTime = dateTime.Date + time.DateTime.TimeOfDay; })" />
-                            <TimeEdit TValue="TimeSpan" Size="@State.Size" Time="@time.DateTime.TimeOfDay" TimeChanged="@((timeSpan) => { time.DateTime = time.DateTime.Date + timeSpan; })" />
+                            <DateEdit TValue="DateTime" Size="@Theme.Size" Date="@time.DateTime" DateChanged="@((dateTime) => { time.DateTime = dateTime.Date + time.DateTime.TimeOfDay; })" />
+                            <TimeEdit TValue="TimeSpan" Size="@Theme.Size" Time="@time.DateTime.TimeOfDay" TimeChanged="@((timeSpan) => { time.DateTime = time.DateTime.Date + timeSpan; })" />
                             <div class="input-group-append">
-                                <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(async () => { await DataService.SaveTime(time); State.SelectedTime = null; editTime = false; })"><span class="fa fa-fw fa-save"></span></Button>
-                                <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => { State.SelectedTime = null; editTime = false; })"><span class="fa fa-fw fa-times"></span></Button>
+                                <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => { await DataService.SaveTime(time); State.SelectedTime = null; editTime = false; })"><span class="fa fa-fw fa-save"></span></Button>
+                                <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.SelectedTime = null; editTime = false; })"><span class="fa fa-fw fa-times"></span></Button>
                             </div>
                         </div>
                     }
                     else
                     {
                         <div class="input-group flex-nowrap mb-1 d-flex">
-                            @*<DateEdit TValue="DateTime" Size="@State.Size" ReadOnly="true" Date="@time.DateTime" />
-                            <TimeEdit TValue="TimeSpan" Size="@State.Size" ReadOnly="true" Time="@time.DateTime.TimeOfDay" />*@
+                            @*<DateEdit TValue="DateTime" Size="@Theme.Size" ReadOnly="true" Date="@time.DateTime" />
+                            <TimeEdit TValue="TimeSpan" Size="@Theme.Size" ReadOnly="true" Time="@time.DateTime.TimeOfDay" />*@
 
-                            <TextEdit Size="@State.Size" ReadOnly="true" Text="@(ToReadableString(DateTime.Now - time.DateTime) + " ago")" />
+                            <TextEdit Size="@Theme.Size" ReadOnly="true" Text="@(ToReadableString(DateTime.Now - time.DateTime) + " ago")" />
 
                             <div class="input-group-append">
-                                <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => { State.SelectedTime = time; editTime = true; })"><span class="fa fa-fw fa-edit"></span></Button>
-                                <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(async () => { await DataService.DeleteTime(time); State.SelectedHabit = DataService.HabitDict[time.HabitId]; })"><span class="fa fa-fw fa-trash-alt"></span></Button>
+                                <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.SelectedTime = time; editTime = true; })"><span class="fa fa-fw fa-edit"></span></Button>
+                                <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => { await DataService.DeleteTime(time); State.SelectedHabit = DataService.HabitDict[time.HabitId]; })"><span class="fa fa-fw fa-trash-alt"></span></Button>
                             </div>
                         </div>
                     }

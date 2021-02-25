@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using TheLastTime.Data;
-using TheLastTime.Models;
 
 namespace TheLastTime.Components
 {
@@ -16,6 +14,9 @@ namespace TheLastTime.Components
 
         [Inject]
         State State { get; set; } = null!;
+
+        [Inject]
+        ThemeOptions Theme { get; set; } = null!;
 
         protected override void OnInitialized()
         {

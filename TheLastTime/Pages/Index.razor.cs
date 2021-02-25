@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
 using TheLastTime.Data;
-using TheLastTime.Models;
 
 namespace TheLastTime.Pages
 {

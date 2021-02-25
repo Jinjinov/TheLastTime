@@ -37,11 +37,11 @@
                 @if (!DataService.Settings.ShowAllSelectOptions)
                 {
                     <div class="input-group-prepend">
-                        <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => PreviousSort())"><span class="fa fa-fw fa-chevron-left"></span></Button>
+                        <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => PreviousSort())"><span class="fa fa-fw fa-chevron-left"></span></Button>
                     </div>
                 }
 
-                <Select TValue="Sort" MaxVisibleItems="@(DataService.Settings.ShowAllSelectOptions ? 4 : null)" Size="@State.Size" SelectedValue="@Sort" SelectedValueChanged="async (Sort val) => { Sort = val; }">
+                <Select TValue="Sort" MaxVisibleItems="@(DataService.Settings.ShowAllSelectOptions ? 4 : null)" Size="@Theme.Size" SelectedValue="@Sort" SelectedValueChanged="async (Sort val) => { Sort = val; }">
                     <SelectItem Value="@Sort.Index">index</SelectItem>
                     <SelectItem Value="@Sort.Description">description</SelectItem>
                     <SelectItem Value="@Sort.ElapsedTime">elapsed time</SelectItem>
@@ -51,7 +51,7 @@
                 @if (!DataService.Settings.ShowAllSelectOptions)
                 {
                     <div class="input-group-append">
-                        <Button Color="Color.Primary" Outline="true" Size="@State.Size" @onclick="@(() => NextSort())"><span class="fa fa-fw fa-chevron-right"></span></Button>
+                        <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => NextSort())"><span class="fa fa-fw fa-chevron-right"></span></Button>
                     </div>
                 }
 
