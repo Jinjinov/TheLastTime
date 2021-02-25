@@ -32,6 +32,9 @@ namespace TheLastTime.Models
         public bool ShowOnlyTwoMinute { get; set; }
 
         [Required]
+        public bool? ShowNeverDone { get; set; }
+
+        [Required]
         public bool ShowOnlyRatioOverPercentMin { get; set; }
 
         [Required]

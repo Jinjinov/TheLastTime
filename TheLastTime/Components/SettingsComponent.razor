@@ -9,6 +9,10 @@
     </li>
 
     <li class="nav-item px-2 pt-2">
+        <CheckBox Checked="@DataService.Settings.ShowNeverDone" CheckedChanged="@(async (val) => { DataService.Settings.ShowNeverDone = val; await DataService.SaveSettings(); })"><span class="text-light">Show Never done</span></CheckBox>
+    </li>
+
+    <li class="nav-item px-2 pt-2">
         <Field>
             <FieldLabel>
                 <Check TValue="bool" Checked="@DataService.Settings.ShowOnlyRatioOverPercentMin" CheckedChanged="@(async (val) => { DataService.Settings.ShowOnlyRatioOverPercentMin = val; await DataService.SaveSettings(); })"><span class="text-light">Show only ratio over @DataService.Settings.ShowPercentMin %</span></Check>

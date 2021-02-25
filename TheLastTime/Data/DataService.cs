@@ -78,6 +78,7 @@ namespace TheLastTime.Data
             settings.ShowPercentMin = Settings.ShowPercentMin;
             settings.ShowOnlyStarred = Settings.ShowOnlyStarred;
             settings.ShowOnlyTwoMinute = Settings.ShowOnlyTwoMinute;
+            settings.ShowNeverDone = Settings.ShowNeverDone;
             settings.ShowOnlyRatioOverPercentMin = Settings.ShowOnlyRatioOverPercentMin;
             settings.ShowHabitId = Settings.ShowHabitId;
             settings.ShowHabitIdUpDownButtons = Settings.ShowHabitIdUpDownButtons;
