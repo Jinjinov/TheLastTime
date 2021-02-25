@@ -14,6 +14,9 @@ namespace TheLastTime.Components
         public RenderFragment? ChildContent { get; set; }
 
         [Parameter]
+        public bool IsTriState { get; set; }
+
+        [Parameter]
         public bool? Checked { get; set; }
 
         [Parameter]
@@ -37,6 +40,9 @@ namespace TheLastTime.Components
 
         private async Task SetIndeterminate()
         {
+            if (!IsTriState)
+                return;
+
             bool isIndeterminate = Checked == null;
 
             await jsRuntime.InvokeVoidAsync("setElementProperty", elementReference, "indeterminate", isIndeterminate);
@@ -52,12 +58,19 @@ namespace TheLastTime.Components
 
         private async Task ChangeChecked()
         {
-            Checked = Checked switch
+            if (IsTriState)
             {
-                false => true,
-                true => null,
-                null => false,
-            };
+                Checked = Checked switch
+                {
+                    false => true,
+                    true => null,
+                    null => false,
+                };
+            }
+            else
+            {
+                Checked = !Checked;
+            }
 
             await CheckedChanged.InvokeAsync(Checked);
         }
