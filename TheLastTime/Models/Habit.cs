@@ -39,6 +39,10 @@ namespace TheLastTime.Models
 
         internal TimeSpan ElapsedTime => TimeList.Any() ? DateTime.Now - TimeList.Last().DateTime : TimeSpan.Zero;
 
+        internal bool IsNeverDone => TimeList.Count == 0;
+
+        internal bool IsDoneOnce => TimeList.Count == 1;
+
         internal bool IsElapsedOverAverage => (TimeList.Count > 1) && (ElapsedTime > AverageInterval);
 
         internal double ElapsedToAverageRatio => TimeList.Count > 1 ? ElapsedTime / AverageInterval * 100.0 : 0.0;

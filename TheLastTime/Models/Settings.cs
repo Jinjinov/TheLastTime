@@ -26,10 +26,10 @@ namespace TheLastTime.Models
         public long ShowPercentMin { get; set; }
 
         [Required]
-        public bool ShowOnlyStarred { get; set; }
+        public bool? ShowStarred { get; set; }
 
         [Required]
-        public bool ShowOnlyTwoMinute { get; set; }
+        public bool? ShowTwoMinute { get; set; }
 
         [Required]
         public bool? ShowNeverDone { get; set; }
@@ -38,7 +38,7 @@ namespace TheLastTime.Models
         public bool? ShowDoneOnce { get; set; }
 
         [Required]
-        public bool ShowOnlyRatioOverPercentMin { get; set; }
+        public bool? ShowRatioOverPercentMin { get; set; }
 
         [Required]
         public bool ShowHabitId { get; set; }

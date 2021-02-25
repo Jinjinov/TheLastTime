@@ -1,25 +1,25 @@
 ﻿<ul class="nav flex-column">
 
     <li class="nav-item px-2 pt-2">
-        <Check TValue="bool" Checked="@DataService.Settings.ShowOnlyStarred" CheckedChanged="@(async (val) => { DataService.Settings.ShowOnlyStarred = val; await DataService.SaveSettings(); })"><span class="text-light">Show only starred</span></Check>
+        <CheckBox Checked="@DataService.Settings.ShowStarred" CheckedChanged="@(async (val) => { DataService.Settings.ShowStarred = val; await DataService.SaveSettings(); })"><span class="text-light">@GetFilter(DataService.Settings.ShowStarred) Starred</span></CheckBox>
     </li>
 
     <li class="nav-item px-2 pt-2">
-        <Check TValue="bool" Checked="@DataService.Settings.ShowOnlyTwoMinute" CheckedChanged="@(async (val) => { DataService.Settings.ShowOnlyTwoMinute = val; await DataService.SaveSettings(); })"><span class="text-light">Show only 2 min</span></Check>
+        <CheckBox Checked="@DataService.Settings.ShowTwoMinute" CheckedChanged="@(async (val) => { DataService.Settings.ShowTwoMinute = val; await DataService.SaveSettings(); })"><span class="text-light">@GetFilter(DataService.Settings.ShowTwoMinute) 2 min</span></CheckBox>
     </li>
 
     <li class="nav-item px-2 pt-2">
-        <CheckBox Checked="@DataService.Settings.ShowNeverDone" CheckedChanged="@(async (val) => { DataService.Settings.ShowNeverDone = val; await DataService.SaveSettings(); })"><span class="text-light">Show Never done</span></CheckBox>
+        <CheckBox Checked="@DataService.Settings.ShowNeverDone" CheckedChanged="@(async (val) => { DataService.Settings.ShowNeverDone = val; await DataService.SaveSettings(); })"><span class="text-light">@GetFilter(DataService.Settings.ShowNeverDone) Never done</span></CheckBox>
     </li>
 
     <li class="nav-item px-2 pt-2">
-        <CheckBox Checked="@DataService.Settings.ShowDoneOnce" CheckedChanged="@(async (val) => { DataService.Settings.ShowDoneOnce = val; await DataService.SaveSettings(); })"><span class="text-light">Show Done once</span></CheckBox>
+        <CheckBox Checked="@DataService.Settings.ShowDoneOnce" CheckedChanged="@(async (val) => { DataService.Settings.ShowDoneOnce = val; await DataService.SaveSettings(); })"><span class="text-light">@GetFilter(DataService.Settings.ShowDoneOnce) Done once</span></CheckBox>
     </li>
 
     <li class="nav-item px-2 pt-2">
         <Field>
             <FieldLabel>
-                <Check TValue="bool" Checked="@DataService.Settings.ShowOnlyRatioOverPercentMin" CheckedChanged="@(async (val) => { DataService.Settings.ShowOnlyRatioOverPercentMin = val; await DataService.SaveSettings(); })"><span class="text-light">Show only ratio over @DataService.Settings.ShowPercentMin %</span></Check>
+                <CheckBox Checked="@DataService.Settings.ShowRatioOverPercentMin" CheckedChanged="@(async (val) => { DataService.Settings.ShowRatioOverPercentMin = val; await DataService.SaveSettings(); })"><span class="text-light">@GetFilter(DataService.Settings.ShowRatioOverPercentMin) ratio over @DataService.Settings.ShowPercentMin %</span></CheckBox>
             </FieldLabel>
             <Slider TValue="long" Min="0" Max="100" Step="5" Value="@DataService.Settings.ShowPercentMin" ValueChanged="@(async (val) => { DataService.Settings.ShowPercentMin = val; await DataService.SaveSettings(); })" />
         </Field>

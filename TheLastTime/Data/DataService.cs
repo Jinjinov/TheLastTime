@@ -61,11 +61,20 @@ namespace TheLastTime.Data
 
         public IEnumerable<Habit> GetHabits(bool pinned, long categoryId)
         {
-            IEnumerable<Habit> habits = HabitList.Where(habit => (habit.IsPinned == pinned) &&
-                                                                (habit.IsStarred || !Settings.ShowOnlyStarred) &&
-                                                                (habit.IsTwoMinute || !Settings.ShowOnlyTwoMinute) &&
-                                                                (pinned || categoryId == 0 || habit.CategoryId == categoryId) &&
-                                                                (habit.GetRatio(Settings.Ratio) >= Settings.ShowPercentMin || !Settings.ShowOnlyRatioOverPercentMin));
+            IEnumerable<Habit> habits = HabitList.Where(habit =>
+            {
+                bool isRatioOk = habit.GetRatio(Settings.Ratio) >= Settings.ShowPercentMin;
+
+                return ((habit.IsPinned == pinned) &&
+                        (pinned || categoryId == 0 || habit.CategoryId == categoryId) && 
+                        (habit.IsStarred || Settings.ShowStarred == false) && 
+                        (habit.IsTwoMinute || Settings.ShowTwoMinute == false) && 
+                        (isRatioOk || Settings.ShowRatioOverPercentMin == false))
+                        || (habit.IsStarred && Settings.ShowStarred == null) 
+                        || (habit.IsTwoMinute && Settings.ShowTwoMinute == null) 
+                        || (isRatioOk && Settings.ShowRatioOverPercentMin == null);
+            });
+
             return GetSorted(habits);
         }
 
@@ -76,11 +85,11 @@ namespace TheLastTime.Data
             Settings settings = db.Settings.Single();
 
             settings.ShowPercentMin = Settings.ShowPercentMin;
-            settings.ShowOnlyStarred = Settings.ShowOnlyStarred;
-            settings.ShowOnlyTwoMinute = Settings.ShowOnlyTwoMinute;
+            settings.ShowStarred = Settings.ShowStarred;
+            settings.ShowTwoMinute = Settings.ShowTwoMinute;
             settings.ShowNeverDone = Settings.ShowNeverDone;
             settings.ShowDoneOnce = Settings.ShowDoneOnce;
-            settings.ShowOnlyRatioOverPercentMin = Settings.ShowOnlyRatioOverPercentMin;
+            settings.ShowRatioOverPercentMin = Settings.ShowRatioOverPercentMin;
             settings.ShowHabitId = Settings.ShowHabitId;
             settings.ShowHabitIdUpDownButtons = Settings.ShowHabitIdUpDownButtons;
             settings.ShowAllSelectOptions = Settings.ShowAllSelectOptions;

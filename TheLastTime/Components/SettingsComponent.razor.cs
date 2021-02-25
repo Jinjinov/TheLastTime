@@ -75,5 +75,15 @@ namespace TheLastTime.Components
             DataService.PropertyChanged -= PropertyChanged;
             State.PropertyChanged -= PropertyChanged;
         }
+
+        string GetFilter(bool? state)
+        {
+            return state switch
+            {
+                false => "[?]",
+                true => "[AND]",
+                null => "[OR]",
+            };
+        }
     }
 }

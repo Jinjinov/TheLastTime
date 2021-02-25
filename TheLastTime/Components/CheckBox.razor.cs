@@ -19,13 +19,38 @@ namespace TheLastTime.Components
         [Parameter]
         public EventCallback<bool?> CheckedChanged { get; set; }
 
-        private bool isChecked;
+        private bool internalChecked;
 
         private ElementReference elementReference;
 
         private string elementId = Guid.NewGuid().ToString();
 
-        private async Task OnChange(ChangeEventArgs e)
+        private void SetInternalChecked()
+        {
+            internalChecked = Checked != false;
+        }
+
+        protected override void OnInitialized()
+        {
+            SetInternalChecked();
+        }
+
+        private async Task SetIndeterminate()
+        {
+            bool isIndeterminate = Checked == null;
+
+            await jsRuntime.InvokeVoidAsync("setElementProperty", elementReference, "indeterminate", isIndeterminate);
+        }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                await SetIndeterminate();
+            }
+        }
+
+        private async Task ChangeChecked()
         {
             Checked = Checked switch
             {
@@ -34,13 +59,16 @@ namespace TheLastTime.Components
                 null => false,
             };
 
-            isChecked = Checked != false;
-
-            bool isIndeterminate = Checked == null;
-
-            await jsRuntime.InvokeVoidAsync("setElementProperty", elementReference, "indeterminate", isIndeterminate);
-
             await CheckedChanged.InvokeAsync(Checked);
+        }
+
+        private async Task OnChange(ChangeEventArgs e)
+        {
+            await ChangeChecked();
+
+            SetInternalChecked();
+
+            await SetIndeterminate();
         }
     }
 }
