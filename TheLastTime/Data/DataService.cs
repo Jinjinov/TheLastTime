@@ -65,14 +65,21 @@ namespace TheLastTime.Data
             {
                 bool isRatioOk = habit.GetRatio(Settings.Ratio) >= Settings.ShowPercentMin;
 
-                return ((habit.IsPinned == pinned) &&
-                        (pinned || categoryId == 0 || habit.CategoryId == categoryId) && 
-                        (habit.IsStarred || Settings.ShowStarred == false) && 
-                        (habit.IsTwoMinute || Settings.ShowTwoMinute == false) && 
-                        (isRatioOk || Settings.ShowRatioOverPercentMin == false))
-                        || (habit.IsStarred && Settings.ShowStarred == null) 
-                        || (habit.IsTwoMinute && Settings.ShowTwoMinute == null) 
-                        || (isRatioOk && Settings.ShowRatioOverPercentMin == null);
+                return (habit.IsPinned == pinned) && (pinned || categoryId == 0 || habit.CategoryId == categoryId) && 
+                        (
+                            (
+                                (habit.IsStarred || Settings.ShowStarred == false) && 
+                                (habit.IsTwoMinute || Settings.ShowTwoMinute == false) && 
+                                (habit.IsNeverDone || Settings.ShowNeverDone == false) && 
+                                (habit.IsDoneOnce || Settings.ShowDoneOnce == false) &&
+                                (isRatioOk || Settings.ShowRatioOverPercentMin == false)
+                            )
+                            || (habit.IsStarred && Settings.ShowStarred == null) 
+                            || (habit.IsTwoMinute && Settings.ShowTwoMinute == null) 
+                            || (habit.IsNeverDone && Settings.ShowNeverDone == null) 
+                            || (habit.IsDoneOnce && Settings.ShowDoneOnce == null) 
+                            || (isRatioOk && Settings.ShowRatioOverPercentMin == null)
+                        );
             });
 
             return GetSorted(habits);
