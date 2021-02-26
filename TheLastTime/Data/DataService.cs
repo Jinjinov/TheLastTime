@@ -281,6 +281,8 @@ namespace TheLastTime.Data
             await db.SaveChanges();
 
             await LoadData();
+
+            OnPropertyChanged(nameof(HabitList));
         }
 
         public async Task DeleteHabit(Habit habit)
@@ -391,6 +393,8 @@ namespace TheLastTime.Data
             await db.SaveChanges();
 
             await LoadData();
+
+            OnPropertyChanged(nameof(TimeList));
         }
 
         public async Task DeleteTime(Time time)
