@@ -26,19 +26,19 @@ namespace TheLastTime.Models
         public long ShowPercentMin { get; set; }
 
         [Required]
-        public bool? ShowStarred { get; set; }
+        public bool? ShowStarred { get; set; } = false;
 
         [Required]
-        public bool? ShowTwoMinute { get; set; }
+        public bool? ShowTwoMinute { get; set; } = false;
 
         [Required]
-        public bool? ShowNeverDone { get; set; }
+        public bool? ShowNeverDone { get; set; } = false;
 
         [Required]
-        public bool? ShowDoneOnce { get; set; }
+        public bool? ShowDoneOnce { get; set; } = false;
 
         [Required]
-        public bool? ShowRatioOverPercentMin { get; set; }
+        public bool? ShowRatioOverPercentMin { get; set; } = false;
 
         [Required]
         public bool ShowAdvancedFilters { get; set; }
