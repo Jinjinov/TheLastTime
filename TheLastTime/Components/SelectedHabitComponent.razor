@@ -136,7 +136,7 @@
                             <DateEdit TValue="DateTime" Size="@Theme.Size" Date="@time.DateTime" DateChanged="@((dateTime) => { time.DateTime = dateTime.Date + time.DateTime.TimeOfDay; })" />
                             <TimeEdit TValue="TimeSpan" Size="@Theme.Size" Time="@time.DateTime.TimeOfDay" TimeChanged="@((timeSpan) => { time.DateTime = time.DateTime.Date + timeSpan; })" />
                             <div class="input-group-append">
-                                <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => { await DataService.SaveTime(time); State.SelectedTime = null; editTime = false; })"><span class="fa fa-fw fa-save"></span></Button>
+                                <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => { await DataService.SaveTime(time); State.SelectedTime = null; editTime = false; State.SetSelectedHabit(State.SelectedHabit.Id); })"><span class="fa fa-fw fa-save"></span></Button>
                                 <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.SelectedTime = null; editTime = false; })"><span class="fa fa-fw fa-times"></span></Button>
                             </div>
                         </div>
