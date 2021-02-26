@@ -68,11 +68,11 @@ namespace TheLastTime.Data
                 return (habit.IsPinned == pinned) && (pinned || categoryId == 0 || habit.CategoryId == categoryId) && 
                         (
                             (
-                                (habit.IsStarred || Settings.ShowStarred == false) && 
-                                (habit.IsTwoMinute || Settings.ShowTwoMinute == false) && 
-                                (habit.IsNeverDone || Settings.ShowNeverDone == false) && 
-                                (habit.IsDoneOnce || Settings.ShowDoneOnce == false) &&
-                                (isRatioOk || Settings.ShowRatioOverPercentMin == false)
+                                (habit.IsStarred || Settings.ShowStarred != true) && 
+                                (habit.IsTwoMinute || Settings.ShowTwoMinute != true) && 
+                                (habit.IsNeverDone || Settings.ShowNeverDone != true) && 
+                                (habit.IsDoneOnce || Settings.ShowDoneOnce != true) &&
+                                (isRatioOk || Settings.ShowRatioOverPercentMin != true)
                             )
                             || (habit.IsStarred && Settings.ShowStarred == null) 
                             || (habit.IsTwoMinute && Settings.ShowTwoMinute == null) 

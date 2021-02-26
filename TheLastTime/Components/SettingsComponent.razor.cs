@@ -82,9 +82,9 @@ namespace TheLastTime.Components
             {
                 return state switch
                 {
-                    false => "[?]",
-                    true => "[AND]",
-                    null => "[OR]",
+                    false => "",
+                    true => "Show only",
+                    null => "Also show",
                 };
             }
             else
