@@ -78,12 +78,19 @@ namespace TheLastTime.Components
 
         string GetFilter(bool? state)
         {
-            return state switch
+            if (DataService.Settings.ShowAdvancedFilters)
             {
-                false => "[?]",
-                true => "[AND]",
-                null => "[OR]",
-            };
+                return state switch
+                {
+                    false => "[?]",
+                    true => "[AND]",
+                    null => "[OR]",
+                };
+            }
+            else
+            {
+                return "Show only";
+            }
         }
     }
 }

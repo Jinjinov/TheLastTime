@@ -97,6 +97,7 @@ namespace TheLastTime.Data
             settings.ShowNeverDone = Settings.ShowNeverDone;
             settings.ShowDoneOnce = Settings.ShowDoneOnce;
             settings.ShowRatioOverPercentMin = Settings.ShowRatioOverPercentMin;
+            settings.ShowAdvancedFilters = Settings.ShowAdvancedFilters;
             settings.ShowHabitId = Settings.ShowHabitId;
             settings.ShowHabitIdUpDownButtons = Settings.ShowHabitIdUpDownButtons;
             settings.ShowAllSelectOptions = Settings.ShowAllSelectOptions;

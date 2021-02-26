@@ -41,6 +41,9 @@ namespace TheLastTime.Models
         public bool? ShowRatioOverPercentMin { get; set; }
 
         [Required]
+        public bool ShowAdvancedFilters { get; set; }
+
+        [Required]
         public bool ShowHabitId { get; set; }
 
         [Required]
@@ -63,5 +66,28 @@ namespace TheLastTime.Models
 
         [Required]
         public Sort Sort { get; set; }
+
+        public void SetShowAdvancedFilters(bool showAdvancedFilters)
+        {
+            ShowAdvancedFilters = showAdvancedFilters;
+
+            if (!ShowAdvancedFilters)
+            {
+                if (ShowStarred == null)
+                    ShowStarred = false;
+
+                if (ShowTwoMinute == null)
+                    ShowTwoMinute = false;
+
+                if (ShowNeverDone == null)
+                    ShowNeverDone = false;
+
+                if (ShowDoneOnce == null)
+                    ShowDoneOnce = false;
+
+                if (ShowRatioOverPercentMin == null)
+                    ShowRatioOverPercentMin = false;
+            }
+        }
     }
 }

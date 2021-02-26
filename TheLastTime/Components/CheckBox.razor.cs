@@ -24,6 +24,8 @@ namespace TheLastTime.Components
 
         private bool internalChecked;
 
+        private bool isIndeterminate;
+
         private ElementReference elementReference;
 
         private string elementId = Guid.NewGuid().ToString();
@@ -33,27 +35,26 @@ namespace TheLastTime.Components
             internalChecked = Checked != false;
         }
 
-        protected override void OnInitialized()
+        protected override void OnParametersSet()
         {
             SetInternalChecked();
         }
 
         private async Task SetIndeterminate()
         {
-            if (!IsTriState)
-                return;
+            bool indeterminate = Checked == null;
 
-            bool isIndeterminate = Checked == null;
+            if (isIndeterminate != indeterminate)
+            {
+                isIndeterminate = indeterminate;
 
-            await jsRuntime.InvokeVoidAsync("setElementProperty", elementReference, "indeterminate", isIndeterminate);
+                await jsRuntime.InvokeVoidAsync("setElementProperty", elementReference, "indeterminate", indeterminate);
+            }
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            if (firstRender)
-            {
-                await SetIndeterminate();
-            }
+            await SetIndeterminate();
         }
 
         private async Task ChangeChecked()
