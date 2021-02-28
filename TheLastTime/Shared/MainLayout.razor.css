@@ -1,0 +1,54 @@
+﻿
+.page {
+    position: relative;
+    display: flex;
+    flex-direction: column; /* The flexible items are displayed vertically, as a column */
+}
+
+/* left side, including the top-row */
+.sidebar {
+    z-index: 4;
+}
+
+/* right side, including the top-row */
+.main {
+    flex: 1;
+}
+
+/* nav menu, header */
+::deep .top-row {
+    display: flex;
+    z-index: 4;
+    position: relative;
+}
+
+/* On screens that are 767.98px or less, hide the top row */
+@media (max-width: 767.98px) {
+    .main ::deep .top-row {
+        display: none;
+    }
+
+    .page {
+        height: 100vh;
+    }
+}
+
+/* On screens that are 768px or more, show the sidebar menu and hide the menu toggler  */
+@media (min-width: 768px) {
+    .page {
+        flex-direction: row; /* The flexible items are displayed horizontally, as a row */
+    }
+
+    .sidebar {
+        width: 250px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+        overflow: hidden;
+    }
+
+    .main ::deep .top-row {
+        position: sticky;
+        top: 0;
+    }
+}

@@ -1,0 +1,13 @@
+﻿
+/* On screens that are 768px or more, show the sidebar menu and hide the menu toggler  */
+@media (min-width: 768px) {
+
+    #toggle-nav-menu {
+        display: none;
+    }
+
+    /* collapse is a bootstrap class */
+    .sidebar .collapse {
+        display: block !important;
+    }
+}

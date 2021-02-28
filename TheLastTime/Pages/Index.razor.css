@@ -1,0 +1,24 @@
+﻿
+/* add habit button */
+::deep #add-habit {
+    position: fixed;
+    right: calc(50% - 95px);
+    bottom: 30px;
+    padding: 0 !important;
+    width: 54px;
+    height: 54px;
+    z-index: 2;
+}
+
+/* On screens that are 991.98px or less, set the habit details overlay width to 100% */
+@media (max-width: 991.98px) {
+
+    /* main content body */
+    #overlay-parent {
+        position: relative;
+    }
+
+    ::deep #add-habit {
+        right: 30px;
+    }
+}
