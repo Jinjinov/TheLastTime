@@ -11,15 +11,17 @@ else
     <Microsoft.AspNetCore.Components.Web.Extensions.Head.Link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
 }
 
-<div class="sidebar bg-dark">
-    <NavMenu />
-</div>
+<div class="page">
+    <div class="sidebar bg-dark">
+        <NavMenu />
+    </div>
 
-<div class="main d-flex flex-column">
+    <div class="main d-flex flex-column">
 
-    <TheLastTime.Shared.Header />
+        <TheLastTime.Shared.Header />
 
-    <div class="d-flex flex-grow-1">
-        @Body
+        <div class="d-flex flex-grow-1">
+            @Body
+        </div>
     </div>
 </div>

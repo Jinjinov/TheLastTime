@@ -1,4 +1,4 @@
-﻿app {
+﻿.page {
     position: relative;
     display: flex;
     flex-direction: column; /* The flexible items are displayed vertically, as a column */
@@ -87,14 +87,14 @@
         display: none;
     }
 
-    app {
+    .page {
         height: 100vh;
     }
 }
 
 /* On screens that are 768px or more, show the sidebar menu and hide the menu toggler  */
 @media (min-width: 768px) {
-    app {
+    .page {
         flex-direction: row; /* The flexible items are displayed horizontally, as a row */
     }
 
