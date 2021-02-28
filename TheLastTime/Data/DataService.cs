@@ -120,7 +120,7 @@ namespace TheLastTime.Data
 
             if (db.Settings.Count == 0)
             {
-                Dimensions dimensions = await JSRuntime.InvokeAsync<Dimensions>("getDimensions");
+                Dimensions dimensions = await GetDimensions();
 
                 if (dimensions.Width < 576)
                     db.Settings.Add(new Settings() { Size = "small", Theme = "lumen" });
@@ -168,6 +168,11 @@ namespace TheLastTime.Data
                 if (CategoryDict.ContainsKey(habit.CategoryId))
                     CategoryDict[habit.CategoryId].HabitList.Add(habit);
             }
+        }
+
+        private async Task<Dimensions> GetDimensions()
+        {
+            return await JSRuntime.InvokeAsync<Dimensions>("getDimensions");
         }
 
         public async Task ClearData()
