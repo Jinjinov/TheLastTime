@@ -31,6 +31,8 @@ namespace TheLastTime
 
             builder.Services.AddScoped<IIndexedDbFactory, IndexedDbFactory>();
 
+            builder.Services.AddScoped<IDatabaseAccess, DatabaseAccess>();
+
             builder.Services.AddScoped<DataService>();
 
             builder.Services.AddScoped<State>();

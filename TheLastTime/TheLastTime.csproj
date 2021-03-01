@@ -19,7 +19,6 @@
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
 
     <PackageReference Include="IndexedDB.Blazor" Version="1.1.1" />
-    <PackageReference Include="TG.Blazor.IndexedDB" Version="1.5.0-preview" />
     <PackageReference Include="YamlDotNet" Version="9.1.4" />
   </ItemGroup>
 

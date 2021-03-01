@@ -1,5 +1,4 @@
-﻿using IndexedDB.Blazor;
-using Microsoft.JSInterop;
+﻿using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +9,21 @@ using TheLastTime.Models;
 
 namespace TheLastTime.Data
 {
+    public interface IDatabase : IDisposable
+    {
+        ICollection<Category> Categories { get; }
+        ICollection<Habit> Habits { get; }
+        ICollection<Time> Times { get; }
+        ICollection<Settings> Settings { get; }
+
+        Task SaveChanges();
+    }
+
+    public interface IDatabaseAccess
+    {
+        Task<IDatabase> CreateDatabase();
+    }
+
     class Dimensions
     {
         public int Width { get; set; }
@@ -39,12 +53,12 @@ namespace TheLastTime.Data
         public Dictionary<long, Time> TimeDict { get; set; } = new Dictionary<long, Time>();
 
         readonly IJSRuntime JSRuntime;
-        readonly IIndexedDbFactory DbFactory;
+        readonly IDatabaseAccess DatabaseAccess;
 
-        public DataService(IJSRuntime jsRuntime, IIndexedDbFactory dbFactory)
+        public DataService(IJSRuntime jsRuntime, IDatabaseAccess databaseAccess)
         {
             JSRuntime = jsRuntime;
-            DbFactory = dbFactory;
+            DatabaseAccess = databaseAccess;
         }
 
         private IEnumerable<Habit> GetSorted(IEnumerable<Habit> habits)
@@ -87,7 +101,7 @@ namespace TheLastTime.Data
 
         public async Task SaveSettings()
         {
-            using IndexedDatabase db = await DbFactory.Create<IndexedDatabase>();
+            using IDatabase db = await DatabaseAccess.CreateDatabase();
 
             Settings settings = db.Settings.Single();
 
@@ -114,7 +128,7 @@ namespace TheLastTime.Data
 
         public async Task LoadData()
         {
-            using IndexedDatabase db = await DbFactory.Create<IndexedDatabase>();
+            using IDatabase db = await DatabaseAccess.CreateDatabase();
 
             bool save = false;
 
@@ -177,7 +191,7 @@ namespace TheLastTime.Data
 
         public async Task ClearData()
         {
-            using IndexedDatabase db = await DbFactory.Create<IndexedDatabase>();
+            using IDatabase db = await DatabaseAccess.CreateDatabase();
 
             foreach (Category category in db.Categories)
             {
@@ -197,7 +211,7 @@ namespace TheLastTime.Data
 
         public async Task AddData(List<Category> categoryList)
         {
-            using IndexedDatabase db = await DbFactory.Create<IndexedDatabase>();
+            using IDatabase db = await DatabaseAccess.CreateDatabase();
 
             foreach (Category category in categoryList)
             {
@@ -223,7 +237,7 @@ namespace TheLastTime.Data
 
         public async Task SaveCategory(Category category)
         {
-            using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
+            using IDatabase db = await DatabaseAccess.CreateDatabase();
 
             if (category.Id == 0)
             {
@@ -245,7 +259,7 @@ namespace TheLastTime.Data
 
         public async Task DeleteCategory(Category category)
         {
-            using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
+            using IDatabase db = await DatabaseAccess.CreateDatabase();
 
             foreach (Habit habit in category.HabitList)
             {
@@ -266,7 +280,7 @@ namespace TheLastTime.Data
 
         public async Task SaveHabit(Habit habit)
         {
-            using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
+            using IDatabase db = await DatabaseAccess.CreateDatabase();
 
             if (habit.Id == 0)
             {
@@ -292,7 +306,7 @@ namespace TheLastTime.Data
 
         public async Task DeleteHabit(Habit habit)
         {
-            using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
+            using IDatabase db = await DatabaseAccess.CreateDatabase();
 
             foreach (Time time in habit.TimeList)
             {
@@ -308,7 +322,7 @@ namespace TheLastTime.Data
 
         public async Task<(bool changed, long id)> HabitUpDown(long oldId, long newId)
         {
-            using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
+            using IDatabase db = await DatabaseAccess.CreateDatabase();
 
             long maxId = db.Habits.Any() ? db.Habits.Max(habit => habit.Id) : 0;
 
@@ -348,7 +362,7 @@ namespace TheLastTime.Data
             return (changed, newId);
         }
 
-        private bool ChangeId(long oldId, long newId, IndexedDatabase db)
+        private bool ChangeId(long oldId, long newId, IDatabase db)
         {
             if (db.Habits.SingleOrDefault(h => h.Id == oldId) is Habit dbHabit)
             {
@@ -384,7 +398,7 @@ namespace TheLastTime.Data
 
         public async Task SaveTime(Time time)
         {
-            using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
+            using IDatabase db = await DatabaseAccess.CreateDatabase();
 
             if (time.Id == 0)
             {
@@ -404,7 +418,7 @@ namespace TheLastTime.Data
 
         public async Task DeleteTime(Time time)
         {
-            using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
+            using IDatabase db = await DatabaseAccess.CreateDatabase();
             db.Times.Remove(time);
             await db.SaveChanges();
 
@@ -413,7 +427,7 @@ namespace TheLastTime.Data
 
         public async Task SeedExamples()
         {
-            using IndexedDatabase db = await this.DbFactory.Create<IndexedDatabase>();
+            using IDatabase db = await DatabaseAccess.CreateDatabase();
 
             db.Categories.Add(new Category() { Id = 2, Description = "Health" });
             db.Categories.Add(new Category() { Id = 3, Description = "Exercise" });
