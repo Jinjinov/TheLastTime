@@ -9,11 +9,11 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using TheLastTime.Data;
-using TheLastTime.Models;
+using TheLastTime.Shared.Data;
+using TheLastTime.Shared.Models;
 using YamlDotNet.Serialization;
 
-namespace TheLastTime.Components
+namespace TheLastTime.Shared.Components
 {
     public sealed partial class OptionsComponent : IDisposable
     {

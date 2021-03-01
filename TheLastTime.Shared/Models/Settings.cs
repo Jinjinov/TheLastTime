@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TheLastTime.Models
+namespace TheLastTime.Shared.Models
 {
     public enum Ratio
     {

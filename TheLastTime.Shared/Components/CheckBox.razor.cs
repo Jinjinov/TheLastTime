@@ -3,7 +3,7 @@ using Microsoft.JSInterop;
 using System;
 using System.Threading.Tasks;
 
-namespace TheLastTime.Components
+namespace TheLastTime.Shared.Components
 {
     public partial class CheckBox
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
-using TheLastTime.Data;
+using TheLastTime.Shared.Data;
 
-namespace TheLastTime.Shared
+namespace TheLastTime.Shared.Components
 {
     public partial class NavMenu
     {

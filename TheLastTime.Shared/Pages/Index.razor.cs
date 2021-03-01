@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.ComponentModel;
-using TheLastTime.Data;
+using TheLastTime.Shared.Data;
 
-namespace TheLastTime.Pages
+namespace TheLastTime.Shared.Pages
 {
     public sealed partial class Index : IDisposable
     {

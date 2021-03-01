@@ -2,7 +2,8 @@
 using Microsoft.JSInterop;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TheLastTime.Models;
+using TheLastTime.Shared.Data;
+using TheLastTime.Shared.Models;
 
 namespace TheLastTime.Data
 {

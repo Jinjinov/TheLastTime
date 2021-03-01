@@ -4,7 +4,7 @@
 
 @if (State.ShowOptions)
 {
-    <TheLastTime.Components.OptionsComponent />
+    <OptionsComponent />
 }
 else
 {
@@ -13,18 +13,18 @@ else
 
             <div class="col-md-12 col-lg-6 px-1 px-sm-3">
 
-                <TheLastTime.Components.HabitComponent Pinned="true" />
+                <HabitComponent Pinned="true" />
 
-                <TheLastTime.Components.CategoryComponent />
+                <CategoryComponent />
 
-                <TheLastTime.Components.HabitComponent />
+                <HabitComponent />
 
                 <div class="py-5"></div>
 
                 <Button id="add-habit" class="btn btn-lg btn-primary rounded-circle" @onclick="@(() => { State.NewHabit(); })"><span class="fa fa-fw fa-plus"></span></Button>
             </div>
 
-            <TheLastTime.Components.SelectedHabitComponent />
+            <SelectedHabitComponent />
         </div>
     </div>
 }

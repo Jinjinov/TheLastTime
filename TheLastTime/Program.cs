@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using TheLastTime.Shared.Data;
 using TheLastTime.Data;
 
 namespace TheLastTime

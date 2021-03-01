@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace TheLastTime.Models
+namespace TheLastTime.Shared.Models
 {
     public class Habit
     {

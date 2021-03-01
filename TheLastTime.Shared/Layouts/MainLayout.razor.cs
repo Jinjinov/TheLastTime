@@ -1,14 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.ComponentModel;
-using TheLastTime.Data;
+using TheLastTime.Shared.Data;
 
-namespace TheLastTime.Components
+namespace TheLastTime.Shared.Layouts
 {
-    public sealed partial class CategoryComponent : IDisposable
+    public sealed partial class MainLayout : IDisposable
     {
-        public bool editCategory;
-
         [Inject]
         DataService DataService { get; set; } = null!;
 

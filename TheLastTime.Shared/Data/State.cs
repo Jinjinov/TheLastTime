@@ -3,9 +3,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using TheLastTime.Models;
+using TheLastTime.Shared.Models;
 
-namespace TheLastTime.Data
+namespace TheLastTime.Shared.Data
 {
     public class State : INotifyPropertyChanged
     {

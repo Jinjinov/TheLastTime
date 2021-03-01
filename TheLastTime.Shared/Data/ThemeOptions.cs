@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace TheLastTime.Data
+namespace TheLastTime.Shared.Data
 {
     public class ThemeOptions
     {

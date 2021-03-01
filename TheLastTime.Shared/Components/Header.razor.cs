@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.ComponentModel;
-using TheLastTime.Data;
+using TheLastTime.Shared.Data;
 
-namespace TheLastTime.Shared
+namespace TheLastTime.Shared.Components
 {
     public sealed partial class Header : IDisposable
     {

@@ -2,10 +2,10 @@
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using TheLastTime.Data;
-using TheLastTime.Models;
+using TheLastTime.Shared.Data;
+using TheLastTime.Shared.Models;
 
-namespace TheLastTime.Components
+namespace TheLastTime.Shared.Components
 {
     public sealed partial class SelectedHabitComponent : IDisposable
     {
