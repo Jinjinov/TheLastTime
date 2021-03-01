@@ -24,12 +24,6 @@ namespace TheLastTime.Shared.Data
         Task<IDatabase> CreateDatabase();
     }
 
-    class Dimensions
-    {
-        public int Width { get; set; }
-        public int Height { get; set; }
-    }
-
     public class DataService : INotifyPropertyChanged
     {
         #region INotifyPropertyChanged
@@ -52,12 +46,12 @@ namespace TheLastTime.Shared.Data
         public Dictionary<long, Habit> HabitDict { get; set; } = new Dictionary<long, Habit>();
         public Dictionary<long, Time> TimeDict { get; set; } = new Dictionary<long, Time>();
 
-        readonly IJSRuntime JSRuntime;
+        readonly JsInterop JsInterop;
         readonly IDatabaseAccess DatabaseAccess;
 
-        public DataService(IJSRuntime jsRuntime, IDatabaseAccess databaseAccess)
+        public DataService(JsInterop jsInterop, IDatabaseAccess databaseAccess)
         {
-            JSRuntime = jsRuntime;
+            JsInterop = jsInterop;
             DatabaseAccess = databaseAccess;
         }
 
@@ -134,7 +128,7 @@ namespace TheLastTime.Shared.Data
 
             if (db.Settings.Count == 0)
             {
-                Dimensions dimensions = await GetDimensions();
+                Dimensions dimensions = await JsInterop.GetDimensions();
 
                 if (dimensions.Width < 576)
                     db.Settings.Add(new Settings() { Size = "small", Theme = "lumen" });
@@ -184,10 +178,10 @@ namespace TheLastTime.Shared.Data
             }
         }
 
-        private async Task<Dimensions> GetDimensions()
-        {
-            return await JSRuntime.InvokeAsync<Dimensions>("getDimensions");
-        }
+        //private async Task<Dimensions> GetDimensions()
+        //{
+        //    return await jsRuntime.InvokeAsync<Dimensions>("getDimensions");
+        //}
 
         public async Task ClearData()
         {

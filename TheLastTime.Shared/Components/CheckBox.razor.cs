@@ -8,7 +8,7 @@ namespace TheLastTime.Shared.Components
     public partial class CheckBox
     {
         [Inject]
-        IJSRuntime jsRuntime { get; set; } = null!;
+        JsInterop JsInterop { get; set; } = null!;
 
         [Parameter]
         public RenderFragment? ChildContent { get; set; }
@@ -48,14 +48,14 @@ namespace TheLastTime.Shared.Components
             {
                 isIndeterminate = indeterminate;
 
-                await SetElementProperty(elementReference, "indeterminate", indeterminate);
+                await JsInterop.SetElementProperty(elementReference, "indeterminate", indeterminate);
             }
         }
 
-        private async ValueTask SetElementProperty(ElementReference element, string property, object value)
-        {
-            await jsRuntime.InvokeVoidAsync("setElementProperty", element, property, value);
-        }
+        //private async ValueTask SetElementProperty(ElementReference element, string property, object value)
+        //{
+        //    await jsRuntime.InvokeVoidAsync("setElementProperty", element, property, value);
+        //}
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {

@@ -39,26 +39,6 @@
     <script src="_framework/blazor.webassembly.js"></script>
 
     <script>navigator.serviceWorker.register('service-worker.js');</script>
-
-    <script type="text/javascript">
-        function saveAsFile(filename, bytesBase64) {
-            var link = document.createElement('a');
-            link.download = filename;
-            link.href = "data:application/octet-stream;base64," + bytesBase64;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-        function getDimensions() {
-            return {
-                width: window.innerWidth,
-                height: window.innerHeight
-            };
-        }
-        function setElementProperty(element, property, value) {
-            element[property] = value;
-        }
-    </script>
 </body>
 
 </html>

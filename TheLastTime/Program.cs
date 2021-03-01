@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using TheLastTime.Shared.Data;
 using TheLastTime.Data;
+using TheLastTime.Shared;
 
 namespace TheLastTime
 {
@@ -33,6 +34,8 @@ namespace TheLastTime
             builder.Services.AddScoped<IIndexedDbFactory, IndexedDbFactory>();
 
             builder.Services.AddScoped<IDatabaseAccess, DatabaseAccess>();
+
+            builder.Services.AddScoped<JsInterop>();
 
             builder.Services.AddScoped<DataService>();
 

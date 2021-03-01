@@ -18,7 +18,7 @@ namespace TheLastTime.Shared.Components
     public sealed partial class OptionsComponent : IDisposable
     {
         [Inject]
-        IJSRuntime JSRuntime { get; set; } = null!;
+        JsInterop JsInterop { get; set; } = null!;
 
         [Inject]
         DataService DataService { get; set; } = null!;
@@ -101,7 +101,7 @@ namespace TheLastTime.Shared.Components
             {
                 string jsonString = JsonSerializer.Serialize(DataService.CategoryList, new JsonSerializerOptions { IncludeFields = true, WriteIndented = true });
 
-                await SaveAsUTF8("TheLastTime.json", jsonString);
+                await JsInterop.SaveAsUTF8("TheLastTime.json", jsonString);
             }
             else
             {
@@ -111,15 +111,14 @@ namespace TheLastTime.Shared.Components
 
                 string yamlString = serializer.Serialize(dict);
 
-                await SaveAsUTF8("TheLastTime.yaml", yamlString);
+                await JsInterop.SaveAsUTF8("TheLastTime.yaml", yamlString);
             }
         }
 
-        async Task SaveAsUTF8(string filename, string content)
-        {
-            byte[] data = Encoding.UTF8.GetBytes(content);
-
-            await JSRuntime.InvokeAsync<object>("saveAsFile", filename, Convert.ToBase64String(data));
-        }
+        //async Task SaveAsUTF8(string filename, string content)
+        //{
+        //    byte[] data = Encoding.UTF8.GetBytes(content);
+        //    await jsRuntime.InvokeAsync<object>("saveAsFile", filename, Convert.ToBase64String(data));
+        //}
     }
 }
