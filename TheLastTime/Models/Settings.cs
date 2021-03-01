@@ -56,7 +56,7 @@ namespace TheLastTime.Models
         public bool ShowCategoriesInHeader { get; set; }
 
         [Required]
-        public string Size { get; set; } = string.Empty;
+        public string Size { get; set; } = "medium";
 
         [Required]
         public string Theme { get; set; } = string.Empty;
