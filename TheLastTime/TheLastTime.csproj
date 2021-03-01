@@ -18,7 +18,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.3" PrivateAssets="all" />
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
 
-    <PackageReference Include="Reshiru.Blazor.IndexedDB.Framework" Version="1.0.1" />
+    <PackageReference Include="IndexedDB.Blazor" Version="1.1.1" />
     <PackageReference Include="TG.Blazor.IndexedDB" Version="1.5.0-preview" />
     <PackageReference Include="YamlDotNet" Version="9.1.4" />
   </ItemGroup>

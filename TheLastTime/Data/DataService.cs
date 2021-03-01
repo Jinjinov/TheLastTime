@@ -1,4 +1,4 @@
-﻿using Blazor.IndexedDB.Framework;
+﻿using IndexedDB.Blazor;
 using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;

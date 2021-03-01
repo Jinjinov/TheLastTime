@@ -1,4 +1,4 @@
-﻿using Blazor.IndexedDB.Framework;
+﻿using IndexedDB.Blazor;
 using Microsoft.JSInterop;
 using TheLastTime.Models;
 

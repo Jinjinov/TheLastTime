@@ -1,4 +1,4 @@
-using Blazor.IndexedDB.Framework;
+using IndexedDB.Blazor;
 using Blazorise;
 using Blazorise.Bootstrap;
 using Blazorise.Icons.FontAwesome;
