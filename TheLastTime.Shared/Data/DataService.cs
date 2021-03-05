@@ -36,6 +36,20 @@ namespace TheLastTime.Shared.Data
 
         #endregion
 
+        private string habitFilter = string.Empty;
+        public string HabitFilter
+        {
+            get => habitFilter;
+            set
+            {
+                if (habitFilter != value)
+                {
+                    habitFilter = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public Settings Settings = new Settings();
 
         public List<Category> CategoryList { get; set; } = new List<Category>();
@@ -73,7 +87,9 @@ namespace TheLastTime.Shared.Data
             {
                 bool isRatioOk = habit.GetRatio(Settings.Ratio) >= Settings.ShowPercentMin;
 
-                return (habit.IsPinned == pinned) && (pinned || categoryId == 0 || habit.CategoryId == categoryId) && 
+                bool isDescriptionOk = string.IsNullOrEmpty(HabitFilter) || habit.Description.Contains(HabitFilter, StringComparison.OrdinalIgnoreCase);
+
+                return isDescriptionOk && (habit.IsPinned == pinned) && (pinned || categoryId == 0 || habit.CategoryId == categoryId) && 
                         (
                             (
                                 (habit.IsPinned || Settings.ShowPinned != true) && 

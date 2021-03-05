@@ -1,6 +1,10 @@
 ﻿<ul class="nav flex-column">
 
     <li class="nav-item px-2 pt-2">
+        <TextEdit Size="@Theme.Size" @bind-Text="@DataService.HabitFilter" Placeholder="Search" />
+    </li>
+
+    <li class="nav-item px-2 pt-2">
         <span class="text-light">@( DataService.Settings.ShowAdvancedFilters ? "Advanced filters:" : "Filters" )</span>
     </li>
 

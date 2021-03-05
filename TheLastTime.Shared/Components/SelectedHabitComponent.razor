@@ -79,7 +79,7 @@
                 @if (State.EditHabit)
                 {
                     <div class="input-group flex-nowrap my-3">
-                        <TextEdit Size="@Theme.Size" @bind-Text="@State.SelectedHabit.Description" Placeholder="Add new habit..." />
+                        <TextEdit Size="@Theme.Size" @bind-Text="@State.SelectedHabit.Description" Placeholder="Add new habit" />
                         <div class="input-group-append">
                             <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => { await SaveHabit(State.SelectedHabit); State.EditHabit = false; })"><span class="fa fa-fw fa-save"></span></Button>
                             <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.EditHabit = false; })"><span class="fa fa-fw fa-times"></span></Button>
