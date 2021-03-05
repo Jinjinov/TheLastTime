@@ -26,6 +26,9 @@ namespace TheLastTime.Shared.Models
         public long ShowPercentMin { get; set; }
 
         [Required]
+        public bool? ShowPinned { get; set; } = false;
+
+        [Required]
         public bool? ShowStarred { get; set; } = false;
 
         [Required]
@@ -73,6 +76,9 @@ namespace TheLastTime.Shared.Models
 
             if (!ShowAdvancedFilters)
             {
+                if (ShowPinned == null)
+                    ShowPinned = false;
+
                 if (ShowStarred == null)
                     ShowStarred = false;
 

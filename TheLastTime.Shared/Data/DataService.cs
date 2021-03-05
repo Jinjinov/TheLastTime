@@ -76,13 +76,15 @@ namespace TheLastTime.Shared.Data
                 return (habit.IsPinned == pinned) && (pinned || categoryId == 0 || habit.CategoryId == categoryId) && 
                         (
                             (
-                                (habit.IsStarred || Settings.ShowStarred != true) && 
+                                (habit.IsPinned || Settings.ShowPinned != true) && 
+                                (habit.IsStarred || Settings.ShowStarred != true) &&
                                 (habit.IsTwoMinute || Settings.ShowTwoMinute != true) && 
                                 (habit.IsNeverDone || Settings.ShowNeverDone != true) && 
                                 (habit.IsDoneOnce || Settings.ShowDoneOnce != true) &&
                                 (isRatioOk || Settings.ShowRatioOverPercentMin != true)
                             )
-                            || (habit.IsStarred && Settings.ShowStarred == null) 
+                            || (habit.IsPinned && Settings.ShowPinned == null) 
+                            || (habit.IsStarred && Settings.ShowStarred == null)
                             || (habit.IsTwoMinute && Settings.ShowTwoMinute == null) 
                             || (habit.IsNeverDone && Settings.ShowNeverDone == null) 
                             || (habit.IsDoneOnce && Settings.ShowDoneOnce == null) 
@@ -100,6 +102,7 @@ namespace TheLastTime.Shared.Data
             Settings settings = db.Settings.Single();
 
             settings.ShowPercentMin = Settings.ShowPercentMin;
+            settings.ShowPinned = Settings.ShowPinned;
             settings.ShowStarred = Settings.ShowStarred;
             settings.ShowTwoMinute = Settings.ShowTwoMinute;
             settings.ShowNeverDone = Settings.ShowNeverDone;

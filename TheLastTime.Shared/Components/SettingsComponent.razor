@@ -5,6 +5,10 @@
     </li>
 
     <li class="nav-item px-2 pt-2">
+        <CheckBox IsTriState="@DataService.Settings.ShowAdvancedFilters" Checked="@DataService.Settings.ShowPinned" CheckedChanged="@(async (val) => { DataService.Settings.ShowPinned = val; await DataService.SaveSettings(); })"><span class="text-light">@GetFilter(DataService.Settings.ShowPinned) Pinned</span></CheckBox>
+    </li>
+
+    <li class="nav-item px-2 pt-2">
         <CheckBox IsTriState="@DataService.Settings.ShowAdvancedFilters" Checked="@DataService.Settings.ShowStarred" CheckedChanged="@(async (val) => { DataService.Settings.ShowStarred = val; await DataService.SaveSettings(); })"><span class="text-light">@GetFilter(DataService.Settings.ShowStarred) Starred</span></CheckBox>
     </li>
 
