@@ -129,6 +129,9 @@ namespace TheLastTime.Shared.Data
             settings.ShowHabitIdUpDownButtons = Settings.ShowHabitIdUpDownButtons;
             settings.ShowAllSelectOptions = Settings.ShowAllSelectOptions;
             settings.ShowCategoriesInHeader = Settings.ShowCategoriesInHeader;
+            settings.ShowSearch = Settings.ShowSearch;
+            settings.ShowSort = Settings.ShowSort;
+            settings.ShowTimes = Settings.ShowTimes;
             settings.Size = Settings.Size;
             settings.Theme = Settings.Theme;
             settings.Ratio = Settings.Ratio;

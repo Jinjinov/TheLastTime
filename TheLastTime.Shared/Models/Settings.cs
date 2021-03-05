@@ -59,6 +59,15 @@ namespace TheLastTime.Shared.Models
         public bool ShowCategoriesInHeader { get; set; }
 
         [Required]
+        public bool ShowSearch { get; set; }
+
+        [Required]
+        public bool ShowSort { get; set; }
+
+        [Required]
+        public bool ShowTimes { get; set; }
+
+        [Required]
         public string Size { get; set; } = "medium";
 
         [Required]
