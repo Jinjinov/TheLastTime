@@ -41,6 +41,7 @@
                     </span>
                 </p>
 
+                <div>Habit category:</div>
                 <div>
                     <Select TValue="long" Size="@Theme.Size" SelectedValue="@State.SelectedHabit.CategoryId" SelectedValueChanged="async (long val) => { State.SelectedHabit.CategoryId = val; if (!State.EditHabit) { await SaveHabit(State.SelectedHabit); } }">
                         @foreach (Category cat in DataService.CategoryList)
@@ -52,7 +53,9 @@
 
                 @if (DataService.Settings.ShowHabitIdUpDownButtons)
                 {
-                    <div class="input-group flex-nowrap my-3">
+                    <div class="mt-3">Habit index:</div>
+
+                    <div class="input-group flex-nowrap mb-3">
                         @if (newHabitId == -1)
                         {
                             <div class="input-group-prepend">
@@ -76,9 +79,11 @@
                     </div>
                 }
 
+                <div class="mt-3">Habit description:</div>
+
                 @if (State.EditHabit)
                 {
-                    <div class="input-group flex-nowrap my-3">
+                    <div class="input-group flex-nowrap mb-3">
                         <TextEdit Size="@Theme.Size" @bind-Text="@State.SelectedHabit.Description" Placeholder="Add new habit" />
                         <div class="input-group-append">
                             <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => { await SaveHabit(State.SelectedHabit); State.EditHabit = false; })"><span class="fa fa-fw fa-save"></span></Button>
@@ -88,7 +93,7 @@
                 }
                 else
                 {
-                    <div class="input-group flex-nowrap my-3 d-flex">
+                    <div class="input-group flex-nowrap mb-3 d-flex">
 
                         <TextEdit Size="@Theme.Size" ReadOnly="true" Text="@State.SelectedHabit.Description" />
 
@@ -130,6 +135,8 @@
 
                 @if (DataService.Settings.ShowTimes)
                 {
+                    <div>Habit times:</div>
+
                     @foreach (Time time in State.SelectedHabit.TimeList.OrderByDescending(t => t.DateTime))
                     {
                         @if (editTime && State.SelectedTime == time)
