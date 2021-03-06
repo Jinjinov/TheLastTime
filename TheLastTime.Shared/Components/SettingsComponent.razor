@@ -3,7 +3,13 @@
     @if (DataService.Settings.ShowSearch)
     {
         <li class="nav-item pb-2">
-            <TextEdit Size="@Theme.Size" @bind-Text="@DataService.HabitFilter" Placeholder="Search" />
+            <div class="input-group flex-nowrap">
+                <TextEdit Size="@Theme.Size" @bind-Text="@DataService.HabitFilter" Placeholder="Search" />
+
+                <div class="input-group-append">
+                    <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { DataService.HabitFilter = string.Empty; })"><span class="fa fa-fw fa-times"></span></Button>
+                </div>
+            </div>
         </li>
     }
 
