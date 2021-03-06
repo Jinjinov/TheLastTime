@@ -112,7 +112,7 @@
                     </div>
                 }
 
-                @if (State.SelectedHabit.TimeList.Count > 1)
+                @if (DataService.Settings.ShowAverageInterval && State.SelectedHabit.TimeList.Count > 1)
                 {
                     <p>
                         <span class="fas fa-fw fa-stopwatch"></span> @( "Average interval: " + ToReadableString(State.SelectedHabit.AverageInterval) )
@@ -124,20 +124,23 @@
                     </p>
                 }
 
-                <p>
-                    <span class="fas fa-fw fa-stopwatch"></span> @("Desired interval:")
-                    <div class="input-group flex-nowrap my-1">
-                        <NumericEdit Size="@Theme.Size" TValue="int?" Min="0" Max="9000" Value="State.SelectedHabit.DesiredInterval.Days" ValueChanged="async (val) => { await State.SetDesiredIntervalDays(val ?? 0); }" />
-                        <TextEdit Size="@Theme.Size" ReadOnly="true" Text="@(State.SelectedHabit.DesiredInterval.Days == 1 ? "day" : "days")" />
-                        <NumericEdit Size="@Theme.Size" TValue="int?" Min="0" Max="23" Value="State.SelectedHabit.DesiredInterval.Hours" ValueChanged="async (val) => { await State.SetDesiredIntervalHours(val ?? 0); }" />
-                        <TextEdit Size="@Theme.Size" ReadOnly="true" Text="@(State.SelectedHabit.DesiredInterval.Hours == 1 ? "hour" : "hours")" />
-                    </div>
+                @if (DataService.Settings.ShowDesiredInterval)
+                {
+                    <p>
+                        <span class="fas fa-fw fa-stopwatch"></span> @("Desired interval:")
+                        <div class="input-group flex-nowrap my-1">
+                            <NumericEdit Size="@Theme.Size" TValue="int?" Min="0" Max="9000" Value="State.SelectedHabit.DesiredInterval.Days" ValueChanged="async (val) => { await State.SetDesiredIntervalDays(val ?? 0); }" />
+                            <TextEdit Size="@Theme.Size" ReadOnly="true" Text="@(State.SelectedHabit.DesiredInterval.Days == 1 ? "day" : "days")" />
+                            <NumericEdit Size="@Theme.Size" TValue="int?" Min="0" Max="23" Value="State.SelectedHabit.DesiredInterval.Hours" ValueChanged="async (val) => { await State.SetDesiredIntervalHours(val ?? 0); }" />
+                            <TextEdit Size="@Theme.Size" ReadOnly="true" Text="@(State.SelectedHabit.DesiredInterval.Hours == 1 ? "hour" : "hours")" />
+                        </div>
 
-                    @if (State.SelectedHabit.IsElapsedOverDesired)
-                    {
-                        <div><span class="fas fa-fw fa-exclamation"></span><span class="font-weight-bold"> @( "Desired interval is overdue by: " + ToReadableString(State.SelectedHabit.ElapsedTime - State.SelectedHabit.DesiredInterval) + " ( " + (State.SelectedHabit.ElapsedToDesiredRatio - 100).ToString("N0") + " % )" )</span></div>
-                    }
-                </p>
+                        @if (State.SelectedHabit.IsElapsedOverDesired)
+                        {
+                            <div><span class="fas fa-fw fa-exclamation"></span><span class="font-weight-bold"> @( "Desired interval is overdue by: " + ToReadableString(State.SelectedHabit.ElapsedTime - State.SelectedHabit.DesiredInterval) + " ( " + (State.SelectedHabit.ElapsedToDesiredRatio - 100).ToString("N0") + " % )" )</span></div>
+                        }
+                    </p>
+                }
 
                 @if (DataService.Settings.ShowTimes)
                 {

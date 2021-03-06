@@ -134,6 +134,10 @@ namespace TheLastTime.Shared.Data
             settings.ShowSearch = Settings.ShowSearch;
             settings.ShowSort = Settings.ShowSort;
             settings.ShowPinStar2min = Settings.ShowPinStar2min;
+            settings.ShowAverageInterval = Settings.ShowAverageInterval;
+            settings.ShowDesiredInterval = Settings.ShowDesiredInterval;
+            settings.ShowRatio = Settings.ShowRatio;
+            settings.ShowRatioOptions = Settings.ShowRatioOptions;
             settings.ShowTimes = Settings.ShowTimes;
             settings.Size = Settings.Size;
             settings.Theme = Settings.Theme;

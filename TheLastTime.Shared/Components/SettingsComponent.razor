@@ -45,16 +45,19 @@
         </li>
     }
 
-    <li class="nav-item px-2 py-0">
-        <Field>
-            <FieldLabel Class="text-light">Select ratio:</FieldLabel>
-            <RadioGroup TValue="Ratio" CheckedValue="@DataService.Settings.Ratio" CheckedValueChanged="@(async (val) => { DataService.Settings.Ratio = val; await DataService.SaveSettings(); })">
-                <Radio TValue="Ratio" Value="@(Ratio.ElapsedToAverage)"><span class="text-light">Elapsed time / average interval</span></Radio>
-                <Radio TValue="Ratio" Value="@(Ratio.ElapsedToDesired)"><span class="text-light">Elapsed time / desired interval</span></Radio>
-                <Radio TValue="Ratio" Value="@(Ratio.AverageToDesired)"><span class="text-light">Average / desired interval</span></Radio>
-            </RadioGroup>
-        </Field>
-    </li>
+    @if (DataService.Settings.ShowRatioOptions)
+    {
+        <li class="nav-item px-2 py-0">
+            <Field>
+                <FieldLabel Class="text-light">Select ratio:</FieldLabel>
+                <RadioGroup TValue="Ratio" CheckedValue="@DataService.Settings.Ratio" CheckedValueChanged="@(async (val) => { DataService.Settings.Ratio = val; await DataService.SaveSettings(); })">
+                    <Radio TValue="Ratio" Value="@(Ratio.ElapsedToAverage)"><span class="text-light">Elapsed time / average interval</span></Radio>
+                    <Radio TValue="Ratio" Value="@(Ratio.ElapsedToDesired)"><span class="text-light">Elapsed time / desired interval</span></Radio>
+                    <Radio TValue="Ratio" Value="@(Ratio.AverageToDesired)"><span class="text-light">Average / desired interval</span></Radio>
+                </RadioGroup>
+            </Field>
+        </li>
+    }
 
     @if (DataService.Settings.ShowSort)
     {

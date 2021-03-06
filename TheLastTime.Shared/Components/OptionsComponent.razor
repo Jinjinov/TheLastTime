@@ -66,6 +66,22 @@
     </li>
 
     <li class="nav-item px-2 pt-2">
+        <Check TValue="bool" Checked="@DataService.Settings.ShowAverageInterval" CheckedChanged="@(async (val) => { DataService.Settings.ShowAverageInterval = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show average interval</span></Check>
+    </li>
+
+    <li class="nav-item px-2 pt-2">
+        <Check TValue="bool" Checked="@DataService.Settings.ShowDesiredInterval" CheckedChanged="@(async (val) => { DataService.Settings.ShowDesiredInterval = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show desired interval</span></Check>
+    </li>
+
+    <li class="nav-item px-2 pt-2">
+        <Check TValue="bool" Checked="@DataService.Settings.ShowRatio" CheckedChanged="@(async (val) => { DataService.Settings.ShowRatio = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show ratio</span></Check>
+    </li>
+
+    <li class="nav-item px-2 pt-2">
+        <Check TValue="bool" Disabled="@(!DataService.Settings.ShowRatio)" Checked="@DataService.Settings.ShowRatioOptions" CheckedChanged="@(async (val) => { DataService.Settings.ShowRatioOptions = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show ratio options</span></Check>
+    </li>
+
+    <li class="nav-item px-2 pt-2">
         <Check TValue="bool" Checked="@DataService.Settings.ShowTimes" CheckedChanged="@(async (val) => { DataService.Settings.ShowTimes = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show done times</span></Check>
     </li>
 
