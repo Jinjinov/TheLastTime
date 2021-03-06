@@ -1,44 +1,49 @@
 ﻿<ul class="nav flex-column">
 
+    <li class="nav-item px-2 pb-2"></li>
+
     @if (DataService.Settings.ShowSearch)
     {
-        <li class="nav-item px-2 pt-2">
+        <li class="nav-item px-2 pb-2">
             <TextEdit Size="@Theme.Size" @bind-Text="@DataService.HabitFilter" Placeholder="Search" />
         </li>
     }
 
-    <li class="nav-item px-2 pt-2">
-        <span class="text-light">@( DataService.Settings.ShowAdvancedFilters ? "Advanced filters:" : "Filters" )</span>
-    </li>
+    @if (DataService.Settings.ShowFilters)
+    {
+        <li class="nav-item px-2 pb-2">
+            <span class="text-light">@( DataService.Settings.ShowAdvancedFilters ? "Advanced filters:" : "Filters" )</span>
+        </li>
 
-    <li class="nav-item px-2 pt-2">
-        <CheckBox IsTriState="@DataService.Settings.ShowAdvancedFilters" Checked="@DataService.Settings.ShowPinned" CheckedChanged="@(async (val) => { DataService.Settings.ShowPinned = val; await DataService.SaveSettings(); })"><span class="text-light">@GetFilter(DataService.Settings.ShowPinned) Pinned</span></CheckBox>
-    </li>
+        <li class="nav-item px-2 pb-2">
+            <CheckBox IsTriState="@DataService.Settings.ShowAdvancedFilters" Checked="@DataService.Settings.ShowPinned" CheckedChanged="@(async (val) => { DataService.Settings.ShowPinned = val; await DataService.SaveSettings(); })"><span class="text-light">@GetFilter(DataService.Settings.ShowPinned) Pinned</span></CheckBox>
+        </li>
 
-    <li class="nav-item px-2 pt-2">
-        <CheckBox IsTriState="@DataService.Settings.ShowAdvancedFilters" Checked="@DataService.Settings.ShowStarred" CheckedChanged="@(async (val) => { DataService.Settings.ShowStarred = val; await DataService.SaveSettings(); })"><span class="text-light">@GetFilter(DataService.Settings.ShowStarred) Starred</span></CheckBox>
-    </li>
+        <li class="nav-item px-2 pb-2">
+            <CheckBox IsTriState="@DataService.Settings.ShowAdvancedFilters" Checked="@DataService.Settings.ShowStarred" CheckedChanged="@(async (val) => { DataService.Settings.ShowStarred = val; await DataService.SaveSettings(); })"><span class="text-light">@GetFilter(DataService.Settings.ShowStarred) Starred</span></CheckBox>
+        </li>
 
-    <li class="nav-item px-2 pt-2">
-        <CheckBox IsTriState="@DataService.Settings.ShowAdvancedFilters" Checked="@DataService.Settings.ShowTwoMinute" CheckedChanged="@(async (val) => { DataService.Settings.ShowTwoMinute = val; await DataService.SaveSettings(); })"><span class="text-light">@GetFilter(DataService.Settings.ShowTwoMinute) 2 min</span></CheckBox>
-    </li>
+        <li class="nav-item px-2 pb-2">
+            <CheckBox IsTriState="@DataService.Settings.ShowAdvancedFilters" Checked="@DataService.Settings.ShowTwoMinute" CheckedChanged="@(async (val) => { DataService.Settings.ShowTwoMinute = val; await DataService.SaveSettings(); })"><span class="text-light">@GetFilter(DataService.Settings.ShowTwoMinute) 2 min</span></CheckBox>
+        </li>
 
-    <li class="nav-item px-2 pt-2">
-        <CheckBox IsTriState="@DataService.Settings.ShowAdvancedFilters" Checked="@DataService.Settings.ShowNeverDone" CheckedChanged="@(async (val) => { DataService.Settings.ShowNeverDone = val; await DataService.SaveSettings(); })"><span class="text-light">@GetFilter(DataService.Settings.ShowNeverDone) Never done</span></CheckBox>
-    </li>
+        <li class="nav-item px-2 pb-2">
+            <CheckBox IsTriState="@DataService.Settings.ShowAdvancedFilters" Checked="@DataService.Settings.ShowNeverDone" CheckedChanged="@(async (val) => { DataService.Settings.ShowNeverDone = val; await DataService.SaveSettings(); })"><span class="text-light">@GetFilter(DataService.Settings.ShowNeverDone) Never done</span></CheckBox>
+        </li>
 
-    <li class="nav-item px-2 pt-2">
-        <CheckBox IsTriState="@DataService.Settings.ShowAdvancedFilters" Checked="@DataService.Settings.ShowDoneOnce" CheckedChanged="@(async (val) => { DataService.Settings.ShowDoneOnce = val; await DataService.SaveSettings(); })"><span class="text-light">@GetFilter(DataService.Settings.ShowDoneOnce) Done once</span></CheckBox>
-    </li>
+        <li class="nav-item px-2 pb-2">
+            <CheckBox IsTriState="@DataService.Settings.ShowAdvancedFilters" Checked="@DataService.Settings.ShowDoneOnce" CheckedChanged="@(async (val) => { DataService.Settings.ShowDoneOnce = val; await DataService.SaveSettings(); })"><span class="text-light">@GetFilter(DataService.Settings.ShowDoneOnce) Done once</span></CheckBox>
+        </li>
 
-    <li class="nav-item px-2 pt-2">
-        <Field>
-            <FieldLabel>
-                <CheckBox IsTriState="@DataService.Settings.ShowAdvancedFilters" Checked="@DataService.Settings.ShowRatioOverPercentMin" CheckedChanged="@(async (val) => { DataService.Settings.ShowRatioOverPercentMin = val; await DataService.SaveSettings(); })"><span class="text-light">@GetFilter(DataService.Settings.ShowRatioOverPercentMin) Ratio over @DataService.Settings.ShowPercentMin %</span></CheckBox>
-            </FieldLabel>
-            <Slider TValue="long" Min="0" Max="100" Step="5" Value="@DataService.Settings.ShowPercentMin" ValueChanged="@(async (val) => { DataService.Settings.ShowPercentMin = val; await DataService.SaveSettings(); })" />
-        </Field>
-    </li>
+        <li class="nav-item px-2 py-0">
+            <Field>
+                <FieldLabel>
+                    <CheckBox IsTriState="@DataService.Settings.ShowAdvancedFilters" Checked="@DataService.Settings.ShowRatioOverPercentMin" CheckedChanged="@(async (val) => { DataService.Settings.ShowRatioOverPercentMin = val; await DataService.SaveSettings(); })"><span class="text-light">@GetFilter(DataService.Settings.ShowRatioOverPercentMin) Ratio over @DataService.Settings.ShowPercentMin %</span></CheckBox>
+                </FieldLabel>
+                <Slider TValue="long" Min="0" Max="100" Step="5" Value="@DataService.Settings.ShowPercentMin" ValueChanged="@(async (val) => { DataService.Settings.ShowPercentMin = val; await DataService.SaveSettings(); })" />
+            </Field>
+        </li>
+    }
 
     <li class="nav-item px-2 py-0">
         <Field>
@@ -58,7 +63,6 @@
                 <FieldLabel Class="text-light">Sort by:</FieldLabel>
 
                 <div class="input-group flex-nowrap">
-
                     @if (!DataService.Settings.ShowAllSelectOptions)
                     {
                         <div class="input-group-prepend">
@@ -79,9 +83,7 @@
                             <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => NextSort())"><span class="fa fa-fw fa-chevron-right"></span></Button>
                         </div>
                     }
-
                 </div>
-
             </Field>
         </li>
     }

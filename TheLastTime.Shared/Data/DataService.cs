@@ -124,13 +124,16 @@ namespace TheLastTime.Shared.Data
             settings.ShowNeverDone = Settings.ShowNeverDone;
             settings.ShowDoneOnce = Settings.ShowDoneOnce;
             settings.ShowRatioOverPercentMin = Settings.ShowRatioOverPercentMin;
+            settings.ShowFilters = Settings.ShowFilters;
             settings.ShowAdvancedFilters = Settings.ShowAdvancedFilters;
             settings.ShowHabitId = Settings.ShowHabitId;
             settings.ShowHabitIdUpDownButtons = Settings.ShowHabitIdUpDownButtons;
             settings.ShowAllSelectOptions = Settings.ShowAllSelectOptions;
+            settings.ShowCategories = Settings.ShowCategories;
             settings.ShowCategoriesInHeader = Settings.ShowCategoriesInHeader;
             settings.ShowSearch = Settings.ShowSearch;
             settings.ShowSort = Settings.ShowSort;
+            settings.ShowPinStar2min = Settings.ShowPinStar2min;
             settings.ShowTimes = Settings.ShowTimes;
             settings.Size = Settings.Size;
             settings.Theme = Settings.Theme;

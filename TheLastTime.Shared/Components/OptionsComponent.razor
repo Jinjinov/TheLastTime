@@ -30,27 +30,15 @@
     </li>
 
     <li class="nav-item px-2 pt-2">
-        <Check TValue="bool" Checked="@DataService.Settings.ShowAdvancedFilters" CheckedChanged="@(async (val) => { DataService.Settings.SetShowAdvancedFilters(val); await DataService.SaveSettings(); })"><span class="@TextClass">Show advanced filters</span></Check>
-    </li>
-
-    <li class="nav-item px-2 pt-2">
-        <Check TValue="bool" Checked="@DataService.Settings.ShowHabitId" CheckedChanged="@(async (val) => { DataService.Settings.ShowHabitId = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show index</span></Check>
-    </li>
-
-    <li class="nav-item px-2 pt-2">
-        <Check TValue="bool" Checked="@DataService.Settings.ShowHabitIdUpDownButtons" CheckedChanged="@(async (val) => { DataService.Settings.ShowHabitIdUpDownButtons = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show index settings</span></Check>
-    </li>
-
-    <li class="nav-item px-2 pt-2">
-        <Check TValue="bool" Checked="@DataService.Settings.ShowAllSelectOptions" CheckedChanged="@(async (val) => { DataService.Settings.ShowAllSelectOptions = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show all select options</span></Check>
-    </li>
-
-    <li class="nav-item px-2 pt-2">
-        <Check TValue="bool" Checked="@DataService.Settings.ShowCategoriesInHeader" CheckedChanged="@(async (val) => { DataService.Settings.ShowCategoriesInHeader = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show categories in header</span></Check>
-    </li>
-
-    <li class="nav-item px-2 pt-2">
         <Check TValue="bool" Checked="@DataService.Settings.ShowSearch" CheckedChanged="@(async (val) => { DataService.Settings.ShowSearch = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show search</span></Check>
+    </li>
+
+    <li class="nav-item px-2 pt-2">
+        <Check TValue="bool" Checked="@DataService.Settings.ShowFilters" CheckedChanged="@(async (val) => { DataService.Settings.ShowFilters = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show filters</span></Check>
+    </li>
+
+    <li class="nav-item px-2 pt-2">
+        <Check TValue="bool" Disabled="@(!DataService.Settings.ShowFilters)" Checked="@DataService.Settings.ShowAdvancedFilters" CheckedChanged="@(async (val) => { DataService.Settings.SetShowAdvancedFilters(val); await DataService.SaveSettings(); })"><span class="@TextClass">Show advanced filters</span></Check>
     </li>
 
     <li class="nav-item px-2 pt-2">
@@ -58,7 +46,31 @@
     </li>
 
     <li class="nav-item px-2 pt-2">
+        <Check TValue="bool" Checked="@DataService.Settings.ShowHabitId" CheckedChanged="@(async (val) => { DataService.Settings.ShowHabitId = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show index</span></Check>
+    </li>
+
+    <li class="nav-item px-2 pt-2">
+        <Check TValue="bool" Disabled="@(!DataService.Settings.ShowHabitId)" Checked="@DataService.Settings.ShowHabitIdUpDownButtons" CheckedChanged="@(async (val) => { DataService.Settings.ShowHabitIdUpDownButtons = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show index settings</span></Check>
+    </li>
+
+    <li class="nav-item px-2 pt-2">
+        <Check TValue="bool" Checked="@DataService.Settings.ShowCategories" CheckedChanged="@(async (val) => { DataService.Settings.ShowCategories = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show categories</span></Check>
+    </li>
+
+    <li class="nav-item px-2 pt-2">
+        <Check TValue="bool" Disabled="@(!DataService.Settings.ShowCategories)" Checked="@DataService.Settings.ShowCategoriesInHeader" CheckedChanged="@(async (val) => { DataService.Settings.ShowCategoriesInHeader = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show categories in header</span></Check>
+    </li>
+
+    <li class="nav-item px-2 pt-2">
+        <Check TValue="bool" Checked="@DataService.Settings.ShowPinStar2min" CheckedChanged="@(async (val) => { DataService.Settings.ShowPinStar2min = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show Pin, Star, 2 min</span></Check>
+    </li>
+
+    <li class="nav-item px-2 pt-2">
         <Check TValue="bool" Checked="@DataService.Settings.ShowTimes" CheckedChanged="@(async (val) => { DataService.Settings.ShowTimes = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show done times</span></Check>
+    </li>
+
+    <li class="nav-item px-2 pt-2">
+        <Check TValue="bool" Checked="@DataService.Settings.ShowAllSelectOptions" CheckedChanged="@(async (val) => { DataService.Settings.ShowAllSelectOptions = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show all select options</span></Check>
     </li>
 
     <li class="nav-item px-2 pt-2">

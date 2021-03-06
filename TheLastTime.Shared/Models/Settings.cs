@@ -44,6 +44,9 @@ namespace TheLastTime.Shared.Models
         public bool? ShowRatioOverPercentMin { get; set; } = false;
 
         [Required]
+        public bool ShowFilters { get; set; }
+
+        [Required]
         public bool ShowAdvancedFilters { get; set; }
 
         [Required]
@@ -56,6 +59,9 @@ namespace TheLastTime.Shared.Models
         public bool ShowAllSelectOptions { get; set; }
 
         [Required]
+        public bool ShowCategories { get; set; }
+
+        [Required]
         public bool ShowCategoriesInHeader { get; set; }
 
         [Required]
@@ -63,6 +69,9 @@ namespace TheLastTime.Shared.Models
 
         [Required]
         public bool ShowSort { get; set; }
+
+        [Required]
+        public bool ShowPinStar2min { get; set; }
 
         [Required]
         public bool ShowTimes { get; set; }
