@@ -142,7 +142,7 @@
                     </p>
                 }
 
-                @if (DataService.Settings.ShowTimes)
+                @if (DataService.Settings.ShowTimes && State.SelectedHabit.TimeList.Count > 0)
                 {
                     <div>Habit times:</div>
 
