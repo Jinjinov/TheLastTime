@@ -1,7 +1,7 @@
 # The last time
 Progressive Web Application that tracks when was the last time you did something.
 
-https://what.should-i.be/
+https://ididit.today/
 
 **How to use:**
 
