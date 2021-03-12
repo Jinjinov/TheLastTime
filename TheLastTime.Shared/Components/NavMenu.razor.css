@@ -1,6 +1,9 @@
 ﻿
 #ididit {
     font-family: 'Caveat', cursive;
+    font-size: 2.5em;
+    line-height: 1;
+    padding: 2px;
 }
 
 /* On screens that are 768px or more, show the sidebar menu and hide the menu toggler  */
