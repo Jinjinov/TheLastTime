@@ -1,32 +1,8 @@
 ﻿
 <ul class="nav flex-column">
 
-    <li class="nav-item p-2">
+    <li class="nav-item px-2 pt-2">
         <a class="navbar-text" href="https://github.com/Jinjinov/TheLastTime" target="_blank">GitHub: <span class="fab fa-github"></span></a>
-    </li>
-
-    <li class="nav-item px-2">
-        <Field>
-            <FieldLabel Class="@TextClass">Export file format:</FieldLabel>
-            <RadioGroup TValue="bool" Name="format" @bind-CheckedValue="@exportAllData">
-                <Radio TValue="bool" Value="true"><span class="@TextClass">Everything (json)</span></Radio>
-                <Radio TValue="bool" Value="false"><span class="@TextClass">Printable (yaml)</span></Radio>
-            </RadioGroup>
-        </Field>
-    </li>
-
-    <li class="nav-item px-2 pb-2">
-        <Button Color="Color.Primary" Size="@Theme.Size" Block="true" @onclick="@(() => ExportFile())">Export</Button>
-    </li>
-    <li class="nav-item p-2">
-        <label for="file-upload" class="d-block btn @Theme.ButtonSizeClass btn-primary mb-0">Import</label>
-        <InputFile id="file-upload" class="d-none" OnChange="@ImportFile" />
-    </li>
-    <li class="nav-item p-2">
-        <Button Color="Color.Primary" Size="@Theme.Size" Block="true" @onclick="@(async () => { await DataService.ClearData(); })">Delete all</Button>
-    </li>
-    <li class="nav-item p-2">
-        <Button Color="Color.Primary" Size="@Theme.Size" Block="true" @onclick="@(async () => { await DataService.SeedExamples(); })">Load examples</Button>
     </li>
 
     <li class="nav-item px-2 pt-2">
@@ -152,6 +128,30 @@
             </div>
 
         </Field>
+    </li>
+
+    <li class="nav-item px-2">
+        <Field>
+            <FieldLabel Class="@TextClass">Export file format:</FieldLabel>
+            <RadioGroup TValue="bool" Name="format" @bind-CheckedValue="@exportAllData">
+                <Radio TValue="bool" Value="true"><span class="@TextClass">Everything (json)</span></Radio>
+                <Radio TValue="bool" Value="false"><span class="@TextClass">Printable (yaml)</span></Radio>
+            </RadioGroup>
+        </Field>
+    </li>
+
+    <li class="nav-item px-2 pb-2">
+        <Button Color="Color.Primary" Size="@Theme.Size" Block="true" @onclick="@(() => ExportFile())">Export</Button>
+    </li>
+    <li class="nav-item p-2">
+        <label for="file-upload" class="d-block btn @Theme.ButtonSizeClass btn-primary mb-0">Import</label>
+        <InputFile id="file-upload" class="d-none" OnChange="@ImportFile" />
+    </li>
+    <li class="nav-item p-2">
+        <Button Color="Color.Primary" Size="@Theme.Size" Block="true" @onclick="@(async () => { await DataService.ClearData(); })">Delete all</Button>
+    </li>
+    <li class="nav-item p-2">
+        <Button Color="Color.Primary" Size="@Theme.Size" Block="true" @onclick="@(async () => { await DataService.SeedExamples(); })">Load examples</Button>
     </li>
 
 </ul>
