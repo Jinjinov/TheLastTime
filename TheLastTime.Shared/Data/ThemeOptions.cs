@@ -111,7 +111,12 @@ namespace TheLastTime.Shared.Data
         {
             int idx = BootswatchThemeDict.IndexOfKey(DataService.Settings.Theme);
 
-            if (1 <= idx && idx < BootswatchThemeDict.Count)
+            if (idx == 0)
+            {
+                DataService.Settings.Theme = "default";
+                await DataService.SaveSettings();
+            }
+            else if (1 <= idx && idx < BootswatchThemeDict.Count)
             {
                 DataService.Settings.Theme = BootswatchThemeDict.Keys[idx - 1];
                 await DataService.SaveSettings();
@@ -120,12 +125,20 @@ namespace TheLastTime.Shared.Data
 
         public async Task NextTheme()
         {
-            int idx = BootswatchThemeDict.IndexOfKey(DataService.Settings.Theme);
-
-            if (0 <= idx && idx < BootswatchThemeDict.Count - 1)
+            if (DataService.Settings.Theme == "default")
             {
-                DataService.Settings.Theme = BootswatchThemeDict.Keys[idx + 1];
+                DataService.Settings.Theme = BootswatchThemeDict.Keys[0];
                 await DataService.SaveSettings();
+            }
+            else
+            {
+                int idx = BootswatchThemeDict.IndexOfKey(DataService.Settings.Theme);
+
+                if (0 <= idx && idx < BootswatchThemeDict.Count - 1)
+                {
+                    DataService.Settings.Theme = BootswatchThemeDict.Keys[idx + 1];
+                    await DataService.SaveSettings();
+                }
             }
         }
     }
