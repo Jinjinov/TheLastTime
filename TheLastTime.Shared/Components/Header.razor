@@ -4,7 +4,8 @@
     {
         <Pagination Class="m-0">
 
-            <PaginationItem Disabled="@(State.SelectedCategoryId == DataService.CategoryList.First().Id)">
+            @*<PaginationItem Disabled="@(State.SelectedCategoryId == DataService.CategoryList.First().Id)">*@
+            <PaginationItem>
                 <PaginationLink Clicked="(Page) => { State.PreviousCategory(); }">
                     <span aria-hidden="true">«</span>
                 </PaginationLink>
@@ -19,7 +20,7 @@
             @for (int i = 0; i < DataService.CategoryList.Count; ++i)
             {
                 int idx = i;
-                int index = i + 1;
+                string index = i == 0 ? "No" : i.ToString();
                 string css = string.Empty;
 
                 if (State.SelectedCategoryIdx != -1)
@@ -42,7 +43,8 @@
                 </PaginationItem>
             }
 
-            <PaginationItem Disabled="@(State.SelectedCategoryId == DataService.CategoryList.Last().Id)">
+            @*<PaginationItem Disabled="@(State.SelectedCategoryId == DataService.CategoryList.Last().Id)">*@
+            <PaginationItem>
                 <PaginationLink Clicked="(Page) => { State.NextCategory(); }">
                     <span aria-hidden="true">»</span>
                 </PaginationLink>

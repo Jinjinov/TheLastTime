@@ -1,6 +1,6 @@
 ﻿@if (State.SelectedHabit != null)
 {
-    <div id="overlay" class="col-md-12 col-lg-6 px-1 px-sm-3 d-flex">
+    <div id="overlay" class="col-lg-12 col-xl-6 px-1 px-sm-3 d-flex">
         <div class="card flex-grow-1">
 
             <div class="card-body p-2 p-sm-3">
@@ -89,7 +89,7 @@
 
                 @if (State.EditHabit)
                 {
-                    <div class="input-group flex-nowrap mb-3">
+                    <div class="input-group flex-nowrap mb-1">
                         <TextEdit Size="@Theme.Size" @bind-Text="@State.SelectedHabit.Description" Placeholder="Add new habit" />
                         <div class="input-group-append">
                             <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => { await SaveHabit(State.SelectedHabit); State.EditHabit = false; })"><span class="fa fa-fw fa-save"></span></Button>
@@ -99,12 +99,12 @@
                 }
                 else
                 {
-                    <div class="input-group flex-nowrap mb-3 d-flex">
+                    <div class="input-group flex-nowrap mb-1 d-flex">
 
                         <TextEdit Size="@Theme.Size" ReadOnly="true" Text="@State.SelectedHabit.Description" />
 
                         <div class="input-group-append">
-                            <TextEdit Class="rounded-0 border-right-0" Size="@Theme.Size" ReadOnly="true" Text="@("Done: " + State.SelectedHabit.TimeList.Count + "x")" VisibleCharacters="@(("Done: " + State.SelectedHabit.TimeList.Count + "x").Length)" />
+                            @*<TextEdit Class="rounded-0 border-right-0" Size="@Theme.Size" ReadOnly="true" Text="@("Done: " + State.SelectedHabit.TimeList.Count + "x")" VisibleCharacters="@(("Done: " + State.SelectedHabit.TimeList.Count + "x").Length)" />*@
 
                             <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.EditHabit = true; })"><span class="fa fa-fw fa-edit"></span></Button>
                             <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => { await DataService.DeleteHabit(State.SelectedHabit); State.SelectedHabit = null; })"><span class="fa fa-fw fa-trash-alt"></span></Button>
@@ -112,14 +112,16 @@
                     </div>
                 }
 
+                <div class="mb-3">I did it: @(State.SelectedHabit.TimeList.Count)x</div>
+
                 @if (DataService.Settings.ShowAverageInterval && State.SelectedHabit.TimeList.Count > 1)
                 {
                     <p>
-                        <span class="fas fa-fw fa-stopwatch"></span> @( "Average interval: " + ToReadableString(State.SelectedHabit.AverageInterval) )
+                        @*<span class="fas fa-fw fa-stopwatch"></span>*@ @( "Average interval: " + ToReadableString(State.SelectedHabit.AverageInterval) )
 
                         @if (State.SelectedHabit.IsElapsedOverAverage)
                         {
-                            <div><span class="fas fa-fw fa-exclamation"></span><span class="font-weight-bold"> @( "Average interval is overdue by: " + ToReadableString(State.SelectedHabit.ElapsedTime - State.SelectedHabit.AverageInterval) + " ( " + (State.SelectedHabit.ElapsedToAverageRatio - 100).ToString("N0") + " % )" )</span></div>
+                            <div>@*<span class="fas fa-fw fa-exclamation"></span>*@<span class="font-weight-bold"> @( "Average interval is overdue by: " + ToReadableString(State.SelectedHabit.ElapsedTime - State.SelectedHabit.AverageInterval) + " ( " + (State.SelectedHabit.ElapsedToAverageRatio - 100).ToString("N0") + " % )" )</span></div>
                         }
                     </p>
                 }
@@ -127,7 +129,7 @@
                 @if (DataService.Settings.ShowDesiredInterval)
                 {
                     <p>
-                        <span class="fas fa-fw fa-stopwatch"></span> @("Desired interval:")
+                        @*<span class="fas fa-fw fa-stopwatch"></span>*@ @("Desired interval:")
                         <div class="input-group flex-nowrap my-1">
                             <NumericEdit Size="@Theme.Size" TValue="int?" Min="0" Max="9000" Value="State.SelectedHabit.DesiredInterval.Days" ValueChanged="async (val) => { await State.SetDesiredIntervalDays(val ?? 0); }" />
                             <TextEdit Size="@Theme.Size" ReadOnly="true" Text="@(State.SelectedHabit.DesiredInterval.Days == 1 ? "day" : "days")" />
@@ -137,7 +139,7 @@
 
                         @if (State.SelectedHabit.IsElapsedOverDesired)
                         {
-                            <div><span class="fas fa-fw fa-exclamation"></span><span class="font-weight-bold"> @( "Desired interval is overdue by: " + ToReadableString(State.SelectedHabit.ElapsedTime - State.SelectedHabit.DesiredInterval) + " ( " + (State.SelectedHabit.ElapsedToDesiredRatio - 100).ToString("N0") + " % )" )</span></div>
+                            <div>@*<span class="fas fa-fw fa-exclamation"></span>*@<span class="font-weight-bold"> @( "Desired interval is overdue by: " + ToReadableString(State.SelectedHabit.ElapsedTime - State.SelectedHabit.DesiredInterval) + " ( " + (State.SelectedHabit.ElapsedToDesiredRatio - 100).ToString("N0") + " % )" )</span></div>
                         }
                     </p>
                 }

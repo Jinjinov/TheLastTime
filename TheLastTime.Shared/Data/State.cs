@@ -140,7 +140,11 @@ namespace TheLastTime.Shared.Data
         {
             int index = DataService.CategoryList.FindIndex(category => category.Id == SelectedCategoryId);
 
-            if (index >= 0 && index < DataService.CategoryList.Count - 1)
+            if (index == DataService.CategoryList.Count - 1)
+            {
+                SelectedCategoryId = 0;
+            }
+            else if (index >= 0 && index < DataService.CategoryList.Count - 1)
             {
                 SelectedCategoryId = DataService.CategoryList[index + 1].Id;
             }
@@ -154,7 +158,11 @@ namespace TheLastTime.Shared.Data
         {
             int index = DataService.CategoryList.FindIndex(category => category.Id == SelectedCategoryId);
 
-            if (index > 0 && index <= DataService.CategoryList.Count - 1)
+            if (index == 0)
+            {
+                SelectedCategoryId = 0;
+            }
+            else if (index > 0 && index <= DataService.CategoryList.Count - 1)
             {
                 SelectedCategoryId = DataService.CategoryList[index - 1].Id;
             }
