@@ -6,6 +6,10 @@
     padding: 2px;
 }
 
+.navbar {
+    padding: 0.25rem 0.5rem;
+}
+
 /* On screens that are 768px or more, show the sidebar menu and hide the menu toggler  */
 @media (min-width: 768px) {
 
