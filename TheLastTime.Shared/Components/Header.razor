@@ -28,6 +28,11 @@
                     {
                         css = "hide-pagination";
                     }
+
+                    if ((idx > 10 || idx < DataService.CategoryList.Count - 1 - 10) && (idx > State.SelectedCategoryIdx + 5 || idx < State.SelectedCategoryIdx - 5))
+                    {
+                        css += " hide-pagination-lg";
+                    }
                 }
 
                 <PaginationItem Class="@css" Active="@(State.SelectedCategoryId == DataService.CategoryList[idx].Id)">
