@@ -37,6 +37,8 @@ namespace TheLastTime.Shared.Data
 
         public Category SelectedCategory { get; private set; } = new Category();
 
+        public long SelectedCategoryIdx { get; private set; }
+
         private long _selectedCategoryId;
         public long SelectedCategoryId
         {
@@ -50,6 +52,8 @@ namespace TheLastTime.Shared.Data
                     if (DataService.CategoryDict.ContainsKey(value))
                     {
                         SelectedCategory = DataService.CategoryDict[value];
+
+                        SelectedCategoryIdx = DataService.CategoryList.IndexOf(SelectedCategory);
                     }
 
                     OnPropertyChanged(nameof(SelectedCategory));

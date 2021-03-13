@@ -12,7 +12,7 @@
 
             <PaginationItem Active="@(State.SelectedCategoryId == 0)">
                 <PaginationLink Page="0" Clicked="(Page) => { State.SelectedCategoryId = int.Parse(Page); }">
-                    0
+                    All
                 </PaginationLink>
             </PaginationItem>
 
@@ -20,8 +20,17 @@
             {
                 int idx = i;
                 int index = i + 1;
+                string css = string.Empty;
 
-                <PaginationItem Active="@(State.SelectedCategoryId == DataService.CategoryList[idx].Id)">
+                if (State.SelectedCategoryIdx != -1)
+                {
+                    if ((idx > 6 || idx < DataService.CategoryList.Count - 1 - 6) && (idx > State.SelectedCategoryIdx + 3 || idx < State.SelectedCategoryIdx - 3))
+                    {
+                        css = "hide-pagination";
+                    }
+                }
+
+                <PaginationItem Class="@css" Active="@(State.SelectedCategoryId == DataService.CategoryList[idx].Id)">
                     <PaginationLink Page="@(DataService.CategoryList[idx].Id.ToString())" Clicked="(Page) => { State.SelectedCategoryId = int.Parse(Page); }">
                         @index
                     </PaginationLink>

@@ -1,0 +1,13 @@
+﻿.header {
+    font-size: 1em;
+    line-height: 2.5;
+    padding: 2px;
+}
+
+/* On screens that are 991.98px or less, hide categories */
+@media (max-width: 991.98px) {
+
+    ::deep .hide-pagination {
+        display: none;
+    }
+}

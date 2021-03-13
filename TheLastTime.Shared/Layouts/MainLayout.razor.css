@@ -15,12 +15,6 @@
     flex: 1;
 }
 
-::deep .header {
-    font-size: 1em;
-    line-height: 2.5;
-    padding: 2px;
-}
-
 /* nav menu, header */
 ::deep .top-row {
     display: flex;
