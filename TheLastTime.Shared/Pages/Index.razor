@@ -1,7 +1,11 @@
 ﻿@*@page "/"*@
 @*@page "/{RouteParameter}"*@
 
-@if (State.ShowOptions)
+@if (State.ShowHelp)
+{
+    <HelpComponent />
+}
+else if (State.ShowOptions)
 {
     <OptionsComponent />
 }

@@ -16,13 +16,23 @@ namespace TheLastTime.Shared.Components
         {
             collapseNavMenu = !collapseNavMenu;
 
+            State.ShowHelp = false;
             State.ShowOptions = false;
+        }
+
+        void ShowHelp()
+        {
+            State.ShowHelp = true;
+
+            State.ShowOptions = false;
+            collapseNavMenu = true;
         }
 
         void ToggleOptions()
         {
             State.ShowOptions = !State.ShowOptions;
 
+            State.ShowHelp = false;
             collapseNavMenu = true;
         }
     }

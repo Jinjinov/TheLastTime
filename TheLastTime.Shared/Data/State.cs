@@ -21,6 +21,20 @@ namespace TheLastTime.Shared.Data
 
         public bool EditHabit { get; set; }
 
+        private bool showHelp;
+        public bool ShowHelp
+        {
+            get => showHelp;
+            set
+            {
+                if (showHelp != value)
+                {
+                    showHelp = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private bool showOptions;
         public bool ShowOptions
         {
