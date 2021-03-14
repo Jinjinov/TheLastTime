@@ -4,7 +4,7 @@
         <div class="card flex-grow-1">
 
             <div class="card-body p-2 p-sm-3">
-                <Button class="close" @onclick="@(() => { State.SelectedHabit = null; })"><span class="fa fa-fw fa-times text-muted"></span></Button>
+                <Button class="close shadow-none" @onclick="@(() => { State.SelectedHabit = null; })"><span class="fa fa-fw fa-times text-muted"></span></Button>
 
                 <p>
                     @if (DataService.Settings.ShowPinStar2min)
