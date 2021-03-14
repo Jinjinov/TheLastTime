@@ -497,8 +497,8 @@ namespace TheLastTime.Shared.Data
             db.Times.Add(new Time() { Id = 3, HabitId = 12, DateTime = DateTime.Now.AddDays(-28) });
             db.Times.Add(new Time() { Id = 4, HabitId = 12, DateTime = DateTime.Now.AddDays(-7) });
 
-            db.Times.Add(new Time() { Id = 5, HabitId = 15, DateTime = DateTime.Now.AddDays(-28) });
-            db.Times.Add(new Time() { Id = 6, HabitId = 15, DateTime = DateTime.Now.AddDays(-12) });
+            db.Times.Add(new Time() { Id = 5, HabitId = 15, DateTime = DateTime.Now.AddDays(-27) });
+            db.Times.Add(new Time() { Id = 6, HabitId = 15, DateTime = DateTime.Now.AddDays(-13) });
 
             db.Times.Add(new Time() { Id = 7, HabitId = 16, DateTime = DateTime.Now.AddDays(-70) });
             db.Times.Add(new Time() { Id = 8, HabitId = 16, DateTime = DateTime.Now.AddDays(-12) });
