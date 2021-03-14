@@ -2,7 +2,7 @@
 <ul class="nav flex-column">
 
     <li class="nav-item px-2 pt-2">
-        <button type="button" class="btn btn-link p-0 m-0 d-inline align-baseline shadow-none"><span class="fa fa-question-circle"></span> Help</button>
+        <button type="button" class="btn btn-link p-0 m-0 d-inline align-baseline shadow-none" @onclick="@(() => { State.ShowOptions = false; State.ShowHelp = true; })"><span class="fa fa-question-circle"></span> Help</button>
         @*<a class="" href="javascript:void(0)" role="button"><span class="fa fa-question-circle"></span> Help</a>*@
     </li>
 
