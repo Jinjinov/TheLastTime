@@ -21,8 +21,11 @@ namespace TheLastTime.Shared.Components
 
             State.ShowOptions = false;
 
-            DataService.Settings.ShowHelp = false;
-            await DataService.SaveSettings();
+            if (DataService.Settings.ShowHelp != false)
+            {
+                DataService.Settings.ShowHelp = false;
+                await DataService.SaveSettings();
+            }
         }
 
         async void ShowHelp()
@@ -30,8 +33,11 @@ namespace TheLastTime.Shared.Components
             State.ShowOptions = false;
             collapseNavMenu = true;
 
-            DataService.Settings.ShowHelp = true;
-            await DataService.SaveSettings();
+            if (DataService.Settings.ShowHelp != true)
+            {
+                DataService.Settings.ShowHelp = true;
+                await DataService.SaveSettings();
+            }
         }
 
         async void ToggleOptions()
@@ -40,8 +46,11 @@ namespace TheLastTime.Shared.Components
 
             collapseNavMenu = true;
 
-            DataService.Settings.ShowHelp = false;
-            await DataService.SaveSettings();
+            if (DataService.Settings.ShowHelp != false)
+            {
+                DataService.Settings.ShowHelp = false;
+                await DataService.SaveSettings();
+            }
         }
     }
 }
