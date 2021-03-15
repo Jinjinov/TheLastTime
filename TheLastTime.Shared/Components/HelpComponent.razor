@@ -5,9 +5,23 @@
 
         <Button class="close shadow-none" @onclick="@(async () => { DataService.Settings.ShowHelp = false; await DataService.SaveSettings(); })"><span class="fa fa-fw fa-times text-muted"></span></Button>
 
-        <div><span class="fa fa-info-circle"></span> About</div>
+        <h4><span class="fa fa-info-circle"></span> About</h4>
 
-        <div><span class="fa fa-question-circle"></span> Help</div>
+        <p><span style="font-family: 'Caveat', cursive; font-size: 1.5em;">ididit! </span> is a habit tracking app that doesn't make you feel bad and helps you stay on track.</p>
+        <p>- instead of a streak, there is an average interval - you aren't punished for breaking a streak, you are encouraged to keep the average interval close to the desired interval.</p>
+        <p>- instead of reminders, the app shows you how close to the average interval you are - there are no nagging alarms that you dismiss and forget about anyway.</p>
+        <p>- the app is fully customizable - you can turn any of it's many features on or off.</p>
+        <p>- the app is completely private - it uses no cookies, nothing is sent back to the web server and it works offline.</p>
+
+        <h4><span class="fa fa-question-circle"></span> Help</h4>
+
+        <p>- size</p>
+        <p>- theme</p>
+
+        <p>- export</p>
+        <p>- import</p>
+        <p>- delete all</p>
+        <p>- load examples</p>
 
     </div>
 
