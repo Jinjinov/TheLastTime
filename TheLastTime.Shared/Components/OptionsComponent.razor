@@ -10,6 +10,10 @@
         <a class="" href="https://github.com/Jinjinov/TheLastTime" target="_blank"><span class="fab fa-github"></span> GitHub</a>
     </li>
 
+    <li class="nav-item px-2 pt-3">
+        <h5>Habit list:</h5>
+    </li>
+
     <li class="nav-item px-2 pt-2">
         <Check TValue="bool" Checked="@DataService.Settings.ShowSearch" CheckedChanged="@(async (val) => { DataService.Settings.ShowSearch = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show search</span></Check>
     </li>
@@ -34,6 +38,10 @@
         <Check TValue="bool" Disabled="@(!DataService.Settings.ShowHabitId)" Checked="@DataService.Settings.ShowHabitIdUpDownButtons" CheckedChanged="@(async (val) => { DataService.Settings.ShowHabitIdUpDownButtons = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show index settings</span></Check>
     </li>
 
+    <li class="nav-item px-2 pt-3">
+        <h5>Habit categories:</h5>
+    </li>
+
     <li class="nav-item px-2 pt-2">
         <Check TValue="bool" Checked="@DataService.Settings.ShowCategories" CheckedChanged="@(async (val) => { DataService.Settings.ShowCategories = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show categories</span></Check>
     </li>
@@ -42,8 +50,16 @@
         <Check TValue="bool" Disabled="@(!DataService.Settings.ShowCategories)" Checked="@DataService.Settings.ShowCategoriesInHeader" CheckedChanged="@(async (val) => { DataService.Settings.ShowCategoriesInHeader = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show categories in header</span></Check>
     </li>
 
+    <li class="nav-item px-2 pt-3">
+        <h5>Habit marks:</h5>
+    </li>
+
     <li class="nav-item px-2 pt-2">
         <Check TValue="bool" Checked="@DataService.Settings.ShowPinStar2min" CheckedChanged="@(async (val) => { DataService.Settings.ShowPinStar2min = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show Pin, Star, 2 min</span></Check>
+    </li>
+
+    <li class="nav-item px-2 pt-3">
+        <h5>Habit metrics:</h5>
     </li>
 
     <li class="nav-item px-2 pt-2">
@@ -64,6 +80,10 @@
 
     <li class="nav-item px-2 pt-2">
         <Check TValue="bool" Checked="@DataService.Settings.ShowTimes" CheckedChanged="@(async (val) => { DataService.Settings.ShowTimes = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show done times</span></Check>
+    </li>
+
+    <li class="nav-item px-2 pt-3">
+        <h5>Look and feel:</h5>
     </li>
 
     <li class="nav-item px-2 pt-2">
@@ -135,12 +155,16 @@
         </Field>
     </li>
 
+    <li class="nav-item px-2 pt-3">
+        <h5>Your data:</h5>
+    </li>
+
     <li class="nav-item px-2">
         <Field>
             <FieldLabel Class="@TextClass">Export file format:</FieldLabel>
             <RadioGroup TValue="bool" Name="format" @bind-CheckedValue="@exportAllData">
-                <Radio TValue="bool" Value="true"><span class="@TextClass">Everything (json)</span></Radio>
-                <Radio TValue="bool" Value="false"><span class="@TextClass">Printable (yaml)</span></Radio>
+                <Radio TValue="bool" Value="true"><span class="@TextClass">Everything (JSON)</span></Radio>
+                <Radio TValue="bool" Value="false"><span class="@TextClass">Printable (YAML)</span></Radio>
             </RadioGroup>
         </Field>
     </li>
