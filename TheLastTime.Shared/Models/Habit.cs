@@ -47,9 +47,9 @@ namespace TheLastTime.Shared.Models
 
         internal double ElapsedToAverageRatio => TimeList.Count > 1 ? ElapsedTime / AverageInterval * 100.0 : 0.0;
 
-        internal bool IsElapsedOverDesired => (TimeList.Count > 1) && (ElapsedTime > DesiredInterval);
+        internal bool IsElapsedOverDesired => (TimeList.Count >= 1) && (ElapsedTime > DesiredInterval);
 
-        internal double ElapsedToDesiredRatio => TimeList.Count > 1 ? ElapsedTime / DesiredInterval * 100.0 : 0.0;
+        internal double ElapsedToDesiredRatio => TimeList.Count >= 1 ? ElapsedTime / DesiredInterval * 100.0 : 0.0;
 
         //internal bool IsRatioOverOne(Ratio ratio) => ratio switch
         //{
