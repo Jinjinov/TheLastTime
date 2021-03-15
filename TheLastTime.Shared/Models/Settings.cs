@@ -44,6 +44,9 @@ namespace TheLastTime.Shared.Models
         public bool? ShowRatioOverPercentMin { get; set; } = false;
 
         [Required]
+        public bool ShowHelp { get; set; } = true;
+
+        [Required]
         public bool ShowFilters { get; set; }
 
         [Required]

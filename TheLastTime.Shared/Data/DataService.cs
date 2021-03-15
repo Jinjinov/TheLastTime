@@ -124,6 +124,7 @@ namespace TheLastTime.Shared.Data
             settings.ShowNeverDone = Settings.ShowNeverDone;
             settings.ShowDoneOnce = Settings.ShowDoneOnce;
             settings.ShowRatioOverPercentMin = Settings.ShowRatioOverPercentMin;
+            settings.ShowHelp = Settings.ShowHelp;
             settings.ShowFilters = Settings.ShowFilters;
             settings.ShowAdvancedFilters = Settings.ShowAdvancedFilters;
             settings.ShowHabitId = Settings.ShowHabitId;

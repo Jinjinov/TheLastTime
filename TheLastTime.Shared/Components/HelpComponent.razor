@@ -3,7 +3,7 @@
 
     <div class="card-body p-2 p-sm-3">
 
-        <Button class="close shadow-none" @onclick="@(() => { State.ShowHelp = false; })"><span class="fa fa-fw fa-times text-muted"></span></Button>
+        <Button class="close shadow-none" @onclick="@(async () => { DataService.Settings.ShowHelp = false; await DataService.SaveSettings(); })"><span class="fa fa-fw fa-times text-muted"></span></Button>
 
         <div><span class="fa fa-info-circle"></span> About</div>
 
