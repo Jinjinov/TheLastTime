@@ -1,186 +1,194 @@
-﻿
-<ul class="nav flex-column">
+﻿<div class="card m-2 m-sm-3">
 
-    <li class="nav-item px-2 pt-2">
-        <button type="button" class="btn btn-link p-0 m-0 d-inline align-baseline shadow-none" @onclick="@(async () => { State.ShowOptions = false; DataService.Settings.ShowHelp = true; await DataService.SaveSettings(); })"><span class="fa fa-question-circle"></span> Help</button>
-        @*<a class="" href="javascript:void(0)" role="button"><span class="fa fa-question-circle"></span> Help</a>*@
-    </li>
+    <div class="card-body p-2">
 
-    <li class="nav-item px-2 pt-2">
-        <a class="" href="https://github.com/Jinjinov/TheLastTime" target="_blank"><span class="fab fa-github"></span> GitHub</a>
-    </li>
+        <ul class="nav flex-column">
 
-    <li class="nav-item px-2 pt-3">
-        <h5>Habit list:</h5>
-    </li>
+            <li class="nav-item px-2 pt-2">
+                <Button class="close shadow-none" @onclick="@(() => { State.ShowOptions = false; })"><span class="fa fa-fw fa-times text-muted"></span></Button>
+                <button type="button" class="btn btn-link p-0 m-0 d-inline align-baseline shadow-none" @onclick="@(async () => { State.ShowOptions = false; DataService.Settings.ShowHelp = true; await DataService.SaveSettings(); })"><span class="fa fa-question-circle"></span> Help</button>
+                @*<a class="" href="javascript:void(0)" role="button"><span class="fa fa-question-circle"></span> Help</a>*@
+            </li>
 
-    <li class="nav-item px-2 pt-2">
-        <Check TValue="bool" Checked="@DataService.Settings.ShowSearch" CheckedChanged="@(async (val) => { DataService.Settings.ShowSearch = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show search</span></Check>
-    </li>
+            <li class="nav-item px-2 pt-2">
+                <a class="" href="https://github.com/Jinjinov/TheLastTime" target="_blank"><span class="fab fa-github"></span> GitHub</a>
+            </li>
 
-    <li class="nav-item px-2 pt-2">
-        <Check TValue="bool" Checked="@DataService.Settings.ShowFilters" CheckedChanged="@(async (val) => { DataService.Settings.ShowFilters = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show filters</span></Check>
-    </li>
+            <li class="nav-item px-2 pt-3">
+                <h5>Habit list:</h5>
+            </li>
 
-    <li class="nav-item px-2 pt-2">
-        <Check TValue="bool" Disabled="@(!DataService.Settings.ShowFilters)" Checked="@DataService.Settings.ShowAdvancedFilters" CheckedChanged="@(async (val) => { DataService.Settings.SetShowAdvancedFilters(val); await DataService.SaveSettings(); })"><span class="@TextClass">Show advanced filters</span></Check>
-    </li>
+            <li class="nav-item px-2 pt-2">
+                <Check TValue="bool" Checked="@DataService.Settings.ShowSearch" CheckedChanged="@(async (val) => { DataService.Settings.ShowSearch = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show search</span></Check>
+            </li>
 
-    <li class="nav-item px-2 pt-2">
-        <Check TValue="bool" Checked="@DataService.Settings.ShowSort" CheckedChanged="@(async (val) => { DataService.Settings.ShowSort = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show sort</span></Check>
-    </li>
+            <li class="nav-item px-2 pt-2">
+                <Check TValue="bool" Checked="@DataService.Settings.ShowFilters" CheckedChanged="@(async (val) => { DataService.Settings.ShowFilters = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show filters</span></Check>
+            </li>
 
-    <li class="nav-item px-2 pt-2">
-        <Check TValue="bool" Checked="@DataService.Settings.ShowHabitId" CheckedChanged="@(async (val) => { DataService.Settings.ShowHabitId = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show index</span></Check>
-    </li>
+            <li class="nav-item px-2 pt-2">
+                <Check TValue="bool" Disabled="@(!DataService.Settings.ShowFilters)" Checked="@DataService.Settings.ShowAdvancedFilters" CheckedChanged="@(async (val) => { DataService.Settings.SetShowAdvancedFilters(val); await DataService.SaveSettings(); })"><span class="@TextClass">Show advanced filters</span></Check>
+            </li>
 
-    <li class="nav-item px-2 pt-2">
-        <Check TValue="bool" Disabled="@(!DataService.Settings.ShowHabitId)" Checked="@DataService.Settings.ShowHabitIdUpDownButtons" CheckedChanged="@(async (val) => { DataService.Settings.ShowHabitIdUpDownButtons = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show index settings</span></Check>
-    </li>
+            <li class="nav-item px-2 pt-2">
+                <Check TValue="bool" Checked="@DataService.Settings.ShowSort" CheckedChanged="@(async (val) => { DataService.Settings.ShowSort = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show sort</span></Check>
+            </li>
 
-    <li class="nav-item px-2 pt-3">
-        <h5>Habit categories:</h5>
-    </li>
+            <li class="nav-item px-2 pt-2">
+                <Check TValue="bool" Checked="@DataService.Settings.ShowHabitId" CheckedChanged="@(async (val) => { DataService.Settings.ShowHabitId = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show index</span></Check>
+            </li>
 
-    <li class="nav-item px-2 pt-2">
-        <Check TValue="bool" Checked="@DataService.Settings.ShowCategories" CheckedChanged="@(async (val) => { DataService.Settings.ShowCategories = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show categories</span></Check>
-    </li>
+            <li class="nav-item px-2 pt-2">
+                <Check TValue="bool" Disabled="@(!DataService.Settings.ShowHabitId)" Checked="@DataService.Settings.ShowHabitIdUpDownButtons" CheckedChanged="@(async (val) => { DataService.Settings.ShowHabitIdUpDownButtons = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show index settings</span></Check>
+            </li>
 
-    <li class="nav-item px-2 pt-2">
-        <Check TValue="bool" Disabled="@(!DataService.Settings.ShowCategories)" Checked="@DataService.Settings.ShowCategoriesInHeader" CheckedChanged="@(async (val) => { DataService.Settings.ShowCategoriesInHeader = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show categories in header</span></Check>
-    </li>
+            <li class="nav-item px-2 pt-3">
+                <h5>Habit categories:</h5>
+            </li>
 
-    <li class="nav-item px-2 pt-3">
-        <h5>Habit marks:</h5>
-    </li>
+            <li class="nav-item px-2 pt-2">
+                <Check TValue="bool" Checked="@DataService.Settings.ShowCategories" CheckedChanged="@(async (val) => { DataService.Settings.ShowCategories = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show categories</span></Check>
+            </li>
 
-    <li class="nav-item px-2 pt-2">
-        <Check TValue="bool" Checked="@DataService.Settings.ShowPinStar2min" CheckedChanged="@(async (val) => { DataService.Settings.ShowPinStar2min = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show Pin, Star, 2 min</span></Check>
-    </li>
+            <li class="nav-item px-2 pt-2">
+                <Check TValue="bool" Disabled="@(!DataService.Settings.ShowCategories)" Checked="@DataService.Settings.ShowCategoriesInHeader" CheckedChanged="@(async (val) => { DataService.Settings.ShowCategoriesInHeader = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show categories in header</span></Check>
+            </li>
 
-    <li class="nav-item px-2 pt-3">
-        <h5>Habit metrics:</h5>
-    </li>
+            <li class="nav-item px-2 pt-3">
+                <h5>Habit marks:</h5>
+            </li>
 
-    <li class="nav-item px-2 pt-2">
-        <Check TValue="bool" Checked="@DataService.Settings.ShowAverageInterval" CheckedChanged="@(async (val) => { DataService.Settings.ShowAverageInterval = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show average interval</span></Check>
-    </li>
+            <li class="nav-item px-2 pt-2">
+                <Check TValue="bool" Checked="@DataService.Settings.ShowPinStar2min" CheckedChanged="@(async (val) => { DataService.Settings.ShowPinStar2min = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show Pin, Star, 2 min</span></Check>
+            </li>
 
-    <li class="nav-item px-2 pt-2">
-        <Check TValue="bool" Checked="@DataService.Settings.ShowDesiredInterval" CheckedChanged="@(async (val) => { DataService.Settings.ShowDesiredInterval = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show desired interval</span></Check>
-    </li>
+            <li class="nav-item px-2 pt-3">
+                <h5>Habit metrics:</h5>
+            </li>
 
-    <li class="nav-item px-2 pt-2">
-        <Check TValue="bool" Checked="@DataService.Settings.ShowRatio" CheckedChanged="@(async (val) => { DataService.Settings.ShowRatio = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show ratio</span></Check>
-    </li>
+            <li class="nav-item px-2 pt-2">
+                <Check TValue="bool" Checked="@DataService.Settings.ShowAverageInterval" CheckedChanged="@(async (val) => { DataService.Settings.ShowAverageInterval = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show average interval</span></Check>
+            </li>
 
-    <li class="nav-item px-2 pt-2">
-        <Check TValue="bool" Disabled="@(!DataService.Settings.ShowRatio)" Checked="@DataService.Settings.ShowRatioOptions" CheckedChanged="@(async (val) => { DataService.Settings.ShowRatioOptions = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show ratio options</span></Check>
-    </li>
+            <li class="nav-item px-2 pt-2">
+                <Check TValue="bool" Checked="@DataService.Settings.ShowDesiredInterval" CheckedChanged="@(async (val) => { DataService.Settings.ShowDesiredInterval = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show desired interval</span></Check>
+            </li>
 
-    <li class="nav-item px-2 pt-2">
-        <Check TValue="bool" Checked="@DataService.Settings.ShowTimes" CheckedChanged="@(async (val) => { DataService.Settings.ShowTimes = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show done times</span></Check>
-    </li>
+            <li class="nav-item px-2 pt-2">
+                <Check TValue="bool" Checked="@DataService.Settings.ShowRatio" CheckedChanged="@(async (val) => { DataService.Settings.ShowRatio = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show ratio</span></Check>
+            </li>
 
-    <li class="nav-item px-2 pt-3">
-        <h5>Look and feel:</h5>
-    </li>
+            <li class="nav-item px-2 pt-2">
+                <Check TValue="bool" Disabled="@(!DataService.Settings.ShowRatio)" Checked="@DataService.Settings.ShowRatioOptions" CheckedChanged="@(async (val) => { DataService.Settings.ShowRatioOptions = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show ratio options</span></Check>
+            </li>
 
-    <li class="nav-item px-2 pt-2">
-        <Check TValue="bool" Checked="@DataService.Settings.ShowAllSelectOptions" CheckedChanged="@(async (val) => { DataService.Settings.ShowAllSelectOptions = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show all select options</span></Check>
-    </li>
+            <li class="nav-item px-2 pt-2">
+                <Check TValue="bool" Checked="@DataService.Settings.ShowTimes" CheckedChanged="@(async (val) => { DataService.Settings.ShowTimes = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show done times</span></Check>
+            </li>
 
-    <li class="nav-item px-2 pt-2">
-        <Field>
-            <FieldLabel Class="@TextClass">Size:</FieldLabel>
+            <li class="nav-item px-2 pt-3">
+                <h5>Look and feel:</h5>
+            </li>
 
-            <div class="input-group flex-nowrap">
+            <li class="nav-item px-2 pt-2">
+                <Check TValue="bool" Checked="@DataService.Settings.ShowAllSelectOptions" CheckedChanged="@(async (val) => { DataService.Settings.ShowAllSelectOptions = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show all select options</span></Check>
+            </li>
 
-                @if (!DataService.Settings.ShowAllSelectOptions)
-                {
-                    <div class="input-group-prepend">
-                        <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => Theme.PreviousSize())"><span class="fa fa-fw fa-chevron-left"></span></Button>
+            <li class="nav-item px-2 pt-2">
+                <Field>
+                    <FieldLabel Class="@TextClass">Size:</FieldLabel>
+
+                    <div class="input-group flex-nowrap">
+
+                        @if (!DataService.Settings.ShowAllSelectOptions)
+                        {
+                            <div class="input-group-prepend">
+                                <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => Theme.PreviousSize())"><span class="fa fa-fw fa-chevron-left"></span></Button>
+                            </div>
+                        }
+
+                        <Select TValue="string" MaxVisibleItems="@(DataService.Settings.ShowAllSelectOptions ? 3 : null)" Size="@Theme.Size" SelectedValue="@Theme.ElementSize" SelectedValueChanged="async (string val) => { Theme.ElementSize = val; }">
+                            @foreach (string size in Theme.ElementSizes)
+                            {
+                                <SelectItem Value="@size">@size</SelectItem>
+                            }
+                        </Select>
+
+                        @if (!DataService.Settings.ShowAllSelectOptions)
+                        {
+                            <div class="input-group-append">
+                                <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => Theme.NextSize())"><span class="fa fa-fw fa-chevron-right"></span></Button>
+                            </div>
+                        }
+
                     </div>
-                }
 
-                <Select TValue="string" MaxVisibleItems="@(DataService.Settings.ShowAllSelectOptions ? 3 : null)" Size="@Theme.Size" SelectedValue="@Theme.ElementSize" SelectedValueChanged="async (string val) => { Theme.ElementSize = val; }">
-                    @foreach (string size in Theme.ElementSizes)
-                    {
-                        <SelectItem Value="@size">@size</SelectItem>
-                    }
-                </Select>
+                </Field>
+            </li>
 
-                @if (!DataService.Settings.ShowAllSelectOptions)
-                {
-                    <div class="input-group-append">
-                        <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => Theme.NextSize())"><span class="fa fa-fw fa-chevron-right"></span></Button>
+            <li class="nav-item px-2 py-0">
+                <Field>
+                    <FieldLabel Class="@TextClass">Theme:</FieldLabel>
+
+                    <div class="input-group flex-nowrap">
+
+                        @if (!DataService.Settings.ShowAllSelectOptions)
+                        {
+                            <div class="input-group-prepend">
+                                <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => Theme.PreviousTheme())"><span class="fa fa-fw fa-chevron-left"></span></Button>
+                            </div>
+                        }
+
+                        <Select TValue="string" MaxVisibleItems="@(DataService.Settings.ShowAllSelectOptions ? Theme.BootswatchThemeDict.Count + 1 : null)" Size="@Theme.Size" SelectedValue="@Theme.BootswatchTheme" SelectedValueChanged="async (string val) => { Theme.BootswatchTheme = val; }">
+                            <SelectItem Value="@("default")">default</SelectItem>
+                            @foreach (string theme in Theme.BootswatchThemeDict.Keys)
+                            {
+                                <SelectItem Value="@theme">@theme</SelectItem>
+                            }
+                        </Select>
+
+                        @if (!DataService.Settings.ShowAllSelectOptions)
+                        {
+                            <div class="input-group-append">
+                                <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => Theme.NextTheme())"><span class="fa fa-fw fa-chevron-right"></span></Button>
+                            </div>
+                        }
+
                     </div>
-                }
 
-            </div>
+                </Field>
+            </li>
 
-        </Field>
-    </li>
+            <li class="nav-item px-2 pt-3">
+                <h5>Your data:</h5>
+            </li>
 
-    <li class="nav-item px-2 py-0">
-        <Field>
-            <FieldLabel Class="@TextClass">Theme:</FieldLabel>
+            <li class="nav-item px-2">
+                <Field>
+                    <FieldLabel Class="@TextClass">Export file format:</FieldLabel>
+                    <RadioGroup TValue="bool" Name="format" @bind-CheckedValue="@exportAllData">
+                        <Radio TValue="bool" Value="true"><span class="@TextClass">Everything (JSON)</span></Radio>
+                        <Radio TValue="bool" Value="false"><span class="@TextClass">Printable (YAML)</span></Radio>
+                    </RadioGroup>
+                </Field>
+            </li>
 
-            <div class="input-group flex-nowrap">
+            <li class="nav-item px-2 pb-2">
+                <Button Color="Color.Primary" Size="@Theme.Size" Block="true" @onclick="@(() => ExportFile())">Export</Button>
+            </li>
+            <li class="nav-item p-2">
+                <label for="file-upload" class="d-block btn @Theme.ButtonSizeClass btn-primary mb-0">Import</label>
+                <InputFile id="file-upload" class="d-none" OnChange="@ImportFile" />
+            </li>
+            <li class="nav-item p-2">
+                <Button Color="Color.Primary" Size="@Theme.Size" Block="true" @onclick="@(async () => { await DataService.ClearData(); })">Delete all</Button>
+            </li>
+            <li class="nav-item p-2">
+                <Button Color="Color.Primary" Size="@Theme.Size" Block="true" @onclick="@(async () => { await DataService.SeedExamples(); })">Load examples</Button>
+            </li>
 
-                @if (!DataService.Settings.ShowAllSelectOptions)
-                {
-                    <div class="input-group-prepend">
-                        <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => Theme.PreviousTheme())"><span class="fa fa-fw fa-chevron-left"></span></Button>
-                    </div>
-                }
+        </ul>
 
-                <Select TValue="string" MaxVisibleItems="@(DataService.Settings.ShowAllSelectOptions ? Theme.BootswatchThemeDict.Count + 1 : null)" Size="@Theme.Size" SelectedValue="@Theme.BootswatchTheme" SelectedValueChanged="async (string val) => { Theme.BootswatchTheme = val; }">
-                    <SelectItem Value="@("default")">default</SelectItem>
-                    @foreach (string theme in Theme.BootswatchThemeDict.Keys)
-                    {
-                        <SelectItem Value="@theme">@theme</SelectItem>
-                    }
-                </Select>
+    </div>
 
-                @if (!DataService.Settings.ShowAllSelectOptions)
-                {
-                    <div class="input-group-append">
-                        <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => Theme.NextTheme())"><span class="fa fa-fw fa-chevron-right"></span></Button>
-                    </div>
-                }
-
-            </div>
-
-        </Field>
-    </li>
-
-    <li class="nav-item px-2 pt-3">
-        <h5>Your data:</h5>
-    </li>
-
-    <li class="nav-item px-2">
-        <Field>
-            <FieldLabel Class="@TextClass">Export file format:</FieldLabel>
-            <RadioGroup TValue="bool" Name="format" @bind-CheckedValue="@exportAllData">
-                <Radio TValue="bool" Value="true"><span class="@TextClass">Everything (JSON)</span></Radio>
-                <Radio TValue="bool" Value="false"><span class="@TextClass">Printable (YAML)</span></Radio>
-            </RadioGroup>
-        </Field>
-    </li>
-
-    <li class="nav-item px-2 pb-2">
-        <Button Color="Color.Primary" Size="@Theme.Size" Block="true" @onclick="@(() => ExportFile())">Export</Button>
-    </li>
-    <li class="nav-item p-2">
-        <label for="file-upload" class="d-block btn @Theme.ButtonSizeClass btn-primary mb-0">Import</label>
-        <InputFile id="file-upload" class="d-none" OnChange="@ImportFile" />
-    </li>
-    <li class="nav-item p-2">
-        <Button Color="Color.Primary" Size="@Theme.Size" Block="true" @onclick="@(async () => { await DataService.ClearData(); })">Delete all</Button>
-    </li>
-    <li class="nav-item p-2">
-        <Button Color="Color.Primary" Size="@Theme.Size" Block="true" @onclick="@(async () => { await DataService.SeedExamples(); })">Load examples</Button>
-    </li>
-
-</ul>
+</div>
