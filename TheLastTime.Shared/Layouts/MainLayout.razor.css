@@ -15,6 +15,10 @@
     flex: 1;
 }
 
+::deep li {
+    margin-right: 0 !important;
+}
+
 /* nav menu, header */
 ::deep .top-row {
     display: flex;

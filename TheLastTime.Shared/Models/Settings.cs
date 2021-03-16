@@ -77,13 +77,13 @@ namespace TheLastTime.Shared.Models
         public bool ShowPinStar2min { get; set; }
 
         [Required]
-        public bool ShowAverageInterval { get; set; }
+        public bool ShowAverageInterval { get; set; } = true;
 
         [Required]
         public bool ShowDesiredInterval { get; set; }
 
         [Required]
-        public bool ShowRatio { get; set; }
+        public bool ShowRatio { get; set; } = true;
 
         [Required]
         public bool ShowRatioOptions { get; set; }
