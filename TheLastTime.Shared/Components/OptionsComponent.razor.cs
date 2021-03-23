@@ -101,7 +101,7 @@ namespace TheLastTime.Shared.Components
             {
                 string jsonString = JsonSerializer.Serialize(DataService.CategoryList, new JsonSerializerOptions { IncludeFields = true, WriteIndented = true });
 
-                await JsInterop.SaveAsUTF8("TheLastTime.json", jsonString);
+                await JsInterop.SaveAsUTF8("ididit.json", jsonString);
             }
             else
             {
@@ -111,7 +111,7 @@ namespace TheLastTime.Shared.Components
 
                 string yamlString = serializer.Serialize(dict);
 
-                await JsInterop.SaveAsUTF8("TheLastTime.yaml", yamlString);
+                await JsInterop.SaveAsUTF8("ididit.yaml", yamlString);
             }
         }
 
