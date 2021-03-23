@@ -200,9 +200,6 @@ namespace TheLastTime.Shared.Data
                 if (habit.TimeList.Count > 1)
                     habit.AverageInterval = TimeSpan.FromMilliseconds(habit.TimeList.Zip(habit.TimeList.Skip(1), (x, y) => (y.DateTime - x.DateTime).TotalMilliseconds).Average());
 
-                //if (habit.DesiredInterval == TimeSpan.Zero)
-                //    habit.DesiredInterval = new TimeSpan(1, 0, 0, 0);
-
                 if (CategoryDict.ContainsKey(habit.CategoryId))
                     CategoryDict[habit.CategoryId].HabitList.Add(habit);
             }
@@ -251,6 +248,40 @@ namespace TheLastTime.Shared.Data
                     }
                 }
             }
+
+            /*
+
+            bool changed = false;
+
+            HabitList = db.Habits.ToList();
+
+            do
+            {
+                changed = false;
+
+                foreach (Habit habit in HabitList)
+                {
+                    if (habit.TimeList.Count > 1)
+                    {
+                        Time lastTime = habit.TimeList.Last();
+
+                        DateTime dateTime = lastTime.DateTime + habit.AverageInterval;
+
+                        if (lastTime.DateTime + habit.AverageInterval < DateTime.Now)
+                        {
+                            Time item = new Time { HabitId = habit.Id, DateTime = lastTime.DateTime + (0.98 * habit.AverageInterval) };
+
+                            habit.TimeList.Add(item);
+
+                            db.Times.Add(item);
+
+                            changed = true;
+                        }
+                    }
+                }
+            } while (changed);
+
+            /**/
 
             await db.SaveChanges();
 
