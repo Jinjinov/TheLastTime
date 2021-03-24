@@ -77,6 +77,9 @@ namespace TheLastTime.Shared.Models
         public bool ShowPinStar2min { get; set; }
 
         [Required]
+        public bool ShowNotes { get; set; }
+
+        [Required]
         public bool ShowAverageInterval { get; set; } = true;
 
         [Required]

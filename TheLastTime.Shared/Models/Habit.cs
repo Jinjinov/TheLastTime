@@ -14,6 +14,9 @@ namespace TheLastTime.Shared.Models
         public string Description { get; set; } = string.Empty;
 
         [Required]
+        public string Notes { get; set; } = string.Empty;
+
+        [Required]
         public long CategoryId { get; set; }
 
         [Required]
@@ -30,6 +33,8 @@ namespace TheLastTime.Shared.Models
 
         [Required]
         public long DesiredIntervalTicks { get => DesiredInterval.Ticks; set => DesiredInterval = new TimeSpan(value); }
+
+        internal int NotesLines => Notes.Count(c => c == '\n') + 1; // Notes.Split(Environment.NewLine).Length;
 
         internal TimeSpan AverageInterval { get; set; }
 

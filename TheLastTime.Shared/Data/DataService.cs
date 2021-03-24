@@ -135,6 +135,7 @@ namespace TheLastTime.Shared.Data
             settings.ShowSearch = Settings.ShowSearch;
             settings.ShowSort = Settings.ShowSort;
             settings.ShowPinStar2min = Settings.ShowPinStar2min;
+            settings.ShowNotes = Settings.ShowNotes;
             settings.ShowAverageInterval = Settings.ShowAverageInterval;
             settings.ShowDesiredInterval = Settings.ShowDesiredInterval;
             settings.ShowRatio = Settings.ShowRatio;
@@ -345,6 +346,7 @@ namespace TheLastTime.Shared.Data
             {
                 dbHabit.CategoryId = habit.CategoryId;
                 dbHabit.Description = habit.Description;
+                dbHabit.Notes = habit.Notes;
                 dbHabit.IsPinned = habit.IsPinned;
                 dbHabit.IsStarred = habit.IsStarred;
                 dbHabit.IsTwoMinute = habit.IsTwoMinute;

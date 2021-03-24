@@ -114,6 +114,15 @@
 
                 <div class="mb-3">I did it: @(State.SelectedHabit.TimeList.Count)x</div>
 
+                @if (DataService.Settings.ShowNotes)
+                {
+                    <p>
+                        <div>Notes:</div>
+
+                        <MemoEdit ChangeTextOnKeyPress="false" DelayTextOnKeyPress="true" DelayTextOnKeyPressInterval="200" Rows="@State.SelectedHabit.NotesLines" Text="@State.SelectedHabit.Notes" TextChanged="@(async (val) => { State.SelectedHabit.Notes = val; if (!State.EditHabit) { await SaveHabit(State.SelectedHabit); } })" />
+                    </p>
+                }
+
                 @if (DataService.Settings.ShowAverageInterval)
                 {
                     @if (State.SelectedHabit.TimeList.Count > 1)

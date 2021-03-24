@@ -55,11 +55,15 @@
             </li>
 
             <li class="nav-item px-2 pt-3">
-                <h5>Habit marks:</h5>
+                <h5>Habit:</h5>
             </li>
 
             <li class="nav-item px-2 pt-2">
                 <Check TValue="bool" Checked="@DataService.Settings.ShowPinStar2min" CheckedChanged="@(async (val) => { DataService.Settings.ShowPinStar2min = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show Pin, Star, 2 min</span></Check>
+            </li>
+
+            <li class="nav-item px-2 pt-2">
+                <Check TValue="bool" Checked="@DataService.Settings.ShowNotes" CheckedChanged="@(async (val) => { DataService.Settings.ShowNotes = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show notes</span></Check>
             </li>
 
             <li class="nav-item px-2 pt-3">
