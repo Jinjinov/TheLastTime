@@ -119,7 +119,14 @@
                     <p>
                         <div>Notes:</div>
 
-                        <MemoEdit ChangeTextOnKeyPress="false" DelayTextOnKeyPress="true" DelayTextOnKeyPressInterval="200" Rows="@State.SelectedHabit.NotesLines" Text="@State.SelectedHabit.Notes" TextChanged="@(async (val) => { State.SelectedHabit.Notes = val; if (!State.EditHabit) { await SaveHabit(State.SelectedHabit); } })" />
+                        @if (State.EditHabit)
+                        {
+                            <MemoEdit DelayTextOnKeyPress="true" DelayTextOnKeyPressInterval="200" Rows="@State.SelectedHabit.NotesLines" @bind-Text="@State.SelectedHabit.Notes" Placeholder="Add notes" />
+                        }
+                        else
+                        {
+                            <MemoEdit ReadOnly="true" Rows="@State.SelectedHabit.NotesLines" Text="@State.SelectedHabit.Notes" Placeholder="Edit habit to add notes" />
+                        }
                     </p>
                 }
 
