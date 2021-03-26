@@ -63,13 +63,11 @@ namespace TheLastTime.Shared.Data
 
         readonly JsInterop JsInterop;
         readonly IDatabaseAccess DatabaseAccess;
-        readonly GoogleDrive GoogleDrive;
 
-        public DataService(JsInterop jsInterop, IDatabaseAccess databaseAccess, GoogleDrive googleDrive)
+        public DataService(JsInterop jsInterop, IDatabaseAccess databaseAccess)
         {
             JsInterop = jsInterop;
             DatabaseAccess = databaseAccess;
-            GoogleDrive = googleDrive;
         }
 
         private IEnumerable<Habit> GetSorted(IEnumerable<Habit> habits)
@@ -114,13 +112,6 @@ namespace TheLastTime.Shared.Data
             return GetSorted(habits);
         }
 
-        private async Task SaveToGoogleDrive()
-        {
-            string jsonString = JsonSerializer.Serialize(CategoryList, new JsonSerializerOptions { IncludeFields = true, WriteIndented = true });
-
-            await GoogleDrive.SaveFile(jsonString);
-        }
-
         public async Task SaveSettings()
         {
             using IDatabase db = await DatabaseAccess.CreateDatabase();
@@ -151,6 +142,7 @@ namespace TheLastTime.Shared.Data
             settings.ShowRatio = Settings.ShowRatio;
             settings.ShowRatioOptions = Settings.ShowRatioOptions;
             settings.ShowTimes = Settings.ShowTimes;
+            settings.BackupToGoogleDrive = Settings.BackupToGoogleDrive;
             settings.Size = Settings.Size;
             settings.Theme = Settings.Theme;
             settings.Ratio = Settings.Ratio;
@@ -296,8 +288,6 @@ namespace TheLastTime.Shared.Data
 
             await db.SaveChanges();
 
-            await SaveToGoogleDrive();
-
             await LoadData();
 
             OnPropertyChanged(nameof(CategoryList));
@@ -320,8 +310,6 @@ namespace TheLastTime.Shared.Data
 
             await db.SaveChanges();
 
-            await SaveToGoogleDrive();
-
             await LoadData();
 
             OnPropertyChanged(nameof(CategoryList));
@@ -342,8 +330,6 @@ namespace TheLastTime.Shared.Data
             db.Categories.Remove(category);
 
             await db.SaveChanges();
-
-            await SaveToGoogleDrive();
 
             await LoadData();
 
@@ -372,8 +358,6 @@ namespace TheLastTime.Shared.Data
 
             await db.SaveChanges();
 
-            await SaveToGoogleDrive();
-
             await LoadData();
 
             OnPropertyChanged(nameof(HabitList));
@@ -391,8 +375,6 @@ namespace TheLastTime.Shared.Data
             db.Habits.Remove(habit);
 
             await db.SaveChanges();
-
-            await SaveToGoogleDrive();
 
             await LoadData();
         }
@@ -432,8 +414,6 @@ namespace TheLastTime.Shared.Data
             if (changed)
             {
                 await db.SaveChanges();
-
-                await SaveToGoogleDrive();
 
                 await LoadData();
             }
@@ -490,8 +470,6 @@ namespace TheLastTime.Shared.Data
 
             await db.SaveChanges();
 
-            await SaveToGoogleDrive();
-
             await LoadData();
 
             OnPropertyChanged(nameof(TimeList));
@@ -504,8 +482,6 @@ namespace TheLastTime.Shared.Data
             db.Times.Remove(time);
 
             await db.SaveChanges();
-
-            await SaveToGoogleDrive();
 
             await LoadData();
         }
@@ -568,8 +544,6 @@ namespace TheLastTime.Shared.Data
             db.Times.Add(new Time() { Id = 9, HabitId = 17, DateTime = DateTime.Now.AddDays(-300) });
 
             await db.SaveChanges();
-
-            await SaveToGoogleDrive();
 
             await LoadData();
 

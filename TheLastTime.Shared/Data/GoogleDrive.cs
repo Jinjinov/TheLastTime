@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using System;
+using System.ComponentModel;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
@@ -10,17 +11,40 @@ using System.Threading.Tasks;
 
 namespace TheLastTime.Shared.Data
 {
-    public class GoogleDrive
+    public sealed class GoogleDrive : IDisposable
     {
         readonly HttpClient Http;
 
         readonly IAccessTokenProvider TokenProvider;
 
-        public GoogleDrive(HttpClient http, IAccessTokenProvider tokenProvider)
+        readonly DataService DataService;
+
+        public GoogleDrive(HttpClient http, IAccessTokenProvider tokenProvider, DataService dataService)
         {
             Http = http;
 
             TokenProvider = tokenProvider;
+
+            DataService = dataService;
+            DataService.PropertyChanged += PropertyChanged;
+        }
+
+        async void PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (DataService.Settings.BackupToGoogleDrive)
+            {
+                if (e.PropertyName == nameof(DataService.CategoryList) || e.PropertyName == nameof(DataService.HabitList) || e.PropertyName == nameof(DataService.TimeList))
+                {
+                    string jsonString = JsonSerializer.Serialize(DataService.CategoryList, new JsonSerializerOptions { IncludeFields = true, WriteIndented = true });
+
+                    await SaveFile(jsonString);
+                }
+            }
+        }
+
+        public void Dispose()
+        {
+            DataService.PropertyChanged -= PropertyChanged;
         }
 
         public async Task SaveFile(string content)

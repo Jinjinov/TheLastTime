@@ -95,6 +95,9 @@ namespace TheLastTime.Shared.Models
         public bool ShowTimes { get; set; }
 
         [Required]
+        public bool BackupToGoogleDrive { get; set; }
+
+        [Required]
         public string Size { get; set; } = "medium";
 
         [Required]

@@ -14,10 +14,6 @@
                 <a class="" href="https://github.com/Jinjinov/TheLastTime" target="_blank"><span class="fab fa-github"></span> GitHub</a>
             </li>
 
-            <li class="nav-item px-2 pt-2">
-                <LoginDisplay />
-            </li>
-
             <li class="nav-item px-2 pt-3">
                 <h5>Habit list:</h5>
             </li>
@@ -194,6 +190,17 @@
             <li class="nav-item p-2">
                 <Button Color="Color.Primary" Size="@Theme.Size" Block="true" @onclick="@(async () => { await DataService.SeedExamples(); })">Load examples</Button>
             </li>
+
+            <li class="nav-item px-2 pt-2">
+                <Check TValue="bool" Checked="@DataService.Settings.BackupToGoogleDrive" CheckedChanged="@(async (val) => { DataService.Settings.BackupToGoogleDrive = val; await DataService.SaveSettings(); })"><span class="@TextClass">Backup to Google Drive</span></Check>
+            </li>
+
+            @if (@DataService.Settings.BackupToGoogleDrive)
+            {
+            <li class="nav-item px-2 pt-2">
+                <LoginDisplay />
+            </li>
+            }
 
         </ul>
 
