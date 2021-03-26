@@ -1,15 +1,16 @@
-using IndexedDB.Blazor;
 using Blazorise;
 using Blazorise.Bootstrap;
 using Blazorise.Icons.FontAwesome;
+using IndexedDB.Blazor;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using TheLastTime.Shared.Data;
 using TheLastTime.Data;
 using TheLastTime.Shared;
+using TheLastTime.Shared.Data;
 
 namespace TheLastTime
 {
@@ -33,14 +34,12 @@ namespace TheLastTime
 
             builder.Services.AddOidcAuthentication(options =>
             {
-                // Configure your authentication provider options here.
-                // For more information, see https://aka.ms/blazor-standalone-auth
-                //builder.Configuration.Bind("Local", options.ProviderOptions);
+                builder.Configuration.Bind("Local", options.ProviderOptions);
 
-                options.ProviderOptions.Authority = "https://accounts.google.com/";
-                options.ProviderOptions.RedirectUri = "https://localhost:44317/authentication/login-callback";
-                options.ProviderOptions.PostLogoutRedirectUri = "https://localhost:44317/authentication/logout-callback";
-                options.ProviderOptions.ClientId = "592595683573-67d1cms7i452752f1n7ik0altkohdcod.apps.googleusercontent.com";
+                //options.ProviderOptions.Authority = "https://accounts.google.com/";
+                //options.ProviderOptions.RedirectUri = "https://localhost:44336/authentication/login-callback";
+                //options.ProviderOptions.PostLogoutRedirectUri = "https://localhost:44336/authentication/logout-callback";
+                //options.ProviderOptions.ClientId = "592595683573-67d1cms7i452752f1n7ik0altkohdcod.apps.googleusercontent.com";
                 options.ProviderOptions.ResponseType = "id_token token";
                 options.ProviderOptions.DefaultScopes.Add("https://www.googleapis.com/auth/drive");
             });
