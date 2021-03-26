@@ -476,7 +476,9 @@ namespace TheLastTime.Shared.Data
         public async Task DeleteTime(Time time)
         {
             using IDatabase db = await DatabaseAccess.CreateDatabase();
+
             db.Times.Remove(time);
+
             await db.SaveChanges();
 
             await LoadData();
