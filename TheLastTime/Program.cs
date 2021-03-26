@@ -50,6 +50,8 @@ namespace TheLastTime
 
             builder.Services.AddScoped<JsInterop>();
 
+            builder.Services.AddScoped<GoogleDrive>();
+
             builder.Services.AddScoped<DataService>();
 
             builder.Services.AddScoped<State>();
