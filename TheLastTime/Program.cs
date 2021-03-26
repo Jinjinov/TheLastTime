@@ -31,6 +31,20 @@ namespace TheLastTime
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
+            builder.Services.AddOidcAuthentication(options =>
+            {
+                // Configure your authentication provider options here.
+                // For more information, see https://aka.ms/blazor-standalone-auth
+                //builder.Configuration.Bind("Local", options.ProviderOptions);
+
+                options.ProviderOptions.Authority = "https://accounts.google.com/";
+                options.ProviderOptions.RedirectUri = "https://localhost:44317/authentication/login-callback";
+                options.ProviderOptions.PostLogoutRedirectUri = "https://localhost:44317/authentication/logout-callback";
+                options.ProviderOptions.ClientId = "592595683573-67d1cms7i452752f1n7ik0altkohdcod.apps.googleusercontent.com";
+                options.ProviderOptions.ResponseType = "id_token token";
+                options.ProviderOptions.DefaultScopes.Add("https://www.googleapis.com/auth/drive");
+            });
+
             builder.Services.AddScoped<IIndexedDbFactory, IndexedDbFactory>();
 
             builder.Services.AddScoped<IDatabaseAccess, DatabaseAccess>();
