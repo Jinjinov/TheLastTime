@@ -50,9 +50,9 @@ namespace TheLastTime
 
             builder.Services.AddScoped<JsInterop>();
 
-            builder.Services.AddScoped<GoogleDrive>();
-
             builder.Services.AddScoped<DataService>();
+
+            builder.Services.AddScoped<GoogleDrive>();
 
             builder.Services.AddScoped<State>();
 
@@ -65,6 +65,8 @@ namespace TheLastTime
                 .UseFontAwesomeIcons();
 
             await host.Services.GetRequiredService<DataService>().LoadData();
+
+            host.Services.GetRequiredService<GoogleDrive>(); // make sure that there is one instance of GoogleDrive
 
             await host.RunAsync();
         }
