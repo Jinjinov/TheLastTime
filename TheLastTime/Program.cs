@@ -37,9 +37,9 @@ namespace TheLastTime
                 builder.Configuration.Bind("Local", options.ProviderOptions);
 
                 //options.ProviderOptions.Authority = "https://accounts.google.com/";
-                //options.ProviderOptions.RedirectUri = "https://localhost:44336/authentication/login-callback";
-                //options.ProviderOptions.PostLogoutRedirectUri = "https://localhost:44336/authentication/logout-callback";
-                //options.ProviderOptions.ClientId = "592595683573-67d1cms7i452752f1n7ik0altkohdcod.apps.googleusercontent.com";
+                //options.ProviderOptions.RedirectUri = "https://localhost:44333/authentication/login-callback";
+                //options.ProviderOptions.PostLogoutRedirectUri = "https://localhost:44333/authentication/logout-callback";
+                //options.ProviderOptions.ClientId = "953393400208-sab1pb4ga5jeie0g50ft6uumf4uqa6in.apps.googleusercontent.com";
                 options.ProviderOptions.ResponseType = "id_token token";
                 options.ProviderOptions.DefaultScopes.Add("https://www.googleapis.com/auth/drive");
             });
