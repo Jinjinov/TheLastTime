@@ -42,9 +42,9 @@ namespace TheLastTime
                 //options.ProviderOptions.ClientId = "953393400208-sab1pb4ga5jeie0g50ft6uumf4uqa6in.apps.googleusercontent.com";
                 options.ProviderOptions.ResponseType = "id_token token";
                 //options.ProviderOptions.DefaultScopes.Add("https://www.googleapis.com/auth/drive");
-                options.ProviderOptions.DefaultScopes.Add("https://www.googleapis.com/auth/drive.appdata");
+                //options.ProviderOptions.DefaultScopes.Add("https://www.googleapis.com/auth/drive.appdata");
                 options.ProviderOptions.DefaultScopes.Add("https://www.googleapis.com/auth/drive.file");
-                options.ProviderOptions.DefaultScopes.Add("https://www.googleapis.com/auth/drive.install");
+                //options.ProviderOptions.DefaultScopes.Add("https://www.googleapis.com/auth/drive.install");
             });
 
             builder.Services.AddScoped<IIndexedDbFactory, IndexedDbFactory>();
