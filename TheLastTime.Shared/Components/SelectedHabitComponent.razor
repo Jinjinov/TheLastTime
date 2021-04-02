@@ -121,11 +121,11 @@
 
                         @if (State.EditHabit)
                         {
-                            <MemoEdit DelayTextOnKeyPress="true" DelayTextOnKeyPressInterval="200" Rows="@State.SelectedHabit.NotesLines" @bind-Text="@State.SelectedHabit.Notes" Placeholder="Add notes" />
+                            <MemoEdit Class="text-monospace" DelayTextOnKeyPress="true" DelayTextOnKeyPressInterval="200" Rows="@State.SelectedHabit.NotesLines" @bind-Text="@State.SelectedHabit.Notes" Placeholder="Add notes" />
                         }
                         else
                         {
-                            <MemoEdit ReadOnly="true" Rows="@State.SelectedHabit.NotesLines" Text="@State.SelectedHabit.Notes" Placeholder="Edit habit to add notes" />
+                            <MemoEdit Class="text-monospace" ReadOnly="true" Rows="@State.SelectedHabit.NotesLines" Text="@State.SelectedHabit.Notes" Placeholder="Edit habit to add notes" />
                         }
                     </p>
                 }
@@ -145,7 +145,7 @@
                     }
                     else
                     {
-                        <p><span class="fa fa-fw fa-exclamation"></span> Complete the haibt at least twice to see the average interval</p>
+                        <p><span class="fa fa-fw fa-exclamation"></span> Complete the habit at least twice to see the average interval</p>
                     }
                 }
 
