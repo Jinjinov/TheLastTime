@@ -63,9 +63,7 @@ namespace TheLastTime
 
             WebAssemblyHost host = builder.Build();
 
-            host.Services
-                .UseBootstrapProviders()
-                .UseFontAwesomeIcons();
+            //host.Services.UseBootstrapProviders().UseFontAwesomeIcons(); // v0.9.2 ---> v0.9.3
 
             await host.Services.GetRequiredService<DataService>().LoadData();
 
