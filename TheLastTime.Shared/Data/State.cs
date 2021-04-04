@@ -39,15 +39,15 @@ namespace TheLastTime.Shared.Data
 
         public long SelectedCategoryIdx { get; private set; }
 
-        private long _selectedCategoryId;
+        //private long _selectedCategoryId;
         public long SelectedCategoryId
         {
-            get => _selectedCategoryId;
+            get => DataService.Settings.SelectedCategoryId;
             set
             {
-                if (_selectedCategoryId != value)
+                if (DataService.Settings.SelectedCategoryId != value)
                 {
-                    _selectedCategoryId = value;
+                    DataService.Settings.SelectedCategoryId = value;
 
                     if (DataService.CategoryDict.ContainsKey(value))
                     {
@@ -56,7 +56,8 @@ namespace TheLastTime.Shared.Data
                         SelectedCategoryIdx = DataService.CategoryList.IndexOf(SelectedCategory);
                     }
 
-                    OnPropertyChanged(nameof(SelectedCategory));
+                    //OnPropertyChanged(nameof(SelectedCategory));
+                    Task.Run(DataService.SaveSettings);
                 }
             }
         }
@@ -133,7 +134,7 @@ namespace TheLastTime.Shared.Data
             SelectedCategory = new Category();
 
             if (DataService.CategoryList.Any())
-                _selectedCategoryId = DataService.CategoryList.Last().Id + 1;
+                DataService.Settings.SelectedCategoryId = DataService.CategoryList.Last().Id + 1;
         }
 
         public void NextCategory()
