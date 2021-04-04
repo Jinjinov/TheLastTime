@@ -23,6 +23,10 @@
             </li>
 
             <li class="nav-item px-2 pt-2">
+                <Check TValue="bool" Checked="@DataService.Settings.ShowDateFilter" CheckedChanged="@(async (val) => { DataService.Settings.ShowDateFilter = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show date filter</span></Check>
+            </li>
+
+            <li class="nav-item px-2 pt-2">
                 <Check TValue="bool" Checked="@DataService.Settings.ShowFilters" CheckedChanged="@(async (val) => { DataService.Settings.ShowFilters = val; await DataService.SaveSettings(); })"><span class="@TextClass">Show filters</span></Check>
             </li>
 
@@ -197,9 +201,9 @@
 
             @if (@DataService.Settings.BackupToGoogleDrive)
             {
-            <li class="nav-item px-2 pt-2">
-                <LoginDisplay />
-            </li>
+                <li class="nav-item px-2 pt-2">
+                    <LoginDisplay />
+                </li>
             }
 
         </ul>

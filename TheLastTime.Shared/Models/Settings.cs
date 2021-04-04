@@ -74,6 +74,9 @@ namespace TheLastTime.Shared.Models
         public bool ShowSearch { get; set; } = true;
 
         [Required]
+        public bool ShowDateFilter { get; set; }
+
+        [Required]
         public bool ShowSort { get; set; }
 
         [Required]

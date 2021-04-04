@@ -189,8 +189,8 @@
                             else
                             {
                                 <div class="input-group flex-nowrap mb-1 d-flex">
-                                    @*<DateEdit TValue="DateTime" Size="@Theme.Size" ReadOnly="true" Date="@time.DateTime" />
-                            <TimeEdit TValue="TimeSpan" Size="@Theme.Size" ReadOnly="true" Time="@time.DateTime.TimeOfDay" />*@
+                                    @*<DateEdit TValue="DateTime" Size="@Theme.Size" ReadOnly="true" Date="@time.DateTime" />*@
+                                    @*<TimeEdit TValue="TimeSpan" Size="@Theme.Size" ReadOnly="true" Time="@time.DateTime.TimeOfDay" />*@
 
                                     <TextEdit Size="@Theme.Size" ReadOnly="true" Text="@(ToReadableString(DateTime.Now - time.DateTime) + " ago")" />
 

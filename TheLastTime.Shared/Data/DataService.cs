@@ -37,15 +37,29 @@ namespace TheLastTime.Shared.Data
 
         #endregion
 
-        private string habitFilter = string.Empty;
-        public string HabitFilter
+        private string descriptionFilter = string.Empty;
+        public string DescriptionFilter
         {
-            get => habitFilter;
+            get => descriptionFilter;
             set
             {
-                if (habitFilter != value)
+                if (descriptionFilter != value)
                 {
-                    habitFilter = value;
+                    descriptionFilter = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private DateTime? dateFilter = null;
+        public DateTime? DateFilter
+        {
+            get => dateFilter;
+            set
+            {
+                if (dateFilter != value)
+                {
+                    dateFilter = value;
                     OnPropertyChanged();
                 }
             }
@@ -88,9 +102,11 @@ namespace TheLastTime.Shared.Data
             {
                 bool isRatioOk = habit.GetRatio(Settings.Ratio) >= Settings.ShowPercentMin;
 
-                bool isDescriptionOk = string.IsNullOrEmpty(HabitFilter) || habit.Description.Contains(HabitFilter, StringComparison.OrdinalIgnoreCase);
+                bool isDescriptionOk = string.IsNullOrEmpty(DescriptionFilter) || habit.Description.Contains(DescriptionFilter, StringComparison.OrdinalIgnoreCase);
 
-                return isDescriptionOk && (habit.IsPinned == pinned) && (pinned || categoryId == 0 || habit.CategoryId == categoryId) && 
+                bool isDateOk = DateFilter == null || habit.TimeList.Any(time => time.DateTime.Date == DateFilter?.Date);
+
+                return isDescriptionOk && isDateOk && (habit.IsPinned == pinned) && (pinned || categoryId == 0 || habit.CategoryId == categoryId) && 
                         (
                             (
                                 (habit.IsPinned || Settings.ShowPinned != true) && 
@@ -135,6 +151,7 @@ namespace TheLastTime.Shared.Data
             settings.ShowCategories = Settings.ShowCategories;
             settings.ShowCategoriesInHeader = Settings.ShowCategoriesInHeader;
             settings.ShowSearch = Settings.ShowSearch;
+            settings.ShowDateFilter = Settings.ShowDateFilter;
             settings.ShowSort = Settings.ShowSort;
             settings.ShowPinStar2min = Settings.ShowPinStar2min;
             settings.ShowNotes = Settings.ShowNotes;

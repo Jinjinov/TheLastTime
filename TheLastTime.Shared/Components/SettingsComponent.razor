@@ -4,10 +4,23 @@
     {
         <li class="nav-item pb-2">
             <div class="input-group flex-nowrap">
-                <TextEdit Size="@Theme.Size" @bind-Text="@DataService.HabitFilter" Placeholder="Search" />
+                <TextEdit Size="@Theme.Size" @bind-Text="@DataService.DescriptionFilter" Placeholder="Search" />
 
                 <div class="input-group-append">
-                    <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { DataService.HabitFilter = string.Empty; })"><span class="fa fa-fw fa-times"></span></Button>
+                    <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { DataService.DescriptionFilter = string.Empty; })"><span class="fa fa-fw fa-times"></span></Button>
+                </div>
+            </div>
+        </li>
+    }
+
+    @if (DataService.Settings.ShowDateFilter)
+    {
+        <li class="nav-item pb-2">
+            <div class="input-group flex-nowrap">
+                <DateEdit TValue="DateTime?" Size="@Theme.Size" Date="@DataService.DateFilter" DateChanged="@((dateTime) => { DataService.DateFilter = dateTime; })" />
+
+                <div class="input-group-append">
+                    <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { DataService.DateFilter = null; })"><span class="fa fa-fw fa-times"></span></Button>
                 </div>
             </div>
         </li>
