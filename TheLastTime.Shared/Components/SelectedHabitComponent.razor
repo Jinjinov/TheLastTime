@@ -121,7 +121,8 @@
 
                         @if (State.EditHabit)
                         {
-                            <MemoEdit Class="text-monospace" DelayTextOnKeyPress="true" DelayTextOnKeyPressInterval="200" Rows="@State.SelectedHabit.NotesLines" @bind-Text="@State.SelectedHabit.Notes" Placeholder="Add notes" />
+                            @*<MemoEdit Class="text-monospace" DelayTextOnKeyPress="true" DelayTextOnKeyPressInterval="200" Rows="@State.SelectedHabit.NotesLines" @bind-Text="@State.SelectedHabit.Notes" Placeholder="Add notes" />*@
+                            <MemoEdit Class="text-monospace" Rows="@State.SelectedHabit.NotesLines" @bind-Text="@State.SelectedHabit.Notes" Placeholder="Add notes" />
                         }
                         else
                         {
