@@ -1,0 +1,34 @@
+﻿@if (editSettings)
+{
+    <div class="input-group flex-nowrap">
+        <TextEdit Size="@Theme.Size" @bind-Text="@State.SelectedCategory.Description" Placeholder="Add new settings" />
+        <div class="input-group-append">
+            <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => { await DataService.SaveCategory(State.SelectedCategory); editSettings = false; })"><span class="fa fa-fw fa-save"></span></Button>
+            <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { editSettings = false; })"><span class="fa fa-fw fa-times"></span></Button>
+        </div>
+    </div>
+}
+else
+{
+    <div class="input-group flex-nowrap">
+        <div class="input-group-prepend">
+            <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.NewCategory(); editSettings = true; })"><span class="fa fa-fw fa-plus"></span></Button>
+        </div>
+
+        <Select TValue="long" Size="@Theme.Size" SelectedValue="@State.SelectedCategoryId" SelectedValueChanged="async (long val) => { State.SelectedCategoryId = val; }">
+            @foreach (Category cat in DataService.CategoryList)
+            {
+                <SelectItem Value="@cat.Id">@cat.Description</SelectItem>
+            }
+        </Select>
+
+        @if (State.SelectedCategoryId > 1)
+        {
+            <div class="input-group-append">
+                <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { editSettings = true; })"><span class="fa fa-fw fa-edit"></span></Button>
+
+                <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => { await DataService.DeleteCategory(State.SelectedCategory); State.SelectedCategoryId = 0; })"><span class="fa fa-fw fa-trash-alt"></span></Button>
+            </div>
+        }
+    </div>
+}

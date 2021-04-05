@@ -134,6 +134,7 @@ namespace TheLastTime.Shared.Data
 
             Settings settings = db.Settings.Single();
 
+            settings.Description = Settings.Description;
             settings.SelectedCategoryId = Settings.SelectedCategoryId;
             settings.ShowPercentMin = Settings.ShowPercentMin;
             settings.ShowPinned = Settings.ShowPinned;
