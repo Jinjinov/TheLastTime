@@ -16,6 +16,10 @@
     @if (DataService.Settings.ShowDateFilter)
     {
         <li class="nav-item pb-2">
+            <span class="text-light">Date filter:</span>
+        </li>
+
+        <li class="nav-item pb-2">
             <div class="input-group flex-nowrap">
                 <DateEdit TValue="DateTime?" Size="@Theme.Size" Date="@DataService.DateFilter" DateChanged="@((dateTime) => { DataService.DateFilter = dateTime; })" />
 
@@ -29,7 +33,7 @@
     @if (DataService.Settings.ShowFilters)
     {
         <li class="nav-item pb-2">
-            <span class="text-light">@( DataService.Settings.ShowAdvancedFilters ? "Advanced filters:" : "Filters" )</span>
+            <span class="text-light">@( DataService.Settings.ShowAdvancedFilters ? "Advanced filters:" : "Filters:" )</span>
         </li>
 
         <li class="nav-item pb-2">
@@ -67,7 +71,7 @@
         <li class="nav-item py-0">
             <Field>
                 <FieldLabel Class="text-light">Select ratio:</FieldLabel>
-                <RadioGroup TValue="Ratio" CheckedValue="@DataService.Settings.Ratio" CheckedValueChanged="@(async (val) => { DataService.Settings.Ratio = val; await DataService.SaveSettings(); })">
+                <RadioGroup Orientation="Orientation.Vertical" TValue="Ratio" CheckedValue="@DataService.Settings.Ratio" CheckedValueChanged="@(async (val) => { DataService.Settings.Ratio = val; await DataService.SaveSettings(); })">
                     <Radio TValue="Ratio" Value="@(Ratio.ElapsedToAverage)"><span class="text-light">Elapsed time / average interval</span></Radio>
                     <Radio TValue="Ratio" Value="@(Ratio.ElapsedToDesired)"><span class="text-light">Elapsed time / desired interval</span></Radio>
                     <Radio TValue="Ratio" Value="@(Ratio.AverageToDesired)"><span class="text-light">Average / desired interval</span></Radio>
