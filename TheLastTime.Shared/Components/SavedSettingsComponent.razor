@@ -4,7 +4,7 @@
         <TextEdit Size="@Theme.Size" @bind-Text="@DataService.Settings.Description" Placeholder="Add new settings" />
         <div class="input-group-append">
             <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => { await DataService.SaveSettings(); editSettings = false; })"><span class="fa fa-fw fa-save"></span></Button>
-            <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { editSettings = false; })"><span class="fa fa-fw fa-times"></span></Button>
+            <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { DataService.SettingsId = 1; editSettings = false; })"><span class="fa fa-fw fa-times"></span></Button>
         </div>
     </div>
 }

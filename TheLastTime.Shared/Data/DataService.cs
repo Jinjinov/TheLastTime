@@ -79,8 +79,8 @@ namespace TheLastTime.Shared.Data
 
                     Settings.SelectedSettingsId = value;
 
-                    OnPropertyChanged(nameof(Settings));
-                    //Task.Run(SaveSettings);
+                    //OnPropertyChanged(nameof(Settings));
+                    Task.Run(SaveSettings);
                 }
             }
         }
@@ -151,10 +151,46 @@ namespace TheLastTime.Shared.Data
 
         public void NewSettings()
         {
-            Settings = new Settings() { ShowSavedSettings = true, Size = Settings.Size, Theme = Settings.Theme, ShowHelp = false };
+            Settings = new Settings() { 
+                ShowSavedSettings = Settings.ShowSavedSettings,
+                SelectedCategoryId = Settings.SelectedCategoryId,
+                ShowPercentMin = Settings.ShowPercentMin,
+                ShowPinned = Settings.ShowPinned,
+                ShowStarred = Settings.ShowStarred,
+                ShowTwoMinute = Settings.ShowTwoMinute,
+                ShowNeverDone = Settings.ShowNeverDone,
+                ShowDoneOnce = Settings.ShowDoneOnce,
+                ShowRatioOverPercentMin = Settings.ShowRatioOverPercentMin,
+                ShowHelp = Settings.ShowHelp,
+                ShowFilters = Settings.ShowFilters,
+                ShowAdvancedFilters = Settings.ShowAdvancedFilters,
+                ShowHabitId = Settings.ShowHabitId,
+                ShowHabitIdUpDownButtons = Settings.ShowHabitIdUpDownButtons,
+                ShowAllSelectOptions = Settings.ShowAllSelectOptions,
+                ShowCategories = Settings.ShowCategories,
+                ShowCategoriesInHeader = Settings.ShowCategoriesInHeader,
+                ShowSearch = Settings.ShowSearch,
+                ShowDateFilter = Settings.ShowDateFilter,
+                ShowSort = Settings.ShowSort,
+                ShowPinStar2min = Settings.ShowPinStar2min,
+                ShowNotes = Settings.ShowNotes,
+                ShowAverageInterval = Settings.ShowAverageInterval,
+                ShowDesiredInterval = Settings.ShowDesiredInterval,
+                ShowRatio = Settings.ShowRatio,
+                ShowRatioOptions = Settings.ShowRatioOptions,
+                ShowTimes = Settings.ShowTimes,
+                BackupToGoogleDrive = Settings.BackupToGoogleDrive,
+                Size = Settings.Size,
+                Theme = Settings.Theme,
+                Ratio = Settings.Ratio,
+                Sort = Settings.Sort,
+            };
 
             if (SettingsList.Any())
-                SettingsId = SettingsList.Last().Id + 1;
+            {
+                //SettingsId = SettingsList.Last().Id + 1;
+                Settings.SelectedSettingsId = SettingsList.Last().Id + 1;
+            }
         }
 
         public async Task SaveSettings()
@@ -272,6 +308,11 @@ namespace TheLastTime.Shared.Data
             HabitDict = HabitList.ToDictionary(habit => habit.Id);
             SettingsDict = SettingsList.ToDictionary(settings => settings.Id);
             TimeDict = TimeList.ToDictionary(time => time.Id);
+
+            if (SettingsDict.ContainsKey(SettingsId))
+            {
+                Settings = SettingsDict[SettingsId];
+            }
 
             foreach (Time time in TimeList)
             {
