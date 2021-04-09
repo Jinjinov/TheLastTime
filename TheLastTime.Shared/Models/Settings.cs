@@ -26,6 +26,9 @@ namespace TheLastTime.Shared.Models
         public string Description { get; set; } = string.Empty;
 
         [Required]
+        public long SelectedSettingsId { get; set; }
+
+        [Required]
         public long SelectedCategoryId { get; set; }
 
         [Required]

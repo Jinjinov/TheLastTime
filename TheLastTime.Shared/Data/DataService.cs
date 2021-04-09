@@ -65,14 +65,35 @@ namespace TheLastTime.Shared.Data
             }
         }
 
-        public Settings Settings = new Settings();
+        public long SettingsId
+        {
+            get => Settings.SelectedSettingsId;
+            set
+            {
+                if (Settings.SelectedSettingsId != value)
+                {
+                    Settings.SelectedSettingsId = value;
+
+                    if (SettingsDict.ContainsKey(value))
+                    {
+                        Settings = SettingsDict[value];
+                    }
+
+                    OnPropertyChanged(nameof(Settings));
+                    //Task.Run(SaveSettings);
+                }
+            }
+        }
+        public Settings Settings { get; private set; } = new Settings();
 
         public List<Category> CategoryList { get; set; } = new List<Category>();
         public List<Habit> HabitList { get; set; } = new List<Habit>();
+        public List<Settings> SettingsList { get; set; } = new List<Settings>();
         public List<Time> TimeList { get; set; } = new List<Time>();
 
         public Dictionary<long, Category> CategoryDict { get; set; } = new Dictionary<long, Category>();
         public Dictionary<long, Habit> HabitDict { get; set; } = new Dictionary<long, Habit>();
+        public Dictionary<long, Settings> SettingsDict { get; set; } = new Dictionary<long, Settings>();
         public Dictionary<long, Time> TimeDict { get; set; } = new Dictionary<long, Time>();
 
         readonly JsInterop JsInterop;
@@ -128,48 +149,86 @@ namespace TheLastTime.Shared.Data
             return GetSorted(habits);
         }
 
+        public void NewSettings()
+        {
+            Settings = new Settings();
+
+            if (SettingsList.Any())
+                SettingsId = SettingsList.Last().Id + 1;
+        }
+
         public async Task SaveSettings()
         {
             using IDatabase db = await DatabaseAccess.CreateDatabase();
 
-            Settings settings = db.Settings.Single();
+            if (Settings.Id == 0)
+            {
+                db.Settings.Add(Settings);
 
-            settings.Description = Settings.Description;
-            settings.SelectedCategoryId = Settings.SelectedCategoryId;
-            settings.ShowPercentMin = Settings.ShowPercentMin;
-            settings.ShowPinned = Settings.ShowPinned;
-            settings.ShowStarred = Settings.ShowStarred;
-            settings.ShowTwoMinute = Settings.ShowTwoMinute;
-            settings.ShowNeverDone = Settings.ShowNeverDone;
-            settings.ShowDoneOnce = Settings.ShowDoneOnce;
-            settings.ShowRatioOverPercentMin = Settings.ShowRatioOverPercentMin;
-            settings.ShowHelp = Settings.ShowHelp;
-            settings.ShowFilters = Settings.ShowFilters;
-            settings.ShowAdvancedFilters = Settings.ShowAdvancedFilters;
-            settings.ShowHabitId = Settings.ShowHabitId;
-            settings.ShowHabitIdUpDownButtons = Settings.ShowHabitIdUpDownButtons;
-            settings.ShowAllSelectOptions = Settings.ShowAllSelectOptions;
-            settings.ShowCategories = Settings.ShowCategories;
-            settings.ShowCategoriesInHeader = Settings.ShowCategoriesInHeader;
-            settings.ShowSearch = Settings.ShowSearch;
-            settings.ShowDateFilter = Settings.ShowDateFilter;
-            settings.ShowSort = Settings.ShowSort;
-            settings.ShowPinStar2min = Settings.ShowPinStar2min;
-            settings.ShowNotes = Settings.ShowNotes;
-            settings.ShowAverageInterval = Settings.ShowAverageInterval;
-            settings.ShowDesiredInterval = Settings.ShowDesiredInterval;
-            settings.ShowRatio = Settings.ShowRatio;
-            settings.ShowRatioOptions = Settings.ShowRatioOptions;
-            settings.ShowTimes = Settings.ShowTimes;
-            settings.BackupToGoogleDrive = Settings.BackupToGoogleDrive;
-            settings.Size = Settings.Size;
-            settings.Theme = Settings.Theme;
-            settings.Ratio = Settings.Ratio;
-            settings.Sort = Settings.Sort;
+                Settings settings = db.Settings.First();
+                settings.SelectedSettingsId = SettingsId;
+
+                await db.SaveChanges();
+
+                await LoadData();
+            }
+            else if (db.Settings.SingleOrDefault(s => s.Id == Settings.Id) is Settings dbSettings)
+            {
+                dbSettings.Description = Settings.Description;
+                dbSettings.SelectedSettingsId = Settings.SelectedSettingsId;
+                dbSettings.SelectedCategoryId = Settings.SelectedCategoryId;
+                dbSettings.ShowPercentMin = Settings.ShowPercentMin;
+                dbSettings.ShowPinned = Settings.ShowPinned;
+                dbSettings.ShowStarred = Settings.ShowStarred;
+                dbSettings.ShowTwoMinute = Settings.ShowTwoMinute;
+                dbSettings.ShowNeverDone = Settings.ShowNeverDone;
+                dbSettings.ShowDoneOnce = Settings.ShowDoneOnce;
+                dbSettings.ShowRatioOverPercentMin = Settings.ShowRatioOverPercentMin;
+                dbSettings.ShowHelp = Settings.ShowHelp;
+                dbSettings.ShowFilters = Settings.ShowFilters;
+                dbSettings.ShowAdvancedFilters = Settings.ShowAdvancedFilters;
+                dbSettings.ShowHabitId = Settings.ShowHabitId;
+                dbSettings.ShowHabitIdUpDownButtons = Settings.ShowHabitIdUpDownButtons;
+                dbSettings.ShowAllSelectOptions = Settings.ShowAllSelectOptions;
+                dbSettings.ShowCategories = Settings.ShowCategories;
+                dbSettings.ShowCategoriesInHeader = Settings.ShowCategoriesInHeader;
+                dbSettings.ShowSearch = Settings.ShowSearch;
+                dbSettings.ShowDateFilter = Settings.ShowDateFilter;
+                dbSettings.ShowSort = Settings.ShowSort;
+                dbSettings.ShowPinStar2min = Settings.ShowPinStar2min;
+                dbSettings.ShowNotes = Settings.ShowNotes;
+                dbSettings.ShowAverageInterval = Settings.ShowAverageInterval;
+                dbSettings.ShowDesiredInterval = Settings.ShowDesiredInterval;
+                dbSettings.ShowRatio = Settings.ShowRatio;
+                dbSettings.ShowRatioOptions = Settings.ShowRatioOptions;
+                dbSettings.ShowTimes = Settings.ShowTimes;
+                dbSettings.BackupToGoogleDrive = Settings.BackupToGoogleDrive;
+                dbSettings.Size = Settings.Size;
+                dbSettings.Theme = Settings.Theme;
+                dbSettings.Ratio = Settings.Ratio;
+                dbSettings.Sort = Settings.Sort;
+
+                if (Settings.Id != 1)
+                {
+                    Settings settings = db.Settings.First();
+                    settings.SelectedSettingsId = SettingsId;
+                }
+
+                await db.SaveChanges();
+            }
+
+            OnPropertyChanged(nameof(Settings));
+        }
+
+        public async Task DeleteSettings(Settings settings)
+        {
+            using IDatabase db = await DatabaseAccess.CreateDatabase();
+
+            db.Settings.Remove(settings);
 
             await db.SaveChanges();
 
-            OnPropertyChanged(nameof(Settings));
+            await LoadData();
         }
 
         public async Task LoadData()
@@ -183,14 +242,14 @@ namespace TheLastTime.Shared.Data
                 Dimensions dimensions = await JsInterop.GetDimensions();
 
                 if (dimensions.Width < 576)
-                    db.Settings.Add(new Settings() { Size = "small", Theme = "lumen" });
+                    db.Settings.Add(new Settings() { Description = "Current", SelectedSettingsId = 1, Size = "small", Theme = "lumen" });
                 else
-                    db.Settings.Add(new Settings() { Size = "medium", Theme = "superhero" });
+                    db.Settings.Add(new Settings() { Description = "Current", SelectedSettingsId = 1, Size = "medium", Theme = "superhero" });
 
                 save = true;
             }
 
-            Settings = db.Settings.Single();
+            Settings = db.Settings.First();
 
             if (db.Categories.Count == 0)
             {
@@ -205,10 +264,12 @@ namespace TheLastTime.Shared.Data
 
             CategoryList = db.Categories.ToList();
             HabitList = db.Habits.ToList();
+            SettingsList = db.Settings.ToList();
             TimeList = db.Times.ToList();
 
             CategoryDict = CategoryList.ToDictionary(category => category.Id);
             HabitDict = HabitList.ToDictionary(habit => habit.Id);
+            SettingsDict = SettingsList.ToDictionary(settings => settings.Id);
             TimeDict = TimeList.ToDictionary(time => time.Id);
 
             foreach (Time time in TimeList)
