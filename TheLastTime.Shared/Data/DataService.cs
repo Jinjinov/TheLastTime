@@ -72,12 +72,12 @@ namespace TheLastTime.Shared.Data
             {
                 if (Settings.SelectedSettingsId != value)
                 {
-                    Settings.SelectedSettingsId = value;
-
                     if (SettingsDict.ContainsKey(value))
                     {
                         Settings = SettingsDict[value];
                     }
+
+                    Settings.SelectedSettingsId = value;
 
                     OnPropertyChanged(nameof(Settings));
                     //Task.Run(SaveSettings);
@@ -151,7 +151,7 @@ namespace TheLastTime.Shared.Data
 
         public void NewSettings()
         {
-            Settings = new Settings();
+            Settings = new Settings() { ShowSavedSettings = true, Size = Settings.Size, Theme = Settings.Theme, ShowHelp = false };
 
             if (SettingsList.Any())
                 SettingsId = SettingsList.Last().Id + 1;
@@ -624,9 +624,8 @@ namespace TheLastTime.Shared.Data
 
             db.Times.Add(new Time() { Id = 9, HabitId = 17, DateTime = DateTime.Now.AddDays(-300) });
 
-            db.Settings.Add(new Settings() { Description = "Show none", Size = Settings.Size, Theme = Settings.Theme, ShowHelp = false, ShowSearch = false, ShowAverageInterval = false, ShowRatio = false });
-            db.Settings.Add(new Settings() { Description = "Show all", Size = Settings.Size, Theme = Settings.Theme, ShowHelp = false,
-                ShowSavedSettings = true,
+            db.Settings.Add(new Settings() { Description = "Show none", ShowSavedSettings = true, Size = Settings.Size, Theme = Settings.Theme, ShowHelp = false, ShowSearch = false, ShowAverageInterval = false, ShowRatio = false });
+            db.Settings.Add(new Settings() { Description = "Show all", ShowSavedSettings = true, Size = Settings.Size, Theme = Settings.Theme, ShowHelp = false,
                 ShowFilters = true,
                 ShowAdvancedFilters = true,
                 ShowHabitId = true,
