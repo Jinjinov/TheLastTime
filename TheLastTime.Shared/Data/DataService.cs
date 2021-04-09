@@ -242,9 +242,9 @@ namespace TheLastTime.Shared.Data
                 Dimensions dimensions = await JsInterop.GetDimensions();
 
                 if (dimensions.Width < 576)
-                    db.Settings.Add(new Settings() { Description = "Current", SelectedSettingsId = 1, Size = "small", Theme = "lumen" });
+                    db.Settings.Add(new Settings() { Id = 1, Description = "Current", SelectedSettingsId = 1, Size = "small", Theme = "lumen" });
                 else
-                    db.Settings.Add(new Settings() { Description = "Current", SelectedSettingsId = 1, Size = "medium", Theme = "superhero" });
+                    db.Settings.Add(new Settings() { Id = 1, Description = "Current", SelectedSettingsId = 1, Size = "medium", Theme = "superhero" });
 
                 save = true;
             }

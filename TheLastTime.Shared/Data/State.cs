@@ -57,7 +57,7 @@ namespace TheLastTime.Shared.Data
                     }
 
                     //OnPropertyChanged(nameof(SelectedCategory));
-                    Task.Run(DataService.SaveSettings);
+                    Task.Run(() => DataService.SaveSettings());
                 }
             }
         }
