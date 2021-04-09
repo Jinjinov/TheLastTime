@@ -176,6 +176,7 @@ namespace TheLastTime.Shared.Data
             {
                 dbSettings.Description = Settings.Description;
                 dbSettings.SelectedSettingsId = Settings.SelectedSettingsId;
+                dbSettings.ShowSavedSettings = Settings.ShowSavedSettings;
                 dbSettings.SelectedCategoryId = Settings.SelectedCategoryId;
                 dbSettings.ShowPercentMin = Settings.ShowPercentMin;
                 dbSettings.ShowPinned = Settings.ShowPinned;
@@ -622,6 +623,27 @@ namespace TheLastTime.Shared.Data
             db.Times.Add(new Time() { Id = 8, HabitId = 16, DateTime = DateTime.Now.AddDays(-12) });
 
             db.Times.Add(new Time() { Id = 9, HabitId = 17, DateTime = DateTime.Now.AddDays(-300) });
+
+            db.Settings.Add(new Settings() { Description = "Show none", Size = Settings.Size, Theme = Settings.Theme, ShowHelp = false, ShowSearch = false, ShowAverageInterval = false, ShowRatio = false });
+            db.Settings.Add(new Settings() { Description = "Show all", Size = Settings.Size, Theme = Settings.Theme, ShowHelp = false,
+                ShowSavedSettings = true,
+                ShowFilters = true,
+                ShowAdvancedFilters = true,
+                ShowHabitId = true,
+                ShowHabitIdUpDownButtons = true,
+                ShowCategories = true,
+                ShowCategoriesInHeader = true,
+                ShowSearch = true,
+                ShowDateFilter = true,
+                ShowSort = true,
+                ShowPinStar2min = true,
+                ShowNotes = true,
+                ShowAverageInterval = true,
+                ShowDesiredInterval = true,
+                ShowRatio = true,
+                ShowRatioOptions = true,
+                ShowTimes = true,
+            });
 
             await db.SaveChanges();
 

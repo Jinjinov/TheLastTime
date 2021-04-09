@@ -29,6 +29,9 @@ namespace TheLastTime.Shared.Models
         public long SelectedSettingsId { get; set; }
 
         [Required]
+        public bool ShowSavedSettings { get; set; }
+
+        [Required]
         public long SelectedCategoryId { get; set; }
 
         [Required]

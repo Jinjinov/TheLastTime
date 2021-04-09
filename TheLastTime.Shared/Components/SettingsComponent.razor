@@ -112,11 +112,14 @@
         </li>
     }
 
-    <li class="nav-item py-0">
-        <Field>
-            <FieldLabel Class="text-light">Saved settings:</FieldLabel>
-            <SavedSettingsComponent />
-        </Field>
-    </li>
+    @if (DataService.Settings.ShowSavedSettings)
+    {
+        <li class="nav-item py-0">
+            <Field>
+                <FieldLabel Class="text-light">Saved settings:</FieldLabel>
+                <SavedSettingsComponent />
+            </Field>
+        </li>
+    }
 
 </ul>
