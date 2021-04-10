@@ -11,7 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Blazorise" Version="0.9.3.4" />
+    <PackageReference Include="Blazorise.Bootstrap" Version="0.9.3.4" />
+    <PackageReference Include="Blazorise.Icons.FontAwesome" Version="0.9.3.4" />
+    <PackageReference Include="IndexedDB.Blazor" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components" Version="5.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web.Extensions" Version="5.0.0-preview9.20513.1" />

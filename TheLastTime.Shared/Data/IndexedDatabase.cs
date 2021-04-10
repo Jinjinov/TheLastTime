@@ -2,10 +2,9 @@
 using Microsoft.JSInterop;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TheLastTime.Shared.Data;
 using TheLastTime.Shared.Models;
 
-namespace TheLastTime.Data
+namespace TheLastTime.Shared.Data
 {
     public class IndexedDatabase : IndexedDb, IDatabase
     {

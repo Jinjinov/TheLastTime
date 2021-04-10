@@ -1,16 +1,10 @@
-using Blazorise;
-using Blazorise.Bootstrap;
-using Blazorise.Icons.FontAwesome;
-using IndexedDB.Blazor;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using TheLastTime.Data;
 using TheLastTime.Shared;
-using TheLastTime.Shared.Data;
 
 namespace TheLastTime
 {
@@ -39,35 +33,11 @@ namespace TheLastTime
                 //options.ProviderOptions.DefaultScopes.Add("https://www.googleapis.com/auth/drive.install"); // Connect itself to your Google Drive
             });
 
-            builder.Services
-                .AddBlazorise(options =>
-                {
-                    options.ChangeTextOnKeyPress = true;
-                })
-                .AddBootstrapProviders()
-                .AddFontAwesomeIcons();
-
-            builder.Services.AddScoped<IIndexedDbFactory, IndexedDbFactory>();
-
-            builder.Services.AddScoped<IDatabaseAccess, DatabaseAccess>();
-
-            builder.Services.AddScoped<JsInterop>();
-
-            builder.Services.AddScoped<DataService>();
-
-            builder.Services.AddScoped<GoogleDrive>();
-
-            builder.Services.AddScoped<State>();
-
-            builder.Services.AddScoped<ThemeOptions>();
+            builder.Services.AddServices();
 
             WebAssemblyHost host = builder.Build();
 
-            //host.Services.UseBootstrapProviders().UseFontAwesomeIcons(); // v0.9.2 ---> v0.9.3
-
-            await host.Services.GetRequiredService<DataService>().LoadData();
-
-            host.Services.GetRequiredService<GoogleDrive>(); // make sure that there is one instance of GoogleDrive
+            await host.Services.UseServices();
 
             await host.RunAsync();
         }
