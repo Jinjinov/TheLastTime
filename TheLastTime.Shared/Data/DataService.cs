@@ -288,6 +288,12 @@ namespace TheLastTime.Shared.Data
 
             Settings = db.Settings.First();
 
+            if (string.IsNullOrEmpty(Settings.Description))
+            {
+                Settings.Description = "Main";
+                save = true;
+            }
+
             if (db.Categories.Count == 0)
             {
                 db.Categories.Add(new Category() { Id = 1, Description = "No category" });
