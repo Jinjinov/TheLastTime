@@ -1,7 +1,7 @@
 <CascadingAuthenticationState>
-    <Router AppAssembly="@typeof(Program).Assembly" AdditionalAssemblies="new[] { typeof(TheLastTime.Shared.Pages.Index).Assembly }">
+    <Router AppAssembly="@GetType().Assembly" AdditionalAssemblies="new[] { typeof(TheLastTime.Shared.Layouts.MainLayout).Assembly }">
         <Found Context="routeData">
-            <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+            <RouteView RouteData="@routeData" DefaultLayout="@typeof(TheLastTime.Shared.Layouts.MainLayout)" />
             @*<AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
                 <NotAuthorized>
                     @if (!context.User.Identity.IsAuthenticated)
@@ -16,7 +16,7 @@
             </AuthorizeRouteView>*@
         </Found>
         <NotFound>
-            <LayoutView Layout="@typeof(MainLayout)">
+            <LayoutView Layout="@typeof(TheLastTime.Shared.Layouts.MainLayout)">
                 <p>Sorry, there's nothing at this address.</p>
             </LayoutView>
         </NotFound>
