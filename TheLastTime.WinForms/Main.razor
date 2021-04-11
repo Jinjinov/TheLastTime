@@ -1,0 +1,20 @@
+﻿<Router AppAssembly="@GetType().Assembly" AdditionalAssemblies="new[] { typeof(TheLastTime.Shared.Layouts.MainLayout).Assembly }">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(TheLastTime.Shared.Layouts.MainLayout)" />
+    </Found>
+    <NotFound>
+        <h1>Not found</h1>
+        <p>Sorry, there's nothing here.</p>
+    </NotFound>
+</Router>
+
+@code {
+
+    [Inject]
+    TheLastTime.Shared.Data.DataService DataService { get; set; } = null!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await DataService.LoadData();
+    }
+}
