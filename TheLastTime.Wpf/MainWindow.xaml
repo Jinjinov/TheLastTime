@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TheLastTime.Wpf"
         xmlns:blazor="clr-namespace:Microsoft.AspNetCore.Components.WebView.Wpf;assembly=Microsoft.AspNetCore.Components.WebView.Wpf"
         mc:Ignorable="d"
-        Title="ididit!" Height="1050" Width="1650">
+        Title="ididit!" Height="1050" Width="1650" Icon="/favicon.ico">
     <Grid>
         <blazor:BlazorWebView HostPage="wwwroot\index.html" Services="{StaticResource services}">
             <blazor:BlazorWebView.RootComponents>

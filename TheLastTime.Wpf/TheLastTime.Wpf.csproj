@@ -5,7 +5,12 @@
     <OutputType>WinExe</OutputType>
     <UseWPF>true</UseWPF>
     <IsShippingPackage>false</IsShippingPackage>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="favicon.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="6.0.0-preview.3.21201.13" />
@@ -13,6 +18,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TheLastTime.Shared\TheLastTime.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="favicon.ico" />
   </ItemGroup>
 
   <ItemGroup>
