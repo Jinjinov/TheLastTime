@@ -58,7 +58,7 @@ namespace TheLastTime.Shared.Data
                 if (DataService.Settings.Theme != value)
                 {
                     DataService.Settings.Theme = value;
-                    DataService.SaveSettings().Wait();
+                    Task.Run(DataService.SaveSettings);
                 }
             }
         }
@@ -73,7 +73,7 @@ namespace TheLastTime.Shared.Data
                 if (DataService.Settings.Size != value)
                 {
                     DataService.Settings.Size = value;
-                    DataService.SaveSettings().Wait();
+                    Task.Run(DataService.SaveSettings);
                 }
             }
         }

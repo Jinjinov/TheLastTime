@@ -26,7 +26,7 @@ namespace TheLastTime.Shared.Components
                 if (DataService.Settings.Sort != value)
                 {
                     DataService.Settings.Sort = value;
-                    DataService.SaveSettings().Wait();
+                    Task.Run(DataService.SaveSettings);
                 }
             }
         }
