@@ -28,6 +28,10 @@
                 </div>
             </div>
         </li>
+
+        <li class="nav-item pb-2">
+            <CheckBox Checked="@(DataService.DateFilter == DateTime.Now.Date)" CheckedChanged="@(async (val) => { DataService.DateFilter = val == true ? DateTime.Now.Date : null; })"><span class="text-light">Today</span></CheckBox>
+        </li>
     }
 
     @if (DataService.Settings.ShowFilters)
