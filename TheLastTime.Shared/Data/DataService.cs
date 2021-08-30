@@ -11,9 +11,12 @@ namespace TheLastTime.Shared.Data
     public interface IDatabase : IDisposable
     {
         ICollection<Category> Categories { get; }
+        ICollection<Group> Groups { get; }
         ICollection<Habit> Habits { get; }
-        ICollection<Time> Times { get; }
+        ICollection<Note> Notes { get; }
         ICollection<Settings> Settings { get; }
+        ICollection<Time> Times { get; }
+        ICollection<ToDo> ToDos { get; }
 
         Task SaveChanges();
     }
@@ -85,9 +88,12 @@ namespace TheLastTime.Shared.Data
         public Settings Settings { get; private set; } = new Settings();
 
         public List<Category> CategoryList { get; set; } = new List<Category>();
+        public List<Group> GroupList { get; set; } = new List<Group>();
         public List<Habit> HabitList { get; set; } = new List<Habit>();
+        public List<Note> NoteList { get; set; } = new List<Note>();
         public List<Settings> SettingsList { get; set; } = new List<Settings>();
         public List<Time> TimeList { get; set; } = new List<Time>();
+        public List<ToDo> ToDoList { get; set; } = new List<ToDo>();
 
         public Dictionary<long, Category> CategoryDict { get; set; } = new Dictionary<long, Category>();
         public Dictionary<long, Habit> HabitDict { get; set; } = new Dictionary<long, Habit>();
