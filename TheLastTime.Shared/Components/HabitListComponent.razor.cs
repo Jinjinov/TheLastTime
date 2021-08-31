@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
-using System;
 using System.ComponentModel;
 using TheLastTime.Shared.Data;
 
-namespace TheLastTime.Shared.Pages
+namespace TheLastTime.Shared.Components
 {
-    public sealed partial class Index : IDisposable
+    public sealed partial class HabitListComponent
     {
         [Inject]
         DataService DataService { get; set; } = null!;
@@ -13,21 +12,8 @@ namespace TheLastTime.Shared.Pages
         [Inject]
         State State { get; set; } = null!;
 
-        //[Inject]
-        //NavigationManager NavigationManager { get; set; } = null!;
-
-        //[Parameter]
-        //public string? RouteParameter { get; set; }
-
         protected override void OnInitialized()
         {
-            //string query = NavigationManager.ToAbsoluteUri(NavigationManager.Uri).Query;
-
-            //if (RouteParameter == "examples" || query == "?examples")
-            //{
-            //    await DataService.SeedExamples();
-            //}
-
             DataService.PropertyChanged += PropertyChanged;
             State.PropertyChanged += PropertyChanged;
         }
@@ -41,13 +27,6 @@ namespace TheLastTime.Shared.Pages
         {
             DataService.PropertyChanged -= PropertyChanged;
             State.PropertyChanged -= PropertyChanged;
-        }
-
-        string selectedTab = "Habits";
-
-        private void OnSelectedTabChanged(string name)
-        {
-            selectedTab = name;
         }
     }
 }

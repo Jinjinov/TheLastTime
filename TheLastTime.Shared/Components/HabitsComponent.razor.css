@@ -1,0 +1,9 @@
+﻿
+/* On screens that are 1199.98px or less, set the habit details overlay width to 100% */
+@media (max-width: 1199.98px) {
+
+    /* main content body */
+    #overlay-parent {
+        position: relative;
+    }
+}

@@ -11,26 +11,24 @@ else if (State.ShowOptions)
 }
 else
 {
-    <div class="container-fluid px-1 px-sm-0 py-2 py-sm-3 d-flex flex-grow-1">
-        <div id="overlay-parent" class="row mx-0 flex-grow-1">
+    <Tabs SelectedTab="@selectedTab" SelectedTabChanged="@OnSelectedTabChanged">
+        <Items>
+            <Tab Name="Habits">Habits</Tab>
+            <Tab Name="Notes">Notes</Tab>
+            <Tab Name="Tasks">Tasks</Tab>
+        </Items>
+        <Content>
+            <TabPanel Name="Habits">
+                <HabitsComponent />
+            </TabPanel>
+            <TabPanel Name="Notes">
+                Content for Notes.
+            </TabPanel>
+            <TabPanel Name="Tasks">
+                Content for Tasks.
+            </TabPanel>
+        </Content>
+    </Tabs>
 
-            <div class="col-lg-12 col-xl-6 px-1 px-sm-3">
-
-                <HabitComponent Pinned="true" />
-
-                @if (DataService.Settings.ShowCategories)
-                {
-                    <CategoryComponent />
-                }
-
-                <HabitComponent />
-
-                <div class="py-5"></div>
-
-                <Button id="add-habit" class="btn btn-lg btn-primary rounded-circle" @onclick="@(() => { State.NewHabit(); })"><span class="fa fa-fw fa-plus"></span></Button>
-            </div>
-
-            <SelectedHabitComponent />
-        </div>
-    </div>
+    
 }
