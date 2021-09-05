@@ -1,5 +1,5 @@
 ﻿<div>
-    @foreach (Habit habit in DataService.GetHabits(Pinned, State.SelectedCategoryId))
+    @foreach (Habit habit in Filters.GetHabits(Pinned, State.SelectedCategoryId))
     {
         <div class="input-group flex-nowrap my-1">
             <div class="input-group-prepend flex-grow-1">

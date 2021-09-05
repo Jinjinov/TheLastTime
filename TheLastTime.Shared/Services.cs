@@ -29,6 +29,8 @@ namespace TheLastTime.Shared
 
             serviceCollection.AddScoped<DataService>();
 
+            serviceCollection.AddScoped<Filters>();
+
             serviceCollection.AddScoped<GoogleDrive>();
 
             serviceCollection.AddScoped<State>();

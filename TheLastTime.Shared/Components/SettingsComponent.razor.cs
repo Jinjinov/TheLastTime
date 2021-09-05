@@ -13,6 +13,9 @@ namespace TheLastTime.Shared.Components
         DataService DataService { get; set; } = null!;
 
         [Inject]
+        Filters Filters { get; set; } = null!;
+
+        [Inject]
         State State { get; set; } = null!;
 
         [Inject]

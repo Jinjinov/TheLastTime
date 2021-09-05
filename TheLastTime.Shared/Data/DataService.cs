@@ -20,34 +20,6 @@ namespace TheLastTime.Shared.Data
 
         #endregion
 
-        private string descriptionFilter = string.Empty;
-        public string DescriptionFilter
-        {
-            get => descriptionFilter;
-            set
-            {
-                if (descriptionFilter != value)
-                {
-                    descriptionFilter = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private DateTime? dateFilter = null;
-        public DateTime? DateFilter
-        {
-            get => dateFilter;
-            set
-            {
-                if (dateFilter != value)
-                {
-                    dateFilter = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
         public long SettingsId
         {
             get => Settings.SelectedSettingsId;
@@ -83,56 +55,12 @@ namespace TheLastTime.Shared.Data
         public Dictionary<long, Time> TimeDict { get; set; } = new Dictionary<long, Time>();
 
         readonly JsInterop JsInterop;
-        readonly IDatabaseAccess DatabaseAccess;
+        public readonly IDatabaseAccess DatabaseAccess;
 
         public DataService(JsInterop jsInterop, IDatabaseAccess databaseAccess)
         {
             JsInterop = jsInterop;
             DatabaseAccess = databaseAccess;
-        }
-
-        private IEnumerable<Habit> GetSorted(IEnumerable<Habit> habits)
-        {
-            return Settings.Sort switch
-            {
-                Sort.Index => habits.OrderBy(habit => habit.Id),
-                Sort.Description => habits.OrderBy(habit => habit.Description),
-                Sort.ElapsedTime => habits.OrderByDescending(habit => habit.ElapsedTime),
-                Sort.SelectedRatio => habits.OrderByDescending(habit => habit.GetRatio(Settings.Ratio)),
-                _ => throw new ArgumentException("Invalid argument: " + nameof(Settings.Sort))
-            };
-        }
-
-        public IEnumerable<Habit> GetHabits(bool pinned, long categoryId)
-        {
-            IEnumerable<Habit> habits = HabitList.Where(habit =>
-            {
-                bool isRatioOk = habit.GetRatio(Settings.Ratio) >= Settings.ShowPercentMin;
-
-                bool isDescriptionOk = string.IsNullOrEmpty(DescriptionFilter) || habit.Description.Contains(DescriptionFilter, StringComparison.OrdinalIgnoreCase);
-
-                bool isDateOk = DateFilter == null || habit.TimeList.Any(time => time.DateTime.Date == DateFilter?.Date);
-
-                return isDescriptionOk && isDateOk && (habit.IsPinned == pinned) && (pinned || categoryId == 0 || habit.CategoryId == categoryId) && 
-                        (
-                            (
-                                (habit.IsPinned || Settings.ShowPinned != true) && 
-                                (habit.IsStarred || Settings.ShowStarred != true) &&
-                                (habit.IsTwoMinute || Settings.ShowTwoMinute != true) && 
-                                (habit.IsNeverDone || Settings.ShowNeverDone != true) && 
-                                (habit.IsDoneOnce || Settings.ShowDoneOnce != true) &&
-                                (isRatioOk || Settings.ShowRatioOverPercentMin != true)
-                            )
-                            || (habit.IsPinned && Settings.ShowPinned == null) 
-                            || (habit.IsStarred && Settings.ShowStarred == null)
-                            || (habit.IsTwoMinute && Settings.ShowTwoMinute == null) 
-                            || (habit.IsNeverDone && Settings.ShowNeverDone == null) 
-                            || (habit.IsDoneOnce && Settings.ShowDoneOnce == null) 
-                            || (isRatioOk && Settings.ShowRatioOverPercentMin == null)
-                        );
-            });
-
-            return GetSorted(habits);
         }
 
         public void NewSettings()
@@ -257,11 +185,6 @@ namespace TheLastTime.Shared.Data
                     CategoryDict[habit.CategoryId].HabitList.Add(habit);
             }
         }
-
-        //private async Task<Dimensions> GetDimensions()
-        //{
-        //    return await jsRuntime.InvokeAsync<Dimensions>("getDimensions");
-        //}
 
         public async Task ClearData()
         {
@@ -427,82 +350,6 @@ namespace TheLastTime.Shared.Data
             await db.SaveChanges();
 
             await LoadData();
-        }
-
-        public async Task<(bool changed, long id)> HabitUpDown(long oldId, long newId)
-        {
-            using IDatabase db = await DatabaseAccess.CreateDatabase();
-
-            long maxId = db.Habits.Any() ? db.Habits.Max(habit => habit.Id) : 0;
-
-            newId = Math.Clamp(newId, 1, maxId);
-
-            bool changed = false;
-
-            if (oldId < newId)
-            {
-                for (long i = oldId; i < newId; ++i)
-                {
-                    if (ChangeId(i, i + 1, db))
-                    {
-                        changed = true;
-                    }
-                }
-            }
-
-            if (oldId > newId)
-            {
-                for (long i = oldId; i > newId; --i)
-                {
-                    if (ChangeId(i, i - 1, db))
-                    {
-                        changed = true;
-                    }
-                }
-            }
-
-            if (changed)
-            {
-                await db.SaveChanges();
-
-                await LoadData();
-            }
-
-            return (changed, newId);
-        }
-
-        private bool ChangeId(long oldId, long newId, IDatabase db)
-        {
-            if (db.Habits.SingleOrDefault(h => h.Id == oldId) is Habit dbHabit)
-            {
-                Habit habit = HabitDict[oldId];
-
-                if (db.Habits.SingleOrDefault(h => h.Id == newId) is Habit otherHabit)
-                {
-                    otherHabit.Id = oldId;
-
-                    foreach (Time time in HabitDict[newId].TimeList)
-                    {
-                        if (db.Times.SingleOrDefault(t => t.Id == time.Id) is Time dbTime)
-                            dbTime.HabitId = oldId;
-                    }
-
-                    HabitDict[oldId] = HabitDict[newId];
-                    HabitDict[newId] = habit;
-                }
-
-                dbHabit.Id = newId;
-
-                foreach (Time time in habit.TimeList)
-                {
-                    if (db.Times.SingleOrDefault(t => t.Id == time.Id) is Time dbTime)
-                        dbTime.HabitId = newId;
-                }
-
-                return true;
-            }
-
-            return false;
         }
 
         public async Task SaveTime(Time time)

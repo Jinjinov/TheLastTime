@@ -16,6 +16,9 @@ namespace TheLastTime.Shared.Components
         DataService DataService { get; set; } = null!;
 
         [Inject]
+        Filters Filters { get; set; } = null!;
+
+        [Inject]
         State State { get; set; } = null!;
 
         [Inject]
@@ -24,6 +27,7 @@ namespace TheLastTime.Shared.Components
         protected override void OnInitialized()
         {
             DataService.PropertyChanged += PropertyChanged;
+            Filters.PropertyChanged += PropertyChanged;
             State.PropertyChanged += PropertyChanged;
         }
 
@@ -35,6 +39,7 @@ namespace TheLastTime.Shared.Components
         public void Dispose()
         {
             DataService.PropertyChanged -= PropertyChanged;
+            Filters.PropertyChanged -= PropertyChanged;
             State.PropertyChanged -= PropertyChanged;
         }
 
