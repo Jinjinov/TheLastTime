@@ -27,7 +27,7 @@ else
             <div class="input-group-append">
                 <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { editSettings = true; })"><span class="fa fa-fw fa-edit"></span></Button>
 
-                <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => { await DataService.DeleteSettings(DataService.Settings); DataService.SettingsId = 1; })"><span class="fa fa-fw fa-trash-alt"></span></Button>
+                <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => { await DataService.DeleteSettings(DataService.Settings); DataService.SettingsId = 1; })"><span class="fas fa-fw fa-trash-alt"></span></Button>
             </div>
         }
     </div>
