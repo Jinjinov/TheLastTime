@@ -124,6 +124,48 @@ namespace TheLastTime.Shared.Models
         [Required]
         public Sort Sort { get; set; }
 
+        public void CopyTo(Settings settings)
+        {
+            settings.Description = Description;
+            settings.SelectedSettingsId = SelectedSettingsId;
+
+            settings.ShowSavedSettings = ShowSavedSettings;
+            settings.SelectedCategoryId = SelectedCategoryId;
+            settings.ShowPercentMin = ShowPercentMin;
+
+            settings.ShowPinned = ShowPinned;
+            settings.ShowStarred = ShowStarred;
+            settings.ShowTwoMinute = ShowTwoMinute;
+            settings.ShowNeverDone = ShowNeverDone;
+            settings.ShowDoneOnce = ShowDoneOnce;
+            settings.ShowRatioOverPercentMin = ShowRatioOverPercentMin;
+
+            settings.ShowHelp = ShowHelp;
+            settings.ShowFilters = ShowFilters;
+            settings.ShowAdvancedFilters = ShowAdvancedFilters;
+            settings.ShowHabitId = ShowHabitId;
+            settings.ShowHabitIdUpDownButtons = ShowHabitIdUpDownButtons;
+            settings.ShowAllSelectOptions = ShowAllSelectOptions;
+            settings.ShowCategories = ShowCategories;
+            settings.ShowCategoriesInHeader = ShowCategoriesInHeader;
+            settings.ShowSearch = ShowSearch;
+            settings.ShowDateFilter = ShowDateFilter;
+            settings.ShowSort = ShowSort;
+            settings.ShowPinStar2min = ShowPinStar2min;
+            settings.ShowNotes = ShowNotes;
+            settings.ShowAverageInterval = ShowAverageInterval;
+            settings.ShowDesiredInterval = ShowDesiredInterval;
+            settings.ShowRatio = ShowRatio;
+            settings.ShowRatioOptions = ShowRatioOptions;
+            settings.ShowTimes = ShowTimes;
+            settings.BackupToGoogleDrive = BackupToGoogleDrive;
+
+            settings.Size = Size;
+            settings.Theme = Theme;
+            settings.Ratio = Ratio;
+            settings.Sort = Sort;
+        }
+
         public void SetShowAdvancedFilters(bool showAdvancedFilters)
         {
             ShowAdvancedFilters = showAdvancedFilters;

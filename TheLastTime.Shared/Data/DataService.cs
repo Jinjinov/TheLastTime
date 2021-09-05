@@ -137,49 +137,15 @@ namespace TheLastTime.Shared.Data
 
         public void NewSettings()
         {
-            Settings = new Settings() { 
-                ShowSavedSettings = Settings.ShowSavedSettings,
-                SelectedCategoryId = Settings.SelectedCategoryId,
-                ShowPercentMin = Settings.ShowPercentMin,
+            Settings settings = new Settings();
 
-                ShowPinned = Settings.ShowPinned,
-                ShowStarred = Settings.ShowStarred,
-                ShowTwoMinute = Settings.ShowTwoMinute,
-                ShowNeverDone = Settings.ShowNeverDone,
-                ShowDoneOnce = Settings.ShowDoneOnce,
-                ShowRatioOverPercentMin = Settings.ShowRatioOverPercentMin,
+            Settings.CopyTo(settings);
 
-                ShowHelp = Settings.ShowHelp,
-                ShowFilters = Settings.ShowFilters,
-                ShowAdvancedFilters = Settings.ShowAdvancedFilters,
-                ShowHabitId = Settings.ShowHabitId,
-                ShowHabitIdUpDownButtons = Settings.ShowHabitIdUpDownButtons,
-                ShowAllSelectOptions = Settings.ShowAllSelectOptions,
-                ShowCategories = Settings.ShowCategories,
-                ShowCategoriesInHeader = Settings.ShowCategoriesInHeader,
-                ShowSearch = Settings.ShowSearch,
-                ShowDateFilter = Settings.ShowDateFilter,
-                ShowSort = Settings.ShowSort,
-                ShowPinStar2min = Settings.ShowPinStar2min,
-                ShowNotes = Settings.ShowNotes,
-                ShowAverageInterval = Settings.ShowAverageInterval,
-                ShowDesiredInterval = Settings.ShowDesiredInterval,
-                ShowRatio = Settings.ShowRatio,
-                ShowRatioOptions = Settings.ShowRatioOptions,
-                ShowTimes = Settings.ShowTimes,
-                BackupToGoogleDrive = Settings.BackupToGoogleDrive,
+            settings.Description = string.Empty;
 
-                Size = Settings.Size,
-                Theme = Settings.Theme,
-                Ratio = Settings.Ratio,
-                Sort = Settings.Sort,
-            };
+            settings.SelectedSettingsId = SettingsList.Any() ? SettingsList.Last().Id + 1 : 0;
 
-            if (SettingsList.Any())
-            {
-                //SettingsId = SettingsList.Last().Id + 1;
-                Settings.SelectedSettingsId = SettingsList.Last().Id + 1;
-            }
+            Settings = settings;
         }
 
         public async Task SaveSettings()
@@ -199,44 +165,7 @@ namespace TheLastTime.Shared.Data
             }
             else if (db.Settings.SingleOrDefault(s => s.Id == Settings.Id) is Settings dbSettings)
             {
-                dbSettings.Description = Settings.Description;
-                dbSettings.SelectedSettingsId = Settings.SelectedSettingsId;
-
-                dbSettings.ShowSavedSettings = Settings.ShowSavedSettings;
-                dbSettings.SelectedCategoryId = Settings.SelectedCategoryId;
-                dbSettings.ShowPercentMin = Settings.ShowPercentMin;
-
-                dbSettings.ShowPinned = Settings.ShowPinned;
-                dbSettings.ShowStarred = Settings.ShowStarred;
-                dbSettings.ShowTwoMinute = Settings.ShowTwoMinute;
-                dbSettings.ShowNeverDone = Settings.ShowNeverDone;
-                dbSettings.ShowDoneOnce = Settings.ShowDoneOnce;
-                dbSettings.ShowRatioOverPercentMin = Settings.ShowRatioOverPercentMin;
-
-                dbSettings.ShowHelp = Settings.ShowHelp;
-                dbSettings.ShowFilters = Settings.ShowFilters;
-                dbSettings.ShowAdvancedFilters = Settings.ShowAdvancedFilters;
-                dbSettings.ShowHabitId = Settings.ShowHabitId;
-                dbSettings.ShowHabitIdUpDownButtons = Settings.ShowHabitIdUpDownButtons;
-                dbSettings.ShowAllSelectOptions = Settings.ShowAllSelectOptions;
-                dbSettings.ShowCategories = Settings.ShowCategories;
-                dbSettings.ShowCategoriesInHeader = Settings.ShowCategoriesInHeader;
-                dbSettings.ShowSearch = Settings.ShowSearch;
-                dbSettings.ShowDateFilter = Settings.ShowDateFilter;
-                dbSettings.ShowSort = Settings.ShowSort;
-                dbSettings.ShowPinStar2min = Settings.ShowPinStar2min;
-                dbSettings.ShowNotes = Settings.ShowNotes;
-                dbSettings.ShowAverageInterval = Settings.ShowAverageInterval;
-                dbSettings.ShowDesiredInterval = Settings.ShowDesiredInterval;
-                dbSettings.ShowRatio = Settings.ShowRatio;
-                dbSettings.ShowRatioOptions = Settings.ShowRatioOptions;
-                dbSettings.ShowTimes = Settings.ShowTimes;
-                dbSettings.BackupToGoogleDrive = Settings.BackupToGoogleDrive;
-
-                dbSettings.Size = Settings.Size;
-                dbSettings.Theme = Settings.Theme;
-                dbSettings.Ratio = Settings.Ratio;
-                dbSettings.Sort = Settings.Sort;
+                Settings.CopyTo(dbSettings);
 
                 if (Settings.Id != 1)
                 {
