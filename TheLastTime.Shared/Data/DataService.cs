@@ -8,24 +8,6 @@ using TheLastTime.Shared.Models;
 
 namespace TheLastTime.Shared.Data
 {
-    public interface IDatabase : IDisposable
-    {
-        ICollection<Category> Categories { get; }
-        ICollection<Group> Groups { get; }
-        ICollection<Habit> Habits { get; }
-        ICollection<Note> Notes { get; }
-        ICollection<Settings> Settings { get; }
-        ICollection<Time> Times { get; }
-        ICollection<ToDo> ToDos { get; }
-
-        Task SaveChanges();
-    }
-
-    public interface IDatabaseAccess
-    {
-        Task<IDatabase> CreateDatabase();
-    }
-
     public class DataService : INotifyPropertyChanged
     {
         #region INotifyPropertyChanged
@@ -159,12 +141,14 @@ namespace TheLastTime.Shared.Data
                 ShowSavedSettings = Settings.ShowSavedSettings,
                 SelectedCategoryId = Settings.SelectedCategoryId,
                 ShowPercentMin = Settings.ShowPercentMin,
+
                 ShowPinned = Settings.ShowPinned,
                 ShowStarred = Settings.ShowStarred,
                 ShowTwoMinute = Settings.ShowTwoMinute,
                 ShowNeverDone = Settings.ShowNeverDone,
                 ShowDoneOnce = Settings.ShowDoneOnce,
                 ShowRatioOverPercentMin = Settings.ShowRatioOverPercentMin,
+
                 ShowHelp = Settings.ShowHelp,
                 ShowFilters = Settings.ShowFilters,
                 ShowAdvancedFilters = Settings.ShowAdvancedFilters,
@@ -184,6 +168,7 @@ namespace TheLastTime.Shared.Data
                 ShowRatioOptions = Settings.ShowRatioOptions,
                 ShowTimes = Settings.ShowTimes,
                 BackupToGoogleDrive = Settings.BackupToGoogleDrive,
+
                 Size = Settings.Size,
                 Theme = Settings.Theme,
                 Ratio = Settings.Ratio,
@@ -216,15 +201,18 @@ namespace TheLastTime.Shared.Data
             {
                 dbSettings.Description = Settings.Description;
                 dbSettings.SelectedSettingsId = Settings.SelectedSettingsId;
+
                 dbSettings.ShowSavedSettings = Settings.ShowSavedSettings;
                 dbSettings.SelectedCategoryId = Settings.SelectedCategoryId;
                 dbSettings.ShowPercentMin = Settings.ShowPercentMin;
+
                 dbSettings.ShowPinned = Settings.ShowPinned;
                 dbSettings.ShowStarred = Settings.ShowStarred;
                 dbSettings.ShowTwoMinute = Settings.ShowTwoMinute;
                 dbSettings.ShowNeverDone = Settings.ShowNeverDone;
                 dbSettings.ShowDoneOnce = Settings.ShowDoneOnce;
                 dbSettings.ShowRatioOverPercentMin = Settings.ShowRatioOverPercentMin;
+
                 dbSettings.ShowHelp = Settings.ShowHelp;
                 dbSettings.ShowFilters = Settings.ShowFilters;
                 dbSettings.ShowAdvancedFilters = Settings.ShowAdvancedFilters;
@@ -244,6 +232,7 @@ namespace TheLastTime.Shared.Data
                 dbSettings.ShowRatioOptions = Settings.ShowRatioOptions;
                 dbSettings.ShowTimes = Settings.ShowTimes;
                 dbSettings.BackupToGoogleDrive = Settings.BackupToGoogleDrive;
+
                 dbSettings.Size = Settings.Size;
                 dbSettings.Theme = Settings.Theme;
                 dbSettings.Ratio = Settings.Ratio;

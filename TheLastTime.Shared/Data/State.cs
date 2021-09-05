@@ -21,6 +21,8 @@ namespace TheLastTime.Shared.Data
 
         public bool EditHabit { get; set; }
 
+        public bool EditNote { get; set; }
+
         private bool showOptions;
         public bool ShowOptions
         {
