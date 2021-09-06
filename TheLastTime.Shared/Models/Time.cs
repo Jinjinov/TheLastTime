@@ -13,5 +13,10 @@ namespace TheLastTime.Shared.Models
 
         [Required]
         public long HabitId { get; set; }
+
+        public void CopyTo(Time time)
+        {
+            time.DateTime = DateTime;
+        }
     }
 }

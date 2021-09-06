@@ -56,6 +56,18 @@ namespace TheLastTime.Shared.Models
 
         internal double ElapsedToDesiredRatio => TimeList.Count >= 1 ? ElapsedTime / DesiredInterval * 100.0 : 0.0;
 
+        public void CopyTo(Habit habit)
+        {
+            habit.CategoryId = CategoryId;
+            habit.Description = Description;
+            habit.Notes = Notes;
+            habit.IsPinned = IsPinned;
+            habit.IsStarred = IsStarred;
+            habit.IsTwoMinute = IsTwoMinute;
+            habit.AverageIntervalTicks = AverageIntervalTicks;
+            habit.DesiredIntervalTicks = DesiredIntervalTicks;
+        }
+
         //internal bool IsRatioOverOne(Ratio ratio) => ratio switch
         //{
         //    Ratio.ElapsedToAverage => IsElapsedOverAverage,

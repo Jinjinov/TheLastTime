@@ -235,37 +235,27 @@ namespace TheLastTime.Shared.Data
             }
 
             /*
-
             bool changed = false;
-
             HabitList = db.Habits.ToList();
-
             do
             {
                 changed = false;
-
                 foreach (Habit habit in HabitList)
                 {
                     if (habit.TimeList.Count > 1)
                     {
                         Time lastTime = habit.TimeList.Last();
-
                         DateTime dateTime = lastTime.DateTime + habit.AverageInterval;
-
                         if (lastTime.DateTime + habit.AverageInterval < DateTime.Now)
                         {
                             Time item = new Time { HabitId = habit.Id, DateTime = lastTime.DateTime + (0.98 * habit.AverageInterval) };
-
                             habit.TimeList.Add(item);
-
                             db.Times.Add(item);
-
                             changed = true;
                         }
                     }
                 }
             } while (changed);
-
             /**/
 
             await db.SaveChanges();
@@ -285,9 +275,7 @@ namespace TheLastTime.Shared.Data
             }
             else if (db.Categories.SingleOrDefault(c => c.Id == category.Id) is Category dbCategory)
             {
-                dbCategory.Description = category.Description;
-                dbCategory.Color = category.Color;
-                dbCategory.Icon = category.Icon;
+                category.CopyTo(dbCategory);
             }
 
             await db.SaveChanges();
@@ -328,14 +316,7 @@ namespace TheLastTime.Shared.Data
             }
             else if (db.Habits.SingleOrDefault(h => h.Id == habit.Id) is Habit dbHabit)
             {
-                dbHabit.CategoryId = habit.CategoryId;
-                dbHabit.Description = habit.Description;
-                dbHabit.Notes = habit.Notes;
-                dbHabit.IsPinned = habit.IsPinned;
-                dbHabit.IsStarred = habit.IsStarred;
-                dbHabit.IsTwoMinute = habit.IsTwoMinute;
-                dbHabit.AverageIntervalTicks = habit.AverageIntervalTicks;
-                dbHabit.DesiredIntervalTicks = habit.DesiredIntervalTicks;
+                habit.CopyTo(dbHabit);
             }
 
             await db.SaveChanges();
@@ -371,7 +352,7 @@ namespace TheLastTime.Shared.Data
             }
             else if (db.Times.SingleOrDefault(t => t.Id == time.Id) is Time dbTime)
             {
-                dbTime.DateTime = time.DateTime;
+                time.CopyTo(dbTime);
             }
 
             await db.SaveChanges();

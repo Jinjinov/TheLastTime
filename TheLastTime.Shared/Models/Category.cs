@@ -25,5 +25,13 @@ namespace TheLastTime.Shared.Models
         public List<Note> NoteList = new List<Note>();
 
         public List<ToDo> ToDoList = new List<ToDo>();
+
+        public void CopyTo(Category category)
+        {
+            category.GroupId = GroupId;
+            category.Description = Description;
+            category.Color = Color;
+            category.Icon = Icon;
+        }
     }
 }
