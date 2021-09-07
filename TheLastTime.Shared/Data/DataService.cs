@@ -265,6 +265,26 @@ namespace TheLastTime.Shared.Data
             OnPropertyChanged(nameof(CategoryList));
         }
 
+        public async Task Save<T>(T entity) where T : IEntity<T>
+        {
+            using IDatabase db = await DatabaseAccess.CreateDatabase();
+
+            if (entity.Id == 0)
+            {
+                db.GetCollection<T>().Add(entity);
+            }
+            else if (db.GetCollection<T>().SingleOrDefault(e => e.Id == entity.Id) is T dbEntity)
+            {
+                entity.CopyTo(dbEntity);
+            }
+
+            await db.SaveChanges();
+
+            await LoadData();
+
+            OnPropertyChanged(nameof(T));
+        }
+
         public async Task SaveCategory(Category category)
         {
             using IDatabase db = await DatabaseAccess.CreateDatabase();
