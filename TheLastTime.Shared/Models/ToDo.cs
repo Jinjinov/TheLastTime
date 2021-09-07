@@ -2,7 +2,7 @@
 
 namespace TheLastTime.Shared.Models
 {
-    public class ToDo
+    public class ToDo : IEntity<ToDo>
     {
         [Key]
         public long Id { get; set; }
@@ -15,5 +15,12 @@ namespace TheLastTime.Shared.Models
 
         [Required]
         public long CategoryId { get; set; }
+
+        public void CopyTo(ToDo toDo)
+        {
+            toDo.Description = Description;
+            toDo.Notes = Notes;
+            toDo.CategoryId = CategoryId;
+        }
     }
 }

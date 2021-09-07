@@ -15,6 +15,8 @@ namespace TheLastTime.Shared.Data
         ICollection<Time> Times { get; }
         ICollection<ToDo> ToDos { get; }
 
+        ICollection<T> GetCollection<T>();
+
         Task SaveChanges();
 
         async Task Seed(string size, string theme)

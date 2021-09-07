@@ -2,7 +2,7 @@
 
 namespace TheLastTime.Shared.Models
 {
-    public class Note
+    public class Note : IEntity<Note>
     {
         [Key]
         public long Id { get; set; }
@@ -15,5 +15,12 @@ namespace TheLastTime.Shared.Models
 
         [Required]
         public long CategoryId { get; set; }
+
+        public void CopyTo(Note note)
+        {
+            note.Title = Title;
+            note.Text = Text;
+            note.CategoryId = CategoryId;
+        }
     }
 }

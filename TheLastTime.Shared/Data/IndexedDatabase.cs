@@ -1,5 +1,6 @@
 ﻿using IndexedDB.Blazor;
 using Microsoft.JSInterop;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TheLastTime.Shared.Models;
@@ -8,7 +9,18 @@ namespace TheLastTime.Shared.Data
 {
     public class IndexedDatabase : IndexedDb, IDatabase
     {
-        public IndexedDatabase(IJSRuntime jSRuntime, string name, int version) : base(jSRuntime, name, version) { }
+        readonly Dictionary<Type, object> _collectionByTypeDict = new Dictionary<Type, object>();
+
+        public IndexedDatabase(IJSRuntime jSRuntime, string name, int version) : base(jSRuntime, name, version)
+        {
+            _collectionByTypeDict[typeof(Category)] = Categories;
+            _collectionByTypeDict[typeof(Group)] = Groups;
+            _collectionByTypeDict[typeof(Habit)] = Habits;
+            _collectionByTypeDict[typeof(Note)] = Notes;
+            _collectionByTypeDict[typeof(Settings)] = Settings;
+            _collectionByTypeDict[typeof(Time)] = Times;
+            _collectionByTypeDict[typeof(ToDo)] = ToDos;
+        }
 
         public IndexedSet<Category> Categories { get; set; } = null!;
         public IndexedSet<Group> Groups { get; set; } = null!;
@@ -25,6 +37,8 @@ namespace TheLastTime.Shared.Data
         ICollection<Settings> IDatabase.Settings => Settings;
         ICollection<Time> IDatabase.Times => Times;
         ICollection<ToDo> IDatabase.ToDos => ToDos;
+
+        public ICollection<T> GetCollection<T>() => (ICollection<T>)_collectionByTypeDict[typeof(T)];
     }
 
     public class DatabaseAccess : IDatabaseAccess

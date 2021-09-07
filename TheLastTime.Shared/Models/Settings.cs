@@ -17,7 +17,7 @@ namespace TheLastTime.Shared.Models
         SelectedRatio
     }
 
-    public class Settings
+    public class Settings : IEntity<Settings>
     {
         [Key]
         public long Id { get; set; }

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace TheLastTime.Shared.Models
 {
-    public class Habit
+    public class Habit : IEntity<Habit>
     {
         [Key]
         public long Id { get; set; }

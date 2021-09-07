@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TheLastTime.Shared.Models
 {
-    public class Category
+    public class Category : IEntity<Category>
     {
         [Key]
         public long Id { get; set; }
