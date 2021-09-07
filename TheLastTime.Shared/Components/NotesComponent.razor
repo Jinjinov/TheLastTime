@@ -1,25 +1,21 @@
-﻿<Markdown Value="@markdownValue" ValueChanged="@OnMarkdownValueChanged" />
+﻿@foreach (Note note in DataService.NoteList)
+{
+    <NoteComponent Note="note" />
+}
 
-@((MarkupString)markdownHtml)
+<Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@NewNote"><span class="fa fa-fw fa-plus"></span></Button>
 
 @code{
-    string markdownValue = "# EasyMDE \n Go ahead, play around with the editor! Be sure to check out **bold**, *italic*, [links](https://google.com) and all the other features. You can type the Markdown syntax, use the toolbar, or use shortcuts like `ctrl-b` or `cmd-b`.";
+    [Inject]
+    DataService DataService { get; set; } = null!;
 
-    string markdownHtml = string.Empty;
+    [Inject]
+    ThemeOptions Theme { get; set; } = null!;
 
-    protected override void OnInitialized()
+    async Task NewNote()
     {
-        markdownHtml = Markdig.Markdown.ToHtml(markdownValue ?? string.Empty);
+        Note note = new Note();
 
-        base.OnInitialized();
-    }
-
-    Task OnMarkdownValueChanged(string value)
-    {
-        markdownValue = value;
-
-        markdownHtml = Markdig.Markdown.ToHtml(markdownValue ?? string.Empty);
-
-        return Task.CompletedTask;
+        await DataService.Save(note);
     }
 }

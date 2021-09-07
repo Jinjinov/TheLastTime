@@ -9,18 +9,7 @@ namespace TheLastTime.Shared.Data
 {
     public class IndexedDatabase : IndexedDb, IDatabase
     {
-        readonly Dictionary<Type, object> _collectionByTypeDict = new Dictionary<Type, object>();
-
-        public IndexedDatabase(IJSRuntime jSRuntime, string name, int version) : base(jSRuntime, name, version)
-        {
-            _collectionByTypeDict[typeof(Category)] = Categories;
-            _collectionByTypeDict[typeof(Group)] = Groups;
-            _collectionByTypeDict[typeof(Habit)] = Habits;
-            _collectionByTypeDict[typeof(Note)] = Notes;
-            _collectionByTypeDict[typeof(Settings)] = Settings;
-            _collectionByTypeDict[typeof(Time)] = Times;
-            _collectionByTypeDict[typeof(ToDo)] = ToDos;
-        }
+        public IndexedDatabase(IJSRuntime jSRuntime, string name, int version) : base(jSRuntime, name, version) { }
 
         public IndexedSet<Category> Categories { get; set; } = null!;
         public IndexedSet<Group> Groups { get; set; } = null!;
@@ -38,7 +27,18 @@ namespace TheLastTime.Shared.Data
         ICollection<Time> IDatabase.Times => Times;
         ICollection<ToDo> IDatabase.ToDos => ToDos;
 
-        public ICollection<T> GetCollection<T>() => (ICollection<T>)_collectionByTypeDict[typeof(T)];
+        public ICollection<T> GetCollection<T>()
+        {
+            if(typeof(T) == typeof(Category)) return (ICollection<T>)Categories;
+            if(typeof(T) == typeof(Group)) return (ICollection<T>)Groups;
+            if(typeof(T) == typeof(Habit)) return (ICollection<T>)Habits;
+            if(typeof(T) == typeof(Note)) return (ICollection<T>)Notes;
+            if(typeof(T) == typeof(Settings)) return (ICollection<T>)Settings;
+            if(typeof(T) == typeof(Time)) return (ICollection<T>)Times;
+            if(typeof(T) == typeof(ToDo)) return (ICollection<T>)ToDos;
+
+            throw new Exception();
+        }
     }
 
     public class DatabaseAccess : IDatabaseAccess
