@@ -1,4 +1,10 @@
-﻿@foreach (Note note in DataService.NoteList)
+﻿
+@if (DataService.Settings.ShowCategories)
+{
+    <CategoryComponent />
+}
+
+@foreach (Note note in DataService.NoteList)
 {
     <NoteComponent Note="note" />
 }

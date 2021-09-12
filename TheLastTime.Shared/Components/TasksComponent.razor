@@ -1,4 +1,10 @@
-﻿@foreach (ToDo toDo in DataService.ToDoList)
+﻿
+@if (DataService.Settings.ShowCategories)
+{
+    <CategoryComponent />
+}
+
+@foreach (ToDo toDo in DataService.ToDoList)
 {
     <TaskComponent ToDo="toDo" />
 }
