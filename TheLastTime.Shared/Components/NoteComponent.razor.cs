@@ -19,7 +19,7 @@ namespace TheLastTime.Shared.Components
 
         string markdownHtml = string.Empty;
 
-        MarkdownPipeline pipeline = new MarkdownPipelineBuilder().UseAutoLinks().Build();
+        readonly MarkdownPipeline pipeline = new MarkdownPipelineBuilder().UseAutoLinks().Build();
 
         protected override void OnInitialized()
         {
