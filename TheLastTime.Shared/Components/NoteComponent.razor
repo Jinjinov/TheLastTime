@@ -5,4 +5,8 @@
 
 <MemoEdit Class="text-monospace" Rows="@Note.Lines" Text="@Note.Text" TextChanged="@OnMarkdownValueChanged" Placeholder="Add notes" />
 
-@((MarkupString)markdownHtml)
+<div class="card">
+    <div class="card-body p-2 text-monospace">
+        @((MarkupString)markdownHtml)
+    </div>
+</div>

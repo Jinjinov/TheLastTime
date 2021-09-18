@@ -1,12 +1,15 @@
-﻿
-@if (DataService.Settings.ShowCategories)
-{
-    <CategoryComponent />
-}
+﻿<div class="px-1 px-sm-3 py-2 py-sm-3">
+    @if (DataService.Settings.ShowCategories)
+    {
+        <CategoryComponent />
+    }
 
-@foreach (ToDo toDo in DataService.ToDoList)
-{
-    <TaskComponent ToDo="toDo" />
-}
+    @foreach (ToDo toDo in DataService.ToDoList)
+    {
+        <div class="py-2 py-sm-3">
+            <TaskComponent ToDo="toDo" />
+        </div>
+    }
 
-<Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@NewTask"><span class="fa fa-fw fa-plus"></span></Button>
+    <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@NewTask"><span class="fa fa-fw fa-plus"></span></Button>
+</div>
