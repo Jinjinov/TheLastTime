@@ -21,8 +21,32 @@ else
         <Header />
 
         @*<div class="d-flex flex-grow-1">*@
-            @Body
-            @*<TheLastTime.Shared.Pages.Index />*@
+        @Body
+        @*<TheLastTime.Shared.Pages.Index />*@
         @*</div>*@
     </div>
 </div>
+
+@*
+https://stackoverflow.com/questions/53896925/bootstrap-how-to-create-a-full-screen-layout-with-scrollable-columns
+https://stackoverflow.com/questions/35025164/how-can-i-create-scrollable-columns-in-bootstrap
+https://www.codeply.com/go/ouc3hddx5i
+<div class="container-fluid h-100 d-flex flex-column">
+    <div class="row flex-fill" style="min-height:0">
+        <div class="col-2 border mh-100" style="overflow-y: scroll;">Sidebar </div>
+        <div class="col-4 border mh-100" style="overflow-y: scroll;">Article list</div>
+        <div class="col-6 border" style="overflow-y: scroll;">Article content </div>
+    </div>
+</div>
+
+https://stackoverflow.com/questions/22752637/how-to-implement-responsive-independently-scrolling-panes-in-bootstrap
+https://www.codeply.com/go/LIaOWljJm8
+<div class="container-fluid d-flex flex-column vh-100 overflow-hidden">
+    <div class="row flex-grow-1 overflow-hidden">
+        <div class="col-2 mh-100 overflow-auto py-2">
+        </div>
+        <div class='col mh-100 overflow-auto'>
+        </div>
+    </div>
+</div>
+*@
