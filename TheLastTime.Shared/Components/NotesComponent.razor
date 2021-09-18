@@ -10,18 +10,3 @@
 }
 
 <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@NewNote"><span class="fa fa-fw fa-plus"></span></Button>
-
-@code{
-    [Inject]
-    DataService DataService { get; set; } = null!;
-
-    [Inject]
-    ThemeOptions Theme { get; set; } = null!;
-
-    async Task NewNote()
-    {
-        Note note = new Note();
-
-        await DataService.Save(note);
-    }
-}

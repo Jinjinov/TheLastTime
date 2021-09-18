@@ -1,42 +1,8 @@
 ﻿
 <TextEdit Size="@Theme.Size" Text="@Note.Title" TextChanged="@OnTitleChanged" />
 
-<Markdown Value="@Note.Text" ValueChanged="@OnMarkdownValueChanged" />
+@*<Markdown Value="@Note.Text" ValueChanged="@OnMarkdownValueChanged" />*@
+
+<MemoEdit Class="text-monospace" Rows="@Note.Lines" Text="@Note.Text" TextChanged="@OnMarkdownValueChanged" Placeholder="Add notes" />
 
 @((MarkupString)markdownHtml)
-
-@code{
-    [Parameter]
-    public Note Note { get; set; } = null!;
-
-    [Inject]
-    DataService DataService { get; set; } = null!;
-
-    [Inject]
-    ThemeOptions Theme { get; set; } = null!;
-
-    string markdownHtml = string.Empty;
-
-    protected override void OnInitialized()
-    {
-        markdownHtml = Markdig.Markdown.ToHtml(Note.Text);
-
-        base.OnInitialized();
-    }
-
-    async Task OnTitleChanged(string value)
-    {
-        Note.Title = value;
-
-        await DataService.Save(Note);
-    }
-
-    async Task OnMarkdownValueChanged(string value)
-    {
-        Note.Text = value;
-
-        markdownHtml = Markdig.Markdown.ToHtml(Note.Text);
-
-        await DataService.Save(Note);
-    }
-}

@@ -10,18 +10,3 @@
 }
 
 <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@NewTask"><span class="fa fa-fw fa-plus"></span></Button>
-
-@code{
-    [Inject]
-    DataService DataService { get; set; } = null!;
-
-    [Inject]
-    ThemeOptions Theme { get; set; } = null!;
-
-    async Task NewTask()
-    {
-        ToDo toDo = new ToDo();
-
-        await DataService.Save(toDo);
-    }
-}

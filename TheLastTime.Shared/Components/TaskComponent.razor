@@ -2,28 +2,3 @@
 <TextEdit Size="@Theme.Size" Text="@ToDo.Description" TextChanged="@OnDescriptionChanged" />
 
 <MemoEdit Class="text-monospace" Text="@ToDo.Notes" TextChanged="@OnNotesChanged" />
-
-@code{
-    [Parameter]
-    public ToDo ToDo { get; set; } = null!;
-
-    [Inject]
-    DataService DataService { get; set; } = null!;
-
-    [Inject]
-    ThemeOptions Theme { get; set; } = null!;
-
-    async Task OnDescriptionChanged(string value)
-    {
-        ToDo.Description = value;
-
-        await DataService.Save(ToDo);
-    }
-
-    async Task OnNotesChanged(string value)
-    {
-        ToDo.Notes = value;
-
-        await DataService.Save(ToDo);
-    }
-}
