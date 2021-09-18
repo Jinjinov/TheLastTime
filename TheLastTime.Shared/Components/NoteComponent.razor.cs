@@ -19,12 +19,18 @@ namespace TheLastTime.Shared.Components
 
         string markdownHtml = string.Empty;
 
+        MarkdownPipeline pipeline = new MarkdownPipelineBuilder().UseAutoLinks().Build();
+
         protected override void OnInitialized()
         {
-            MarkdownPipeline pipeline = new MarkdownPipelineBuilder().UseAutoLinks().Build();
-            markdownHtml = Markdown.ToHtml(Note.Text, pipeline);
+            MarkdownToHtml();
 
             base.OnInitialized();
+        }
+
+        private void MarkdownToHtml()
+        {
+            markdownHtml = Markdown.ToHtml(Note.Text, pipeline);
         }
 
         async Task OnTitleChanged(string value)
@@ -38,7 +44,7 @@ namespace TheLastTime.Shared.Components
         {
             Note.Text = value;
 
-            markdownHtml = Markdig.Markdown.ToHtml(Note.Text);
+            MarkdownToHtml();
 
             await DataService.Save(Note);
         }
