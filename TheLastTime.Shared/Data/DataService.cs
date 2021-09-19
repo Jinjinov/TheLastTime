@@ -41,8 +41,9 @@ namespace TheLastTime.Shared.Data
         }
         public Settings Settings { get; private set; } = new Settings();
 
+        public Category RootCategory { get; set; } = new Category();
+
         public List<Category> CategoryList { get; set; } = new List<Category>();
-        public List<Group> GroupList { get; set; } = new List<Group>();
         public List<Habit> HabitList { get; set; } = new List<Habit>();
         public List<Note> NoteList { get; set; } = new List<Note>();
         public List<Settings> SettingsList { get; set; } = new List<Settings>();
@@ -50,7 +51,6 @@ namespace TheLastTime.Shared.Data
         public List<ToDo> ToDoList { get; set; } = new List<ToDo>();
 
         public Dictionary<long, Category> CategoryDict { get; set; } = new Dictionary<long, Category>();
-        public Dictionary<long, Group> GroupDict { get; set; } = new Dictionary<long, Group>();
         public Dictionary<long, Habit> HabitDict { get; set; } = new Dictionary<long, Habit>();
         public Dictionary<long, Note> NoteDict { get; set; } = new Dictionary<long, Note>();
         public Dictionary<long, Settings> SettingsDict { get; set; } = new Dictionary<long, Settings>();
@@ -149,7 +149,8 @@ namespace TheLastTime.Shared.Data
 
             if (db.Categories.Count == 0)
             {
-                db.Categories.Add(new Category() { Id = 1, Description = "No category" });
+                RootCategory = new Category() { Id = 1, Description = "No category" };
+                db.Categories.Add(RootCategory);
                 save = true;
             }
 
@@ -159,7 +160,6 @@ namespace TheLastTime.Shared.Data
             }
 
             CategoryList = db.Categories.ToList();
-            GroupList = db.Groups.ToList();
             HabitList = db.Habits.ToList();
             NoteList = db.Notes.ToList();
             SettingsList = db.Settings.ToList();
@@ -167,12 +167,26 @@ namespace TheLastTime.Shared.Data
             ToDoList = db.ToDos.ToList();
 
             CategoryDict = CategoryList.ToDictionary(category => category.Id);
-            GroupDict = GroupList.ToDictionary(group => group.Id);
             HabitDict = HabitList.ToDictionary(habit => habit.Id);
             NoteDict = NoteList.ToDictionary(note => note.Id);
             SettingsDict = SettingsList.ToDictionary(settings => settings.Id);
             TimeDict = TimeList.ToDictionary(time => time.Id);
             ToDoDict = ToDoList.ToDictionary(todo => todo.Id);
+
+            RootCategory = CategoryList.First();
+
+            foreach (Category category in CategoryList)
+            {
+                if (CategoryDict.ContainsKey(category.CategoryId))
+                {
+                    Category parent = CategoryDict[category.CategoryId];
+
+                    if (parent.CategoryList == null)
+                        parent.CategoryList = new List<Category>();
+
+                    parent.CategoryList.Add(category);
+                }
+            }
 
             if (SettingsDict.ContainsKey(SettingsId))
             {

@@ -8,7 +8,6 @@ namespace TheLastTime.Shared.Data
     public interface IDatabase : IDisposable
     {
         ICollection<Category> Categories { get; }
-        ICollection<Group> Groups { get; }
         ICollection<Habit> Habits { get; }
         ICollection<Note> Notes { get; }
         ICollection<Settings> Settings { get; }
@@ -21,17 +20,17 @@ namespace TheLastTime.Shared.Data
 
         async Task Seed(string size, string theme)
         {
-            Categories.Add(new Category() { Id = 2, Description = "Health" });
-            Categories.Add(new Category() { Id = 3, Description = "Exercise" });
-            Categories.Add(new Category() { Id = 4, Description = "Appearance" });
+            Categories.Add(new Category() { Id = 2, CategoryId = 1, Description = "Health" });
+            Categories.Add(new Category() { Id = 3, CategoryId = 1, Description = "Exercise" });
+            Categories.Add(new Category() { Id = 4, CategoryId = 1, Description = "Appearance" });
 
-            Categories.Add(new Category() { Id = 5, Description = "Peace of mind" });
-            Categories.Add(new Category() { Id = 6, Description = "Relationships" });
-            Categories.Add(new Category() { Id = 7, Description = "Relaxation" });
+            Categories.Add(new Category() { Id = 5, CategoryId = 1, Description = "Peace of mind" });
+            Categories.Add(new Category() { Id = 6, CategoryId = 1, Description = "Relationships" });
+            Categories.Add(new Category() { Id = 7, CategoryId = 1, Description = "Relaxation" });
 
-            Categories.Add(new Category() { Id = 8, Description = "Hobbies" });
-            Categories.Add(new Category() { Id = 9, Description = "Chores" });
-            Categories.Add(new Category() { Id = 10, Description = "Job" });
+            Categories.Add(new Category() { Id = 8, CategoryId = 1, Description = "Hobbies" });
+            Categories.Add(new Category() { Id = 9, CategoryId = 1, Description = "Chores" });
+            Categories.Add(new Category() { Id = 10, CategoryId = 1, Description = "Job" });
 
             Habits.Add(new Habit() { Id = 1, CategoryId = 2, Description = "Drink a glass of water", DesiredInterval = new TimeSpan(0, 8, 0, 0), IsStarred = true, IsTwoMinute = true });
             Habits.Add(new Habit() { Id = 2, CategoryId = 2, Description = "Eat a piece of fruit", DesiredInterval = new TimeSpan(0, 12, 0, 0), IsTwoMinute = true });

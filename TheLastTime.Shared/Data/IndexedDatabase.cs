@@ -12,7 +12,6 @@ namespace TheLastTime.Shared.Data
         public IndexedDatabase(IJSRuntime jSRuntime, string name, int version) : base(jSRuntime, name, version) { }
 
         public IndexedSet<Category> Categories { get; set; } = null!;
-        public IndexedSet<Group> Groups { get; set; } = null!;
         public IndexedSet<Habit> Habits { get; set; } = null!;
         public IndexedSet<Note> Notes { get; set; } = null!;
         public IndexedSet<Settings> Settings { get; set; } = null!;
@@ -20,7 +19,6 @@ namespace TheLastTime.Shared.Data
         public IndexedSet<ToDo> ToDos { get; set; } = null!;
 
         ICollection<Category> IDatabase.Categories => Categories;
-        ICollection<Group> IDatabase.Groups => Groups;
         ICollection<Habit> IDatabase.Habits => Habits;
         ICollection<Note> IDatabase.Notes => Notes;
         ICollection<Settings> IDatabase.Settings => Settings;
@@ -30,7 +28,6 @@ namespace TheLastTime.Shared.Data
         public ICollection<T> GetCollection<T>()
         {
             if(typeof(T) == typeof(Category)) return (ICollection<T>)Categories;
-            if(typeof(T) == typeof(Group)) return (ICollection<T>)Groups;
             if(typeof(T) == typeof(Habit)) return (ICollection<T>)Habits;
             if(typeof(T) == typeof(Note)) return (ICollection<T>)Notes;
             if(typeof(T) == typeof(Settings)) return (ICollection<T>)Settings;

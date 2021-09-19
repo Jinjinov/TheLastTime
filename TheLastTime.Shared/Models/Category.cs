@@ -9,7 +9,7 @@ namespace TheLastTime.Shared.Models
         public long Id { get; set; }
 
         [Required]
-        public long GroupId { get; set; }
+        public long CategoryId { get; set; }
 
         [Required]
         public string Description { get; set; } = string.Empty;
@@ -26,9 +26,11 @@ namespace TheLastTime.Shared.Models
 
         public List<ToDo> ToDoList = new List<ToDo>();
 
+        public List<Category>? CategoryList;
+
         public void CopyTo(Category category)
         {
-            category.GroupId = GroupId;
+            category.CategoryId = CategoryId;
             category.Description = Description;
             category.Color = Color;
             category.Icon = Icon;

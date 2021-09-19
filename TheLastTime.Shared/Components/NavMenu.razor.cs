@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using TheLastTime.Shared.Data;
+using TheLastTime.Shared.Models;
 
 namespace TheLastTime.Shared.Components
 {
@@ -73,40 +74,7 @@ namespace TheLastTime.Shared.Components
             }
         }
 
-        public class Item
-        {
-            public string Text { get; set; } = string.Empty;
-            public IEnumerable<Item>? Children { get; set; }
-        }
-
-        readonly IEnumerable<Item> Items = new[]
-        {
-            new Item { Text = "Item 1" },
-            new Item
-            {
-                Text = "Item 2",
-                Children = new []
-                {
-                    new Item { Text = "Item 2.1" },
-                    new Item
-                    { 
-                        Text = "Item 2.2", 
-                        Children = new []
-                        {
-                            new Item { Text = "Item 2.2.1" },
-                            new Item { Text = "Item 2.2.2" },
-                            new Item { Text = "Item 2.2.3" },
-                            new Item { Text = "Item 2.2.4" }
-                        }
-                    },
-                    new Item { Text = "Item 2.3" },
-                    new Item { Text = "Item 2.4" }
-                }
-            },
-            new Item { Text = "Item 3" },
-        };
-
-        IList<Item> ExpandedNodes = new List<Item>();
-        Item selectedNode;
+        IList<Category> ExpandedNodes = new List<Category>();
+        Category selectedNode;
     }
 }
