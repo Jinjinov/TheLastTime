@@ -13,9 +13,22 @@
 
 <div class="@NavMenuCssClass">
 
-    <SettingsComponent />
+    @if (State.SelectedTab == "Habits")
+    {
+        <SettingsComponent />
 
-    @*<OptionsComponent />*@
+        @*<OptionsComponent />*@
+    }
+    else
+    {
+        <TreeView Nodes="Items"
+                  GetChildNodes="@(item => item.Children)"
+                  HasChildNodes="@(item => item.Children?.Any() == true)"
+                  @bind-SelectedNode="selectedNode"
+                  @bind-ExpandedNodes="ExpandedNodes">
+            <NodeContent>@context.Text</NodeContent>
+        </TreeView>
+    }
 
 </div>
 

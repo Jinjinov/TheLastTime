@@ -43,11 +43,9 @@ namespace TheLastTime.Shared.Pages
             State.PropertyChanged -= PropertyChanged;
         }
 
-        string selectedTab = "Habits";
-
         private void OnSelectedTabChanged(string name)
         {
-            selectedTab = name;
+            State.SelectedTab = name;
         }
     }
 }

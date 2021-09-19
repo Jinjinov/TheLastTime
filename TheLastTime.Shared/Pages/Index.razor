@@ -11,7 +11,7 @@ else if (State.ShowOptions)
 }
 else
 {
-    <Tabs SelectedTab="@selectedTab" SelectedTabChanged="@OnSelectedTabChanged">
+    <Tabs SelectedTab="@State.SelectedTab" SelectedTabChanged="@OnSelectedTabChanged">
         <Items>
             <Tab Name="Habits">Habits</Tab>
             <Tab Name="Notes">Notes</Tab>

@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using TheLastTime.Shared.Data;
 
 namespace TheLastTime.Shared.Components
 {
-    public partial class NavMenu
+    public sealed partial class NavMenu : IDisposable
     {
         [Inject]
         DataService DataService { get; set; } = null!;
@@ -14,6 +17,23 @@ namespace TheLastTime.Shared.Components
         bool collapseNavMenu = true;
 
         string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+        protected override void OnInitialized()
+        {
+            DataService.PropertyChanged += PropertyChanged;
+            State.PropertyChanged += PropertyChanged;
+        }
+
+        void PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            StateHasChanged();
+        }
+
+        public void Dispose()
+        {
+            DataService.PropertyChanged -= PropertyChanged;
+            State.PropertyChanged -= PropertyChanged;
+        }
 
         async void ToggleNavMenu()
         {
@@ -52,5 +72,41 @@ namespace TheLastTime.Shared.Components
                 await DataService.SaveSettings();
             }
         }
+
+        public class Item
+        {
+            public string Text { get; set; } = string.Empty;
+            public IEnumerable<Item>? Children { get; set; }
+        }
+
+        readonly IEnumerable<Item> Items = new[]
+        {
+            new Item { Text = "Item 1" },
+            new Item
+            {
+                Text = "Item 2",
+                Children = new []
+                {
+                    new Item { Text = "Item 2.1" },
+                    new Item
+                    { 
+                        Text = "Item 2.2", 
+                        Children = new []
+                        {
+                            new Item { Text = "Item 2.2.1" },
+                            new Item { Text = "Item 2.2.2" },
+                            new Item { Text = "Item 2.2.3" },
+                            new Item { Text = "Item 2.2.4" }
+                        }
+                    },
+                    new Item { Text = "Item 2.3" },
+                    new Item { Text = "Item 2.4" }
+                }
+            },
+            new Item { Text = "Item 3" },
+        };
+
+        IList<Item> ExpandedNodes = new List<Item>();
+        Item selectedNode;
     }
 }

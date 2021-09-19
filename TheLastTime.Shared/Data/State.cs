@@ -25,15 +25,29 @@ namespace TheLastTime.Shared.Data
 
         public bool EditToDo { get; set; }
 
-        private bool showOptions;
+        private bool _showOptions;
         public bool ShowOptions
         {
-            get => showOptions;
+            get => _showOptions;
             set
             {
-                if (showOptions != value)
+                if (_showOptions != value)
                 {
-                    showOptions = value;
+                    _showOptions = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _selectedTab = "Habits";
+        public string SelectedTab
+        {
+            get => _selectedTab;
+            set
+            {
+                if (_selectedTab != value)
+                {
+                    _selectedTab = value;
                     OnPropertyChanged();
                 }
             }
