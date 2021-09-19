@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace TheLastTime.Shared.Models
 {
@@ -15,6 +16,8 @@ namespace TheLastTime.Shared.Models
 
         [Required]
         public long CategoryId { get; set; }
+
+        internal int NotesLines => Notes.Count(c => c == '\n') + 1; // Notes.Split(Environment.NewLine).Length;
 
         public void CopyTo(ToDo toDo)
         {

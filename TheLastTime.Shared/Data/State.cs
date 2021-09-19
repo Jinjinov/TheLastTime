@@ -23,6 +23,8 @@ namespace TheLastTime.Shared.Data
 
         public bool EditNote { get; set; }
 
+        public bool EditToDo { get; set; }
+
         private bool showOptions;
         public bool ShowOptions
         {
@@ -73,6 +75,34 @@ namespace TheLastTime.Shared.Data
                 if (_selectedHabit != value)
                 {
                     _selectedHabit = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private Note? _selectedNote;
+        public Note? SelectedNote
+        {
+            get => _selectedNote;
+            set
+            {
+                if (_selectedNote != value)
+                {
+                    _selectedNote = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private ToDo? _selectedToDo;
+        public ToDo? SelectedToDo
+        {
+            get => _selectedToDo;
+            set
+            {
+                if (_selectedToDo != value)
+                {
+                    _selectedToDo = value;
                     OnPropertyChanged();
                 }
             }

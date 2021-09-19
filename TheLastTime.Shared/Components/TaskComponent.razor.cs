@@ -14,6 +14,9 @@ namespace TheLastTime.Shared.Components
         DataService DataService { get; set; } = null!;
 
         [Inject]
+        State State { get; set; } = null!;
+
+        [Inject]
         ThemeOptions Theme { get; set; } = null!;
 
         async Task OnDescriptionChanged(string value)

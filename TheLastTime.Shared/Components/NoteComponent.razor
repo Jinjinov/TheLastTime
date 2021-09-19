@@ -1,12 +1,31 @@
 ﻿
-<TextEdit Size="@Theme.Size" Text="@Note.Title" TextChanged="@OnTitleChanged" />
-
-@*<Markdown Value="@Note.Text" ValueChanged="@OnMarkdownValueChanged" />*@
-
-<MemoEdit Class="text-monospace" Rows="@Note.Lines" Text="@Note.Text" TextChanged="@OnMarkdownValueChanged" Placeholder="Add notes" />
-
-<div class="card">
-    <div class="card-body p-2 text-monospace">
-        @((MarkupString)markdownHtml)
+@if (State.SelectedNote == Note && State.EditNote)
+{
+    <div class="input-group flex-nowrap mb-1">
+        <TextEdit Size="@Theme.Size" Text="@Note.Title" TextChanged="@OnTitleChanged" />
+        <div class="input-group-append">
+            <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.EditNote = false; })"><span class="fa fa-fw fa-save"></span></Button>
+            <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.EditNote = false; })"><span class="fa fa-fw fa-times"></span></Button>
+        </div>
     </div>
-</div>
+
+    @*<Markdown Value="@Note.Text" ValueChanged="@OnMarkdownValueChanged" />*@
+
+    <MemoEdit Class="text-monospace pb-3" Rows="@Note.Lines" Text="@Note.Text" TextChanged="@OnMarkdownValueChanged" Placeholder="Add notes" />
+}
+else
+{
+    <div class="input-group flex-nowrap mb-1 d-flex">
+        <TextEdit Size="@Theme.Size" ReadOnly="true" Text="@Note.Title" />
+        <div class="input-group-append">
+            <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.SelectedNote = Note; State.EditNote = true; })"><span class="fa fa-fw fa-edit"></span></Button>
+            <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.SelectedNote = null; })"><span class="fas fa-fw fa-trash-alt"></span></Button>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body p-2 text-monospace">
+            @((MarkupString)markdownHtml)
+        </div>
+    </div>
+}

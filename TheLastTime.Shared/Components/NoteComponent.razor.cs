@@ -15,11 +15,14 @@ namespace TheLastTime.Shared.Components
         DataService DataService { get; set; } = null!;
 
         [Inject]
+        State State { get; set; } = null!;
+
+        [Inject]
         ThemeOptions Theme { get; set; } = null!;
 
         string markdownHtml = string.Empty;
 
-        readonly MarkdownPipeline pipeline = new MarkdownPipelineBuilder().UseAutoLinks().Build();
+        readonly MarkdownPipeline pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
 
         protected override void OnInitialized()
         {
