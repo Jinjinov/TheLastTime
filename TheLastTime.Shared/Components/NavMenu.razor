@@ -24,8 +24,8 @@
         <TreeView Nodes="DataService.RootCategory.CategoryList"
                   GetChildNodes="@(item => item.CategoryList)"
                   HasChildNodes="@(item => item.CategoryList?.Any() == true)"
-                  @bind-SelectedNode="selectedNode"
-                  @bind-ExpandedNodes="ExpandedNodes">
+                  @bind-SelectedNode="_selectedNode"
+                  @bind-ExpandedNodes="_expandedNodes">
             <NodeContent>@context.Description</NodeContent>
         </TreeView>
     }

@@ -118,5 +118,15 @@ namespace TheLastTime.Shared.Components
         //    byte[] data = Encoding.UTF8.GetBytes(content);
         //    await jsRuntime.InvokeAsync<object>("saveAsFile", filename, Convert.ToBase64String(data));
         //}
+
+        void ImportNotes(InputFileChangeEventArgs e)
+        {
+            int count = e.FileCount;
+
+            foreach (var item in e.GetMultipleFiles(count))
+            {
+                string path = item.Name;
+            }
+        }
     }
 }

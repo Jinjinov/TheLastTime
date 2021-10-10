@@ -15,9 +15,12 @@ namespace TheLastTime.Shared.Components
         [Inject]
         State State { get; set; } = null!;
 
-        bool collapseNavMenu = true;
+        bool _collapseNavMenu = true;
 
-        string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+        string? NavMenuCssClass => _collapseNavMenu ? "collapse" : null;
+
+        Category _selectedNode = null!;
+        IList<Category> _expandedNodes = new List<Category>();
 
         protected override void OnInitialized()
         {
@@ -38,7 +41,7 @@ namespace TheLastTime.Shared.Components
 
         async void ToggleNavMenu()
         {
-            collapseNavMenu = !collapseNavMenu;
+            _collapseNavMenu = !_collapseNavMenu;
 
             State.ShowOptions = false;
 
@@ -52,7 +55,7 @@ namespace TheLastTime.Shared.Components
         async void ShowHelp()
         {
             State.ShowOptions = false;
-            collapseNavMenu = true;
+            _collapseNavMenu = true;
 
             if (DataService.Settings.ShowHelp != true)
             {
@@ -65,7 +68,7 @@ namespace TheLastTime.Shared.Components
         {
             State.ShowOptions = !State.ShowOptions;
 
-            collapseNavMenu = true;
+            _collapseNavMenu = true;
 
             if (DataService.Settings.ShowHelp != false)
             {
@@ -73,8 +76,5 @@ namespace TheLastTime.Shared.Components
                 await DataService.SaveSettings();
             }
         }
-
-        IList<Category> ExpandedNodes = new List<Category>();
-        Category selectedNode;
     }
 }

@@ -197,6 +197,10 @@
                 <InputFile id="file-upload" class="d-none" OnChange="@ImportFile" />
             </li>
             <li class="nav-item p-2">
+                <label for="notes-upload" class="d-block btn @Theme.ButtonSizeClass btn-primary mb-0">Import notes</label>
+                <InputFile id="notes-upload" class="d-none" webkitdirectory directory multiple OnChange="@ImportNotes" />
+            </li>
+            <li class="nav-item p-2">
                 <Button Color="Color.Primary" Size="@Theme.Size" Block="true" @onclick="@(async () => { await DataService.ClearData(); })">Delete all</Button>
             </li>
             <li class="nav-item p-2">
