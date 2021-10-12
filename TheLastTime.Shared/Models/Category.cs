@@ -22,9 +22,9 @@ namespace TheLastTime.Shared.Models
 
         public List<Habit> HabitList = new List<Habit>();
 
-        public List<Note> NoteList = new List<Note>();
+        public List<Goal> GoalList = new List<Goal>();
 
-        public List<ToDo> ToDoList = new List<ToDo>();
+        public List<Tasky> TaskList = new List<Tasky>();
 
         public List<Category>? CategoryList;
 

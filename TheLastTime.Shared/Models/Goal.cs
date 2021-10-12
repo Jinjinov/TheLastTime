@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace TheLastTime.Shared.Models
 {
-    public class Note : IEntity<Note>
+    public class Goal : IEntity<Goal>
     {
         [Key]
         public long Id { get; set; }
@@ -19,11 +19,11 @@ namespace TheLastTime.Shared.Models
 
         internal int Lines => Text.Count(c => c == '\n') + 1; // Notes.Split(Environment.NewLine).Length;
 
-        public void CopyTo(Note note)
+        public void CopyTo(Goal goal)
         {
-            note.Title = Title;
-            note.Text = Text;
-            note.CategoryId = CategoryId;
+            goal.Title = Title;
+            goal.Text = Text;
+            goal.CategoryId = CategoryId;
         }
     }
 }

@@ -15,9 +15,9 @@ namespace TheLastTime.Shared.Components
 
         async Task NewNote()
         {
-            Note note = new Note();
+            Goal goal = new Goal();
 
-            await DataService.Save(note);
+            await DataService.Save(goal);
         }
     }
 }

@@ -4,10 +4,10 @@
         <CategoryComponent />
     }
 
-    @foreach (ToDo toDo in DataService.ToDoList)
+    @foreach (Tasky task in DataService.TaskList)
     {
         <div class="py-2 py-sm-3">
-            <TaskComponent ToDo="toDo" />
+            <TaskComponent Task="task" />
         </div>
     }
 

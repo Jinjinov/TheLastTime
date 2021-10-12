@@ -9,10 +9,10 @@ namespace TheLastTime.Shared.Data
     {
         ICollection<Category> Categories { get; }
         ICollection<Habit> Habits { get; }
-        ICollection<Note> Notes { get; }
+        ICollection<Goal> Goals { get; }
         ICollection<Settings> Settings { get; }
         ICollection<Time> Times { get; }
-        ICollection<ToDo> ToDos { get; }
+        ICollection<Tasky> Tasks { get; }
 
         ICollection<T> GetCollection<T>();
 

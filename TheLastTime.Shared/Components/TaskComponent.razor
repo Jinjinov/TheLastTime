@@ -1,25 +1,25 @@
 ﻿
-@if (State.SelectedToDo == ToDo && State.EditToDo)
+@if (State.SelectedTask == Task && State.EditToDo)
 {
     <div class="input-group flex-nowrap mb-1">
-        <TextEdit Size="@Theme.Size" Text="@ToDo.Description" TextChanged="@OnDescriptionChanged" />
+        <TextEdit Size="@Theme.Size" Text="@Task.Description" TextChanged="@OnDescriptionChanged" />
         <div class="input-group-append">
             <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.EditToDo = false; })"><span class="fa fa-fw fa-save"></span></Button>
             <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.EditToDo = false; })"><span class="fa fa-fw fa-times"></span></Button>
         </div>
     </div>
 
-    <MemoEdit Class="text-monospace" Rows="@ToDo.NotesLines" Text="@ToDo.Notes" TextChanged="@OnNotesChanged" Placeholder="Add notes" />
+    <MemoEdit Class="text-monospace" Rows="@Task.NotesLines" Text="@Task.Notes" TextChanged="@OnNotesChanged" Placeholder="Add notes" />
 }
 else
 {
     <div class="input-group flex-nowrap mb-1 d-flex">
-        <TextEdit Size="@Theme.Size" ReadOnly="true" Text="@ToDo.Description" />
+        <TextEdit Size="@Theme.Size" ReadOnly="true" Text="@Task.Description" />
         <div class="input-group-append">
-            <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.SelectedToDo = ToDo; State.EditToDo = true; })"><span class="fa fa-fw fa-edit"></span></Button>
-            <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.SelectedToDo = null; })"><span class="fas fa-fw fa-trash-alt"></span></Button>
+            <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.SelectedTask = Task; State.EditToDo = true; })"><span class="fa fa-fw fa-edit"></span></Button>
+            <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.SelectedTask = null; })"><span class="fas fa-fw fa-trash-alt"></span></Button>
         </div>
     </div>
 
-    <MemoEdit Class="text-monospace" ReadOnly="true" Rows="@ToDo.NotesLines" Text="@ToDo.Notes" Placeholder="Edit task to add notes" />
+    <MemoEdit Class="text-monospace" ReadOnly="true" Rows="@Task.NotesLines" Text="@Task.Notes" Placeholder="Edit task to add notes" />
 }

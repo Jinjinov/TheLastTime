@@ -4,10 +4,10 @@
         <CategoryComponent />
     }
 
-    @foreach (Note note in DataService.NoteList)
+    @foreach (Goal goal in DataService.GoalList)
     {
         <div class="py-2 py-sm-3">
-            <NoteComponent Note="note" />
+            <NoteComponent Goal="goal" />
         </div>
     }
 

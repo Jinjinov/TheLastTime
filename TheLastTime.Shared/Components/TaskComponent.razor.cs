@@ -8,7 +8,7 @@ namespace TheLastTime.Shared.Components
     public partial class TaskComponent
     {
         [Parameter]
-        public ToDo ToDo { get; set; } = null!;
+        public Tasky Task { get; set; } = null!;
 
         [Inject]
         DataService DataService { get; set; } = null!;
@@ -21,16 +21,16 @@ namespace TheLastTime.Shared.Components
 
         async Task OnDescriptionChanged(string value)
         {
-            ToDo.Description = value;
+            Task.Description = value;
 
-            await DataService.Save(ToDo);
+            await DataService.Save(Task);
         }
 
         async Task OnNotesChanged(string value)
         {
-            ToDo.Notes = value;
+            Task.Notes = value;
 
-            await DataService.Save(ToDo);
+            await DataService.Save(Task);
         }
     }
 }

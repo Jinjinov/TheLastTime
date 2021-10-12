@@ -94,29 +94,29 @@ namespace TheLastTime.Shared.Data
             }
         }
 
-        private Note? _selectedNote;
-        public Note? SelectedNote
+        private Goal? _selectedGoal;
+        public Goal? SelectedGoal
         {
-            get => _selectedNote;
+            get => _selectedGoal;
             set
             {
-                if (_selectedNote != value)
+                if (_selectedGoal != value)
                 {
-                    _selectedNote = value;
+                    _selectedGoal = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        private ToDo? _selectedToDo;
-        public ToDo? SelectedToDo
+        private Tasky? _selectedTask;
+        public Tasky? SelectedTask
         {
-            get => _selectedToDo;
+            get => _selectedTask;
             set
             {
-                if (_selectedToDo != value)
+                if (_selectedTask != value)
                 {
-                    _selectedToDo = value;
+                    _selectedTask = value;
                     OnPropertyChanged();
                 }
             }

@@ -15,9 +15,9 @@ namespace TheLastTime.Shared.Components
 
         async Task NewTask()
         {
-            ToDo toDo = new ToDo();
+            Tasky task = new Tasky();
 
-            await DataService.Save(toDo);
+            await DataService.Save(task);
         }
     }
 }

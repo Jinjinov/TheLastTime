@@ -45,17 +45,17 @@ namespace TheLastTime.Shared.Data
 
         public List<Category> CategoryList { get; set; } = new List<Category>();
         public List<Habit> HabitList { get; set; } = new List<Habit>();
-        public List<Note> NoteList { get; set; } = new List<Note>();
+        public List<Goal> GoalList { get; set; } = new List<Goal>();
         public List<Settings> SettingsList { get; set; } = new List<Settings>();
         public List<Time> TimeList { get; set; } = new List<Time>();
-        public List<ToDo> ToDoList { get; set; } = new List<ToDo>();
+        public List<Tasky> TaskList { get; set; } = new List<Tasky>();
 
         public Dictionary<long, Category> CategoryDict { get; set; } = new Dictionary<long, Category>();
         public Dictionary<long, Habit> HabitDict { get; set; } = new Dictionary<long, Habit>();
-        public Dictionary<long, Note> NoteDict { get; set; } = new Dictionary<long, Note>();
+        public Dictionary<long, Goal> GoalDict { get; set; } = new Dictionary<long, Goal>();
         public Dictionary<long, Settings> SettingsDict { get; set; } = new Dictionary<long, Settings>();
         public Dictionary<long, Time> TimeDict { get; set; } = new Dictionary<long, Time>();
-        public Dictionary<long, ToDo> ToDoDict { get; set; } = new Dictionary<long, ToDo>();
+        public Dictionary<long, Tasky> TaskDict { get; set; } = new Dictionary<long, Tasky>();
 
         readonly JsInterop JsInterop;
         public readonly IDatabaseAccess DatabaseAccess;
@@ -161,17 +161,17 @@ namespace TheLastTime.Shared.Data
 
             CategoryList = db.Categories.ToList();
             HabitList = db.Habits.ToList();
-            NoteList = db.Notes.ToList();
+            GoalList = db.Goals.ToList();
             SettingsList = db.Settings.ToList();
             TimeList = db.Times.ToList();
-            ToDoList = db.ToDos.ToList();
+            TaskList = db.Tasks.ToList();
 
             CategoryDict = CategoryList.ToDictionary(category => category.Id);
             HabitDict = HabitList.ToDictionary(habit => habit.Id);
-            NoteDict = NoteList.ToDictionary(note => note.Id);
+            GoalDict = GoalList.ToDictionary(note => note.Id);
             SettingsDict = SettingsList.ToDictionary(settings => settings.Id);
             TimeDict = TimeList.ToDictionary(time => time.Id);
-            ToDoDict = ToDoList.ToDictionary(todo => todo.Id);
+            TaskDict = TaskList.ToDictionary(todo => todo.Id);
 
             RootCategory = CategoryList.First();
 

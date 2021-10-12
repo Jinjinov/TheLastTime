@@ -9,7 +9,7 @@ namespace TheLastTime.Shared.Components
     public partial class NoteComponent
     {
         [Parameter]
-        public Note Note { get; set; } = null!;
+        public Goal Goal { get; set; } = null!;
 
         [Inject]
         DataService DataService { get; set; } = null!;
@@ -33,23 +33,23 @@ namespace TheLastTime.Shared.Components
 
         private void MarkdownToHtml()
         {
-            markdownHtml = Markdown.ToHtml(Note.Text, pipeline);
+            markdownHtml = Markdown.ToHtml(Goal.Text, pipeline);
         }
 
         async Task OnTitleChanged(string value)
         {
-            Note.Title = value;
+            Goal.Title = value;
 
-            await DataService.Save(Note);
+            await DataService.Save(Goal);
         }
 
         async Task OnMarkdownValueChanged(string value)
         {
-            Note.Text = value;
+            Goal.Text = value;
 
             MarkdownToHtml();
 
-            await DataService.Save(Note);
+            await DataService.Save(Goal);
         }
     }
 }
