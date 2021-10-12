@@ -5,7 +5,7 @@ using TheLastTime.Shared.Models;
 
 namespace TheLastTime.Shared.Components
 {
-    public partial class NotesComponent
+    public partial class GoalsComponent
     {
         [Inject]
         DataService DataService { get; set; } = null!;
@@ -13,7 +13,7 @@ namespace TheLastTime.Shared.Components
         [Inject]
         ThemeOptions Theme { get; set; } = null!;
 
-        async Task NewNote()
+        async Task NewGoal()
         {
             Goal goal = new Goal();
 

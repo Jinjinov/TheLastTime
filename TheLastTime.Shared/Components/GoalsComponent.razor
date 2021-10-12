@@ -7,9 +7,9 @@
     @foreach (Goal goal in DataService.GoalList)
     {
         <div class="py-2 py-sm-3">
-            <NoteComponent Goal="goal" />
+            <GoalComponent Goal="goal" />
         </div>
     }
 
-    <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@NewNote"><span class="fa fa-fw fa-plus"></span></Button>
+    <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@NewGoal"><span class="fa fa-fw fa-plus"></span></Button>
 </div>

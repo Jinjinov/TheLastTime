@@ -6,7 +6,7 @@ using TheLastTime.Shared.Models;
 
 namespace TheLastTime.Shared.Components
 {
-    public partial class NoteComponent
+    public partial class GoalComponent
     {
         [Parameter]
         public Goal Goal { get; set; } = null!;
