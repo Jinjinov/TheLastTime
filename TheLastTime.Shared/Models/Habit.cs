@@ -20,6 +20,9 @@ namespace TheLastTime.Shared.Models
         public long CategoryId { get; set; }
 
         [Required]
+        public long GoalId { get; set; }
+
+        [Required]
         public bool IsPinned { get; set; }
 
         [Required]

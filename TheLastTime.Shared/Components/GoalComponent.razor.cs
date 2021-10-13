@@ -33,19 +33,19 @@ namespace TheLastTime.Shared.Components
 
         private void MarkdownToHtml()
         {
-            markdownHtml = Markdown.ToHtml(Goal.Text, pipeline);
+            markdownHtml = Markdown.ToHtml(Goal.Notes, pipeline);
         }
 
-        async Task OnTitleChanged(string value)
+        async Task OnDescriptionChanged(string value)
         {
-            Goal.Title = value;
+            Goal.Description = value;
 
             await DataService.Save(Goal);
         }
 
         async Task OnMarkdownValueChanged(string value)
         {
-            Goal.Text = value;
+            Goal.Notes = value;
 
             MarkdownToHtml();
 

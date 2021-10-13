@@ -2,7 +2,7 @@
 @if (State.SelectedGoal == Goal && State.EditNote)
 {
     <div class="input-group flex-nowrap mb-1">
-        <TextEdit Size="@Theme.Size" Text="@Goal.Title" TextChanged="@OnTitleChanged" />
+        <TextEdit Size="@Theme.Size" Text="@Goal.Description" TextChanged="@OnDescriptionChanged" />
         <div class="input-group-append">
             <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.EditNote = false; })"><span class="fa fa-fw fa-save"></span></Button>
             <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.EditNote = false; })"><span class="fa fa-fw fa-times"></span></Button>
@@ -11,12 +11,12 @@
 
     @*<Markdown Value="@Note.Text" ValueChanged="@OnMarkdownValueChanged" />*@
 
-    <MemoEdit Class="text-monospace pb-3" Rows="@Goal.Lines" Text="@Goal.Text" TextChanged="@OnMarkdownValueChanged" Placeholder="Add notes" />
+    <MemoEdit Class="text-monospace pb-3" Rows="@Goal.Lines" Text="@Goal.Notes" TextChanged="@OnMarkdownValueChanged" Placeholder="Add notes" />
 }
 else
 {
     <div class="input-group flex-nowrap mb-1 d-flex">
-        <TextEdit Size="@Theme.Size" ReadOnly="true" Text="@Goal.Title" />
+        <TextEdit Size="@Theme.Size" ReadOnly="true" Text="@Goal.Description" />
         <div class="input-group-append">
             <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.SelectedGoal = Goal; State.EditNote = true; })"><span class="fa fa-fw fa-edit"></span></Button>
             <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.SelectedGoal = null; })"><span class="fas fa-fw fa-trash-alt"></span></Button>

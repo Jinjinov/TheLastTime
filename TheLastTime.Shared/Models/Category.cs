@@ -20,9 +20,9 @@ namespace TheLastTime.Shared.Models
         [Required]
         public string Icon { get; set; } = string.Empty;
 
-        public List<Habit> HabitList = new List<Habit>();
-
         public List<Goal> GoalList = new List<Goal>();
+
+        public List<Habit> HabitList = new List<Habit>();
 
         public List<Tasky> TaskList = new List<Tasky>();
 

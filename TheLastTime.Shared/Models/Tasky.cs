@@ -17,6 +17,9 @@ namespace TheLastTime.Shared.Models
         [Required]
         public long CategoryId { get; set; }
 
+        [Required]
+        public long GoalId { get; set; }
+
         internal int NotesLines => Notes.Count(c => c == '\n') + 1; // Notes.Split(Environment.NewLine).Length;
 
         public void CopyTo(Tasky task)
