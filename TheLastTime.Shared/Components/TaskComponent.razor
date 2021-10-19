@@ -1,11 +1,11 @@
 ﻿
-@if (State.SelectedTask == Task && State.EditToDo)
+@if (State.SelectedTask == Task && State.EditTask)
 {
     <div class="input-group flex-nowrap mb-1">
         <TextEdit Size="@Theme.Size" Text="@Task.Description" TextChanged="@OnDescriptionChanged" />
         <div class="input-group-append">
-            <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.EditToDo = false; })"><span class="fa fa-fw fa-save"></span></Button>
-            <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.EditToDo = false; })"><span class="fa fa-fw fa-times"></span></Button>
+            <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.EditTask = false; })"><span class="fa fa-fw fa-save"></span></Button>
+            <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.EditTask = false; })"><span class="fa fa-fw fa-times"></span></Button>
         </div>
     </div>
 
@@ -16,7 +16,7 @@ else
     <div class="input-group flex-nowrap mb-1 d-flex">
         <TextEdit Size="@Theme.Size" ReadOnly="true" Text="@Task.Description" />
         <div class="input-group-append">
-            <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.SelectedTask = Task; State.EditToDo = true; })"><span class="fa fa-fw fa-edit"></span></Button>
+            <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.SelectedTask = Task; State.EditTask = true; })"><span class="fa fa-fw fa-edit"></span></Button>
             <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.SelectedTask = null; })"><span class="fas fa-fw fa-trash-alt"></span></Button>
         </div>
     </div>

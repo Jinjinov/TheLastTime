@@ -23,7 +23,7 @@ namespace TheLastTime.Shared.Data
 
         public bool EditNote { get; set; }
 
-        public bool EditToDo { get; set; }
+        public bool EditTask { get; set; }
 
         private bool _showOptions;
         public bool ShowOptions
@@ -75,7 +75,7 @@ namespace TheLastTime.Shared.Data
                     }
 
                     //OnPropertyChanged(nameof(SelectedCategory));
-                    Task.Run(() => DataService.SaveSettings());
+                    Task.Run(DataService.SaveSettings);
                 }
             }
         }

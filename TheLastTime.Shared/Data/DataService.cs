@@ -171,7 +171,7 @@ namespace TheLastTime.Shared.Data
             GoalDict = GoalList.ToDictionary(note => note.Id);
             SettingsDict = SettingsList.ToDictionary(settings => settings.Id);
             TimeDict = TimeList.ToDictionary(time => time.Id);
-            TaskDict = TaskList.ToDictionary(todo => todo.Id);
+            TaskDict = TaskList.ToDictionary(task => task.Id);
 
             RootCategory = CategoryList.First();
 
