@@ -8,6 +8,7 @@ using System.Net.Mime;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace TheLastTime.Shared.Data
 {
@@ -19,6 +20,8 @@ namespace TheLastTime.Shared.Data
 
         readonly DataService DataService;
 
+        Timer timer = new Timer() { AutoReset = false, Interval = 30 * 1000 };
+
         public GoogleDrive(HttpClient http, IAccessTokenProvider tokenProvider, DataService dataService)
         {
             Http = http;
@@ -27,19 +30,27 @@ namespace TheLastTime.Shared.Data
 
             DataService = dataService;
             DataService.PropertyChanged += PropertyChanged;
+
+            timer.Elapsed += async (object sender, ElapsedEventArgs e) => await Backup();
         }
 
-        async void PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        void PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (DataService.Settings.BackupToGoogleDrive)
             {
                 if (e.PropertyName == nameof(DataService.CategoryList) || e.PropertyName == nameof(DataService.HabitList) || e.PropertyName == nameof(DataService.TimeList))
                 {
-                    string jsonString = JsonSerializer.Serialize(DataService.CategoryList, new JsonSerializerOptions { IncludeFields = true, WriteIndented = true });
-
-                    await SaveFile(jsonString);
+                    timer.Stop();
+                    timer.Start();
                 }
             }
+        }
+
+        private async Task Backup()
+        {
+            string jsonString = JsonSerializer.Serialize(DataService.CategoryList, new JsonSerializerOptions { IncludeFields = true, WriteIndented = true });
+
+            await SaveFile(jsonString);
         }
 
         public void Dispose()
