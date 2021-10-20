@@ -91,7 +91,7 @@ namespace TheLastTime.Shared.Components
 
             if (categoryList != null)
             {
-                await DataService.AddData(categoryList);
+                await DataService.AddCategories(categoryList);
             }
         }
 
@@ -127,19 +127,22 @@ namespace TheLastTime.Shared.Components
         {
             int count = e.FileCount;
 
-            long maxId = DataService.GoalList.Max(g => g.Id);
+            long maxId = DataService.GoalList.Any() ? DataService.GoalList.Max(g => g.Id) : 0;
+
+            List<Goal> goalList = new List<Goal>();
 
             foreach (IBrowserFile browserFile in e.GetMultipleFiles(count))
             {
                 string name = browserFile.Name;
+
+                if (!name.EndsWith(".md"))
+                    continue;
 
                 Stream stream = browserFile.OpenReadStream();
 
                 using StreamReader streamReader = new StreamReader(stream);
 
                 string text = await streamReader.ReadToEndAsync();
-
-                // TODO: add to DB
 
                 Goal goal = new Goal
                 {
@@ -148,7 +151,11 @@ namespace TheLastTime.Shared.Components
                     Description = name,
                     Notes = text
                 };
+
+                goalList.Add(goal);
             }
+
+            await DataService.AddGoals(goalList);
         }
 
         async Task ReadDirectoryFiles()

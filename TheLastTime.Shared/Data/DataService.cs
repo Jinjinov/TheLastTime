@@ -229,7 +229,23 @@ namespace TheLastTime.Shared.Data
             OnPropertyChanged(nameof(CategoryList));
         }
 
-        public async Task AddData(List<Category> categoryList)
+        public async Task AddGoals(List<Goal> goalList)
+        {
+            using IDatabase db = await DatabaseAccess.CreateDatabase();
+
+            foreach (Goal goal in goalList)
+            {
+                db.Goals.Add(goal);
+            }
+
+            await db.SaveChanges();
+
+            await LoadData();
+
+            OnPropertyChanged(nameof(GoalList));
+        }
+
+        public async Task AddCategories(List<Category> categoryList)
         {
             using IDatabase db = await DatabaseAccess.CreateDatabase();
 
