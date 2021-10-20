@@ -321,9 +321,11 @@ namespace TheLastTime.Shared.Data
                 };
 
                 db.Categories.Add(root);
+
+                CategoryList.Add(root);
             }
 
-            TraverseCategories(jsonNodes, root);
+            TraverseCategories(db, jsonNodes, root);
 
             await db.SaveChanges();
 
@@ -332,7 +334,7 @@ namespace TheLastTime.Shared.Data
             OnPropertyChanged(nameof(CategoryList));
         }
 
-        private static void TraverseCategories(JsonElement json, Category parent)
+        private void TraverseCategories(IDatabase db, JsonElement json, Category parent)
         {
             foreach (JsonElement jsonElement in json.EnumerateArray())
             {
@@ -344,19 +346,21 @@ namespace TheLastTime.Shared.Data
                     if (!name.EndsWith(".md"))
                         continue;
 
-                    // TODO: add to DB
-
-                    // TODO: set Id
+                    long maxId = GoalList.Any() ? GoalList.Max(g => g.Id) : 0;
 
                     Goal goal = new Goal
                     {
-                        //Id = ,
+                        Id = ++maxId,
                         CategoryId = parent.Id,
                         Description = name[0..^3],
                         Notes = jsonText.GetString() ?? string.Empty
                     };
 
                     parent.GoalList.Add(goal);
+
+                    db.Goals.Add(goal);
+
+                    GoalList.Add(goal);
                 }
                 else if (jsonElement.TryGetProperty("nodes", out JsonElement jsonNodes))
                 {
@@ -365,13 +369,11 @@ namespace TheLastTime.Shared.Data
 
                     // TODO: get existing category form DB
 
-                    // TODO: add to DB
-
-                    // TODO: set Id
+                    long maxId = CategoryList.Max(category => category.Id);
 
                     Category category = new Category
                     {
-                        //Id = ,
+                        Id = ++maxId,
                         CategoryId = parent.Id,
                         Description = name
                     };
@@ -383,7 +385,11 @@ namespace TheLastTime.Shared.Data
 
                     parent.CategoryList.Add(category);
 
-                    TraverseCategories(jsonNodes, category);
+                    db.Categories.Add(category);
+
+                    CategoryList.Add(category);
+
+                    TraverseCategories(db, jsonNodes, category);
                 }
             }
         }
