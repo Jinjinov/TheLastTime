@@ -48,6 +48,8 @@ namespace TheLastTime.Shared.Data
 
         private async Task Backup()
         {
+            // TODO: serialize DataService.RootCategory
+
             string jsonString = JsonSerializer.Serialize(DataService.CategoryList, new JsonSerializerOptions { IncludeFields = true, WriteIndented = true });
 
             await SaveFile(jsonString);

@@ -233,6 +233,8 @@ namespace TheLastTime.Shared.Data
         {
             using IDatabase db = await DatabaseAccess.CreateDatabase();
 
+            // TODO: recurse with category.CategoryList
+
             foreach (Category category in categoryList)
             {
                 db.Categories.Add(category);

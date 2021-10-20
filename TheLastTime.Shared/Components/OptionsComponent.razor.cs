@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -61,6 +60,8 @@ namespace TheLastTime.Shared.Components
 
             if (e.File.Name.EndsWith(".json"))
             {
+                // TODO: Deserialize<Category>
+
                 categoryList = JsonSerializer.Deserialize<List<Category>>(text, new JsonSerializerOptions { IncludeFields = true, WriteIndented = true });
             }
 
@@ -98,6 +99,8 @@ namespace TheLastTime.Shared.Components
         {
             if (exportAllData)
             {
+                // TODO: serialize DataService.RootCategory
+
                 string jsonString = JsonSerializer.Serialize(DataService.CategoryList, new JsonSerializerOptions { IncludeFields = true, WriteIndented = true });
 
                 await JsInterop.SaveAsUTF8("ididit.json", jsonString);
@@ -120,20 +123,43 @@ namespace TheLastTime.Shared.Components
         //    await jsRuntime.InvokeAsync<object>("saveAsFile", filename, Convert.ToBase64String(data));
         //}
 
-        void ImportNotes(InputFileChangeEventArgs e)
+        async Task ImportNotes(InputFileChangeEventArgs e)
         {
             int count = e.FileCount;
 
-            foreach (var item in e.GetMultipleFiles(count))
+            long maxId = DataService.GoalList.Max(g => g.Id);
+
+            foreach (IBrowserFile browserFile in e.GetMultipleFiles(count))
             {
-                string path = item.Name;
+                string name = browserFile.Name;
+
+                Stream stream = browserFile.OpenReadStream();
+
+                using StreamReader streamReader = new StreamReader(stream);
+
+                string text = await streamReader.ReadToEndAsync();
+
+                // TODO: add to DB
+
+                Goal goal = new Goal
+                {
+                    Id = ++maxId,
+                    CategoryId = DataService.RootCategory.Id,
+                    Description = name,
+                    Notes = text
+                };
             }
         }
 
         async Task ReadDirectoryFiles()
         {
             JsonElement json = await JsInterop.ReadDirectoryFiles();
-            
+
+            ParseJson(json);
+        }
+
+        private void ParseJson(JsonElement json)
+        {
             JsonElement jsonName = json.GetProperty("name");
             JsonElement jsonNodes = json.GetProperty("nodes");
 
@@ -145,9 +171,12 @@ namespace TheLastTime.Shared.Components
             {
                 long maxId = DataService.CategoryList.Max(category => category.Id);
 
+                // TODO: add to DB
+
                 root = new Category
                 {
-                    CategoryId = ++maxId,
+                    Id = ++maxId,
+                    CategoryId = DataService.RootCategory.Id,
                     Description = name
                 };
             }
@@ -167,8 +196,13 @@ namespace TheLastTime.Shared.Components
                     if (!name.EndsWith(".md"))
                         continue;
 
+                    // TODO: add to DB
+
+                    // TODO: set Id
+
                     Goal goal = new Goal
                     {
+                        //Id = ,
                         CategoryId = parent.Id,
                         Description = name,
                         Notes = jsonText.GetString() ?? string.Empty
@@ -181,8 +215,15 @@ namespace TheLastTime.Shared.Components
                     if (name.StartsWith('.'))
                         continue;
 
+                    // TODO: get existing category form DB
+
+                    // TODO: add to DB
+
+                    // TODO: set Id
+
                     Category category = new Category
                     {
+                        //Id = ,
                         CategoryId = parent.Id,
                         Description = name
                     };
