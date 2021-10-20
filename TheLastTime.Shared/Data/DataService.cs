@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text.Json;
 using System.Threading.Tasks;
 using TheLastTime.Shared.Models;
 
@@ -295,6 +296,96 @@ namespace TheLastTime.Shared.Data
             await LoadData();
 
             OnPropertyChanged(nameof(CategoryList));
+        }
+
+        public async Task GetCategories(JsonElement json)
+        {
+            JsonElement jsonName = json.GetProperty("name");
+            JsonElement jsonNodes = json.GetProperty("nodes");
+
+            string name = jsonName.GetString() ?? string.Empty;
+
+            using IDatabase db = await DatabaseAccess.CreateDatabase();
+
+            Category? root = CategoryList.FirstOrDefault(c => c.Description == name);
+
+            if (root == null)
+            {
+                long maxId = CategoryList.Max(category => category.Id);
+
+                root = new Category
+                {
+                    Id = ++maxId,
+                    CategoryId = RootCategory.Id,
+                    Description = name
+                };
+
+                db.Categories.Add(root);
+            }
+
+            TraverseCategories(jsonNodes, root);
+
+            await db.SaveChanges();
+
+            await LoadData();
+
+            OnPropertyChanged(nameof(CategoryList));
+        }
+
+        private static void TraverseCategories(JsonElement json, Category parent)
+        {
+            foreach (JsonElement jsonElement in json.EnumerateArray())
+            {
+                JsonElement jsonName = jsonElement.GetProperty("name");
+                string name = jsonName.GetString() ?? string.Empty;
+
+                if (jsonElement.TryGetProperty("text", out JsonElement jsonText))
+                {
+                    if (!name.EndsWith(".md"))
+                        continue;
+
+                    // TODO: add to DB
+
+                    // TODO: set Id
+
+                    Goal goal = new Goal
+                    {
+                        //Id = ,
+                        CategoryId = parent.Id,
+                        Description = name[0..^3],
+                        Notes = jsonText.GetString() ?? string.Empty
+                    };
+
+                    parent.GoalList.Add(goal);
+                }
+                else if (jsonElement.TryGetProperty("nodes", out JsonElement jsonNodes))
+                {
+                    if (name.StartsWith('.'))
+                        continue;
+
+                    // TODO: get existing category form DB
+
+                    // TODO: add to DB
+
+                    // TODO: set Id
+
+                    Category category = new Category
+                    {
+                        //Id = ,
+                        CategoryId = parent.Id,
+                        Description = name
+                    };
+
+                    if (parent.CategoryList == null)
+                    {
+                        parent.CategoryList = new List<Category>();
+                    }
+
+                    parent.CategoryList.Add(category);
+
+                    TraverseCategories(jsonNodes, category);
+                }
+            }
         }
 
         public async Task Save<T>(T entity) where T : IEntity<T>
