@@ -22,7 +22,7 @@ namespace TheLastTime.Shared.Components
 
         string markdownHtml = string.Empty;
 
-        readonly MarkdownPipeline pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
+        readonly MarkdownPipeline pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().UseSoftlineBreakAsHardlineBreak().Build();
 
         protected override void OnInitialized()
         {

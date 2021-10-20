@@ -148,7 +148,7 @@ namespace TheLastTime.Shared.Components
                 {
                     Id = ++maxId,
                     CategoryId = DataService.RootCategory.Id,
-                    Description = name,
+                    Description = name[0..^3],
                     Notes = text
                 };
 
@@ -211,7 +211,7 @@ namespace TheLastTime.Shared.Components
                     {
                         //Id = ,
                         CategoryId = parent.Id,
-                        Description = name,
+                        Description = name[0..^3],
                         Notes = jsonText.GetString() ?? string.Empty
                     };
 
