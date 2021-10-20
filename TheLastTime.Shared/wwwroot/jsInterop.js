@@ -24,3 +24,37 @@ export function getDimensions() {
 export function setElementProperty(element, property, value) {
     element[property] = value;
 }
+
+export async function readDirectoryFiles() {
+    const dirHandle = await showDirectoryPicker();
+    var directory = {
+        kind: dirHandle.kind,
+        name: dirHandle.name,
+        nodes: []
+    };
+    await handleDirectoryEntry(dirHandle, directory);
+    return directory;
+};
+export async function handleDirectoryEntry(dirHandle, directory) {
+    for await (const handle of dirHandle.values()) {
+        if (handle.kind === "file") {
+            const file = await handle.getFile();
+            const text = await file.text();
+            var fileContent = {
+                kind: handle.kind,
+                name: handle.name,
+                text: text
+            };
+            directory.nodes.push(fileContent);
+        }
+        if (handle.kind === "directory") {
+            var subDirectory = {
+                kind: handle.kind,
+                name: handle.name,
+                nodes: []
+            };
+            directory.nodes.push(subDirectory);
+            await handleDirectoryEntry(handle, subDirectory);
+        }
+    }
+}

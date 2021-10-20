@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -126,6 +127,75 @@ namespace TheLastTime.Shared.Components
             foreach (var item in e.GetMultipleFiles(count))
             {
                 string path = item.Name;
+            }
+        }
+
+        async Task ReadDirectoryFiles()
+        {
+            JsonElement json = await JsInterop.ReadDirectoryFiles();
+            
+            JsonElement jsonName = json.GetProperty("name");
+            JsonElement jsonNodes = json.GetProperty("nodes");
+
+            string name = jsonName.GetString() ?? string.Empty;
+
+            Category? root = DataService.CategoryList.FirstOrDefault(c => c.Description == name);
+
+            if (root == null)
+            {
+                long maxId = DataService.CategoryList.Max(category => category.Id);
+
+                root = new Category
+                {
+                    CategoryId = ++maxId,
+                    Description = name
+                };
+            }
+
+            Traverse(jsonNodes, root);
+        }
+
+        private static void Traverse(JsonElement json, Category parent)
+        {
+            foreach (JsonElement jsonElement in json.EnumerateArray())
+            {
+                JsonElement jsonName = jsonElement.GetProperty("name");
+                string name = jsonName.GetString() ?? string.Empty;
+
+                if (jsonElement.TryGetProperty("text", out JsonElement jsonText))
+                {
+                    if (!name.EndsWith(".md"))
+                        continue;
+
+                    Goal goal = new Goal
+                    {
+                        CategoryId = parent.Id,
+                        Description = name,
+                        Notes = jsonText.GetString() ?? string.Empty
+                    };
+
+                    parent.GoalList.Add(goal);
+                }
+                else if (jsonElement.TryGetProperty("nodes", out JsonElement jsonNodes))
+                {
+                    if (name.StartsWith('.'))
+                        continue;
+
+                    Category category = new Category
+                    {
+                        CategoryId = parent.Id,
+                        Description = name
+                    };
+
+                    if (parent.CategoryList == null)
+                    {
+                        parent.CategoryList = new List<Category>();
+                    }
+
+                    parent.CategoryList.Add(category);
+
+                    Traverse(jsonNodes, category);
+                }
             }
         }
     }

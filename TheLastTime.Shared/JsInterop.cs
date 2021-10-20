@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace TheLastTime.Shared
@@ -53,6 +54,12 @@ namespace TheLastTime.Shared
 
             var module = await moduleTask.Value;
             await module.InvokeAsync<object>("saveAsFile", filename, Convert.ToBase64String(data));
+        }
+
+        public async ValueTask<JsonElement> ReadDirectoryFiles()
+        {
+            var module = await moduleTask.Value;
+            return await module.InvokeAsync<JsonElement>("readDirectoryFiles");
         }
 
         public async ValueTask DisposeAsync()

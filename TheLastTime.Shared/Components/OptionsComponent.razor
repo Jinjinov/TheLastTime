@@ -201,6 +201,9 @@
                 <InputFile id="notes-upload" class="d-none" webkitdirectory directory multiple OnChange="@ImportNotes" />
             </li>
             <li class="nav-item p-2">
+                <Button Color="Color.Primary" Size="@Theme.Size" Block="true" @onclick="@(async () => { await ReadDirectoryFiles(); })">Import folder</Button>
+            </li>
+            <li class="nav-item p-2">
                 <Button Color="Color.Primary" Size="@Theme.Size" Block="true" @onclick="@(async () => { await DataService.ClearData(); })">Delete all</Button>
             </li>
             <li class="nav-item p-2">
