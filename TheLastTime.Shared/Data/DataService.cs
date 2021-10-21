@@ -250,7 +250,7 @@ namespace TheLastTime.Shared.Data
         {
             using IDatabase db = await DatabaseAccess.CreateDatabase();
 
-            // TODO: recurse with category.CategoryList
+            // TODO: recurse this loop with category.CategoryList:
 
             foreach (Category category in categoryList)
             {
@@ -367,27 +367,33 @@ namespace TheLastTime.Shared.Data
                     if (name.StartsWith('.'))
                         continue;
 
-                    // TODO: get existing category form DB
+                    Category? category = CategoryList.FirstOrDefault(c => c.Description == name);
 
-                    long maxId = CategoryList.Max(category => category.Id);
-
-                    Category category = new Category
+                    if (category == null)
                     {
-                        Id = ++maxId,
-                        CategoryId = parent.Id,
-                        Description = name
-                    };
+                        long maxId = CategoryList.Max(category => category.Id);
+
+                        category = new Category
+                        {
+                            Id = ++maxId,
+                            CategoryId = parent.Id,
+                            Description = name
+                        };
+
+                        db.Categories.Add(category);
+
+                        CategoryList.Add(category);
+                    }
 
                     if (parent.CategoryList == null)
                     {
                         parent.CategoryList = new List<Category>();
                     }
 
-                    parent.CategoryList.Add(category);
-
-                    db.Categories.Add(category);
-
-                    CategoryList.Add(category);
+                    if (!parent.CategoryList.Any(c => c.Id == category.Id))
+                    {
+                        parent.CategoryList.Add(category);
+                    }
 
                     TraverseCategories(db, jsonNodes, category);
                 }
