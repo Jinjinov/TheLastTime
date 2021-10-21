@@ -14,14 +14,14 @@ else
     <Tabs SelectedTab="@State.SelectedTab" SelectedTabChanged="@OnSelectedTabChanged">
         <Items>
             <Tab Name="Habits">Habits</Tab>
-            <Tab Name="Notes">Notes</Tab>
+            <Tab Name="Goals">Goals</Tab>
             <Tab Name="Tasks">Tasks</Tab>
         </Items>
         <Content>
             <TabPanel Name="Habits">
                 <HabitsComponent />
             </TabPanel>
-            <TabPanel Name="Notes">
+            <TabPanel Name="Goals">
                 <GoalsComponent />
             </TabPanel>
             <TabPanel Name="Tasks">

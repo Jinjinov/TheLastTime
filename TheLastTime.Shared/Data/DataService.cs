@@ -150,7 +150,7 @@ namespace TheLastTime.Shared.Data
 
             if (db.Categories.Count == 0)
             {
-                RootCategory = new Category() { Id = 1, Description = "No category" };
+                RootCategory = new Category() { Id = 1, Description = "Main" };
                 db.Categories.Add(RootCategory);
                 save = true;
             }
