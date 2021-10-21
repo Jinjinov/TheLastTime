@@ -4,7 +4,7 @@
         <CategoryComponent />
     }
 
-    @foreach (Tasky task in DataService.TaskList)
+    @foreach (Tasky task in DataService.TaskList.Where(t => t.CategoryId == State.SelectedCategoryId))
     {
         <div class="py-2 py-sm-3">
             <TaskComponent Task="task" />
