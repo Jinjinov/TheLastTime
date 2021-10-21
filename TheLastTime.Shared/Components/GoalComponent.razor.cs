@@ -24,11 +24,18 @@ namespace TheLastTime.Shared.Components
 
         readonly MarkdownPipeline pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().UseSoftlineBreakAsHardlineBreak().Build();
 
-        protected override void OnInitialized()
-        {
-            MarkdownToHtml();
+        //protected override void OnInitialized() // is called once
+        //{
+        //    MarkdownToHtml(); // must be called on every render
 
-            base.OnInitialized();
+        //    base.OnInitialized();
+        //}
+
+        protected override void OnParametersSet() // is called on every render
+        {
+            MarkdownToHtml(); // must be called on every render
+
+            base.OnParametersSet();
         }
 
         private void MarkdownToHtml()

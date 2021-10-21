@@ -19,7 +19,7 @@ namespace TheLastTime.Shared.Components
 
         string? NavMenuCssClass => _collapseNavMenu ? "collapse" : null;
 
-        Category _selectedNode = null!;
+        //Category _selectedNode = null!;
         IList<Category> _expandedNodes = new List<Category>();
 
         protected override void OnInitialized()
