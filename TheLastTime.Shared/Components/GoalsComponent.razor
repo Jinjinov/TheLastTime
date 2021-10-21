@@ -4,7 +4,7 @@
         <CategoryComponent />
     }
 
-    @foreach (Goal goal in DataService.GoalList.Where(g => g.CategoryId == State.SelectedCategoryId))
+    @foreach (Goal goal in DataService.GoalList.Where(g => g.CategoryId == State.SelectedCategoryId || State.SelectedCategoryId == 0))
     {
         <div class="py-2 py-sm-3">
             <GoalComponent Goal="goal" />
