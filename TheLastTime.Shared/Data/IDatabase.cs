@@ -20,8 +20,8 @@ namespace TheLastTime.Shared.Data
 
         async Task Seed(string size, string theme)
         {
-            Categories.Add(new Category() { Id = 2, CategoryId = 1, Description = "Health" });
-            Categories.Add(new Category() { Id = 3, CategoryId = 1, Description = "Exercise" });
+            Categories.Add(new Category() { Id = 2, CategoryId = 1, Description = "Food" });
+            Categories.Add(new Category() { Id = 3, CategoryId = 1, Description = "Sports" });
             Categories.Add(new Category() { Id = 4, CategoryId = 1, Description = "Appearance" });
 
             Categories.Add(new Category() { Id = 5, CategoryId = 1, Description = "Peace of mind" });
@@ -30,7 +30,7 @@ namespace TheLastTime.Shared.Data
 
             Categories.Add(new Category() { Id = 8, CategoryId = 1, Description = "Hobbies" });
             Categories.Add(new Category() { Id = 9, CategoryId = 1, Description = "Chores" });
-            Categories.Add(new Category() { Id = 10, CategoryId = 1, Description = "Job" });
+            Categories.Add(new Category() { Id = 10, CategoryId = 1, Description = "Personal growth" });
 
             Habits.Add(new Habit() { Id = 1, CategoryId = 2, Description = "Drink a glass of water", DesiredInterval = new TimeSpan(0, 8, 0, 0), IsStarred = true, IsTwoMinute = true });
             Habits.Add(new Habit() { Id = 2, CategoryId = 2, Description = "Eat a piece of fruit", DesiredInterval = new TimeSpan(0, 12, 0, 0), IsTwoMinute = true });
@@ -56,8 +56,8 @@ namespace TheLastTime.Shared.Data
             Habits.Add(new Habit() { Id = 15, CategoryId = 9, Description = "Clean dust under the bed", DesiredInterval = new TimeSpan(14, 0, 0, 0) });
             Habits.Add(new Habit() { Id = 16, CategoryId = 9, Description = "Clean the windows", DesiredInterval = new TimeSpan(56, 0, 0, 0) });
 
-            Habits.Add(new Habit() { Id = 17, CategoryId = 10, Description = "Ask for a raise", DesiredInterval = new TimeSpan(182, 0, 0, 0), IsPinned = true });
-            Habits.Add(new Habit() { Id = 18, CategoryId = 10, Description = "Take a break", DesiredInterval = new TimeSpan(0, 8, 0, 0), IsTwoMinute = true });
+            Habits.Add(new Habit() { Id = 17, CategoryId = 10, Description = "Attend a workshop", DesiredInterval = new TimeSpan(182, 0, 0, 0), IsPinned = true });
+            Habits.Add(new Habit() { Id = 18, CategoryId = 10, Description = "Learn a new language", DesiredInterval = new TimeSpan(0, 8, 0, 0), IsTwoMinute = true });
 
             Times.Add(new Time() { Id = 1, HabitId = 5, DateTime = DateTime.Now.AddDays(-50) });
             Times.Add(new Time() { Id = 2, HabitId = 5, DateTime = DateTime.Now.AddDays(-28) });
