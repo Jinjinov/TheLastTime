@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheLastTime", "TheLastTime\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheLastTime.Shared", "TheLastTime.Shared\TheLastTime.Shared.csproj", "{E544AFFE-6C8A-4490-BFF9-D21AC103099C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheLastTime.WinForms", "TheLastTime.WinForms\TheLastTime.WinForms.csproj", "{1CC83DD1-39D7-4B78-84BC-8895B7628304}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheLastTime.WebView.WinForms", "TheLastTime.WebView.WinForms\TheLastTime.WebView.WinForms.csproj", "{1CC83DD1-39D7-4B78-84BC-8895B7628304}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheLastTime.Wpf", "TheLastTime.Wpf\TheLastTime.Wpf.csproj", "{F75F8166-4AA8-4117-B36A-B3314A099DFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheLastTime.WebView.Wpf", "TheLastTime.WebView.Wpf\TheLastTime.WebView.Wpf.csproj", "{F75F8166-4AA8-4117-B36A-B3314A099DFB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
