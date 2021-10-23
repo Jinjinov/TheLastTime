@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using System.Threading.Tasks;
 using TheLastTime.Shared.Data;
 using TheLastTime.Shared.Models;
 
@@ -19,18 +18,14 @@ namespace TheLastTime.Shared.Components
         [Inject]
         ThemeOptions Theme { get; set; } = null!;
 
-        async Task OnDescriptionChanged(string value)
+        private void OnDescriptionChanged(string value)
         {
             Task.Description = value;
-
-            await DataService.Save(Task);
         }
 
-        async Task OnNotesChanged(string value)
+        private void OnNotesChanged(string value)
         {
             Task.Notes = value;
-
-            await DataService.Save(Task);
         }
     }
 }

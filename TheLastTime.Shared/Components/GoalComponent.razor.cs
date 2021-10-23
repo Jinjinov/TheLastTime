@@ -1,6 +1,5 @@
 ﻿using Markdig;
 using Microsoft.AspNetCore.Components;
-using System.Threading.Tasks;
 using TheLastTime.Shared.Data;
 using TheLastTime.Shared.Models;
 
@@ -43,20 +42,16 @@ namespace TheLastTime.Shared.Components
             markdownHtml = Markdown.ToHtml(Goal.Notes, pipeline);
         }
 
-        async Task OnDescriptionChanged(string value)
+        private void OnDescriptionChanged(string value)
         {
             Goal.Description = value;
-
-            await DataService.Save(Goal);
         }
 
-        async Task OnMarkdownValueChanged(string value)
+        private void OnMarkdownValueChanged(string value)
         {
             Goal.Notes = value;
 
             MarkdownToHtml();
-
-            await DataService.Save(Goal);
         }
     }
 }
