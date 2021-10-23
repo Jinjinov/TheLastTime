@@ -15,6 +15,9 @@ namespace TheLastTime.Shared.Components
         [Inject]
         State State { get; set; } = null!;
 
+        [Inject]
+        ThemeOptions Theme { get; set; } = null!;
+
         bool _collapseNavMenu = true;
 
         string? NavMenuCssClass => _collapseNavMenu ? "collapse" : null;
