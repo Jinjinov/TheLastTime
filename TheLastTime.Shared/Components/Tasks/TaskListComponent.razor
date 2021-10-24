@@ -1,0 +1,15 @@
+﻿<div class="px-1 px-sm-3 py-2 py-sm-3">
+    @if (DataService.Settings.ShowCategories)
+    {
+        <CategoryComponent />
+    }
+
+    @foreach (Tasky task in DataService.TaskList.Where(t => t.CategoryId == State.SelectedCategoryId || State.SelectedCategoryId == 0))
+    {
+        <div class="py-2 py-sm-3">
+            <TaskComponent Task="task" />
+        </div>
+    }
+
+    <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@NewTask"><span class="fa fa-fw fa-plus"></span></Button>
+</div>

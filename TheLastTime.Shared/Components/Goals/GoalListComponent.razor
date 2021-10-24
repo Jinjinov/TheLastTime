@@ -1,0 +1,13 @@
+﻿<div class="px-1 px-sm-3 py-2 py-sm-3">
+    @if (DataService.Settings.ShowCategories)
+    {
+        <CategoryComponent />
+    }
+
+    @foreach (Goal goal in DataService.GoalList.Where(g => g.CategoryId == State.SelectedCategoryId || State.SelectedCategoryId == 0))
+    {
+        <GoalComponent Goal="goal" />
+    }
+
+    <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@NewGoal"><span class="fa fa-fw fa-plus"></span></Button>
+</div>
