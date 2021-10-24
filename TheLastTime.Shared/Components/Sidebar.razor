@@ -21,21 +21,7 @@
     }
     else
     {
-        <div class="p-2">
-            <Button Color="Color.Primary" Size="@Theme.Size" Block="true" @onclick="@(() => State.SelectedCategoryId = 0)">All</Button>
-        </div>
-
-        <div class="p-2">
-            <Button Color="Color.Primary" Size="@Theme.Size" Block="true" @onclick="@(() => State.SelectedCategoryId = 1)">Main</Button>
-        </div>
-
-        <TreeView Nodes="DataService.RootCategory.CategoryList"
-                  GetChildNodes="@(item => item.CategoryList)"
-                  HasChildNodes="@(item => item.CategoryList?.Any() == true)"
-                  @bind-SelectedNode="State.SelectedCategory"
-                  @bind-ExpandedNodes="_expandedNodes">
-            <NodeContent>@context.Description</NodeContent>
-        </TreeView>
+        <CategoryTreeComponent />
     }
 
 </div>

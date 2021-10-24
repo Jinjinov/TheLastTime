@@ -15,15 +15,9 @@ namespace TheLastTime.Shared.Components
         [Inject]
         State State { get; set; } = null!;
 
-        [Inject]
-        ThemeOptions Theme { get; set; } = null!;
-
         bool _collapseSidebar = true;
 
         string? SidebarCssClass => _collapseSidebar ? "collapse" : null;
-
-        //Category _selectedNode = null!;
-        IList<Category> _expandedNodes = new List<Category>();
 
         protected override void OnInitialized()
         {

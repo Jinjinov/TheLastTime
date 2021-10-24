@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using TheLastTime.Shared.Data;
+using TheLastTime.Shared.Models;
 
-namespace TheLastTime.Shared.Components
+namespace TheLastTime.Shared.Components.Categories
 {
-    public sealed partial class CategoryComponent : IDisposable
+    public partial class CategoryTreeComponent
     {
-        public bool editCategory;
-
         [Inject]
         DataService DataService { get; set; } = null!;
 
@@ -17,6 +17,8 @@ namespace TheLastTime.Shared.Components
 
         [Inject]
         ThemeOptions Theme { get; set; } = null!;
+
+        IList<Category> _expandedNodes = new List<Category>();
 
         protected override void OnInitialized()
         {
