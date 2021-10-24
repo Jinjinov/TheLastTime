@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using TheLastTime.Shared.Data;
-using TheLastTime.Shared.Models;
 
-namespace TheLastTime.Shared.Components
+namespace TheLastTime.Shared.Components.Habits
 {
-    public partial class GoalsComponent
+    public sealed partial class HabitListComponent
     {
         [Inject]
         DataService DataService { get; set; } = null!;
@@ -15,12 +13,13 @@ namespace TheLastTime.Shared.Components
         State State { get; set; } = null!;
 
         [Inject]
-        ThemeOptions Theme { get; set; } = null!;
+        Filters Filters { get; set; } = null!;
 
         protected override void OnInitialized()
         {
             DataService.PropertyChanged += PropertyChanged;
             State.PropertyChanged += PropertyChanged;
+            Filters.PropertyChanged += PropertyChanged;
         }
 
         void PropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -32,13 +31,7 @@ namespace TheLastTime.Shared.Components
         {
             DataService.PropertyChanged -= PropertyChanged;
             State.PropertyChanged -= PropertyChanged;
-        }
-
-        async Task NewGoal()
-        {
-            Goal goal = new Goal();
-
-            await DataService.Save(goal);
+            Filters.PropertyChanged -= PropertyChanged;
         }
     }
 }

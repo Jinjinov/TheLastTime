@@ -1,6 +1,6 @@
 ﻿
 <div class="top-row navbar navbar-dark bg-primary px-2 px-sm-3 px-md-2">
-    <button id="toggle-nav-menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+    <button id="toggle-nav-menu" class="navbar-toggler" @onclick="ToggleSidebar">
         <span class="fa fa-fw fa-bars"></span>
     </button>
 
@@ -11,7 +11,7 @@
     </button>
 </div>
 
-<div class="@NavMenuCssClass">
+<div class="@SidebarCssClass">
 
     @if (State.SelectedTab == "Habits")
     {

@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using TheLastTime.Shared.Data;
-using TheLastTime.Shared.Models;
 
-namespace TheLastTime.Shared.Components
+namespace TheLastTime.Shared.Components.Settings
 {
-    public partial class TasksComponent
+    public sealed partial class SavedSettingsComponent : IDisposable
     {
+        public bool editSettings;
+
         [Inject]
         DataService DataService { get; set; } = null!;
 
@@ -32,13 +33,6 @@ namespace TheLastTime.Shared.Components
         {
             DataService.PropertyChanged -= PropertyChanged;
             State.PropertyChanged -= PropertyChanged;
-        }
-
-        async Task NewTask()
-        {
-            Tasky task = new Tasky();
-
-            await DataService.Save(task);
         }
     }
 }

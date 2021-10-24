@@ -7,7 +7,7 @@ using TheLastTime.Shared.Models;
 
 namespace TheLastTime.Shared.Components
 {
-    public sealed partial class NavMenu : IDisposable
+    public sealed partial class Sidebar : IDisposable
     {
         [Inject]
         DataService DataService { get; set; } = null!;
@@ -18,9 +18,9 @@ namespace TheLastTime.Shared.Components
         [Inject]
         ThemeOptions Theme { get; set; } = null!;
 
-        bool _collapseNavMenu = true;
+        bool _collapseSidebar = true;
 
-        string? NavMenuCssClass => _collapseNavMenu ? "collapse" : null;
+        string? SidebarCssClass => _collapseSidebar ? "collapse" : null;
 
         //Category _selectedNode = null!;
         IList<Category> _expandedNodes = new List<Category>();
@@ -42,9 +42,9 @@ namespace TheLastTime.Shared.Components
             State.PropertyChanged -= PropertyChanged;
         }
 
-        async void ToggleNavMenu()
+        async void ToggleSidebar()
         {
-            _collapseNavMenu = !_collapseNavMenu;
+            _collapseSidebar = !_collapseSidebar;
 
             State.ShowOptions = false;
 
@@ -58,7 +58,7 @@ namespace TheLastTime.Shared.Components
         async void ShowHelp()
         {
             State.ShowOptions = false;
-            _collapseNavMenu = true;
+            _collapseSidebar = true;
 
             if (DataService.Settings.ShowHelp != true)
             {
@@ -71,7 +71,7 @@ namespace TheLastTime.Shared.Components
         {
             State.ShowOptions = !State.ShowOptions;
 
-            _collapseNavMenu = true;
+            _collapseSidebar = true;
 
             if (DataService.Settings.ShowHelp != false)
             {

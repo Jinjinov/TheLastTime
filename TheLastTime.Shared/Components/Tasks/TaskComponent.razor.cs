@@ -2,7 +2,7 @@
 using TheLastTime.Shared.Data;
 using TheLastTime.Shared.Models;
 
-namespace TheLastTime.Shared.Components
+namespace TheLastTime.Shared.Components.Tasks
 {
     public partial class TaskComponent
     {

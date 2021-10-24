@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using TheLastTime.Shared.Data;
 using TheLastTime.Shared.Models;
 
-namespace TheLastTime.Shared.Components
+namespace TheLastTime.Shared.Components.Settings
 {
     public sealed partial class SettingsComponent : IDisposable
     {

@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.Components;
-using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using TheLastTime.Shared.Data;
+using TheLastTime.Shared.Models;
 
-namespace TheLastTime.Shared.Components
+namespace TheLastTime.Shared.Components.Goals
 {
-    public sealed partial class SavedSettingsComponent : IDisposable
+    public partial class GoalsComponent
     {
-        public bool editSettings;
-
         [Inject]
         DataService DataService { get; set; } = null!;
 
@@ -33,6 +32,13 @@ namespace TheLastTime.Shared.Components
         {
             DataService.PropertyChanged -= PropertyChanged;
             State.PropertyChanged -= PropertyChanged;
+        }
+
+        async Task NewGoal()
+        {
+            Goal goal = new Goal();
+
+            await DataService.Save(goal);
         }
     }
 }
