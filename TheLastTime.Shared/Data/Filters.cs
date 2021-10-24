@@ -66,7 +66,7 @@ namespace TheLastTime.Shared.Data
             };
         }
 
-        public IEnumerable<Habit> GetHabits(bool pinned, long categoryId)
+        public IEnumerable<Habit> GetHabits(long categoryId, bool pinned)
         {
             IEnumerable<Habit> habits = DataService.HabitList.Where(habit =>
             {

@@ -12,10 +12,14 @@ namespace TheLastTime.Shared.Components
         [Inject]
         State State { get; set; } = null!;
 
+        [Inject]
+        Filters Filters { get; set; } = null!;
+
         protected override void OnInitialized()
         {
             DataService.PropertyChanged += PropertyChanged;
             State.PropertyChanged += PropertyChanged;
+            Filters.PropertyChanged += PropertyChanged;
         }
 
         void PropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -27,6 +31,7 @@ namespace TheLastTime.Shared.Components
         {
             DataService.PropertyChanged -= PropertyChanged;
             State.PropertyChanged -= PropertyChanged;
+            Filters.PropertyChanged -= PropertyChanged;
         }
     }
 }

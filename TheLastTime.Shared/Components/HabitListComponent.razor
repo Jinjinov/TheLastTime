@@ -1,13 +1,19 @@
 ﻿<div class="col-lg-12 col-xl-6 px-1 px-sm-3">
 
-    <HabitComponent Pinned="true" />
+    @foreach (Habit habit in Filters.GetHabits(State.SelectedCategoryId, pinned: true))
+    {
+        <HabitComponent Habit="habit" />
+    }
 
     @if (DataService.Settings.ShowCategories)
     {
         <CategoryComponent />
     }
 
-    <HabitComponent />
+    @foreach (Habit habit in Filters.GetHabits(State.SelectedCategoryId, pinned: false))
+    {
+        <HabitComponent Habit="habit" />
+    }
 
     <div class="py-5"></div>
 

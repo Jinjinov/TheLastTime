@@ -1,54 +1,50 @@
-﻿<div>
-    @foreach (Habit habit in Filters.GetHabits(Pinned, State.SelectedCategoryId))
-    {
-        <div class="input-group flex-nowrap my-1">
-            <div class="input-group-prepend flex-grow-1">
-                <div class="btn btn-secondary @Theme.ButtonSizeClass border border-right-0 flex-grow-1 d-flex" @onclick="@(() => { State.SelectedHabit = habit; })">
-                    @if (DataService.Settings.ShowHabitId)
-                    {
-                        <div class="m-1">@habit.Id</div>
-                    }
-                    @if (DataService.Settings.ShowPinStar2min)
-                    {
-                        @if (habit.IsPinned)
-                        {
-                            <div class="m-1"><span class="fa fa-fw fa-thumbtack"></span></div>
-                        }
-                        @if (habit.IsStarred)
-                        {
-                            <div class="m-1"><span class="fa fa-fw fa-star"></span></div>
-                        }
-                        @if (habit.IsTwoMinute)
-                        {
-                            <div class="m-1"><span class="fas fa-fw fa-hourglass"></span></div>
-                        }
-                    }
-                    <div class="m-1">@habit.Description</div>
-                    <div class="m-1 ml-auto">@(habit.TimeList.Count > 0 ? ToHighestValueString(habit.ElapsedTime) + " ago" : "Never")</div>
-                    @if (DataService.Settings.ShowRatio)
-                    {
-                        @if (habit.GetRatio(DataService.Settings.Ratio) >= 100)
-                        {
-                            <div class="m-1 font-weight-bold text-danger">( @habit.GetRatio(DataService.Settings.Ratio).ToString("N0") % )</div>
-                        }
-                        else if (habit.GetRatio(DataService.Settings.Ratio) >= 80)
-                        {
-                            <div class="m-1 font-weight-bold text-warning">( @habit.GetRatio(DataService.Settings.Ratio).ToString("N0") % )</div>
-                        }
-                        else if (habit.TimeList.Count > 1)
-                        {
-                            <div class="m-1 font-weight-bold text-info">( @habit.GetRatio(DataService.Settings.Ratio).ToString("N0") % )</div>
-                        }
-                        else
-                        {
-                            <div class="m-1"><span class="fa fa-fw fa-exclamation"></span></div>
-                        }
-                    }
-                </div>
-            </div>
-            <div class="input-group-append">
-                <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => OnHabitDone(habit))"><span class="fa fa-fw fa-check"></span></Button>
-            </div>
+﻿
+<div class="input-group flex-nowrap my-1">
+    <div class="input-group-prepend flex-grow-1">
+        <div class="btn btn-secondary @Theme.ButtonSizeClass border border-right-0 flex-grow-1 d-flex" @onclick="@(() => { State.SelectedHabit = Habit; })">
+            @if (DataService.Settings.ShowHabitId)
+            {
+                <div class="m-1">@Habit.Id</div>
+            }
+            @if (DataService.Settings.ShowPinStar2min)
+            {
+                @if (Habit.IsPinned)
+                {
+                    <div class="m-1"><span class="fa fa-fw fa-thumbtack"></span></div>
+                }
+                @if (Habit.IsStarred)
+                {
+                    <div class="m-1"><span class="fa fa-fw fa-star"></span></div>
+                }
+                @if (Habit.IsTwoMinute)
+                {
+                    <div class="m-1"><span class="fas fa-fw fa-hourglass"></span></div>
+                }
+            }
+            <div class="m-1">@Habit.Description</div>
+            <div class="m-1 ml-auto">@(Habit.TimeList.Count > 0 ? ToHighestValueString(Habit.ElapsedTime) + " ago" : "Never")</div>
+            @if (DataService.Settings.ShowRatio)
+            {
+                @if (Habit.GetRatio(DataService.Settings.Ratio) >= 100)
+                {
+                    <div class="m-1 font-weight-bold text-danger">( @Habit.GetRatio(DataService.Settings.Ratio).ToString("N0") % )</div>
+                }
+                else if (Habit.GetRatio(DataService.Settings.Ratio) >= 80)
+                {
+                    <div class="m-1 font-weight-bold text-warning">( @Habit.GetRatio(DataService.Settings.Ratio).ToString("N0") % )</div>
+                }
+                else if (Habit.TimeList.Count > 1)
+                {
+                    <div class="m-1 font-weight-bold text-info">( @Habit.GetRatio(DataService.Settings.Ratio).ToString("N0") % )</div>
+                }
+                else
+                {
+                    <div class="m-1"><span class="fa fa-fw fa-exclamation"></span></div>
+                }
+            }
         </div>
-    }
+    </div>
+    <div class="input-group-append">
+        <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => OnHabitDone(Habit))"><span class="fa fa-fw fa-check"></span></Button>
+    </div>
 </div>
