@@ -3,16 +3,20 @@ using System;
 using System.ComponentModel;
 using TheLastTime.Shared.Data;
 
-namespace TheLastTime.Shared.Components
+namespace TheLastTime.Shared.Components.Categories
 {
-    public sealed partial class Header : IDisposable
+    public partial class CategoryPaginationComponent
     {
         [Inject]
         DataService DataService { get; set; } = null!;
 
+        [Inject]
+        State State { get; set; } = null!;
+
         protected override void OnInitialized()
         {
             DataService.PropertyChanged += PropertyChanged;
+            State.PropertyChanged += PropertyChanged;
         }
 
         void PropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -23,6 +27,7 @@ namespace TheLastTime.Shared.Components
         public void Dispose()
         {
             DataService.PropertyChanged -= PropertyChanged;
+            State.PropertyChanged -= PropertyChanged;
         }
     }
 }
