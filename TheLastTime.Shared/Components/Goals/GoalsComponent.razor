@@ -1,13 +1,9 @@
-﻿<div class="px-1 px-sm-3 py-2 py-sm-3">
-    @if (DataService.Settings.ShowCategories)
-    {
-        <CategoryComponent />
-    }
+﻿<div class="container-fluid px-1 px-sm-0 py-2 py-sm-3 d-flex flex-grow-1">
+    <div id="overlay-parent" class="row mx-0 flex-grow-1">
 
-    @foreach (Goal goal in DataService.GoalList.Where(g => g.CategoryId == State.SelectedCategoryId || State.SelectedCategoryId == 0))
-    {
-        <GoalComponent Goal="goal" />
-    }
+        <GoalListComponent />
 
-    <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@NewGoal"><span class="fa fa-fw fa-plus"></span></Button>
+        <SelectedGoalComponent />
+
+    </div>
 </div>

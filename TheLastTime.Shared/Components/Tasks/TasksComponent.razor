@@ -1,15 +1,9 @@
-﻿<div class="px-1 px-sm-3 py-2 py-sm-3">
-    @if (DataService.Settings.ShowCategories)
-    {
-        <CategoryComponent />
-    }
+﻿<div class="container-fluid px-1 px-sm-0 py-2 py-sm-3 d-flex flex-grow-1">
+    <div id="overlay-parent" class="row mx-0 flex-grow-1">
 
-    @foreach (Tasky task in DataService.TaskList.Where(t => t.CategoryId == State.SelectedCategoryId || State.SelectedCategoryId == 0))
-    {
-        <div class="py-2 py-sm-3">
-            <TaskComponent Task="task" />
-        </div>
-    }
+        <TaskListComponent />
 
-    <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@NewTask"><span class="fa fa-fw fa-plus"></span></Button>
+        <SelectedTaskComponent />
+
+    </div>
 </div>
