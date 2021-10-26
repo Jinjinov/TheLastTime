@@ -31,5 +31,13 @@ namespace TheLastTime.Shared.Components.Goals
             DataService.PropertyChanged -= PropertyChanged;
             State.PropertyChanged -= PropertyChanged;
         }
+
+        void SelectedValueChanged(long val)
+        {
+            State.SelectedGoal.HabitList.Add(DataService.HabitDict[val]);
+            State.SelectedGoalSelectedHabitId = 0;
+            State.ShowSelectedGoalHabits = false;
+            StateHasChanged();
+        }
     }
 }

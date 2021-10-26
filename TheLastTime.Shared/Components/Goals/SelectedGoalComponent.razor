@@ -9,7 +9,7 @@
 
                 if (State.ShowSelectedGoalHabits && DataService.HabitList.Except(State.SelectedGoal.HabitList).Any())
                 {
-                    <Select TValue="long" Size="@Theme.Size" SelectedValue="@State.SelectedGoalSelectedHabitId" SelectedValueChanged="(long val) => { State.SelectedGoal.HabitList.Add(DataService.HabitDict[val]); State.SelectedGoalSelectedHabitId = 0; State.ShowSelectedGoalHabits = false; StateHasChanged(); }">
+                    <Select TValue="long" Size="@Theme.Size" SelectedValue="@State.SelectedGoalSelectedHabitId" SelectedValueChanged="(long val) => { SelectedValueChanged(val); }">
                         <SelectItem Value="0" disabled selected>Select</SelectItem>
                         @foreach (Habit habit in DataService.HabitList.Except(State.SelectedGoal.HabitList))
                         {
