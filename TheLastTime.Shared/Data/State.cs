@@ -115,6 +115,7 @@ namespace TheLastTime.Shared.Data
             }
         }
 
+        public bool ShowSelectedGoalHabits { get; set; }
         public long SelectedGoalSelectedHabitId { get; set; }
 
         private Goal? _selectedGoal;
