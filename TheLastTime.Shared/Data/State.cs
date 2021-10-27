@@ -132,6 +132,9 @@ namespace TheLastTime.Shared.Data
             }
         }
 
+        public bool ShowSelectedGoalTasks { get; set; }
+        public long SelectedGoalSelectedTaskId { get; set; }
+
         private Tasky? _selectedTask;
         public Tasky? SelectedTask
         {

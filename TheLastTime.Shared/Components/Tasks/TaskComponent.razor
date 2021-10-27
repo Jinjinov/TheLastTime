@@ -8,8 +8,6 @@
             <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.EditTask = false; })"><span class="fa fa-fw fa-times"></span></Button>
         </div>
     </div>
-
-    <MemoEdit Class="text-monospace" Rows="@Task.NotesLines" Text="@Task.Notes" TextChanged="@OnNotesChanged" Placeholder="Add notes" />
 }
 else
 {
@@ -20,6 +18,4 @@ else
             <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.SelectedTask = null; })"><span class="fas fa-fw fa-trash-alt"></span></Button>
         </div>
     </div>
-
-    <MemoEdit Class="text-monospace" ReadOnly="true" Rows="@Task.NotesLines" Text="@Task.Notes" Placeholder="Edit task to add notes" />
 }

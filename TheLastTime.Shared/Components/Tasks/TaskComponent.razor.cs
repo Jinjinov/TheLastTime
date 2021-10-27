@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System.ComponentModel;
 using TheLastTime.Shared.Data;
 using TheLastTime.Shared.Models;
 
@@ -23,9 +24,21 @@ namespace TheLastTime.Shared.Components.Tasks
             Task.Description = value;
         }
 
-        private void OnNotesChanged(string value)
+        protected override void OnInitialized()
         {
-            Task.Notes = value;
+            DataService.PropertyChanged += PropertyChanged;
+            State.PropertyChanged += PropertyChanged;
+        }
+
+        void PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            StateHasChanged();
+        }
+
+        public void Dispose()
+        {
+            DataService.PropertyChanged -= PropertyChanged;
+            State.PropertyChanged -= PropertyChanged;
         }
     }
 }

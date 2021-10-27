@@ -9,7 +9,7 @@
 
                 if (State.ShowSelectedGoalHabits && DataService.HabitList.Except(State.SelectedGoal.HabitList).Any())
                 {
-                    <Select TValue="long" Size="@Theme.Size" SelectedValue="@State.SelectedGoalSelectedHabitId" SelectedValueChanged="(long val) => { SelectedValueChanged(val); }">
+                    <Select TValue="long" Size="@Theme.Size" SelectedValue="@State.SelectedGoalSelectedHabitId" SelectedValueChanged="(long val) => { SelectedHabitValueChanged(val); }">
                         <SelectItem Value="0" disabled selected>Select</SelectItem>
                         @foreach (Habit habit in DataService.HabitList.Except(State.SelectedGoal.HabitList))
                         {
@@ -21,6 +21,24 @@
                 @foreach (Habit habit in State.SelectedGoal.HabitList)
                 {
                     <HabitComponent Habit="habit" />
+                }
+
+                <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => State.ShowSelectedGoalTasks = true)"><span class="fa fa-fw fa-plus"></span></Button>
+
+                if (State.ShowSelectedGoalTasks && DataService.TaskList.Except(State.SelectedGoal.TaskList).Any())
+                {
+                    <Select TValue="long" Size="@Theme.Size" SelectedValue="@State.SelectedGoalSelectedTaskId" SelectedValueChanged="(long val) => { SelectedTaskValueChanged(val); }">
+                        <SelectItem Value="0" disabled selected>Select</SelectItem>
+                        @foreach (Tasky task in DataService.TaskList.Except(State.SelectedGoal.TaskList))
+                        {
+                            <SelectItem Value="@task.Id">@task.Description</SelectItem>
+                        }
+                    </Select>
+                }
+
+                @foreach (Tasky task in State.SelectedGoal.TaskList)
+                {
+                    <TaskComponent Task="task" />
                 }
             }
 
