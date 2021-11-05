@@ -22,7 +22,9 @@ namespace TheLastTime.Shared.Models
 
         public List<Tasky> TaskList = new List<Tasky>();
 
-        internal int Lines => Notes.Count(c => c == '\n') + 1; // Notes.Split(Environment.NewLine).Length;
+        internal int NotesLines => Notes.Count(c => c == '\n') + 1; // Notes.Split(Environment.NewLine).Length;
+
+        internal string NotesMarkdownHtml { get; set; } = string.Empty;
 
         public void CopyTo(Goal goal)
         {

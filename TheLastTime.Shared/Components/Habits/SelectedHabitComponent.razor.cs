@@ -40,6 +40,16 @@ namespace TheLastTime.Shared.Components.Habits
             State.PropertyChanged -= PropertyChanged;
         }
 
+        private void OnNotesChanged(string value)
+        {
+            if (State.SelectedHabit != null)
+            {
+                State.SelectedHabit.Notes = value;
+
+                State.SelectedHabit.NotesMarkdownHtml = DataService.MarkdownToHtml(State.SelectedHabit.Notes);
+            }
+        }
+
         public static string ToReadableString(TimeSpan span)
         {
             return span.TotalMinutes >= 1.0 ? (

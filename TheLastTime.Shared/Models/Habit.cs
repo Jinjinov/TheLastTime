@@ -39,6 +39,8 @@ namespace TheLastTime.Shared.Models
 
         internal int NotesLines => Notes.Count(c => c == '\n') + 1; // Notes.Split(Environment.NewLine).Length;
 
+        internal string NotesMarkdownHtml { get; set; } = string.Empty;
+
         internal TimeSpan AverageInterval { get; set; }
 
         internal TimeSpan DesiredInterval { get; set; } = new TimeSpan(1, 0, 0, 0);

@@ -110,6 +110,9 @@ namespace TheLastTime.Shared.Models
         public bool ShowTimes { get; set; }
 
         [Required]
+        public bool UseMarkdownInNotes { get; set; }
+
+        [Required]
         public bool BackupToGoogleDrive { get; set; }
 
         [Required]
@@ -158,6 +161,7 @@ namespace TheLastTime.Shared.Models
             settings.ShowRatio = ShowRatio;
             settings.ShowRatioOptions = ShowRatioOptions;
             settings.ShowTimes = ShowTimes;
+            settings.UseMarkdownInNotes = UseMarkdownInNotes;
             settings.BackupToGoogleDrive = BackupToGoogleDrive;
 
             settings.Size = Size;

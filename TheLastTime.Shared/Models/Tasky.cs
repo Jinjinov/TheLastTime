@@ -22,6 +22,8 @@ namespace TheLastTime.Shared.Models
 
         internal int NotesLines => Notes.Count(c => c == '\n') + 1; // Notes.Split(Environment.NewLine).Length;
 
+        internal string NotesMarkdownHtml { get; set; } = string.Empty;
+
         public void CopyTo(Tasky task)
         {
             task.Description = Description;

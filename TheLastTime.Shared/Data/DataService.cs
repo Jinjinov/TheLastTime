@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Markdig;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -66,6 +67,10 @@ namespace TheLastTime.Shared.Data
             JsInterop = jsInterop;
             DatabaseAccess = databaseAccess;
         }
+
+        readonly MarkdownPipeline markdownPipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().UseSoftlineBreakAsHardlineBreak().Build();
+
+        public string MarkdownToHtml(string markdown) => Markdown.ToHtml(markdown, markdownPipeline);
 
         public void NewSettings()
         {
@@ -205,8 +210,26 @@ namespace TheLastTime.Shared.Data
                 if (habit.TimeList.Count > 1)
                     habit.AverageInterval = TimeSpan.FromMilliseconds(habit.TimeList.Zip(habit.TimeList.Skip(1), (x, y) => (y.DateTime - x.DateTime).TotalMilliseconds).Average());
 
+                habit.NotesMarkdownHtml = MarkdownToHtml(string.IsNullOrEmpty(habit.Notes) ? "Edit habit to add notes" : habit.Notes);
+
                 if (CategoryDict.ContainsKey(habit.CategoryId))
                     CategoryDict[habit.CategoryId].HabitList.Add(habit);
+            }
+
+            foreach (Goal goal in GoalList)
+            {
+                goal.NotesMarkdownHtml = MarkdownToHtml(string.IsNullOrEmpty(goal.Notes) ? "Edit goal to add notes" : goal.Notes);
+
+                if (CategoryDict.ContainsKey(goal.CategoryId))
+                    CategoryDict[goal.CategoryId].GoalList.Add(goal);
+            }
+
+            foreach (Tasky task in TaskList)
+            {
+                task.NotesMarkdownHtml = MarkdownToHtml(string.IsNullOrEmpty(task.Notes) ? "Edit task to add notes" : task.Notes);
+
+                if (CategoryDict.ContainsKey(task.CategoryId))
+                    CategoryDict[task.CategoryId].TaskList.Add(task);
             }
         }
 

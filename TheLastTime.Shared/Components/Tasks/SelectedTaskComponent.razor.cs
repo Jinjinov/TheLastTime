@@ -34,7 +34,12 @@ namespace TheLastTime.Shared.Components.Tasks
 
         private void OnNotesChanged(string value)
         {
-            State.SelectedTask.Notes = value;
+            if (State.SelectedTask != null)
+            {
+                State.SelectedTask.Notes = value;
+
+                State.SelectedTask.NotesMarkdownHtml = DataService.MarkdownToHtml(State.SelectedTask.Notes);
+            }
         }
     }
 }

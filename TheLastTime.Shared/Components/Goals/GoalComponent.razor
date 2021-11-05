@@ -11,22 +11,33 @@
 
         @*<Markdown Value="@Note.Text" ValueChanged="@OnMarkdownValueChanged" />*@
 
-        <MemoEdit Class="text-monospace pb-3" Rows="@Goal.Lines" Text="@Goal.Notes" TextChanged="@OnMarkdownValueChanged" Placeholder="Add notes" />
+        <MemoEdit Class="text-monospace pb-3" Rows="@Goal.NotesLines" Text="@Goal.Notes" TextChanged="@OnNotesChanged" Placeholder="Add notes" />
     }
     else
     {
-        <div class="input-group flex-nowrap mb-1 d-flex" @onclick="@(() => { State.SelectedGoal = Goal; State.EditNote = true; })">
-            <TextEdit Size="@Theme.Size" ReadOnly="true" Text="@Goal.Description" />
+        <div class="input-group flex-nowrap mb-1 d-flex">
+            <TextEdit Size="@Theme.Size" ReadOnly="true" Text="@Goal.Description" @onclick="@(() => { State.SelectedGoal = Goal; State.EditNote = true; })" />
             <div class="input-group-append">
                 <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.SelectedGoal = Goal; State.EditNote = true; })"><span class="fa fa-fw fa-edit"></span></Button>
                 <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.SelectedGoal = null; })"><span class="fas fa-fw fa-trash-alt"></span></Button>
             </div>
         </div>
 
-        <div class="card" @onclick="@(() => { State.SelectedGoal = Goal; State.EditNote = true; })">
-            <div class="card-body p-2 text-monospace">
-                @((MarkupString)markdownHtml)
-            </div>
+        <div @onclick="@(() => { State.SelectedGoal = Goal; State.EditNote = true; })">
+
+            @if (DataService.Settings.UseMarkdownInNotes)
+            {
+                <div class="card">
+                    <div class="card-body p-2 text-monospace">
+                        @((MarkupString)Goal.NotesMarkdownHtml)
+                    </div>
+                </div>
+            }
+            else
+            {
+                <MemoEdit Class="text-monospace pb-3" Rows="@Goal.NotesLines" Text="@Goal.Notes" ReadOnly="true" Placeholder="Edit goal to add notes" />
+            }
+
         </div>
     }
 </div>

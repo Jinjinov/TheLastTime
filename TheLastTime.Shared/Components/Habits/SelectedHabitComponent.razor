@@ -122,11 +122,22 @@
                         @if (State.EditHabit)
                         {
                             @*<MemoEdit Class="text-monospace" DelayTextOnKeyPress="true" DelayTextOnKeyPressInterval="200" Rows="@State.SelectedHabit.NotesLines" @bind-Text="@State.SelectedHabit.Notes" Placeholder="Add notes" />*@
-                            <MemoEdit Class="text-monospace" Rows="@State.SelectedHabit.NotesLines" @bind-Text="@State.SelectedHabit.Notes" Placeholder="Add notes" />
+                            <MemoEdit Class="text-monospace" Rows="@State.SelectedHabit.NotesLines" Text="@State.SelectedHabit.Notes" TextChanged="@OnNotesChanged" Placeholder="Add notes" />
                         }
                         else
                         {
-                            <MemoEdit Class="text-monospace" ReadOnly="true" Rows="@State.SelectedHabit.NotesLines" Text="@State.SelectedHabit.Notes" Placeholder="Edit habit to add notes" />
+                            @if (DataService.Settings.UseMarkdownInNotes)
+                            {
+                                <div class="card">
+                                    <div class="card-body p-2 text-monospace">
+                                        @((MarkupString)State.SelectedHabit.NotesMarkdownHtml)
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <MemoEdit Class="text-monospace" ReadOnly="true" Rows="@State.SelectedHabit.NotesLines" Text="@State.SelectedHabit.Notes" Placeholder="Edit habit to add notes" />
+                            }
                         }
                     </p>
                 }

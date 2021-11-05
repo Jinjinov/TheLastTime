@@ -11,7 +11,18 @@
                 }
                 else
                 {
-                    <MemoEdit Class="text-monospace" ReadOnly="true" Rows="@State.SelectedTask.NotesLines" Text="@State.SelectedTask.Notes" Placeholder="Edit task to add notes" />
+                    @if (DataService.Settings.UseMarkdownInNotes)
+                    {
+                        <div class="card">
+                            <div class="card-body p-2 text-monospace">
+                                @((MarkupString)State.SelectedTask.NotesMarkdownHtml)
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <MemoEdit Class="text-monospace" ReadOnly="true" Rows="@State.SelectedTask.NotesLines" Text="@State.SelectedTask.Notes" Placeholder="Edit task to add notes" />
+                    }
                 }
             }
 

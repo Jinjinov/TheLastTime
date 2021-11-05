@@ -101,6 +101,7 @@ namespace TheLastTime.Shared.Data
                 ShowRatio = true,
                 ShowRatioOptions = true,
                 ShowTimes = true,
+                UseMarkdownInNotes = true
             });
 
             await SaveChanges();
