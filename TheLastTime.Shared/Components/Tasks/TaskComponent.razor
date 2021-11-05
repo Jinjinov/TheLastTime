@@ -11,7 +11,7 @@
 }
 else
 {
-    <div class="input-group flex-nowrap mb-1 d-flex">
+    <div class="input-group flex-nowrap mb-1 d-flex" @onclick="@(() => { State.SelectedTask = Task; State.EditTask = true; })">
         <TextEdit Size="@Theme.Size" ReadOnly="true" Text="@Task.Description" />
         <div class="input-group-append">
             <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.SelectedTask = Task; State.EditTask = true; })"><span class="fa fa-fw fa-edit"></span></Button>

@@ -15,7 +15,7 @@
     }
     else
     {
-        <div class="input-group flex-nowrap mb-1 d-flex">
+        <div class="input-group flex-nowrap mb-1 d-flex" @onclick="@(() => { State.SelectedGoal = Goal; State.EditNote = true; })">
             <TextEdit Size="@Theme.Size" ReadOnly="true" Text="@Goal.Description" />
             <div class="input-group-append">
                 <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.SelectedGoal = Goal; State.EditNote = true; })"><span class="fa fa-fw fa-edit"></span></Button>
@@ -23,7 +23,7 @@
             </div>
         </div>
 
-        <div class="card">
+        <div class="card" @onclick="@(() => { State.SelectedGoal = Goal; State.EditNote = true; })">
             <div class="card-body p-2 text-monospace">
                 @((MarkupString)markdownHtml)
             </div>
