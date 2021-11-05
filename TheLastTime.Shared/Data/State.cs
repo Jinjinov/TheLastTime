@@ -204,7 +204,7 @@ namespace TheLastTime.Shared.Data
 
         public void NewCategory()
         {
-            _selectedCategory = new Category() { CategoryId = 1 };
+            _selectedCategory = new Category() { CategoryId = Math.Max(SelectedCategoryId, 1) };
 
             if (DataService.CategoryList.Any())
                 DataService.Settings.SelectedCategoryId = DataService.CategoryList.Last().Id + 1;
