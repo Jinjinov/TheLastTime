@@ -177,6 +177,7 @@ namespace TheLastTime.Shared.Data
 
         private async Task SaveHabit(Habit habit)
         {
+            // TODO: sync DataService list with db list
             await DataService.SaveHabit(habit);
 
             SetSelectedHabit(habit.Id);

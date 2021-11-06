@@ -44,9 +44,11 @@ namespace TheLastTime.Shared.Components.Habits
             {
                 habit.IsPinned = false;
 
+                // TODO: sync DataService list with db list
                 await DataService.SaveHabit(habit);
             }
 
+            // TODO: sync DataService list with db list
             await DataService.SaveTime(new Time { HabitId = habit.Id, DateTime = DateTime.Now });
 
             State.SetSelectedHabit(habit.Id);

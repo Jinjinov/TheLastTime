@@ -38,6 +38,9 @@ namespace TheLastTime.Shared.Components.Tasks
         {
             Tasky task = new Tasky();
 
+            State.SelectedTask = task;
+
+            // TODO: sync DataService list with db list
             await DataService.Save(task);
         }
     }

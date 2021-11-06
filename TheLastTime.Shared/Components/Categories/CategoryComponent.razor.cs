@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using TheLastTime.Shared.Data;
 
 namespace TheLastTime.Shared.Components.Categories
@@ -33,6 +34,14 @@ namespace TheLastTime.Shared.Components.Categories
         {
             DataService.PropertyChanged -= PropertyChanged;
             State.PropertyChanged -= PropertyChanged;
+        }
+
+        async Task SaveCategory()
+        {
+            // TODO: sync DataService list with db list
+            await DataService.SaveCategory(State.SelectedCategory);
+
+            editCategory = false;
         }
     }
 }

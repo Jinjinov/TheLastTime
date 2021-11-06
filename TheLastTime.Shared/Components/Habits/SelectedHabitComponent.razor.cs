@@ -61,6 +61,7 @@ namespace TheLastTime.Shared.Components.Habits
 
         private async Task SaveHabit(Habit habit)
         {
+            // TODO: sync DataService list with db list
             await DataService.SaveHabit(habit);
 
             State.SetSelectedHabit(habit.Id);

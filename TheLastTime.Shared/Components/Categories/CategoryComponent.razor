@@ -3,7 +3,7 @@
     <div class="input-group flex-nowrap">
         <TextEdit Size="@Theme.Size" @bind-Text="@State.SelectedCategory.Description" Placeholder="Add new category" />
         <div class="input-group-append">
-            <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => { await DataService.SaveCategory(State.SelectedCategory); editCategory = false; })"><span class="fa fa-fw fa-save"></span></Button>
+            <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => await SaveCategory())"><span class="fa fa-fw fa-save"></span></Button>
             <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { editCategory = false; })"><span class="fa fa-fw fa-times"></span></Button>
         </div>
     </div>

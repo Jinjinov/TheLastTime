@@ -38,6 +38,9 @@ namespace TheLastTime.Shared.Components.Goals
         {
             Goal goal = new Goal();
 
+            State.SelectedGoal = goal;
+
+            // TODO: sync DataService list with db list
             await DataService.Save(goal);
         }
     }

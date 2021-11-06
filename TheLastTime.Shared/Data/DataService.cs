@@ -89,18 +89,7 @@ namespace TheLastTime.Shared.Data
         {
             using IDatabase db = await DatabaseAccess.CreateDatabase();
 
-            if (Settings.Id == 0)
-            {
-                db.Settings.Add(Settings);
-
-                Settings settings = db.Settings.First();
-                settings.SelectedSettingsId = SettingsId;
-
-                await db.SaveChanges();
-
-                await LoadData();
-            }
-            else if (db.Settings.SingleOrDefault(s => s.Id == Settings.Id) is Settings dbSettings)
+            if (db.Settings.SingleOrDefault(s => s.Id == Settings.Id) is Settings dbSettings)
             {
                 Settings.CopyTo(dbSettings);
 
@@ -111,6 +100,19 @@ namespace TheLastTime.Shared.Data
                 }
 
                 await db.SaveChanges();
+            }
+            else
+            {
+                Settings.Id = db.Settings.Max(s => s.Id) + 1;
+
+                db.Settings.Add(Settings);
+
+                Settings settings = db.Settings.First();
+                settings.SelectedSettingsId = SettingsId;
+
+                await db.SaveChanges();
+
+                await LoadData();
             }
 
             OnPropertyChanged(nameof(Settings));
@@ -427,13 +429,15 @@ namespace TheLastTime.Shared.Data
         {
             using IDatabase db = await DatabaseAccess.CreateDatabase();
 
-            if (entity.Id == 0)
-            {
-                db.GetCollection<T>().Add(entity);
-            }
-            else if (db.GetCollection<T>().SingleOrDefault(e => e.Id == entity.Id) is T dbEntity)
+            if (db.GetCollection<T>().SingleOrDefault(e => e.Id == entity.Id) is T dbEntity)
             {
                 entity.CopyTo(dbEntity);
+            }
+            else
+            {
+                entity.Id = db.GetCollection<T>().Max(e => e.Id) + 1;
+
+                db.GetCollection<T>().Add(entity);
             }
 
             await db.SaveChanges();
@@ -447,13 +451,15 @@ namespace TheLastTime.Shared.Data
         {
             using IDatabase db = await DatabaseAccess.CreateDatabase();
 
-            if (category.Id == 0)
-            {
-                db.Categories.Add(category);
-            }
-            else if (db.Categories.SingleOrDefault(c => c.Id == category.Id) is Category dbCategory)
+            if (db.Categories.SingleOrDefault(c => c.Id == category.Id) is Category dbCategory)
             {
                 category.CopyTo(dbCategory);
+            }
+            else
+            {
+                category.Id = db.Categories.Max(c => c.Id) + 1;
+
+                db.Categories.Add(category);
             }
 
             await db.SaveChanges();
@@ -488,13 +494,15 @@ namespace TheLastTime.Shared.Data
         {
             using IDatabase db = await DatabaseAccess.CreateDatabase();
 
-            if (habit.Id == 0)
-            {
-                db.Habits.Add(habit);
-            }
-            else if (db.Habits.SingleOrDefault(h => h.Id == habit.Id) is Habit dbHabit)
+            if (db.Habits.SingleOrDefault(h => h.Id == habit.Id) is Habit dbHabit)
             {
                 habit.CopyTo(dbHabit);
+            }
+            else
+            {
+                habit.Id = db.Habits.Max(h => h.Id) + 1;
+
+                db.Habits.Add(habit);
             }
 
             await db.SaveChanges();
@@ -524,13 +532,15 @@ namespace TheLastTime.Shared.Data
         {
             using IDatabase db = await DatabaseAccess.CreateDatabase();
 
-            if (time.Id == 0)
-            {
-                db.Times.Add(time);
-            }
-            else if (db.Times.SingleOrDefault(t => t.Id == time.Id) is Time dbTime)
+            if (db.Times.SingleOrDefault(t => t.Id == time.Id) is Time dbTime)
             {
                 time.CopyTo(dbTime);
+            }
+            else
+            {
+                time.Id = db.Times.Max(t => t.Id) + 1;
+
+                db.Times.Add(time);
             }
 
             await db.SaveChanges();
