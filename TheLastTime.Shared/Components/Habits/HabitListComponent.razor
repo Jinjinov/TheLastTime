@@ -10,9 +10,30 @@
         <CategoryComponent />
     }
 
-    @foreach (Habit habit in Filters.GetHabits(State.SelectedCategoryId, pinned: false))
+    @if (State.SelectedCategoryId == 0 && DataService.Settings.GroupByCategory)
     {
-        <HabitComponent Habit="habit" />
+        @foreach (Category category in DataService.CategoryList)
+        {
+            @if (category.HabitList.Any())
+            {
+                <div class="py-1">
+                    <span>@category.Description</span>
+                    <span class="float-right">All habits: @category.HabitList.Count</span>
+                </div>
+            }
+
+            @foreach (Habit habit in Filters.GetHabits(category.Id, pinned: false))
+            {
+                <HabitComponent Habit="habit" />
+            }
+        }
+    }
+    else
+    {
+        @foreach (Habit habit in Filters.GetHabits(State.SelectedCategoryId, pinned: false))
+        {
+            <HabitComponent Habit="habit" />
+        }
     }
 
     <div class="py-5"></div>

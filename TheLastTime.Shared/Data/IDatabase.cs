@@ -101,6 +101,7 @@ namespace TheLastTime.Shared.Data
                 ShowRatio = true,
                 ShowRatioOptions = true,
                 ShowTimes = true,
+                GroupByCategory = true,
                 UseMarkdownInNotes = true
             });
 

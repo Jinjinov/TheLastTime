@@ -107,6 +107,10 @@
             </li>
 
             <li class="nav-item px-2 pt-2">
+                <Check TValue="bool" Checked="@DataService.Settings.GroupByCategory" CheckedChanged="@(async (val) => { DataService.Settings.GroupByCategory = val; await DataService.SaveSettings(); })"><span class="@TextClass">Group by category</span></Check>
+            </li>
+
+            <li class="nav-item px-2 pt-2">
                 <Check TValue="bool" Checked="@DataService.Settings.UseMarkdownInNotes" CheckedChanged="@(async (val) => { DataService.Settings.UseMarkdownInNotes = val; await DataService.SaveSettings(); })"><span class="@TextClass">Use Markdown in notes</span></Check>
             </li>
 
