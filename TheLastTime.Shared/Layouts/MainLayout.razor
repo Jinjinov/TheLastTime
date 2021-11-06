@@ -28,25 +28,63 @@ else
 </div>
 
 @*
-https://stackoverflow.com/questions/53896925/bootstrap-how-to-create-a-full-screen-layout-with-scrollable-columns
-https://stackoverflow.com/questions/35025164/how-can-i-create-scrollable-columns-in-bootstrap
-https://www.codeply.com/go/ouc3hddx5i
-<div class="container-fluid h-100 d-flex flex-column">
-    <div class="row flex-fill" style="min-height:0">
-        <div class="col-2 border mh-100" style="overflow-y: scroll;">Sidebar </div>
-        <div class="col-4 border mh-100" style="overflow-y: scroll;">Article list</div>
-        <div class="col-6 border" style="overflow-y: scroll;">Article content </div>
-    </div>
-</div>
+    // TODO:
 
-https://stackoverflow.com/questions/22752637/how-to-implement-responsive-independently-scrolling-panes-in-bootstrap
-https://www.codeply.com/go/LIaOWljJm8
-<div class="container-fluid d-flex flex-column vh-100 overflow-hidden">
-    <div class="row flex-grow-1 overflow-hidden">
-        <div class="col-2 mh-100 overflow-auto py-2">
+    html,body {
+        height: 100%;
+    }
+
+    https://stackoverflow.com/questions/53896925/bootstrap-how-to-create-a-full-screen-layout-with-scrollable-columns
+    https://www.codeply.com/go/ouc3hddx5i
+    <div class="container-fluid h-100 d-flex flex-column">
+        <div class="row flex-shrink-0">
+            <div class="col-12 border">Navbar </div>
         </div>
-        <div class='col mh-100 overflow-auto'>
+        <div class="row flex-grow-1">
+            <div class="col-2 border" style="overflow-y: scroll;">Sidebar </div>
+            <div class="col-4 border" style="overflow-y: scroll;">Article list</div>
+            <div class="col-6 border" style="overflow-y: scroll;">Article content </div>
+        </div>
+        <div class="row flex-shrink-0">
+            <div class="col-12 border">Footer </div>
         </div>
     </div>
-</div>
+
+    https://stackoverflow.com/questions/35025164/how-can-i-create-scrollable-columns-in-bootstrap
+
+    <div class="container-fluid h-100 d-flex flex-column">
+        <div class="row flex-shrink-0">
+            <div class="col-12 border">Navbar </div>
+        </div>
+        <div class="row flex-fill" style="min-height:0">
+            <div class="col-2 border mh-100" style="overflow-y: scroll;">Sidebar </div>
+            <div class="col-4 border mh-100" style="overflow-y: scroll;">Article list</div>
+            <div class="col-6 border" style="overflow-y: scroll;">Article content </div>
+        </div>
+        <div class="row flex-shrink-0">
+            <div class="col-12 border">Footer </div>
+        </div>
+    </div>
+
+    flex-grow-1 is only setting flex-grow:1 therefore has no impact on flex-basis or flex-shrink.
+    whereas, flex-fill is setting...
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
+    Effectively, flex: 1 1 auto; and flex-grow: 1 are the same.
+    This is because of the way flexbox works by default.
+    Therefore, flex-fill and flex-grow-1 can be used interchangeably.
+
+    https://stackoverflow.com/questions/22752637/how-to-implement-responsive-independently-scrolling-panes-in-bootstrap
+    https://www.codeply.com/go/LIaOWljJm8
+    <div class="container-fluid d-flex flex-column vh-100 overflow-hidden">
+        <nav class="navbar navbar-light bg-light navbar-expand-md px-0 flex-shrink-0">
+        </nav>
+        <div class="row flex-grow-1 overflow-hidden">
+            <div class="col-2 mh-100 overflow-auto py-2"></div>
+            <div class='col mh-100 overflow-auto'></div>
+        </div>
+        <div class="row flex-shrink-0 bg-light">
+        </div>
+    </div>
 *@
