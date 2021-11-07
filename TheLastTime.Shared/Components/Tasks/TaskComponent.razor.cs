@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using TheLastTime.Shared.Data;
 using TheLastTime.Shared.Models;
 
@@ -39,6 +40,14 @@ namespace TheLastTime.Shared.Components.Tasks
         {
             DataService.PropertyChanged -= PropertyChanged;
             State.PropertyChanged -= PropertyChanged;
+        }
+
+        async Task SaveTask()
+        {
+            // TODO: sync DataService list with db list
+            await DataService.Save(Task);
+
+            State.EditTask = false;
         }
     }
 }

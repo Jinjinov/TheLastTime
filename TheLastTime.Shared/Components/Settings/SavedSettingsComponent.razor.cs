@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using TheLastTime.Shared.Data;
 
 namespace TheLastTime.Shared.Components.Settings
@@ -33,6 +34,14 @@ namespace TheLastTime.Shared.Components.Settings
         {
             DataService.PropertyChanged -= PropertyChanged;
             State.PropertyChanged -= PropertyChanged;
+        }
+
+        async Task DeleteSettings()
+        {
+            // TODO: sync DataService list with db list
+            await DataService.DeleteSettings(DataService.Settings);
+
+            DataService.SettingsId = 1;
         }
     }
 }

@@ -92,7 +92,7 @@
                     <div class="input-group flex-nowrap mb-1">
                         <TextEdit Size="@Theme.Size" @bind-Text="@State.SelectedHabit.Description" Placeholder="Add new habit" />
                         <div class="input-group-append">
-                            <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => { await SaveHabit(State.SelectedHabit); State.EditHabit = false; })"><span class="fa fa-fw fa-save"></span></Button>
+                            <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => await SaveHabit(State.SelectedHabit))"><span class="fa fa-fw fa-save"></span></Button>
                             <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.EditHabit = false; })"><span class="fa fa-fw fa-times"></span></Button>
                         </div>
                     </div>
@@ -107,7 +107,7 @@
                             @*<TextEdit Class="rounded-0 border-right-0" Size="@Theme.Size" ReadOnly="true" Text="@("Done: " + State.SelectedHabit.TimeList.Count + "x")" VisibleCharacters="@(("Done: " + State.SelectedHabit.TimeList.Count + "x").Length)" />*@
 
                             <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.EditHabit = true; })"><span class="fa fa-fw fa-edit"></span></Button>
-                            <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => { await DataService.DeleteHabit(State.SelectedHabit); State.SelectedHabit = null; })"><span class="fas fa-fw fa-trash-alt"></span></Button>
+                            <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => await DeleteHabit(State.SelectedHabit))"><span class="fas fa-fw fa-trash-alt"></span></Button>
                         </div>
                     </div>
                 }
@@ -193,7 +193,7 @@
                                     <DateEdit TValue="DateTime" Size="@Theme.Size" Date="@time.DateTime" DateChanged="@((dateTime) => { time.DateTime = dateTime.Date + time.DateTime.TimeOfDay; })" />
                                     <TimeEdit TValue="TimeSpan" Size="@Theme.Size" Time="@time.DateTime.TimeOfDay" TimeChanged="@((timeSpan) => { time.DateTime = time.DateTime.Date + timeSpan; })" />
                                     <div class="input-group-append">
-                                        <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => { await DataService.SaveTime(time); State.SelectedTime = null; editTime = false; State.SetSelectedHabit(State.SelectedHabit.Id); })"><span class="fa fa-fw fa-save"></span></Button>
+                                        <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => await SaveTime(time))"><span class="fa fa-fw fa-save"></span></Button>
                                         <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.SelectedTime = null; editTime = false; })"><span class="fa fa-fw fa-times"></span></Button>
                                     </div>
                                 </div>
@@ -208,7 +208,7 @@
 
                                     <div class="input-group-append">
                                         <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.SelectedTime = time; editTime = true; })"><span class="fa fa-fw fa-edit"></span></Button>
-                                        <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => { await DataService.DeleteTime(time); State.SelectedHabit = DataService.HabitDict[time.HabitId]; })"><span class="fas fa-fw fa-trash-alt"></span></Button>
+                                        <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => await DeleteTime(time))"><span class="fas fa-fw fa-trash-alt"></span></Button>
                                     </div>
                                 </div>
                             }

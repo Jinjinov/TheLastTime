@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System.Threading.Tasks;
 using TheLastTime.Shared.Data;
 using TheLastTime.Shared.Models;
 
@@ -28,6 +29,14 @@ namespace TheLastTime.Shared.Components.Goals
             Goal.Notes = value;
 
             Goal.NotesMarkdownHtml = DataService.MarkdownToHtml(Goal.Notes);
+        }
+
+        async Task SaveGoal()
+        {
+            // TODO: sync DataService list with db list
+            await DataService.Save(Goal);
+
+            State.EditNote = false;
         }
     }
 }

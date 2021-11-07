@@ -4,7 +4,7 @@
         <div class="input-group flex-nowrap mb-1">
             <TextEdit Size="@Theme.Size" Text="@Goal.Description" TextChanged="@OnDescriptionChanged" />
             <div class="input-group-append">
-                <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => { await DataService.Save(Goal); State.EditNote = false; })"><span class="fa fa-fw fa-save"></span></Button>
+                <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(async () => await SaveGoal())"><span class="fa fa-fw fa-save"></span></Button>
                 <Button Color="Color.Primary" Outline="true" Size="@Theme.Size" @onclick="@(() => { State.EditNote = false; })"><span class="fa fa-fw fa-times"></span></Button>
             </div>
         </div>

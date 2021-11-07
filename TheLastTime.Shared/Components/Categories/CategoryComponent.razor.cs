@@ -43,5 +43,13 @@ namespace TheLastTime.Shared.Components.Categories
 
             editCategory = false;
         }
+
+        async Task DeleteCategory()
+        {
+            // TODO: sync DataService list with db list
+            await DataService.DeleteCategory(State.SelectedCategory);
+
+            State.SelectedCategoryId = 0;
+        }
     }
 }

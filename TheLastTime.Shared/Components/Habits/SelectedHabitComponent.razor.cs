@@ -59,12 +59,43 @@ namespace TheLastTime.Shared.Components.Habits
                 ) : "0 minutes";
         }
 
-        private async Task SaveHabit(Habit habit)
+        async Task SaveHabit(Habit habit)
         {
             // TODO: sync DataService list with db list
             await DataService.SaveHabit(habit);
 
             State.SetSelectedHabit(habit.Id);
+
+            State.EditHabit = false;
+        }
+
+        async Task DeleteHabit(Habit habit)
+        {
+            // TODO: sync DataService list with db list
+            await DataService.DeleteHabit(habit);
+
+            State.SelectedHabit = null;
+        }
+
+        async Task SaveTime(Time time)
+        {
+            // TODO: sync DataService list with db list
+            await DataService.SaveTime(time);
+
+            State.SelectedTime = null;
+
+            editTime = false;
+
+            if (State.SelectedHabit != null)
+                State.SetSelectedHabit(State.SelectedHabit.Id);
+        }
+
+        async Task DeleteTime(Time time)
+        {
+            // TODO: sync DataService list with db list
+            await DataService.DeleteTime(time);
+
+            State.SelectedHabit = DataService.HabitDict[time.HabitId];
         }
 
         private async Task HabitUpDown(long oldId, long newId)

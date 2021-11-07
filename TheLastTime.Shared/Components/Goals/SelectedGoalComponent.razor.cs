@@ -34,6 +34,9 @@ namespace TheLastTime.Shared.Components.Goals
 
         void SelectedHabitValueChanged(long val)
         {
+            if (State.SelectedGoal == null)
+                return;
+
             State.SelectedGoal.HabitList.Add(DataService.HabitDict[val]);
             State.SelectedGoalSelectedHabitId = 0;
             State.ShowSelectedGoalHabits = false;
@@ -42,6 +45,9 @@ namespace TheLastTime.Shared.Components.Goals
 
         void SelectedTaskValueChanged(long val)
         {
+            if (State.SelectedGoal == null)
+                return;
+
             State.SelectedGoal.TaskList.Add(DataService.TaskDict[val]);
             State.SelectedGoalSelectedTaskId = 0;
             State.ShowSelectedGoalTasks = false;
