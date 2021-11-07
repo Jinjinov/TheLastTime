@@ -112,7 +112,7 @@ namespace TheLastTime.Shared.Data
 
                 await db.SaveChanges();
 
-                await LoadData();
+                await LoadData(); // add Settings
             }
 
             OnPropertyChanged(nameof(Settings));
@@ -126,7 +126,7 @@ namespace TheLastTime.Shared.Data
 
             await db.SaveChanges();
 
-            await LoadData();
+            await LoadData(); // delete Settings
         }
 
         public async Task LoadData()
@@ -250,7 +250,7 @@ namespace TheLastTime.Shared.Data
 
             await db.SaveChanges();
 
-            await LoadData();
+            await LoadData(); // delete all
 
             OnPropertyChanged(nameof(CategoryList));
         }
@@ -266,7 +266,7 @@ namespace TheLastTime.Shared.Data
 
             await db.SaveChanges();
 
-            await LoadData();
+            await LoadData(); // add Goal list
 
             OnPropertyChanged(nameof(GoalList));
         }
@@ -318,12 +318,12 @@ namespace TheLastTime.Shared.Data
 
             await db.SaveChanges();
 
-            await LoadData();
+            await LoadData(); // add Category list
 
             OnPropertyChanged(nameof(CategoryList));
         }
 
-        public async Task GetCategories(JsonElement json)
+        public async Task GetCategoriesFromDirectory(JsonElement json)
         {
             JsonElement jsonName = json.GetProperty("name");
             JsonElement jsonNodes = json.GetProperty("nodes");
@@ -350,16 +350,16 @@ namespace TheLastTime.Shared.Data
                 CategoryList.Add(root);
             }
 
-            TraverseCategories(db, jsonNodes, root);
+            TraverseCategoriesFromDirectory(db, jsonNodes, root);
 
             await db.SaveChanges();
 
-            await LoadData();
+            await LoadData(); // add Category list
 
             OnPropertyChanged(nameof(CategoryList));
         }
 
-        private void TraverseCategories(IDatabase db, JsonElement json, Category parent)
+        private void TraverseCategoriesFromDirectory(IDatabase db, JsonElement json, Category parent)
         {
             foreach (JsonElement jsonElement in json.EnumerateArray())
             {
@@ -420,7 +420,7 @@ namespace TheLastTime.Shared.Data
                         parent.CategoryList.Add(category);
                     }
 
-                    TraverseCategories(db, jsonNodes, category);
+                    TraverseCategoriesFromDirectory(db, jsonNodes, category);
                 }
             }
         }
@@ -442,7 +442,7 @@ namespace TheLastTime.Shared.Data
 
             await db.SaveChanges();
 
-            await LoadData();
+            await LoadData(); // add or update <T>
 
             OnPropertyChanged(nameof(T));
         }
@@ -464,7 +464,7 @@ namespace TheLastTime.Shared.Data
 
             await db.SaveChanges();
 
-            await LoadData();
+            await LoadData(); // add or update Category
 
             OnPropertyChanged(nameof(CategoryList));
         }
@@ -485,7 +485,7 @@ namespace TheLastTime.Shared.Data
 
             await db.SaveChanges();
 
-            await LoadData();
+            await LoadData(); // delete Category
 
             OnPropertyChanged(nameof(CategoryList));
         }
@@ -507,7 +507,7 @@ namespace TheLastTime.Shared.Data
 
             await db.SaveChanges();
 
-            await LoadData();
+            await LoadData(); // add or update Habit
 
             OnPropertyChanged(nameof(HabitList));
         }
@@ -525,7 +525,7 @@ namespace TheLastTime.Shared.Data
 
             await db.SaveChanges();
 
-            await LoadData();
+            await LoadData(); // delete Habit
         }
 
         public async Task SaveTime(Time time)
@@ -545,7 +545,7 @@ namespace TheLastTime.Shared.Data
 
             await db.SaveChanges();
 
-            await LoadData();
+            await LoadData(); // add or update Time
 
             OnPropertyChanged(nameof(TimeList));
         }
@@ -558,7 +558,7 @@ namespace TheLastTime.Shared.Data
 
             await db.SaveChanges();
 
-            await LoadData();
+            await LoadData(); // delete Time
         }
 
         public async Task SeedExamples()
@@ -567,7 +567,7 @@ namespace TheLastTime.Shared.Data
 
             await db.Seed(Settings.Size, Settings.Theme);
 
-            await LoadData();
+            await LoadData(); // add all
 
             OnPropertyChanged(nameof(CategoryList));
         }

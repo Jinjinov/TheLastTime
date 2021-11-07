@@ -142,7 +142,7 @@ namespace TheLastTime.Shared.Components.Habits
             {
                 await db.SaveChanges();
 
-                await DataService.LoadData();
+                await DataService.LoadData(); // update Habit
             }
 
             return (changed, newId);

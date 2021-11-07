@@ -162,7 +162,7 @@ namespace TheLastTime.Shared.Components
         {
             JsonElement json = await JsInterop.ReadDirectoryFiles();
 
-            await DataService.GetCategories(json);
+            await DataService.GetCategoriesFromDirectory(json);
         }
     }
 }
