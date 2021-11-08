@@ -175,34 +175,6 @@ namespace TheLastTime.Shared.Data
             }
         }
 
-        private async Task SaveHabit(Habit habit)
-        {
-            // TODO: sync DataService list with db list
-            await DataService.SaveHabit(habit);
-
-            SetSelectedHabit(habit.Id);
-        }
-
-        public async Task SetDesiredIntervalDays(int days)
-        {
-            if (SelectedHabit == null)
-                return;
-
-            SelectedHabit.DesiredInterval = new TimeSpan(days, SelectedHabit.DesiredInterval.Hours, SelectedHabit.DesiredInterval.Minutes, SelectedHabit.DesiredInterval.Seconds);
-
-            await SaveHabit(SelectedHabit);
-        }
-
-        public async Task SetDesiredIntervalHours(int hours)
-        {
-            if (SelectedHabit == null)
-                return;
-
-            SelectedHabit.DesiredInterval = new TimeSpan(SelectedHabit.DesiredInterval.Days, hours, SelectedHabit.DesiredInterval.Minutes, SelectedHabit.DesiredInterval.Seconds);
-
-            await SaveHabit(SelectedHabit);
-        }
-
         public void NewCategory()
         {
             _selectedCategory = new Category() { CategoryId = Math.Max(SelectedCategoryId, 1) };

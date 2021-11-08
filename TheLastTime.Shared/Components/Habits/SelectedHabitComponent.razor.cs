@@ -98,6 +98,22 @@ namespace TheLastTime.Shared.Components.Habits
             State.SelectedHabit = DataService.HabitDict[time.HabitId];
         }
 
+        public async Task SetDesiredIntervalDays(Habit habit, int days)
+        {
+            habit.DesiredInterval = new TimeSpan(days, habit.DesiredInterval.Hours, habit.DesiredInterval.Minutes, habit.DesiredInterval.Seconds);
+
+            if (!State.EditHabit)
+                await SaveHabit(habit);
+        }
+
+        public async Task SetDesiredIntervalHours(Habit habit, int hours)
+        {
+            habit.DesiredInterval = new TimeSpan(habit.DesiredInterval.Days, hours, habit.DesiredInterval.Minutes, habit.DesiredInterval.Seconds);
+
+            if (!State.EditHabit)
+                await SaveHabit(habit);
+        }
+
         private async Task HabitUpDown(long oldId, long newId)
         {
             var (changed, id) = await HabitUpDown2(oldId, newId);

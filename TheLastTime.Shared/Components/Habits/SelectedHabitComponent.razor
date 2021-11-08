@@ -166,9 +166,9 @@
                     <p>
                         @*<span class="fas fa-fw fa-stopwatch"></span>*@ @("Desired interval:")
                         <div class="input-group flex-nowrap my-1">
-                            <NumericEdit ShowStepButtons="false" Size="@Theme.Size" TValue="int?" Min="0" Max="9000" Value="State.SelectedHabit.DesiredInterval.Days" ValueChanged="async (val) => { await State.SetDesiredIntervalDays(val ?? 0); }" />
+                            <NumericEdit ShowStepButtons="false" Size="@Theme.Size" TValue="int?" Min="0" Max="9000" Value="State.SelectedHabit.DesiredInterval.Days" ValueChanged="async (val) => { await SetDesiredIntervalDays(State.SelectedHabit, val ?? 0); }" />
                             <TextEdit Size="@Theme.Size" ReadOnly="true" Text="@(State.SelectedHabit.DesiredInterval.Days == 1 ? "day" : "days")" />
-                            <NumericEdit ShowStepButtons="false" Size="@Theme.Size" TValue="int?" Min="0" Max="23" Value="State.SelectedHabit.DesiredInterval.Hours" ValueChanged="async (val) => { await State.SetDesiredIntervalHours(val ?? 0); }" />
+                            <NumericEdit ShowStepButtons="false" Size="@Theme.Size" TValue="int?" Min="0" Max="23" Value="State.SelectedHabit.DesiredInterval.Hours" ValueChanged="async (val) => { await SetDesiredIntervalHours(State.SelectedHabit, val ?? 0); }" />
                             <TextEdit Size="@Theme.Size" ReadOnly="true" Text="@(State.SelectedHabit.DesiredInterval.Hours == 1 ? "hour" : "hours")" />
                         </div>
 
