@@ -50,7 +50,7 @@ namespace TheLastTime.Shared.Components
 
         async Task ImportFile(InputFileChangeEventArgs e)
         {
-            Stream stream = e.File.OpenReadStream();
+            Stream stream = e.File.OpenReadStream(maxAllowedSize: 5242880);
 
             using StreamReader streamReader = new StreamReader(stream);
 
