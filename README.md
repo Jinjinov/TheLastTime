@@ -1,7 +1,10 @@
 # The last time
+
 Progressive Web Application that tracks when was the last time you did something.
 
 https://ididit.today/
+
+# New version: https://github.com/Jinjinov/Ididit
 
 **How to use:**
 
