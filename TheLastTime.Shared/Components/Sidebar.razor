@@ -39,15 +39,15 @@
     https://www.codeply.com/go/ouc3hddx5i
     <div class="container-fluid h-100 d-flex flex-column">
         <div class="row flex-shrink-0">
-            <div class="col-12 border">Navbar </div>
+            <div class="col-12 border">Header</div>
         </div>
-        <div class="row flex-grow-1">
-            <div class="col-2 border" style="overflow-y: scroll;">Sidebar </div>
-            <div class="col-4 border" style="overflow-y: scroll;">Article list</div>
-            <div class="col-6 border" style="overflow-y: scroll;">Article content </div>
+        <div class="row flex-grow-1 overflow-hidden">
+            <div class="col-2 border mh-100" style="overflow-y: auto;">Sidebar</div>
+            <div class="col-4 border mh-100" style="overflow-y: auto;">Article list</div>
+            <div class="col-6 border mh-100" style="overflow-y: auto;">Article content</div>
         </div>
         <div class="row flex-shrink-0">
-            <div class="col-12 border">Footer </div>
+            <div class="col-12 border">Footer</div>
         </div>
     </div>
 
@@ -55,15 +55,15 @@
 
     <div class="container-fluid h-100 d-flex flex-column">
         <div class="row flex-shrink-0">
-            <div class="col-12 border">Navbar </div>
+            <div class="col-12 border">Header</div>
         </div>
         <div class="row flex-fill" style="min-height:0">
-            <div class="col-2 border mh-100" style="overflow-y: scroll;">Sidebar </div>
-            <div class="col-4 border mh-100" style="overflow-y: scroll;">Article list</div>
-            <div class="col-6 border" style="overflow-y: scroll;">Article content </div>
+            <div class="col-2 border mh-100" style="overflow-y: auto;">Sidebar</div>
+            <div class="col-4 border mh-100" style="overflow-y: auto;">Article list</div>
+            <div class="col-6 border mh-100" style="overflow-y: auto;">Article content</div>
         </div>
         <div class="row flex-shrink-0">
-            <div class="col-12 border">Footer </div>
+            <div class="col-12 border">Footer</div>
         </div>
     </div>
 
@@ -76,16 +76,30 @@
     This is because of the way flexbox works by default.
     Therefore, flex-fill and flex-grow-1 can be used interchangeably.
 
+    https://stackoverflow.com/questions/36247140/why-dont-flex-items-shrink-past-content-size
+    https://stackoverflow.com/questions/43311943/prevent-content-from-expanding-grid-items
+    Grid items have an initial size of min-width: auto and min-height: auto.
+    You can override these defaults by setting flex items to:
+        min-width: 0
+        min-height: 0
+        overflow: hidden (or any other value, except visible)
+    That is why we need
+        style="min-height:0"
+        or
+        class="overflow-hidden"
+
     https://stackoverflow.com/questions/22752637/how-to-implement-responsive-independently-scrolling-panes-in-bootstrap
     https://www.codeply.com/go/LIaOWljJm8
-    <div class="container-fluid d-flex flex-column vh-100 overflow-hidden">
-        <nav class="navbar navbar-light bg-light navbar-expand-md px-0 flex-shrink-0">
-        </nav>
+    <div class="container-fluid d-flex flex-column vh-100">
+        <div class="row flex-shrink-0">
+            Header
+        </div>
         <div class="row flex-grow-1 overflow-hidden">
-            <div class="col-2 mh-100 overflow-auto py-2"></div>
+            <div class="col-2 mh-100 overflow-auto"></div>
             <div class='col mh-100 overflow-auto'></div>
         </div>
-        <div class="row flex-shrink-0 bg-light">
+        <div class="row flex-shrink-0">
+            Footer
         </div>
     </div>
 *@
